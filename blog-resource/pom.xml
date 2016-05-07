@@ -8,16 +8,9 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>blog-task</artifactId>
+    <artifactId>blog-resource</artifactId>
     <packaging>war</packaging>
     <name>${project.groupId}:${project.artifactId}</name>
-
-    <dependencies>
-        <dependency>
-            <groupId>com.zuoxiaolong.blog</groupId>
-            <artifactId>blog-service</artifactId>
-        </dependency>
-    </dependencies>
 
     <build>
         <finalName>blog-resource</finalName>
@@ -27,7 +20,7 @@
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <configuration>
                     <path>/</path>
-                    <port>8083</port>
+                    <port>8084</port>
                     <uriEncoding>UTF-8</uriEncoding>
                     <contextReloadable>true</contextReloadable>
                 </configuration>

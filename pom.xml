@@ -39,6 +39,7 @@
         <module>blog-common</module>
         <module>blog-model</module>
         <module>blog-task</module>
+        <module>blog-resource</module>
     </modules>
 
     <properties>
