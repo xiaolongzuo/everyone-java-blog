@@ -14,13 +14,11 @@
  > 
  > 3、文章写作提醒，更好的完成自己的写作计划。
 
-## 
-
 ## 如何贡献代码
 
  > #### 1、请先fork本项目，在你自己的仓库里创建一个副本。
  > 
- > #### 2、然后执行以下命令下载项目。
+ > #### 2、执行以下命令下载项目，并且你需要给你的开发工具安装lombok插件，建议使用idea作为你的开发工具。
  > 
  > ```
  > git clone git@github.com:xiaolongzuo/everyone-java-blog.git
@@ -49,3 +47,67 @@
  > #### 7、在github上面创建一个Pull Request，将你的提交到主库。
  >
  > #### 8、重复4-7步即可持续贡献你的代码。
+ 
+## 代码规范
+
+请务必遵守规范进行编码，否则你提交的Pull Request很可能不被merge哦。
+
+#### 1、命名规范
+ > 
+ > Java类名、局域变量、类变量名、方法名：必须采用标准驼峰命名，类名首字母大写，其余首字母小写，禁止简写。示例：Connection【类名】，connection【变量名】，getConnection【方法名】
+ > 
+ > 包名：由小写字母和点组成，禁止简写。示例：com.zuoxiaolong.blog.open.api.controller 
+ > 
+ > 常量名：大写字母与下划线组成，禁止简写。示例：CONNECTION_TIMEOUT，DEFAULT_SIZE
+ > 
+ > 数据库表名，字段名：小写字母加下划线组成。最多长度30个字母，允许适当使用简写。示例：user_blog，comment_time
+ >
+ > JSP文件名：由小写字母和横线组成。示例：user-profile.jsp，article-edit.jsp
+ 
+#### 2、Java编码规范 
+ 
+###### 以下是一个Bean的类示例，需要特别强调以下两点，你可以通过设置你的类模板来做到。
+
+ > 1、必须将开源协议内容加入到类首部。
+ >
+ > 2、必须写上@author和@since注释。
+
+```java
+/*
+ * Copyright 2002-2016 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.zuoxiaolong.blog.open.api.controller;
+
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.Date;
+
+/**
+ * @author Xiaolong Zuo
+ * @since 1.0.0
+ */
+
+@Getter
+@Setter
+public class Bean {
+
+    private String name;
+
+    private Date data;
+
+}
+```
