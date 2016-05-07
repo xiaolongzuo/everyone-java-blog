@@ -18,7 +18,7 @@
 
  > #### 1、请先fork本项目，在你自己的仓库里创建一个副本。
  > 
- > #### 2、执行以下命令下载项目，并且你需要给你的开发工具安装lombok插件，建议使用idea作为你的开发工具。
+ > #### 2、执行以下命令下载项目，并且你需要给你的开发工具安装lombok插件，强烈建议使用idea作为你的开发工具。
  > 
  > ```
  > git clone git@github.com:xiaolongzuo/everyone-java-blog.git
@@ -62,13 +62,13 @@
  > 
  > 数据库表名，字段名：小写字母加下划线组成。最多长度30个字母，允许适当使用简写。示例：user_blog，comment_time
  >
- > JSP文件名：由小写字母和横线组成。示例：user-profile.jsp，article-edit.jsp
+ > 除java文件以外的任何文件,包括xml,jsp,properties等：由小写字母和横线组成。示例：user-profile.jsp，article-edit.jsp,application-context.xml,web-config.properties
 
 #### 2、Java类规范
 
 ###### 以下是一个Java类示例，需要特别强调以下两点，你可以通过设置你的类模板来做到。
 
- > 1、必须将开源协议内容加入到类首部。
+ > 1、必须将Apache开源协议内容加入到类首部。
  >
  > 2、必须写上@author和@since注释。
 
