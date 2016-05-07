@@ -63,58 +63,10 @@
  > 数据库表名，字段名：小写字母加下划线组成。最多长度30个字母，允许适当使用简写。示例：user_blog，comment_time
  >
  > JSP文件名：由小写字母和横线组成。示例：user-profile.jsp，article-edit.jsp
- 
-#### 2、注释规范
 
- > 类必须有注释
- > 
- > 方法必须有注释
- 
-###### 以下为一个简单的示例。
+#### 2、Java类规范
 
-```java
-/*
- * Copyright 2002-2016 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package com.zuoxiaolong.blog.open.api.controller;
-
-/**
- * 该类封装了关于string操作的工具方法
- *
- * @author Xiaolong Zuo
- * @since 1.0.0
- */
-public interface StringUtils {
-
-    /**
-     * 判断一个字符串是否为空
-     *
-     * @param s 需要检查的字符串对象
-     * @return 如果s为null或空字符串返回true,否则返回false.
-     */
-    static boolean isEmpty(String s) {
-        return s == null || s.trim().length() == 0;
-    }
-
-}
-```
- 
-#### 3、Java编码规范 
- 
-###### 以下是一个Bean的类示例，需要特别强调以下两点，你可以通过设置你的类模板来做到。
+###### 以下是一个Java类示例，需要特别强调以下两点，你可以通过设置你的类模板来做到。
 
  > 1、必须将开源协议内容加入到类首部。
  >
@@ -161,3 +113,54 @@ public class Bean {
 
 }
 ```
+ 
+#### 3、注释规范
+
+ > 类必须有注释
+ > 
+ > 方法必须有注释
+ >
+ > 如果该类是一个数据库model,则每个字段必须有注释
+ 
+###### 以下为一个简单的示例。
+
+```java
+/*
+ * Copyright 2002-2016 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.zuoxiaolong.blog.open.api.controller;
+
+/**
+ * 该类封装了关于string操作的工具方法
+ *
+ * @author Xiaolong Zuo
+ * @since 1.0.0
+ */
+public interface StringUtils {
+
+    /**
+     * 判断一个字符串是否为空
+     *
+     * @param s 需要检查的字符串对象
+     * @return 如果s为null或空字符串返回true,否则返回false.
+     */
+    static boolean isEmpty(String s) {
+        return s == null || s.trim().length() == 0;
+    }
+
+}
+```
+
