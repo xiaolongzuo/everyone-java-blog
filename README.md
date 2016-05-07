@@ -97,6 +97,8 @@ import lombok.Setter;
 import java.util.Date;
 
 /**
+ * 该类代表一个bean对象.
+ *
  * @author Xiaolong Zuo
  * @since 1.0.0
  */
