@@ -16,9 +16,9 @@
 
 package com.zuoxiaolong.blog.service.impl;
 
-import com.zuoxiaolong.blog.dao.UserDao;
-import com.zuoxiaolong.blog.model.User;
-import com.zuoxiaolong.blog.service.UserService;
+import com.zuoxiaolong.blog.mapper.WebUserMapper;
+import com.zuoxiaolong.blog.model.WebUser;
+import com.zuoxiaolong.blog.service.WebUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,14 +28,19 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class UserServiceImpl implements UserService {
+public class WebUserServiceImpl implements WebUserService {
 
     @Autowired
-    private UserDao userDao;
+    private WebUserMapper webUserMapper;
 
     @Override
-    public Integer insert(User user) {
-        return userDao.insert(user);
+    public Integer insert(WebUser webUser) {
+        return webUserMapper.insert(webUser);
+    }
+
+    @Override
+    public WebUser selectByPrimaryKey(Integer id) {
+        return webUserMapper.selectByPrimaryKey(id);
     }
 
 }

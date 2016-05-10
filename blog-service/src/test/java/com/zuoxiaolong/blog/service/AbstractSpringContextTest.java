@@ -16,14 +16,15 @@
 
 package com.zuoxiaolong.blog.service;
 
-import com.zuoxiaolong.blog.model.User;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author Xiaolong Zuo
  * @since 1.0.0
  */
-public interface UserService {
-
-    Integer insert(User user);
-
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:application-context-dao.xml","classpath:application-context-transaction.xml","classpath:application-context-service.xml"})
+public abstract class AbstractSpringContextTest {
 }

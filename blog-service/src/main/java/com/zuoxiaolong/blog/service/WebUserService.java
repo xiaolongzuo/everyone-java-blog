@@ -14,30 +14,18 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.dao;
+package com.zuoxiaolong.blog.service;
 
-import com.zuoxiaolong.blog.model.User;
-import org.junit.Assert;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.zuoxiaolong.blog.model.WebUser;
 
 /**
  * @author Xiaolong Zuo
  * @since 1.0.0
  */
-public class UserDaoTest extends AbstractSpringContextTest {
+public interface WebUserService {
 
-    @Autowired
-    private UserDao userDao;
+    Integer insert(WebUser webUser);
 
-    @Test
-    public void insert() {
-        Assert.assertNotNull(userDao);
-        User user = new User();
-        user.setUsername("zuoxiaolong");
-        user.setPassword("123456");
-        userDao.insert(user);
-        Assert.assertNotNull(userDao.getUser(1));
-    }
+    WebUser selectByPrimaryKey(Integer id);
 
 }
