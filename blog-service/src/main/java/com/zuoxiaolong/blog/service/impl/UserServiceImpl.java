@@ -14,14 +14,28 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.model.user;
+package com.zuoxiaolong.blog.service.impl;
+
+import com.zuoxiaolong.blog.dao.UserDao;
+import com.zuoxiaolong.blog.model.User;
+import com.zuoxiaolong.blog.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Xiaolong Zuo
  * @since 1.0.0
  */
-public class User {
 
-    private String connection_timeout;
+@Service
+public class UserServiceImpl implements UserService {
+
+    @Autowired
+    private UserDao userDao;
+
+    @Override
+    public Integer insert(User user) {
+        return userDao.insert(user);
+    }
 
 }

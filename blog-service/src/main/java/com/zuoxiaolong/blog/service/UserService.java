@@ -14,26 +14,16 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.common.web;
+package com.zuoxiaolong.blog.service;
 
-import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
-
-import java.io.IOException;
-import java.util.Properties;
+import com.zuoxiaolong.blog.model.User;
 
 /**
- * 自定义spring的PropertyPlaceholderConfigurer,支持持有properties.
- *
  * @author Xiaolong Zuo
  * @since 1.0.0
  */
-public class HeldPropertyPlaceholderConfigurer extends PropertyPlaceholderConfigurer {
+public interface UserService {
 
-    @Override
-    protected Properties mergeProperties() throws IOException {
-        Properties properties = super.mergeProperties();
-        ConfigurerPropertiesHolder.setProperties(properties);
-        return properties;
-    }
+    Integer insert(User user);
 
 }
