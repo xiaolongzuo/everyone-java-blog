@@ -34,7 +34,7 @@
 
 </head>
 <body>
-<h1>你好，世界！</h1>
+<h1>你好，世界！!</h1>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="${cacheUrl}/jquery/jquery.min.js"></script>
