@@ -29,6 +29,7 @@ public interface StringUtils {
      *
      * @param s 需要检查的字符串
      * @return 如果s为null或空串则返回true,否则返回false
+     * TODO Spring框架的util包的同名工具类里已有此方法实现，可直接拿来用:)
      */
     static boolean isEmpty(String s) {
         return s == null || s.trim().length() == 0;
