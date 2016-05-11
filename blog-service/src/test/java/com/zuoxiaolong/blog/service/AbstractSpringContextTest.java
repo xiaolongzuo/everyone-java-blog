@@ -14,26 +14,17 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.common.web;
+package com.zuoxiaolong.blog.service;
 
-import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
-
-import java.io.IOException;
-import java.util.Properties;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * 自定义spring的PropertyPlaceholderConfigurer,支持持有properties.
- *
  * @author Xiaolong Zuo
  * @since 1.0.0
  */
-public class HeldPropertyPlaceholderConfigurer extends PropertyPlaceholderConfigurer {
-
-    @Override
-    protected Properties mergeProperties() throws IOException {
-        Properties properties = super.mergeProperties();
-        ConfigurerPropertiesHolder.setProperties(properties);
-        return properties;
-    }
-
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:application-context-dao.xml","classpath:application-context-transaction.xml","classpath:application-context-service.xml"})
+public abstract class AbstractSpringContextTest {
 }

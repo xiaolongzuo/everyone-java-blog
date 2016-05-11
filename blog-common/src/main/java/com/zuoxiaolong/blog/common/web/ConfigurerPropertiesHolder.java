@@ -29,12 +29,24 @@ public class ConfigurerPropertiesHolder {
 
     private static Properties properties;
 
+    /**
+     * 设置properties属性.通常情况下,该方法由Configurer调用.
+     *
+     * @param properties
+     *
+     * @see HeldPropertyPlaceholderConfigurer
+     */
     public static synchronized void setProperties(Properties properties) {
         if (ConfigurerPropertiesHolder.properties == null && properties != null) {
             ConfigurerPropertiesHolder.properties = properties;
         }
     }
 
+    /**
+     * 获取所有的属性名称
+     *
+     * @return 所有的属性名称
+     */
     public static Enumeration<String> getPropertyNames() {
         if (properties == null) {
             return null;
@@ -42,6 +54,12 @@ public class ConfigurerPropertiesHolder {
         return (Enumeration<String>) properties.propertyNames();
     }
 
+    /**
+     * 根据name查询属性值
+     *
+     * @param name 属性名称
+     * @return 如果有值则返回对应的值,否则返回null
+     */
     public static String getProperty(String name) {
         if (properties == null) {
             return null;
