@@ -37,11 +37,11 @@ public class UploadController extends BaseController {
     @RequestMapping(value = "/cache/test")
     public void test(){
 
-        WebUser user = webUserService.selectByPrimaryKey(1);
-        System.out.println("userId:" + user.getId());
-        System.out.println("username:" + user.getUsername());
-        System.out.println("password:" + user.getPassword());
-        renderString(getHttpResponse(),user);
+        WebUser webUser = webUserService.selectByPrimaryKey(1);
+        logger.debug("userId:" + webUser.getId());
+        logger.debug("username:" + webUser.getUsername());
+        logger.debug("password:" + webUser.getPassword());
+        renderString(getHttpServletResponse(),webUser);
 
     }
 }

@@ -17,6 +17,8 @@ package com.zuoxiaolong.blog.common.web;
 
 
 import com.zuoxiaolong.blog.common.utils.JsonMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
@@ -30,21 +32,27 @@ import java.io.IOException;
  * @date 2016/5/12 21:28
  * @since 1.0.0
  */
-public class BaseController {
+public abstract class BaseController {
+
+    /**
+     * 日志对象
+     */
+    protected Logger logger = LoggerFactory.getLogger(getClass());
+
     /**
      * 存放当前线程的HttpServletRequest对象
      */
-    private static ThreadLocal<HttpServletRequest> request = new ThreadLocal<HttpServletRequest>();
+    private static ThreadLocal<HttpServletRequest> httpServletRequestThreadLocal = new ThreadLocal<HttpServletRequest>();
 
     /**
      * 存放当前线程的HttpServletResponse对象
      */
-    private static ThreadLocal<HttpServletResponse> response = new ThreadLocal<HttpServletResponse>();
+    private static ThreadLocal<HttpServletResponse> httpServletResponseThreadLocal = new ThreadLocal<HttpServletResponse>();
 
     /**
      * 存放当前线程的Model对象
      */
-    private static ThreadLocal<Model> model = new ThreadLocal<Model>();
+    private static ThreadLocal<Model> modelThreadLocal = new ThreadLocal<Model>();
 
     /**
      * 使用@ModelAttribute注解标识的方法会在每个控制器中的方法访问之前先调用
@@ -53,26 +61,26 @@ public class BaseController {
      * @param model
      */
     @ModelAttribute
-    protected void setReqAndResp(HttpServletRequest request, HttpServletResponse response, Model model) {
-        BaseController.request.set(request);
-        BaseController.response.set(response);
-        BaseController.model.set(model);
+    protected void setThreadLocal(HttpServletRequest request, HttpServletResponse response, Model model) {
+        BaseController.httpServletRequestThreadLocal.set(request);
+        BaseController.httpServletResponseThreadLocal.set(response);
+        BaseController.modelThreadLocal.set(model);
     }
 
     /**
      * 获取当前线程的HttpServletRequest对象
      * @return
      */
-    protected HttpServletRequest getHttpRequest() {
-        return BaseController.request.get();
+    protected HttpServletRequest getHttpServletRequest() {
+        return BaseController.httpServletRequestThreadLocal.get();
     }
 
     /**
      * 获取当前线程的HttpServletResponse对象
      * @return
      */
-    protected HttpServletResponse getHttpResponse() {
-        return BaseController.response.get();
+    protected HttpServletResponse getHttpServletResponse() {
+        return BaseController.httpServletResponseThreadLocal.get();
     }
 
     /**
@@ -80,7 +88,7 @@ public class BaseController {
      * @return
      */
     protected HttpSession getHttpSession() {
-        return getHttpRequest().getSession();
+        return getHttpServletRequest().getSession();
     }
 
     /**
@@ -88,7 +96,7 @@ public class BaseController {
      * @return
      */
     protected Model getModel() {
-        return BaseController.model.get();
+        return BaseController.modelThreadLocal.get();
     }
 
     /**
@@ -105,8 +113,8 @@ public class BaseController {
      * @param name
      * @param value
      */
-    protected void setRequestAttribute(String name, Object value) {
-        HttpServletRequest request = this.getHttpRequest();
+    protected void setHttpServletRequestAttribute(String name, Object value) {
+        HttpServletRequest request = this.getHttpServletRequest();
         request.setAttribute(name, value);
     }
 
@@ -115,7 +123,7 @@ public class BaseController {
      * @param name
      * @param value
      */
-    public void setSessionAttribute(String name, Object value) {
+    public void setHttpSessionAttribute(String name, Object value) {
         HttpSession session = this.getHttpSession();
         session.setAttribute(name, value);
     }
@@ -125,7 +133,7 @@ public class BaseController {
      * @param name
      * @return
      */
-    protected Object getSessionAttribute(String name) {
+    protected Object getHttpSessionAttribute(String name) {
         HttpSession session = this.getHttpSession();
         Object value = session.getAttribute(name);
         return value;
@@ -136,8 +144,8 @@ public class BaseController {
      * @param name
      * @return
      */
-    protected Object getRequestAttribute(String name) {
-        HttpServletRequest request = this.getHttpRequest();
+    protected Object getHttpServletRequestAttribute(String name) {
+        HttpServletRequest request = this.getHttpServletRequest();
         Object value = request.getAttribute(name);
         return value;
     }

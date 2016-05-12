@@ -3,7 +3,6 @@
  */
 package com.zuoxiaolong.blog.common.utils;
 
-import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser.Feature;
@@ -12,15 +11,12 @@ import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
+
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
 import java.util.TimeZone;
 
 /**
@@ -35,7 +31,7 @@ public class JsonMapper extends ObjectMapper {
 
 	private static Logger logger = LoggerFactory.getLogger(JsonMapper.class);
 
-	private static JsonMapper mapper;
+	private static JsonMapper jsonMapper;
 
 	public JsonMapper() {
 		this(Include.NON_EMPTY);
@@ -76,20 +72,20 @@ public class JsonMapper extends ObjectMapper {
 	 * 创建只输出非Null且非Empty(如List.isEmpty)的属性到Json字符串的Mapper,建议在外部接口中使用.
 	 */
 	public static JsonMapper getInstance() {
-		if (mapper == null){
-			mapper = new JsonMapper().enableSimple();
+		if (jsonMapper == null){
+			jsonMapper = new JsonMapper().enableSimple();
 		}
-		return mapper;
+		return jsonMapper;
 	}
 
 	/**
 	 * 创建只输出初始值被改变的属性到Json字符串的Mapper, 最节约的存储方式，建议在内部接口中使用。
 	 */
 	public static JsonMapper nonDefaultMapper() {
-		if (mapper == null){
-			mapper = new JsonMapper(Include.NON_DEFAULT);
+		if (jsonMapper == null){
+			jsonMapper = new JsonMapper(Include.NON_DEFAULT);
 		}
-		return mapper;
+		return jsonMapper;
 	}
 	
 	/**
@@ -230,31 +226,6 @@ public class JsonMapper extends ObjectMapper {
 	 */
 	public static Object fromJsonString(String jsonString, Class<?> clazz){
 		return JsonMapper.getInstance().fromJson(jsonString, clazz);
-	}
-	
-	/**
-	 * 测试
-	 */
-	public static void main(String[] args) {
-		List<Map<String, Object>> list = Lists.newArrayList();
-		Map<String, Object> map = Maps.newHashMap();
-		map.put("id", 1);
-		map.put("pId", -1);
-		map.put("name", "根节点");
-		list.add(map);
-		map = Maps.newHashMap();
-		map.put("id", 2);
-		map.put("pId", 1);
-		map.put("name", "你好");
-		map.put("open", true);
-		list.add(map);
-		String json = JsonMapper.getInstance().toJson(list);
-		System.out.println(json);
-		
-//		String str = "{'div0':'web0','div1':'web1'}";
-		String str = "{'small':'E:userfiles/1/files/tempFiles/81afa46855d446ac9fe7ba9689686e95Chrysanthemum.jpg,E:userfiles/1/files/tempFiles/aa6c23a3f6f948079d8ef02cde459b64Desert.jpg', }";
-		JSONObject strMap = new JSONObject();
-		System.out.println(strMap.parseObject(str));
 	}
 	
 }
