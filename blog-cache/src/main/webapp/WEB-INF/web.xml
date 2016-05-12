@@ -8,7 +8,12 @@
     <!-- spring -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:application-context.xml</param-value>
+        <param-value>
+            classpath:application-context.xml
+            classpath:application-context-dao.xml
+            classpath:application-context-service.xml
+            classpath:application-context-transaction.xml
+        </param-value>
     </context-param>
 
     <listener>

@@ -11,13 +11,45 @@
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <context:component-scan base-package="com.zuoxiaolong"/>
 
-    <mvc:annotation-driven/>
-    
+    <description>Spring MVC Configuration</description>
+
+    <!-- 加载配置属性文件 -->
+    <context:property-placeholder ignore-unresolvable="true" location="classpath:cache.properties" />
+
+    <!-- 使用Annotation自动注册Bean,只扫描@Controller -->
+    <!-- use-default-filters默认为true,会扫描@Component的子注解@Service、@Reposity -->
+    <context:component-scan base-package="com.zuoxiaolong" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+    </context:component-scan>
+
+
+    <!-- 默认的注解映射的支持，org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -->
+    <mvc:annotation-driven></mvc:annotation-driven>
+
+    <!-- REST中根据URL后缀自动判定Content-Type及相应的View -->
+    <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+        <property name="mediaTypes">
+            <map>
+                <entry key="xml" value="application/xml" />
+                <entry key="json" value="application/json" />
+            </map>
+        </property>
+        <property name="ignoreAcceptHeader" value="true" />
+        <property name="favorPathExtension" value="true" />
+    </bean>
+
+    <!-- 视图解析器:定义跳转的文件的前后缀 -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/" />
+        <property name="suffix" value=".jsp" />  <!--可为空,方便实现自已的依据扩展名来选择视图解释类的逻辑  -->
+    </bean>
+
+    <!-- 传统Web容器的静态资源只能放在Web容器的根路径下，<mvc:resources />完全打破了这个限制，你可以放在jar包中，WEB-INF下...-->
     <mvc:resources mapping="/bootstrap/**" location="/bootstrap/" />
     <mvc:resources mapping="/jquery/**" location="/jquery/" />
 
+    <!-- 如果发现是静态资源的请求，就将该请求转由Web应用服务器默认的Servlet处理，如果不是静态资源的请求，才由DispatcherServlet继续处理 -->
     <mvc:default-servlet-handler></mvc:default-servlet-handler>
 
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
