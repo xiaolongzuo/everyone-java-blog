@@ -13,24 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.zuoxiaolong.blog.web.entity;
 
-package com.zuoxiaolong.blog.web.controller;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.zuoxiaolong.blog.model.MessageBox;
 
 /**
- * @author Xiaolong Zuo
+ * 用户博客信息
+ * @author linjiedeng
+ * @date 16/5/14 下午6:38
  * @since 1.0.0
  */
-@Controller
-@RequestMapping("/user")
-public class WebUserController {
-
-    @RequestMapping("/blog/{username}")
-    public String blog(@PathVariable String username) {
-        return "page";
-    }
-
+public class UserBlogInfo {
+    private String nickName;        //用户昵称
+    private String introduction;    //个人简介
+    private MessageBox messageBox;  //个人信箱
 }

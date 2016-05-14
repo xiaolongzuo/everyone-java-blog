@@ -7,7 +7,6 @@
     <result column="introduction" property="introduction" jdbcType="VARCHAR" />
     <result column="address" property="address" jdbcType="VARCHAR" />
   </resultMap>
-  <resultMap id="UserBlogInfoMap" >
   <sql id="Base_Column_List" >
     id, web_user_id, introduction, address
   </sql>
@@ -17,17 +16,16 @@
     from blog_config
     where id = #{id,jdbcType=INTEGER}
   </select>
-
-  <select id="selectUserInfoByUsername" parameterMap="java.lang.String">
-    SELECT
-
-
-  </select>
-
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from blog_config
     where id = #{id,jdbcType=INTEGER}
   </delete>
+  <insert id="insert" parameterType="com.zuoxiaolong.blog.model.BlogConfig" >
+    insert into blog_config (id, web_user_id, introduction, 
+      address)
+    values (#{id,jdbcType=INTEGER}, #{webUserId,jdbcType=INTEGER}, #{introduction,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR})
+  </insert>
   <insert id="insertSelective" parameterType="com.zuoxiaolong.blog.model.BlogConfig" >
     insert into blog_config
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -72,6 +70,13 @@
         address = #{address,jdbcType=VARCHAR},
       </if>
     </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zuoxiaolong.blog.model.BlogConfig" >
+    update blog_config
+    set web_user_id = #{webUserId,jdbcType=INTEGER},
+      introduction = #{introduction,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
