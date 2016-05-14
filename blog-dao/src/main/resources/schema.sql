@@ -42,7 +42,7 @@ CREATE TABLE `java_blog`.`user_article` (
 	`web_user_id` INT NOT NULL COMMENT '用户ID',
 	`category_id` INT NOT NULL COMMENT '分类id',
 	`title` VARCHAR(128) NOT NULL COMMENT '文章标题',
-	`content` VARCHAR(128) NOT NULL COMMENT '文章内容',
+	`content` TEXT NOT NULL COMMENT '文章内容',
 	`read_times` INT NOT NULL COMMENT '阅读次数',
 	`thumbup_times` INT NOT NULL COMMENT '点赞次数',
 	`is_main_page` TINYINT(1) NOT NULL DEFAULT 0 COMMENT '是否在主页显示',
