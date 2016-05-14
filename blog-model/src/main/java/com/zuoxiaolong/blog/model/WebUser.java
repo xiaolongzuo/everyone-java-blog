@@ -7,6 +7,12 @@ public class WebUser {
 
     private String password;
 
+    private String passwordSalt;
+
+    private String nickname;
+
+    private Boolean enable;
+
     public Integer getId() {
         return id;
     }
@@ -29,5 +35,29 @@ public class WebUser {
 
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
+    }
+
+    public String getPasswordSalt() {
+        return passwordSalt;
+    }
+
+    public void setPasswordSalt(String passwordSalt) {
+        this.passwordSalt = passwordSalt == null ? null : passwordSalt.trim();
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname == null ? null : nickname.trim();
+    }
+
+    public Boolean getEnable() {
+        return enable;
+    }
+
+    public void setEnable(Boolean enable) {
+        this.enable = enable;
     }
 }
