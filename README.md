@@ -229,9 +229,15 @@ public interface StringUtils {
  * 一定类型的类放在一定的包下，具体的规则如下。
 
  > 数据库model：放在blog-model下的com.zuoxiaolong.blog.model.persistent包内
+
  > 传给前端的值对象：放在blog-model下的com.zuoxiaolong.blog.model.dto包内
+
  > 数据库的DAO类：放在blog-dao下的com.zuoxiaolong.blog.mapper包内
+
  > 业务逻辑service：接口放在blog-service下的com.zuoxiaolong.blog.service包内，实现类放在com.zuoxiaolong.blog.service.impl包内
+
  > 工具类：放在blog-common下的com.zuoxiaolong.blog.common.utils包内
+
  > web框架通用的类：放在blog-common的com.zuoxiaolong.blog.common.web包内
+
  > blog-{module}下的controller：放在blog-{module}下的com.zuoxiaolong.blog.{module}.controller包内，其中module为admin、api、cache、web其中一个
