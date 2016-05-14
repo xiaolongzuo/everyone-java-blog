@@ -3,6 +3,8 @@
 <mapper namespace="com.zuoxiaolong.blog.mapper.UserArticleMapper">
     <resultMap id="BaseResultMap" type="com.zuoxiaolong.blog.model.UserArticle">
         <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
         <result column="web_user_id" property="webUserId" jdbcType="INTEGER"/>
         <result column="category_id" property="categoryId" jdbcType="INTEGER"/>
         <result column="title" property="title" jdbcType="VARCHAR"/>
@@ -13,7 +15,7 @@
         <result column="status" property="status" jdbcType="TINYINT"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, web_user_id, category_id, title, content, read_times, thumbup_times, is_main_page, status
+    id, create_time, update_time, web_user_id, category_id, title, content, read_times, thumbup_times, is_main_page, status
   </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
