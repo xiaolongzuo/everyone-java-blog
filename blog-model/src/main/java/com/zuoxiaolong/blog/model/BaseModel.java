@@ -14,33 +14,44 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.service.impl;
+package com.zuoxiaolong.blog.model;
 
-import com.zuoxiaolong.blog.mapper.WebUserMapper;
-import com.zuoxiaolong.blog.model.WebUser;
-import com.zuoxiaolong.blog.service.WebUserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import java.util.Date;
 
 /**
  * @author Xiaolong Zuo
  * @since 1.0.0
  */
+public abstract class BaseModel {
 
-@Service
-public class WebUserServiceImpl implements WebUserService {
+    private Integer id;
 
-    @Autowired
-    private WebUserMapper webUserMapper;
+    private Date createTime;
 
-    @Override
-    public Integer insert(WebUser webUser) {
-        return webUserMapper.insertSelective(webUser);
+    private Date updateTime;
+
+    public Integer getId() {
+        return id;
     }
 
-    @Override
-    public WebUser selectByPrimaryKey(Integer id) {
-        return webUserMapper.selectByPrimaryKey(id);
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
 }

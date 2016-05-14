@@ -3,13 +3,15 @@
 <mapper namespace="com.zuoxiaolong.blog.mapper.ArticleCommentMapper">
     <resultMap id="BaseResultMap" type="com.zuoxiaolong.blog.model.ArticleComment">
         <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
         <result column="web_user_id" property="webUserId" jdbcType="INTEGER"/>
         <result column="article_id" property="articleId" jdbcType="INTEGER"/>
         <result column="comment" property="comment" jdbcType="VARCHAR"/>
         <result column="reply_comment_id" property="replyCommentId" jdbcType="INTEGER"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, web_user_id, article_id, comment, reply_comment_id
+    id, create_time, update_time, web_user_id, article_id, comment, reply_comment_id
   </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
