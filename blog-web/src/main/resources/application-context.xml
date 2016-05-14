@@ -6,6 +6,10 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <import resource="application-context-dao.xml"/>
+    <import resource="application-context-service.xml"/>
+    <import resource="application-context-transaction.xml"/>
+
     <bean class="com.zuoxiaolong.blog.common.web.HeldPropertyPlaceholderConfigurer">
         <property name="location" value="classpath:web-config.properties"/>
     </bean>
