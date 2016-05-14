@@ -3,9 +3,7 @@ package com.zuoxiaolong.blog.model;
 import lombok.Data;
 
 @Data
-public class UserOperationRecord {
-
-    private Integer id;
+public class UserOperationRecord extends BaseModel {
 
     private Integer webUserId;
 
