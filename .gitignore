@@ -1,9 +1,7 @@
-*.class
-
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 .idea/
-derby_java_blog/
+target/
 
 # Package Files #
 *.jar
@@ -12,6 +10,7 @@ derby_java_blog/
 *.iml
 *.log
 
+# mybatis generator
 !blog-dao/src/main/resources/mysql-connector-java-5.1.34.jar
 blog-dao/src/main/resources/mybatis-generator-config.properties
 blog-dao/src/main/resources/generator-config.xml

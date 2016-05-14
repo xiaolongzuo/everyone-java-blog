@@ -16,7 +16,7 @@
 package com.zuoxiaolong.blog.cache.modules.web;
 
 import com.zuoxiaolong.blog.common.web.BaseController;
-import com.zuoxiaolong.blog.model.WebUser;
+import com.zuoxiaolong.blog.model.persistent.WebUser;
 import com.zuoxiaolong.blog.service.WebUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

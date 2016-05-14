@@ -16,7 +16,7 @@
 
 package com.zuoxiaolong.blog.service;
 
-import com.zuoxiaolong.blog.model.WebUser;
+import com.zuoxiaolong.blog.model.persistent.WebUser;
 
 /**
  * @author Xiaolong Zuo

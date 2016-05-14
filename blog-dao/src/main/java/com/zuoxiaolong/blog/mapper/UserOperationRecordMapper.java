@@ -1,6 +1,6 @@
 package com.zuoxiaolong.blog.mapper;
 
-import com.zuoxiaolong.blog.model.UserOperationRecord;
+import com.zuoxiaolong.blog.model.persistent.UserOperationRecord;
 
 public interface UserOperationRecordMapper {
     int deleteByPrimaryKey(Integer id);
