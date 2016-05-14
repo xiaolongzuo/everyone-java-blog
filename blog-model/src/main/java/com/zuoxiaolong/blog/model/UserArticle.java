@@ -3,15 +3,13 @@ package com.zuoxiaolong.blog.model;
 import lombok.Data;
 
 @Data
-public class UserArticle {
+public class UserArticle extends BaseModel {
 
     public static final int STATUS_DRAFT = 0;
 
     public static final int STATUS_PUBLISH = 1;
 
     public static final int STATUS_DELETE = 2;
-
-    private Integer id;
 
     private Integer webUserId;
 
