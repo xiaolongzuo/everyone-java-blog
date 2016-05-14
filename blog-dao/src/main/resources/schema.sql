@@ -45,7 +45,8 @@ CREATE TABLE `java_blog`.`user_article` (
 	`content` VARCHAR(128) NOT NULL COMMENT '文章内容',
 	`read_times` INT NOT NULL COMMENT '阅读次数',
 	`thumbup_times` INT NOT NULL COMMENT '点赞次数',
-	`is_main_page` TINYINT NOT NULL DEFAULT 0 COMMENT '是否在主页显示',
+	`is_main_page` TINYINT(1) NOT NULL DEFAULT 0 COMMENT '是否在主页显示',
+	`status` TINYINT(1) NOT NULL DEFAULT 0 COMMENT '状态:0,草稿 1,发布 2,删除',
 	PRIMARY KEY (`id`)
 )  ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='用户文章表';
 
@@ -54,6 +55,7 @@ CREATE TABLE `java_blog`.`article_comment` (
 	`create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
 	`web_user_id` INT NOT NULL COMMENT '用户id',
+	`article_id` INT NOT NULL COMMENT '文章ID',
 	`comment` VARCHAR(2000) NOT NULL COMMENT '评论内容',
 	`reply_comment_id` INT NULL COMMENT '父级评论',
 	PRIMARY KEY (`id`)

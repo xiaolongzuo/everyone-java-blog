@@ -3,9 +3,8 @@ package com.zuoxiaolong.blog.mapper;
 import com.zuoxiaolong.blog.model.WebUser;
 
 public interface WebUserMapper {
-    int deleteByPrimaryKey(Integer id);
 
-    int insert(WebUser record);
+    int deleteByPrimaryKey(Integer id);
 
     int insertSelective(WebUser record);
 
@@ -13,5 +12,4 @@ public interface WebUserMapper {
 
     int updateByPrimaryKeySelective(WebUser record);
 
-    int updateByPrimaryKey(WebUser record);
 }

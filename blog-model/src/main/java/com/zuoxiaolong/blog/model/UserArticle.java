@@ -1,6 +1,16 @@
 package com.zuoxiaolong.blog.model;
 
+import lombok.Data;
+
+@Data
 public class UserArticle {
+
+    public static final int STATUS_DRAFT = 0;
+
+    public static final int STATUS_PUBLISH = 1;
+
+    public static final int STATUS_DELETE = 2;
+
     private Integer id;
 
     private Integer webUserId;
@@ -17,67 +27,6 @@ public class UserArticle {
 
     private Byte isMainPage;
 
-    public Integer getId() {
-        return id;
-    }
+    private Integer status;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getWebUserId() {
-        return webUserId;
-    }
-
-    public void setWebUserId(Integer webUserId) {
-        this.webUserId = webUserId;
-    }
-
-    public Integer getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title == null ? null : title.trim();
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
-    }
-
-    public Integer getReadTimes() {
-        return readTimes;
-    }
-
-    public void setReadTimes(Integer readTimes) {
-        this.readTimes = readTimes;
-    }
-
-    public Integer getThumbupTimes() {
-        return thumbupTimes;
-    }
-
-    public void setThumbupTimes(Integer thumbupTimes) {
-        this.thumbupTimes = thumbupTimes;
-    }
-
-    public Byte getIsMainPage() {
-        return isMainPage;
-    }
-
-    public void setIsMainPage(Byte isMainPage) {
-        this.isMainPage = isMainPage;
-    }
 }

@@ -22,14 +22,6 @@
     delete from web_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zuoxiaolong.blog.model.WebUser" >
-    insert into web_user (id, username, password, 
-      password_salt, nickname, enable
-      )
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{passwordSalt,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{enable,jdbcType=BIT}
-      )
-  </insert>
   <insert id="insertSelective" parameterType="com.zuoxiaolong.blog.model.WebUser" >
     insert into web_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -92,15 +84,6 @@
         enable = #{enable,jdbcType=BIT},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.zuoxiaolong.blog.model.WebUser" >
-    update web_user
-    set username = #{username,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      password_salt = #{passwordSalt,jdbcType=VARCHAR},
-      nickname = #{nickname,jdbcType=VARCHAR},
-      enable = #{enable,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
