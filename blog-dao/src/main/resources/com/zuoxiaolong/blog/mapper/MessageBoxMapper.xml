@@ -21,12 +21,6 @@
     delete from message_box
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zuoxiaolong.blog.model.MessageBox" >
-    insert into message_box (id, content, sender, 
-      receiver, status)
-    values (#{id,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{sender,jdbcType=INTEGER}, 
-      #{receiver,jdbcType=INTEGER}, #{status,jdbcType=TINYINT})
-  </insert>
   <insert id="insertSelective" parameterType="com.zuoxiaolong.blog.model.MessageBox" >
     insert into message_box
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -80,14 +74,6 @@
         status = #{status,jdbcType=TINYINT},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.zuoxiaolong.blog.model.MessageBox" >
-    update message_box
-    set content = #{content,jdbcType=VARCHAR},
-      sender = #{sender,jdbcType=INTEGER},
-      receiver = #{receiver,jdbcType=INTEGER},
-      status = #{status,jdbcType=TINYINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

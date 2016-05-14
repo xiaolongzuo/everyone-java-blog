@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.zuoxiaolong.blog.mapper.UserOpeartionRecordMapper" >
-  <resultMap id="BaseResultMap" type="com.zuoxiaolong.blog.model.UserOpeartionRecord" >
+<mapper namespace="com.zuoxiaolong.blog.mapper.UserOperationRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.zuoxiaolong.blog.model.UserOperationRecord" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="web_user_id" property="webUserId" jdbcType="INTEGER" />
     <result column="operation_type" property="operationType" jdbcType="TINYINT" />
@@ -19,13 +19,7 @@
     delete from user_opeartion_record
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zuoxiaolong.blog.model.UserOpeartionRecord" >
-    insert into user_opeartion_record (id, web_user_id, operation_type
-      )
-    values (#{id,jdbcType=INTEGER}, #{webUserId,jdbcType=INTEGER}, #{operationType,jdbcType=TINYINT}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.zuoxiaolong.blog.model.UserOpeartionRecord" >
+  <insert id="insertSelective" parameterType="com.zuoxiaolong.blog.model.UserOperationRecord" >
     insert into user_opeartion_record
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -50,7 +44,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zuoxiaolong.blog.model.UserOpeartionRecord" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.zuoxiaolong.blog.model.UserOperationRecord" >
     update user_opeartion_record
     <set >
       <if test="webUserId != null" >
@@ -60,12 +54,6 @@
         operation_type = #{operationType,jdbcType=TINYINT},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.zuoxiaolong.blog.model.UserOpeartionRecord" >
-    update user_opeartion_record
-    set web_user_id = #{webUserId,jdbcType=INTEGER},
-      operation_type = #{operationType,jdbcType=TINYINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
