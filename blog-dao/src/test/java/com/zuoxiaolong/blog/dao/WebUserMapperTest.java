@@ -14,26 +14,31 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.common.web;
+package com.zuoxiaolong.blog.dao;
 
-import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
-
-import java.io.IOException;
-import java.util.Properties;
+import com.zuoxiaolong.blog.mapper.WebUserMapper;
+import com.zuoxiaolong.blog.model.WebUser;
+import org.junit.Assert;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * 自定义spring的PropertyPlaceholderConfigurer,支持持有properties.
- *
  * @author Xiaolong Zuo
  * @since 1.0.0
  */
-public class HeldPropertyPlaceholderConfigurer extends PropertyPlaceholderConfigurer {
+public class WebUserMapperTest extends AbstractSpringContextTest {
 
-    @Override
-    protected Properties mergeProperties() throws IOException {
-        Properties properties = super.mergeProperties();
-        ConfigurerPropertiesHolder.setProperties(properties);
-        return properties;
+    @Autowired
+    private WebUserMapper webUserMapper;
+
+    @Test
+    public void insert() {
+        Assert.assertNotNull(webUserMapper);
+        WebUser user = new WebUser();
+        user.setUsername("zuoxiaolong");
+        user.setPassword("123456");
+        webUserMapper.insert(user);
+        Assert.assertNotNull(webUserMapper.selectByPrimaryKey(1));
     }
 
 }

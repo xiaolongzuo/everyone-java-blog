@@ -13,14 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.zuoxiaolong.blog.model.user;
+
+package com.zuoxiaolong.blog.service;
+
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * TODO
- *
- * @author linjiedeng
- * @date 16/5/10 下午10:29
- * @since TODO
+ * @author Xiaolong Zuo
+ * @since 1.0.0
  */
-public class Test {
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:application-context-dao.xml","classpath:application-context-transaction.xml","classpath:application-context-service.xml"})
+public abstract class AbstractSpringContextTest {
 }

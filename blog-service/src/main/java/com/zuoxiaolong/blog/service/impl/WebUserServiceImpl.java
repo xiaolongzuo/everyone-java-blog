@@ -14,14 +14,33 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.model.user;
+package com.zuoxiaolong.blog.service.impl;
+
+import com.zuoxiaolong.blog.mapper.WebUserMapper;
+import com.zuoxiaolong.blog.model.WebUser;
+import com.zuoxiaolong.blog.service.WebUserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Xiaolong Zuo
  * @since 1.0.0
  */
-public class User {
 
-    private String connection_timeout;
+@Service
+public class WebUserServiceImpl implements WebUserService {
+
+    @Autowired
+    private WebUserMapper webUserMapper;
+
+    @Override
+    public Integer insert(WebUser webUser) {
+        return webUserMapper.insert(webUser);
+    }
+
+    @Override
+    public WebUser selectByPrimaryKey(Integer id) {
+        return webUserMapper.selectByPrimaryKey(id);
+    }
 
 }
