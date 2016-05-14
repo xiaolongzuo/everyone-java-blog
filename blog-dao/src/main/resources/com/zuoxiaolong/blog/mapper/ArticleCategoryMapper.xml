@@ -18,10 +18,6 @@
     delete from article_category
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zuoxiaolong.blog.model.ArticleCategory" >
-    insert into article_category (id, category_name)
-    values (#{id,jdbcType=INTEGER}, #{categoryName,jdbcType=VARCHAR})
-  </insert>
   <insert id="insertSelective" parameterType="com.zuoxiaolong.blog.model.ArticleCategory" >
     insert into article_category
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -48,11 +44,6 @@
         category_name = #{categoryName,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.zuoxiaolong.blog.model.ArticleCategory" >
-    update article_category
-    set category_name = #{categoryName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
