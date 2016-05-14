@@ -12,14 +12,6 @@
         <result column="address" property="address" jdbcType="VARCHAR"/>
     </resultMap>
 
-    <resultMap id="userBlogInfoMap" type="com.zuoxiaolong.blog.entity.UserBlogInfo">
-        <id column="id" property="id" jdbcType="INTEGER"/>
-        <result column="nickname" property="nickname" jdbcType="VARCHAR"/>
-        <result column="username" property="username" jdbcType="VARCHAR"/>
-        <result column="web_user_id" property="webUserId" jdbcType="INTEGER"/>
-        <result column="introduction" property="introduction" jdbcType="VARCHAR"/>
-    </resultMap>
-
     <sql id="Base_Column_List">
     id, create_time, update_time, web_user_id, introduction, address
   </sql>
@@ -30,11 +22,11 @@
         where id = #{id,jdbcType=INTEGER}
     </select>
 
-    <select id="selectUserBlogInfoByUsername" resultMap="userBlogInfoMap" parameterMap="java.lang.String">
-        SELECT blog_config.web_user_id as web_user_id, web_user.nickname as nickname, web_user.username as username, blog_config.introduction as introduction
-        from web_user, blog_config
-        ON web_user.id = blog_config.web_user_id
-        where web_user.username = #{username}
+    <select id="selectByUsername" resultMap="BaseResultMap" parameterMap="java.lang.String">
+        SELECT
+        <include refid="Base_Column_List"/>
+        from blog_config
+        where username = #{username}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from blog_config

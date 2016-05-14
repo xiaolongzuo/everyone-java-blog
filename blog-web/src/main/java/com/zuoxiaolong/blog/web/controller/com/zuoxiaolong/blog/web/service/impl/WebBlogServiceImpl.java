@@ -17,6 +17,7 @@ package com.zuoxiaolong.blog.web.controller.com.zuoxiaolong.blog.web.service.imp
 
 import com.zuoxiaolong.blog.entity.UserBlogInfo;
 import com.zuoxiaolong.blog.mapper.BlogConfigMapper;
+import com.zuoxiaolong.blog.model.BlogConfig;
 import com.zuoxiaolong.blog.web.controller.com.zuoxiaolong.blog.web.service.WebBlogService;
 
 import javax.annotation.Resource;
@@ -35,6 +36,7 @@ public class WebBlogServiceImpl implements WebBlogService {
 
     @Override
     public UserBlogInfo selectUserBlogInfoByUsername(String username) {
-        return blogConfigMapper.selectUserBlogInfoByUsername(username);
+        BlogConfig blogConfig = blogConfigMapper.selectByUsername(username);
+        return null;
     }
 }
