@@ -1,6 +1,6 @@
 package com.zuoxiaolong.blog.mapper;
 
-import com.zuoxiaolong.blog.model.Resource;
+import com.zuoxiaolong.blog.model.persistent.Resource;
 
 public interface ResourceMapper {
     int deleteByPrimaryKey(Integer id);

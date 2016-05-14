@@ -1,6 +1,6 @@
 package com.zuoxiaolong.blog.mapper;
 
-import com.zuoxiaolong.blog.model.BlogConfig;
+import com.zuoxiaolong.blog.model.persistent.BlogConfig;
 
 public interface BlogConfigMapper {
     int deleteByPrimaryKey(Integer id);

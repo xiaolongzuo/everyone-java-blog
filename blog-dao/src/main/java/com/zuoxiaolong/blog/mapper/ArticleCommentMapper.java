@@ -1,6 +1,6 @@
 package com.zuoxiaolong.blog.mapper;
 
-import com.zuoxiaolong.blog.model.ArticleComment;
+import com.zuoxiaolong.blog.model.persistent.ArticleComment;
 
 public interface ArticleCommentMapper {
     int deleteByPrimaryKey(Integer id);
