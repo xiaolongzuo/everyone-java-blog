@@ -1,5 +1,3 @@
---2016-5-8 zuoxiaolong
---创建数据库
 CREATE SCHEMA `java_blog` DEFAULT CHARACTER SET utf8 ;
 
 CREATE TABLE `java_blog`.`blog_config` (
