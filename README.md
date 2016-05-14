@@ -226,7 +226,7 @@ public interface StringUtils {
  * 请严格按照以上代码规范检查自己提交的代码
  * 避免提交不该提交的代码，例如一些开发工具自身需要的文件，比如eclipse的.classpath文件等。
  * 类当中切勿带有main函数，如果需要测试，放到test下使用junit进行测试
- * 一定类型的类放在一定的包下，具体的规则如下。
+ * 一定类型的类放在一定的包下，具体的规则如下
 
  > 数据库model：放在blog-model下的com.zuoxiaolong.blog.model.persistent包内
 
