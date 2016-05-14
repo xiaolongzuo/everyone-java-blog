@@ -37,6 +37,7 @@ public class WebUserMapperTest extends AbstractSpringContextTest {
         WebUser user = new WebUser();
         user.setUsername("zuoxiaolong");
         user.setPassword("123456");
+        user.setPasswordSalt("zuoxiaolong");
         webUserMapper.insertSelective(user);
         Assert.assertNotNull(webUserMapper.selectByPrimaryKey(1));
     }

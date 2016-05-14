@@ -1,5 +1,6 @@
 package com.zuoxiaolong.blog.mapper;
 
+import com.zuoxiaolong.blog.entity.UserBlogInfo;
 import com.zuoxiaolong.blog.model.BlogConfig;
 
 public interface BlogConfigMapper {
@@ -10,5 +11,7 @@ public interface BlogConfigMapper {
     BlogConfig selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(BlogConfig record);
+
+    UserBlogInfo selectUserBlogInfoByUsername(String username);
 
 }
