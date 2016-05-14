@@ -20,12 +20,6 @@
     delete from blog_config
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zuoxiaolong.blog.model.BlogConfig" >
-    insert into blog_config (id, web_user_id, introduction, 
-      address)
-    values (#{id,jdbcType=INTEGER}, #{webUserId,jdbcType=INTEGER}, #{introduction,jdbcType=VARCHAR}, 
-      #{address,jdbcType=VARCHAR})
-  </insert>
   <insert id="insertSelective" parameterType="com.zuoxiaolong.blog.model.BlogConfig" >
     insert into blog_config
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -70,13 +64,6 @@
         address = #{address,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.zuoxiaolong.blog.model.BlogConfig" >
-    update blog_config
-    set web_user_id = #{webUserId,jdbcType=INTEGER},
-      introduction = #{introduction,jdbcType=VARCHAR},
-      address = #{address,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

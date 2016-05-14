@@ -19,12 +19,6 @@
     delete from contributor
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zuoxiaolong.blog.model.Contributor" >
-    insert into contributor (id, contributor_name, personal_url
-      )
-    values (#{id,jdbcType=INTEGER}, #{contributorName,jdbcType=VARCHAR}, #{personalUrl,jdbcType=VARCHAR}
-      )
-  </insert>
   <insert id="insertSelective" parameterType="com.zuoxiaolong.blog.model.Contributor" >
     insert into contributor
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -60,12 +54,6 @@
         personal_url = #{personalUrl,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.zuoxiaolong.blog.model.Contributor" >
-    update contributor
-    set contributor_name = #{contributorName,jdbcType=VARCHAR},
-      personal_url = #{personalUrl,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
