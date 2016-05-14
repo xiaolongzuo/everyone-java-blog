@@ -1,4 +1,4 @@
-package com.zuoxiaolong.blog.model;
+package com.zuoxiaolong.blog.model.persistent;
 
 import lombok.Data;
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.model;
+package com.zuoxiaolong.blog.model.persistent;
 
 import java.util.Date;
 

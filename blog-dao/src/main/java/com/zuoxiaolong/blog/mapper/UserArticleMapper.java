@@ -1,6 +1,6 @@
 package com.zuoxiaolong.blog.mapper;
 
-import com.zuoxiaolong.blog.model.UserArticle;
+import com.zuoxiaolong.blog.model.persistent.UserArticle;
 
 public interface UserArticleMapper {
     int deleteByPrimaryKey(Integer id);

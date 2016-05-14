@@ -1,6 +1,6 @@
 package com.zuoxiaolong.blog.mapper;
 
-import com.zuoxiaolong.blog.model.WebUser;
+import com.zuoxiaolong.blog.model.persistent.WebUser;
 
 public interface WebUserMapper {
 

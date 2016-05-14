@@ -1,6 +1,6 @@
 package com.zuoxiaolong.blog.mapper;
 
-import com.zuoxiaolong.blog.model.MessageBox;
+import com.zuoxiaolong.blog.model.persistent.MessageBox;
 
 public interface MessageBoxMapper {
     int deleteByPrimaryKey(Integer id);
