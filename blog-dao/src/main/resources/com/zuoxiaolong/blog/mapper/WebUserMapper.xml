@@ -88,4 +88,12 @@
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
+
+    <select id="selectByWebUser" resultMap="BaseResultMap" parameterType="com.zuoxiaolong.blog.model.WebUser">
+        select
+        <include refid="Base_Column_List"/>
+        from web_user
+        where username = #{username,jdbcType=VARCHAR}
+        and password = #{password,jdbcType=VARCHAR}
+    </select>
 </mapper>
