@@ -19,12 +19,6 @@
     delete from resource
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zuoxiaolong.blog.model.Resource" >
-    insert into resource (id, resource_path, resource_type
-      )
-    values (#{id,jdbcType=INTEGER}, #{resourcePath,jdbcType=VARCHAR}, #{resourceType,jdbcType=TINYINT}
-      )
-  </insert>
   <insert id="insertSelective" parameterType="com.zuoxiaolong.blog.model.Resource" >
     insert into resource
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -60,12 +54,6 @@
         resource_type = #{resourceType,jdbcType=TINYINT},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.zuoxiaolong.blog.model.Resource" >
-    update resource
-    set resource_path = #{resourcePath,jdbcType=VARCHAR},
-      resource_type = #{resourceType,jdbcType=TINYINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
