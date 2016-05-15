@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zuoxiaolong.blog.mapper.WebUserMapper">
-    <resultMap id="BaseResultMap" type="com.zuoxiaolong.blog.model.WebUser">
+    <resultMap id="BaseResultMap" type="com.zuoxiaolong.blog.model.persistent.WebUser">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
@@ -24,7 +24,7 @@
     delete from web_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-    <insert id="insertSelective" parameterType="com.zuoxiaolong.blog.model.WebUser">
+    <insert id="insertSelective" parameterType="com.zuoxiaolong.blog.model.persistent.WebUser">
         insert into web_user
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -67,7 +67,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.zuoxiaolong.blog.model.WebUser">
+    <update id="updateByPrimaryKeySelective" parameterType="com.zuoxiaolong.blog.model.persistent.WebUser">
         update web_user
         <set>
             <if test="username != null">
@@ -88,4 +88,21 @@
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
+
+    <select id="selectByWebUser" resultMap="BaseResultMap" parameterType="com.zuoxiaolong.blog.model.persistent.WebUser">
+        select
+        <include refid="Base_Column_List"/>
+        from web_user
+        <where>
+            <if test="username != null">
+              username = #{username,jdbcType=VARCHAR}
+            </if>
+            <if test="password != null">
+                username = #{password,jdbcType=VARCHAR}
+            </if>
+            <if test="nickname != null">
+                nickname = #{nickname,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
 </mapper>

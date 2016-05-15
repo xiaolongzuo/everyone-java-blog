@@ -13,33 +13,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.zuoxiaolong.blog.service.impl;
 
-package com.zuoxiaolong.blog.dao;
-
+import com.zuoxiaolong.blog.common.utils.Md5Utils;
 import com.zuoxiaolong.blog.mapper.WebUserMapper;
 import com.zuoxiaolong.blog.model.persistent.WebUser;
-import org.junit.Assert;
-import org.junit.Test;
+import com.zuoxiaolong.blog.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
- * @author Xiaolong Zuo
+ * @author 郭松涛
+ * @date 2016/5/14 20:36
  * @since 1.0.0
  */
-public class WebUserMapperTest extends AbstractSpringContextTest {
+@Service
+public class AccountServiceImpl implements AccountService {
 
     @Autowired
     private WebUserMapper webUserMapper;
 
-    @Test
-    public void insert() {
-        Assert.assertNotNull(webUserMapper);
-        WebUser user = new WebUser();
-        user.setUsername("zuoxiaolong");
-        user.setPassword("123456");
-        user.setPasswordSalt("zuoxiaolong");
-        webUserMapper.insertSelective(user);
-        Assert.assertNotNull(webUserMapper.selectByPrimaryKey(1));
+    @Override
+    public WebUser findUser(WebUser webUser) {
+        return webUserMapper.selectByWebUser(webUser);
     }
 
+    @Override
+    public boolean insertUser(WebUser webUser) {
+        int record = webUserMapper.insertSelective(webUser);
+        return record>0?true:false;
+    }
+
+    @Override
+    public boolean modifyPassword(WebUser webUser) {
+        int record = webUserMapper.updateByPrimaryKeySelective(webUser);
+        return record>0?true:false;
+    }
 }

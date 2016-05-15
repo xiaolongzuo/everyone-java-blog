@@ -1,6 +1,6 @@
 package com.zuoxiaolong.blog.mapper;
 
-import com.zuoxiaolong.blog.model.WebUser;
+import com.zuoxiaolong.blog.model.persistent.WebUser;
 
 public interface WebUserMapper {
 
@@ -9,6 +9,8 @@ public interface WebUserMapper {
     int insertSelective(WebUser record);
 
     WebUser selectByPrimaryKey(Integer id);
+
+    WebUser selectByWebUser(WebUser webUser);
 
     int updateByPrimaryKeySelective(WebUser record);
 
