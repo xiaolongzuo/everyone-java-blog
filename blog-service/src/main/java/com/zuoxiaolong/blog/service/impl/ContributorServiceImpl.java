@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.service.impl;/**
- * Created by Administrator on 2016/5/15.
- */
+package com.zuoxiaolong.blog.service.impl;
 
 import com.zuoxiaolong.blog.mapper.ContributorMapper;
 import com.zuoxiaolong.blog.model.Contributor;
