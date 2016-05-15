@@ -42,7 +42,7 @@ public class ContributorController extends BaseController{
     private ContributorService contributorService;
 
     @RequestMapping(value = "/edit")
-    public String goInsertPage(Model model) {
+    public String edit() {
 
         return "contributor/contributor-edit";
     }
