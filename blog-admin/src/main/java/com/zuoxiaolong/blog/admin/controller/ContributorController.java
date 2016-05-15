@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.admin;
+package com.zuoxiaolong.blog.admin.controller;
 
 import com.zuoxiaolong.blog.common.web.BaseController;
+import com.zuoxiaolong.blog.model.Contributor;
 import com.zuoxiaolong.blog.service.ContributorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,14 +36,14 @@ import java.util.Date;
  */
 @Controller
 @RequestMapping("/contributor")
-public class Contributor extends BaseController{
+public class ContributorController extends BaseController{
 
     @Autowired
     private ContributorService contributorService;
 
-    @RequestMapping(value = "/go/insert/page")
+    @RequestMapping(value = "/edit")
     public String goInsertPage() {
-        return "contributor";
+        return "contributor/contributor-edit";
     }
 
     /**
@@ -54,7 +55,7 @@ public class Contributor extends BaseController{
      *      新增操作结果返回信息
      */
     @RequestMapping(value = "/insert")
-    public String insert(@Validated com.zuoxiaolong.blog.model.Contributor contributor, Model model) {
+    public String insert(@Validated Contributor contributor, Model model) {
 
         try {
 
@@ -64,17 +65,16 @@ public class Contributor extends BaseController{
 
             if (row < 1) {
                 model.addAttribute("result", "新增贡献者失败");
-
-                return "contributorError";
+                return "contributor/contributor-error";
             }
 
             model.addAttribute("result", contributor);
         } catch (Exception e) {
             logger.error("新增贡献者异常", e);
             model.addAttribute("result", "新增贡献者异常");
-            return "contributorError";
+            return "contributor/contributor-error";
         }
 
-        return "contributorSuccess";
+        return "contributor/contributor-success";
     }
 }
