@@ -1,6 +1,7 @@
 package com.zuoxiaolong.blog.mapper;
 
-import com.zuoxiaolong.blog.model.WebUser;
+import com.zuoxiaolong.blog.model.persistent.WebUser;
+import org.springframework.stereotype.Repository;
 
 public interface WebUserMapper {
 

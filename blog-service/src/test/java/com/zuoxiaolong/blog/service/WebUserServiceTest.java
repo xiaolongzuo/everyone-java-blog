@@ -16,7 +16,7 @@
 
 package com.zuoxiaolong.blog.service;
 
-import com.zuoxiaolong.blog.model.WebUser;
+import com.zuoxiaolong.blog.model.persistent.WebUser;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

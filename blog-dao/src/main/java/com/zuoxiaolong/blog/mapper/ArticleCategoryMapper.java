@@ -1,6 +1,6 @@
 package com.zuoxiaolong.blog.mapper;
 
-import com.zuoxiaolong.blog.model.ArticleCategory;
+import com.zuoxiaolong.blog.model.persistent.ArticleCategory;
 
 public interface ArticleCategoryMapper {
     int deleteByPrimaryKey(Integer id);

@@ -3,7 +3,7 @@
 
 
 <mapper namespace="com.zuoxiaolong.blog.mapper.BlogConfigMapper">
-    <resultMap id="BaseResultMap" type="com.zuoxiaolong.blog.model.BlogConfig">
+    <resultMap id="BaseResultMap" type="com.zuoxiaolong.blog.model.persistent.BlogConfig">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
@@ -32,7 +32,7 @@
     delete from blog_config
     where id = #{id,jdbcType=INTEGER}
   </delete>
-    <insert id="insertSelective" parameterType="com.zuoxiaolong.blog.model.BlogConfig">
+    <insert id="insertSelective" parameterType="com.zuoxiaolong.blog.model.persistent.BlogConfig">
         insert into blog_config
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -63,7 +63,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.zuoxiaolong.blog.model.BlogConfig">
+    <update id="updateByPrimaryKeySelective" parameterType="com.zuoxiaolong.blog.model.persistent.BlogConfig">
         update blog_config
         <set>
             <if test="webUserId != null">
