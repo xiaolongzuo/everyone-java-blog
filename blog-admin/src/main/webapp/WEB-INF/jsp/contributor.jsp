@@ -28,8 +28,8 @@
 <form id="editForm" name="editForm" action="http://localhost:8080/contributor/insert"
       class="form-horizontal" method="post" accept-charset="UTF-8"
       enctype="application/x-www-form-urlencoded" data-option="edit">
-    <p>用户名：<input type="text" name="contributorName"></p>
-    <p>密码：<input type="text" name="personalUrl"></p>
+    <p>贡献者名称：<input type="text" name="contributorName"></p>
+    <p>贡献者地址：<input type="text" name="personalUrl"></p>
 
     <input type="submit" value="提交">
 </form>
