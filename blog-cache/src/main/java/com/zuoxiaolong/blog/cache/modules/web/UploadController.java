@@ -37,8 +37,6 @@ public class UploadController extends BaseController {
     @RequestMapping(value = "/cache/test")
     public void test(){
 
-        logger.debug("更改过的代码");
-
         WebUser webUser = webUserService.selectByPrimaryKey(1);
         logger.debug("userId:" + webUser.getId());
         logger.debug("username:" + webUser.getUsername());
