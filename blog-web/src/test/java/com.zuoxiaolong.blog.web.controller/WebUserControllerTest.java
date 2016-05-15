@@ -25,7 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author 郭松涛
  * @since 1.0.0
  */
-public class WebUserServiceTest extends AbstractSpringContextTest {
+public class WebUserControllerTest extends AbstractSpringContextTest {
 
     @Autowired
     private AccountController accountController;
