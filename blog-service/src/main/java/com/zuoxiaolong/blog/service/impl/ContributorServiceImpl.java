@@ -17,7 +17,7 @@
 package com.zuoxiaolong.blog.service.impl;
 
 import com.zuoxiaolong.blog.mapper.ContributorMapper;
-import com.zuoxiaolong.blog.model.Contributor;
+import com.zuoxiaolong.blog.model.persistent.Contributor;
 import com.zuoxiaolong.blog.service.ContributorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

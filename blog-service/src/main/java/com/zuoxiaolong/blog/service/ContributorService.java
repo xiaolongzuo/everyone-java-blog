@@ -16,7 +16,7 @@
 
 package com.zuoxiaolong.blog.service;
 
-import com.zuoxiaolong.blog.model.Contributor;
+import com.zuoxiaolong.blog.model.persistent.Contributor;
 
 /**
  * 贡献者信息操作事务接口

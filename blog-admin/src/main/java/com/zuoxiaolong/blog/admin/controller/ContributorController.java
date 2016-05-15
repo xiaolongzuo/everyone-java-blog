@@ -17,7 +17,7 @@
 package com.zuoxiaolong.blog.admin.controller;
 
 import com.zuoxiaolong.blog.common.web.BaseController;
-import com.zuoxiaolong.blog.model.Contributor;
+import com.zuoxiaolong.blog.model.persistent.Contributor;
 import com.zuoxiaolong.blog.service.ContributorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,7 +42,8 @@ public class ContributorController extends BaseController{
     private ContributorService contributorService;
 
     @RequestMapping(value = "/edit")
-    public String goInsertPage() {
+    public String goInsertPage(Model model) {
+
         return "contributor/contributor-edit";
     }
 
