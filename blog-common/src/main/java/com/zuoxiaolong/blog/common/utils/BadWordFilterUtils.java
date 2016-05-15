@@ -15,7 +15,8 @@
  */
 package com.zuoxiaolong.blog.common.utils;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * 脏词检索
@@ -26,18 +27,15 @@ import java.util.*;
  * @dateTime 2016/5/16 0:04
  * @since 1.0.0
  */
-public class BadWordFilter {
+public class BadWordFilterUtils {
 
-    private static final int SIZE = Character.MAX_VALUE;
-
-    private HashSet<String> hashSet = new HashSet<String>();
-    private byte[] fastCheck = new byte[SIZE];
-    private byte[] fastLength = new byte[SIZE];
-    private boolean[] charCheck = new boolean[SIZE];
-    private boolean[] endCheck = new boolean[SIZE];
+    private Set<String> hashSet = new HashSet<String>();
+    private byte[] fastCheck = new byte[Character.MAX_VALUE];
+    private byte[] fastLength = new byte[Character.MAX_VALUE];
+    private boolean[] charCheck = new boolean[Character.MAX_VALUE];
+    private boolean[] endCheck = new boolean[Character.MAX_VALUE];
     private int maxWordLength = 0;
     private int minWordLength = Integer.MAX_VALUE;
-
 
     /**
      * 批量添加脏词
@@ -56,21 +54,24 @@ public class BadWordFilter {
      * @param badWord 脏词
      */
     public void addBadWord(String badWord) {
-        maxWordLength = Math.max(maxWordLength, badWord.length());
-        minWordLength = Math.min(minWordLength, badWord.length());
 
-        for (int i = 0; i < 7 && i < badWord.length(); i++) {
+        int length = badWord.length();
+
+        maxWordLength = Math.max(maxWordLength, length);
+        minWordLength = Math.min(minWordLength, length);
+
+        for (int i = 0; i < 7 && i < length; i++) {
             fastCheck[badWord.charAt(i)] |= (byte) (1 << i);
         }
-        for (int i = 7; i < badWord.length(); i++) {
+        for (int i = 7; i < length; i++) {
             fastCheck[badWord.charAt(i)] |= 0x80;
         }
 
-        if (badWord.length() == 1) {
+        if (length == 1) {
             charCheck[badWord.charAt(0)] = true;
         } else {
-            fastLength[badWord.charAt(0)] |= (byte) (1 << (Math.min(7, badWord.length() - 2)));
-            endCheck[badWord.charAt(badWord.length() - 1)] = true;
+            fastLength[badWord.charAt(0)] |= (byte) (1 << (Math.min(7, length - 2)));
+            endCheck[badWord.charAt(length - 1)] = true;
             hashSet.add(badWord);
         }
     }
@@ -83,16 +84,17 @@ public class BadWordFilter {
      */
     public boolean hasBadWord(String text) {
         int index = 0;
-        while (index < text.length()) {
+        int textLength = text.length();
+        while (index < textLength) {
             int count = 1;
             if (index > 0 || (fastCheck[text.charAt(index)] & 1) == 0) {
-                while (index < text.length() - 1 && (fastCheck[text.charAt(++index)] & 1) == 0) ;
+                while (index < textLength - 1 && (fastCheck[text.charAt(++index)] & 1) == 0) ;
             }
             char begin = text.charAt(index);
             if (minWordLength == 1 && charCheck[begin]) {
                 return true;
             }
-            for (int j = 1; j <= Math.min(maxWordLength, text.length() - index - 1); j++) {
+            for (int j = 1; j <= Math.min(maxWordLength, textLength - index - 1); j++) {
                 char current = text.charAt(index + j);
                 if ((fastCheck[current] & 1) == 0) {
                     ++count;
@@ -123,10 +125,11 @@ public class BadWordFilter {
     public String replaceWith(String text, char mosaic) {
         int index = 0;
         char[] chars = text.toCharArray();
-        while (index < text.length()) {
+        int textLength = text.length();
+        while (index < textLength) {
             int count = 1;
             if (index > 0 || (fastCheck[text.charAt(index)] & 1) == 0) {
-                while (index < text.length() - 1 && (fastCheck[text.charAt(++index)] & 1) == 0) ;
+                while (index < textLength - 1 && (fastCheck[text.charAt(++index)] & 1) == 0) ;
             }
             char begin = text.charAt(index);
             if (minWordLength == 1 && charCheck[begin]) {
@@ -134,7 +137,7 @@ public class BadWordFilter {
                 index++;
                 continue;
             }
-            for (int j = 1; j <= Math.min(maxWordLength, text.length() - index - 1); j++) {
+            for (int j = 1; j <= Math.min(maxWordLength, textLength - index - 1); j++) {
                 char current = text.charAt(index + j);
                 if ((fastCheck[current] & 1) == 0) {
                     ++count;
@@ -155,11 +158,11 @@ public class BadWordFilter {
             }
             index += count;
         }
-        StringBuilder sb = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder();
         for (char c : chars) {
-            sb.append(c);
+            stringBuilder.append(c);
         }
-        return sb.toString();
+        return stringBuilder.toString();
     }
 
 }
