@@ -17,10 +17,16 @@ package com.zuoxiaolong.blog.web.controller.com.zuoxiaolong.blog.web.service.imp
 
 import com.zuoxiaolong.blog.entity.UserBlogInfo;
 import com.zuoxiaolong.blog.mapper.BlogConfigMapper;
+import com.zuoxiaolong.blog.mapper.UserArticleMapper;
+import com.zuoxiaolong.blog.mapper.WebUserMapper;
 import com.zuoxiaolong.blog.model.persistent.BlogConfig;
+import com.zuoxiaolong.blog.model.persistent.UserArticle;
+import com.zuoxiaolong.blog.model.persistent.WebUser;
 import com.zuoxiaolong.blog.web.controller.com.zuoxiaolong.blog.web.service.WebBlogService;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 用户博客个人主页业务实现类
@@ -29,14 +35,45 @@ import javax.annotation.Resource;
  * @date 16/5/14 下午7:50
  * @since 1.0.0
  */
+
+@Service
 public class WebBlogServiceImpl implements WebBlogService {
 
     @Resource
     private BlogConfigMapper blogConfigMapper;
 
+    @Resource
+    private WebUserMapper webUserMapper;
+
+    @Resource
+    private UserArticleMapper userArticleMapper;
+
+    /**
+     * 根据用户名获取用户博客个人主页的相关信息
+     * @param username
+     * @return
+     */
     @Override
     public UserBlogInfo selectUserBlogInfoByUsername(String username) {
         BlogConfig blogConfig = blogConfigMapper.selectByUsername(username);
-        return null;
+        if(blogConfig == null) {
+            return null;
+        }
+
+        WebUser webUser = webUserMapper.selectByWebUserId(blogConfig.getWebUserId());
+        if(webUser == null) {
+            return null;
+        }
+
+        List<UserArticle> userArticle = userArticleMapper.selectByWebUserId(blogConfig.getWebUserId());
+
+        UserBlogInfo userBlogInfo = new UserBlogInfo();
+        userBlogInfo.setIntroduction(blogConfig.getIntroduction());
+        userBlogInfo.setNickname(webUser.getNickname());
+        userBlogInfo.setUsername(webUser.getUsername());
+        userBlogInfo.setWebUserId(webUser.getId());
+        userBlogInfo.setUserArticleList(userArticle);
+
+        return userBlogInfo;
     }
 }

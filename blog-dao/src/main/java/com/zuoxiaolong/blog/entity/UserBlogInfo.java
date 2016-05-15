@@ -30,8 +30,6 @@ import java.util.List;
 @Data
 public class UserBlogInfo {
 
-    private int id;                 //暂时没有用处
-
     private int webUserId;          //用户id
 
     private String username;        //用户名

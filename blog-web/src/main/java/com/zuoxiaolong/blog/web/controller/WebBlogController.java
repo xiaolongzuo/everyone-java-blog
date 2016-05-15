@@ -16,9 +16,15 @@
 
 package com.zuoxiaolong.blog.web.controller;
 
+import com.zuoxiaolong.blog.entity.UserBlogInfo;
+import com.zuoxiaolong.blog.web.controller.com.zuoxiaolong.blog.web.service.WebBlogService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.annotation.Resource;
 
 /**
  * @author linjiedeng
@@ -28,9 +34,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/blog")
 public class WebBlogController {
 
-    @RequestMapping("/homepage/{username}")
-    public String blog(@PathVariable String username) {
-        return "page";
-    }
+    @Resource
+    private WebBlogService webBlogService;
 
+    @RequestMapping("/homepage/{username}")
+    public ModelAndView blog(@PathVariable String username) {
+        UserBlogInfo userBlogInfo = webBlogService.selectUserBlogInfoByUsername(username);
+        ModelAndView view = new ModelAndView("homepage");
+        view.addObject(userBlogInfo);
+        return view;
+    }
 }
