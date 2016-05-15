@@ -17,14 +17,21 @@
 --%>
 <%--
   User: cnJun
-  Time: 16/5/12 22:22
+  Time: 16/5/22 22:22
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <html>
+<head>
+    <title>Title</title>
+</head>
 <body>
-<h2>Hello World!</h2>
+<form id="editForm" name="editForm" action="http://localhost:8080/contributor/insert"
+      class="form-horizontal" method="post" accept-charset="UTF-8"
+      enctype="application/x-www-form-urlencoded" data-option="edit">
+    <p>用户名：<input type="text" name="contributorName"></p>
+    <p>密码：<input type="text" name="personalUrl"></p>
 
-<a href="http://localhost:8080/contributor/go/insert/page">新增贡献者</a>
+    <input type="submit" value="提交">
+</form>
 </body>
 </html>

@@ -17,14 +17,14 @@
 --%>
 <%--
   User: cnJun
-  Time: 16/5/12 22:22
+  Time: 16/5/22 18:22
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <html>
+<head>
+    <title>Title</title>
+</head>
 <body>
-<h2>Hello World!</h2>
-
-<a href="http://localhost:8080/contributor/go/insert/page">新增贡献者</a>
+    <p>返回信息：${result}</p>
 </body>
 </html>
