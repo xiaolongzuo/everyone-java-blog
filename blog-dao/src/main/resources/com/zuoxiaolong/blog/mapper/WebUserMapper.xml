@@ -88,4 +88,21 @@
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
+
+    <select id="selectByWebUser" resultMap="BaseResultMap" parameterType="com.zuoxiaolong.blog.model.persistent.WebUser">
+        select
+        <include refid="Base_Column_List"/>
+        from web_user
+        <where>
+            <if test="username != null">
+              username = #{username,jdbcType=VARCHAR}
+            </if>
+            <if test="password != null">
+                username = #{password,jdbcType=VARCHAR}
+            </if>
+            <if test="nickname != null">
+                nickname = #{nickname,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
 </mapper>
