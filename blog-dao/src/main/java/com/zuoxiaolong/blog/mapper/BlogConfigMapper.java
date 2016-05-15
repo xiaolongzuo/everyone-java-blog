@@ -12,6 +12,6 @@ public interface BlogConfigMapper {
 
     int updateByPrimaryKeySelective(BlogConfig record);
 
-    BlogConfig selectByUsername(String username);
+    BlogConfig selectByWebUserId(Integer webUserId);
 
 }

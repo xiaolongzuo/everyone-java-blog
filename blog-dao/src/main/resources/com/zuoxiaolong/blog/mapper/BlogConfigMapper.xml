@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-
-
 <mapper namespace="com.zuoxiaolong.blog.mapper.BlogConfigMapper">
     <resultMap id="BaseResultMap" type="com.zuoxiaolong.blog.model.persistent.BlogConfig">
         <id column="id" property="id" jdbcType="INTEGER"/>
@@ -11,7 +9,6 @@
         <result column="introduction" property="introduction" jdbcType="VARCHAR"/>
         <result column="address" property="address" jdbcType="VARCHAR"/>
     </resultMap>
-
     <sql id="Base_Column_List">
     id, create_time, update_time, web_user_id, introduction, address
   </sql>
@@ -22,11 +19,11 @@
         where id = #{id,jdbcType=INTEGER}
     </select>
 
-    <select id="selectByUsername" resultMap="BaseResultMap" parameterMap="java.lang.String">
+    <select id="selectByWebUserId" resultMap="BaseResultMap" parameterMap="java.lang.Integer">
         SELECT
         <include refid="Base_Column_List"/>
         from blog_config
-        where username = #{username}
+        where web_user_id = #{webUserId,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from blog_config

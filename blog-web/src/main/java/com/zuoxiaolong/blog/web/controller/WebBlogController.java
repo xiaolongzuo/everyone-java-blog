@@ -16,17 +16,20 @@
 
 package com.zuoxiaolong.blog.web.controller;
 
-import com.zuoxiaolong.blog.entity.UserBlogInfo;
-import com.zuoxiaolong.blog.web.controller.com.zuoxiaolong.blog.web.service.WebBlogService;
+import com.zuoxiaolong.blog.model.dto.UserBlogInfo;
+import com.zuoxiaolong.blog.model.persistent.BlogConfig;
+import com.zuoxiaolong.blog.web.service.WebBlogService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 
 /**
+ * 博客主页controller
  * @author linjiedeng
  * @since 1.0.0
  */
@@ -37,11 +40,27 @@ public class WebBlogController {
     @Resource
     private WebBlogService webBlogService;
 
+    /**
+     * 根据请求路径中的用户名跳转到个人博客主页
+     * @param username
+     * @return
+     */
     @RequestMapping("/homepage/{username}")
     public ModelAndView blog(@PathVariable String username) {
         UserBlogInfo userBlogInfo = webBlogService.selectUserBlogInfoByUsername(username);
         ModelAndView view = new ModelAndView("homepage");
         view.addObject(userBlogInfo);
         return view;
+    }
+
+    /**
+     * 更新个人简介
+     * @param blogConfig
+     * @return
+     */
+    @RequestMapping("/update/config")
+    public boolean updateBlogConfig(@RequestBody BlogConfig blogConfig) {
+
+        return false;
     }
 }

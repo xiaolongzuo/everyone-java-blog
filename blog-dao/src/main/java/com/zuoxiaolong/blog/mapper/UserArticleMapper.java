@@ -13,6 +13,6 @@ public interface UserArticleMapper {
 
     int updateByPrimaryKeySelective(UserArticle record);
 
-    List<UserArticle> selectByWebUserId(int webUserId);
+    List<UserArticle> selectByWebUserId(Integer webUserId);
 
 }

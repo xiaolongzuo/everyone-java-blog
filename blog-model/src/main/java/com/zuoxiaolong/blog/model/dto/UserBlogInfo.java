@@ -13,18 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.zuoxiaolong.blog.web.controller.com.zuoxiaolong.blog.web.service;
+package com.zuoxiaolong.blog.model.dto;
 
-import com.zuoxiaolong.blog.entity.UserBlogInfo;
+import com.zuoxiaolong.blog.model.persistent.UserArticle;
+import lombok.Data;
+
+import java.util.List;
 
 /**
- * 用户博客个人主页业务接口
- *
+ * 用户博客信息
  * @author linjiedeng
- * @date 16/5/14 下午7:49
+ * @date 16/5/14 下午6:38
  * @since 1.0.0
  */
 
-public interface WebBlogService {
-    UserBlogInfo selectUserBlogInfoByUsername(String username);
+@Data
+public class UserBlogInfo {
+
+    private int webUserId;          //用户id
+
+    private String username;        //用户名
+
+    private String nickname;        //用户昵称
+
+    private String introduction;    //个人简介
+
+    private List<UserArticle> userArticleList;  //用户文章列表
+
 }

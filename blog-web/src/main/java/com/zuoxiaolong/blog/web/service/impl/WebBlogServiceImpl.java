@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.zuoxiaolong.blog.web.controller.com.zuoxiaolong.blog.web.service.impl;
+package com.zuoxiaolong.blog.web.service.impl;
 
-import com.zuoxiaolong.blog.entity.UserBlogInfo;
 import com.zuoxiaolong.blog.mapper.BlogConfigMapper;
 import com.zuoxiaolong.blog.mapper.UserArticleMapper;
 import com.zuoxiaolong.blog.mapper.WebUserMapper;
+import com.zuoxiaolong.blog.model.dto.UserBlogInfo;
 import com.zuoxiaolong.blog.model.persistent.BlogConfig;
 import com.zuoxiaolong.blog.model.persistent.UserArticle;
 import com.zuoxiaolong.blog.model.persistent.WebUser;
-import com.zuoxiaolong.blog.web.controller.com.zuoxiaolong.blog.web.service.WebBlogService;
+import com.zuoxiaolong.blog.web.service.WebBlogService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -55,17 +55,17 @@ public class WebBlogServiceImpl implements WebBlogService {
      */
     @Override
     public UserBlogInfo selectUserBlogInfoByUsername(String username) {
-        BlogConfig blogConfig = blogConfigMapper.selectByUsername(username);
-        if(blogConfig == null) {
-            return null;
-        }
-
-        WebUser webUser = webUserMapper.selectByWebUserId(blogConfig.getWebUserId());
+        WebUser webUser = webUserMapper.selectByUsername(username);
         if(webUser == null) {
             return null;
         }
 
-        List<UserArticle> userArticle = userArticleMapper.selectByWebUserId(blogConfig.getWebUserId());
+        BlogConfig blogConfig = blogConfigMapper.selectByWebUserId(webUser.getId());
+        if(blogConfig == null) {
+            return null;
+        }
+
+        List<UserArticle> userArticle = userArticleMapper.selectByWebUserId(webUser.getId());
 
         UserBlogInfo userBlogInfo = new UserBlogInfo();
         userBlogInfo.setIntroduction(blogConfig.getIntroduction());

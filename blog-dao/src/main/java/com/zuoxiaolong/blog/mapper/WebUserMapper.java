@@ -9,12 +9,12 @@ public interface WebUserMapper {
 
     int insertSelective(WebUser record);
 
-    WebUser selectByWebUserId(int webUserId);
-
     WebUser selectByPrimaryKey(Integer id);
 
     WebUser selectByWebUser(WebUser webUser);
 
     int updateByPrimaryKeySelective(WebUser record);
+
+    WebUser selectByUsername(String username);
 
 }
