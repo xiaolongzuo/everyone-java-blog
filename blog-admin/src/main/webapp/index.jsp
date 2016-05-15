@@ -25,6 +25,6 @@
 <body>
 <h2>Hello World!</h2>
 
-<a href="http://localhost:8080/contributor/go/insert/page">新增贡献者</a>
+<a href="${adminUrl}/contributor/edit">新增贡献者</a>
 </body>
 </html>

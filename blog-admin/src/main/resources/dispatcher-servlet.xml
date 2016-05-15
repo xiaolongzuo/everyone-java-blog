@@ -22,8 +22,6 @@
         </property>
     </bean>
 
-    <mvc:default-servlet-handler></mvc:default-servlet-handler>
-
     <!-- 如果发现是静态资源的请求，就将该请求转由Web应用服务器默认的Servlet处理，如果不是静态资源的请求，才由DispatcherServlet继续处理 -->
     <mvc:default-servlet-handler></mvc:default-servlet-handler>
 
