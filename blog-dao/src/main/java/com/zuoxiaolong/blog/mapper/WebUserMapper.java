@@ -13,6 +13,8 @@ public interface WebUserMapper {
 
     WebUser selectByPrimaryKey(Integer id);
 
+    WebUser selectByWebUser(WebUser webUser);
+
     int updateByPrimaryKeySelective(WebUser record);
 
 }
