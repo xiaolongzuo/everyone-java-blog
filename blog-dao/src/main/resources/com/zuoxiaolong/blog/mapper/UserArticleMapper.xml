@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zuoxiaolong.blog.mapper.UserArticleMapper">
+    <resultMap id="BaseResultMap" type="com.zuoxiaolong.blog.model.persistent.UserArticle">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="web_user_id" property="webUserId" jdbcType="INTEGER"/>
+        <result column="category_id" property="categoryId" jdbcType="INTEGER"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="read_times" property="readTimes" jdbcType="INTEGER"/>
+        <result column="thumbup_times" property="thumbupTimes" jdbcType="INTEGER"/>
+        <result column="is_main_page" property="isMainPage" jdbcType="TINYINT"/>
+        <result column="status" property="status" jdbcType="TINYINT"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, create_time, update_time, web_user_id, category_id, title, content, read_times, thumbup_times, is_main_page, status
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from user_article
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_article
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insertSelective" parameterType="com.zuoxiaolong.blog.model.persistent.UserArticle">
+        insert into user_article
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="webUserId != null">
+                web_user_id,
+            </if>
+            <if test="categoryId != null">
+                category_id,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            <if test="readTimes != null">
+                read_times,
+            </if>
+            <if test="thumbupTimes != null">
+                thumbup_times,
+            </if>
+            <if test="isMainPage != null">
+                is_main_page,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="webUserId != null">
+                #{webUserId,jdbcType=INTEGER},
+            </if>
+            <if test="categoryId != null">
+                #{categoryId,jdbcType=INTEGER},
+            </if>
+            <if test="title != null">
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="readTimes != null">
+                #{readTimes,jdbcType=INTEGER},
+            </if>
+            <if test="thumbupTimes != null">
+                #{thumbupTimes,jdbcType=INTEGER},
+            </if>
+            <if test="isMainPage != null">
+                #{isMainPage,jdbcType=TINYINT},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=TINYINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zuoxiaolong.blog.model.persistent.UserArticle">
+        update user_article
+        <set>
+            <if test="webUserId != null">
+                web_user_id = #{webUserId,jdbcType=INTEGER},
+            </if>
+            <if test="categoryId != null">
+                category_id = #{categoryId,jdbcType=INTEGER},
+            </if>
+            <if test="title != null">
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="readTimes != null">
+                read_times = #{readTimes,jdbcType=INTEGER},
+            </if>
+            <if test="thumbupTimes != null">
+                thumbup_times = #{thumbupTimes,jdbcType=INTEGER},
+            </if>
+            <if test="isMainPage != null">
+                is_main_page = #{isMainPage,jdbcType=TINYINT},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=TINYINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

@@ -16,6 +16,9 @@
     <listener>
         <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
     </listener>
+    <listener>
+        <listener-class>com.zuoxiaolong.blog.common.web.ServletContextPropertiesLoaderListener</listener-class>
+    </listener>
 
     <!-- encoding filter -->
     <filter>
