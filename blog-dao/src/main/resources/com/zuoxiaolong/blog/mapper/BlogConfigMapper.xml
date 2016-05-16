@@ -18,6 +18,13 @@
         from blog_config
         where id = #{id,jdbcType=INTEGER}
     </select>
+
+    <select id="selectByWebUserId" resultMap="BaseResultMap" parameterMap="java.lang.Integer">
+        SELECT
+        <include refid="Base_Column_List"/>
+        from blog_config
+        where web_user_id = #{webUserId,jdbcType=INTEGER}
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from blog_config
     where id = #{id,jdbcType=INTEGER}
