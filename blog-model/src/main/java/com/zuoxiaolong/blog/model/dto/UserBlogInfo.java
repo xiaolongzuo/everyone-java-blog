@@ -13,19 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.zuoxiaolong.blog.model.dto;
 
-package com.zuoxiaolong.blog.service;
+import com.zuoxiaolong.blog.model.persistent.UserArticle;
+import lombok.Data;
 
-import com.zuoxiaolong.blog.model.persistent.WebUser;
+import java.util.List;
 
 /**
- * @author Xiaolong Zuo
+ * 用户博客信息
+ * @author linjiedeng
+ * @date 16/5/14 下午6:38
  * @since 1.0.0
  */
-public interface WebUserService {
 
-    Integer insert(WebUser webUser);
+@Data
+public class UserBlogInfo {
 
-    WebUser selectByPrimaryKey(Integer id);
+    private int webUserId;          //用户id
+
+    private String username;        //用户名
+
+    private String nickname;        //用户昵称
+
+    private String introduction;    //个人简介
+
+    private List<UserArticle> userArticleList;  //用户文章列表
 
 }

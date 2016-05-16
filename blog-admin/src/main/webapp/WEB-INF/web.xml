@@ -5,9 +5,10 @@
 		  http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          version="3.0">
     <!-- spring -->
+    <!-- spring -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:application-context.xml</param-value>
+        <param-value> classpath:application-context.xml </param-value>
     </context-param>
 
     <listener>
@@ -15,6 +16,9 @@
     </listener>
     <listener>
         <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>com.zuoxiaolong.blog.common.web.ServletContextPropertiesLoaderListener</listener-class>
     </listener>
 
     <!-- encoding filter -->
