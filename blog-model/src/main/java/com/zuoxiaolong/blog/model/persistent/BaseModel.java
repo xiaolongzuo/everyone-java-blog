@@ -14,31 +14,44 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.dao;
+package com.zuoxiaolong.blog.model.persistent;
 
-import com.zuoxiaolong.blog.mapper.WebUserMapper;
-import com.zuoxiaolong.blog.model.WebUser;
-import org.junit.Assert;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Date;
 
 /**
  * @author Xiaolong Zuo
  * @since 1.0.0
  */
-public class WebUserMapperTest extends AbstractSpringContextTest {
+public abstract class BaseModel {
 
-    @Autowired
-    private WebUserMapper webUserMapper;
+    private Integer id;
 
-    @Test
-    public void insert() {
-        Assert.assertNotNull(webUserMapper);
-        WebUser user = new WebUser();
-        user.setUsername("zuoxiaolong");
-        user.setPassword("123456");
-        webUserMapper.insert(user);
-        Assert.assertNotNull(webUserMapper.selectByPrimaryKey(1));
+    private Date createTime;
+
+    private Date updateTime;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
 }

@@ -13,35 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.zuoxiaolong.blog.cache.modules.web;
 
-import com.zuoxiaolong.blog.common.web.BaseController;
+package com.zuoxiaolong.blog.web.controller;
+
 import com.zuoxiaolong.blog.model.persistent.WebUser;
-import com.zuoxiaolong.blog.service.WebUserService;
+import org.junit.Assert;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * @author Boren You
- * @date 2016/5/12 19:45
+ * @author 郭松涛
  * @since 1.0.0
  */
-
-@Controller
-public class UploadController extends BaseController {
+public class WebUserControllerTest extends AbstractSpringContextTest {
 
     @Autowired
-    private WebUserService webUserService;
+    private AccountController accountController;
 
-    @RequestMapping(value = "/cache/test")
-    public void test(){
-
-        WebUser webUser = webUserService.selectByPrimaryKey(1);
-        logger.debug("userId:" + webUser.getId());
-        logger.debug("username:" + webUser.getUsername());
-        logger.debug("password:" + webUser.getPassword());
-        renderString(getHttpServletResponse(),webUser);
-
+    @Test
+    public void test() {
+        Assert.assertNotNull(accountController);
+        WebUser user = new WebUser();
+//        user.setId(1);
+        user.setUsername("zuoxiaolong");
+//        user.setPassword("123456");
+//        user.setEnable(true);
+//        user.setNickname("昵称");
+//        user.setPasswordSalt("zuoxiaolong");
+        accountController.isused(user);
+//        accountController.changePassword(user,"hehe");
     }
+
 }

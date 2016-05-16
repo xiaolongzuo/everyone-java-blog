@@ -13,31 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.zuoxiaolong.blog.service;
 
 import com.zuoxiaolong.blog.model.persistent.WebUser;
-import org.junit.Assert;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * @author Xiaolong Zuo
+ * @author 郭松涛
+ * @date 2016/5/14 18:32
  * @since 1.0.0
  */
-public class WebUserServiceTest extends AbstractSpringContextTest {
+public interface AccountService {
 
-    @Autowired
-    private WebUserService webUserService;
+    /**
+     * 根据用户名和密码查找用户
+     * @param webUser
+     * @return
+     */
+    WebUser findUser(WebUser webUser);
 
-    @Test
-    public void insert() {
-        Assert.assertNotNull(webUserService);
-        WebUser user = new WebUser();
-        user.setUsername("zuoxiaolong");
-        user.setPassword("123456");
-        webUserService.insert(user);
-        Assert.assertNotNull(webUserService.selectByPrimaryKey(1));
-    }
+    /**
+     * 新注册用户保存
+     * @param webUser
+     */
+    boolean insertUser(WebUser webUser) ;
 
+    /**
+     * 用户密码修改
+     * @param webUser
+     */
+    boolean modifyPassword(WebUser webUser);
 }

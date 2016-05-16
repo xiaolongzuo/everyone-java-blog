@@ -16,31 +16,42 @@
 
 package com.zuoxiaolong.blog.service.impl;
 
-import com.zuoxiaolong.blog.mapper.WebUserMapper;
-import com.zuoxiaolong.blog.model.persistent.WebUser;
-import com.zuoxiaolong.blog.service.WebUserService;
+import com.zuoxiaolong.blog.mapper.ContributorMapper;
+import com.zuoxiaolong.blog.model.persistent.Contributor;
+import com.zuoxiaolong.blog.service.ContributorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * @author Xiaolong Zuo
+ * 贡献者信息操作事务实现
+ *
+ * @author cnJun
+ * @date 2016/5/15
  * @since 1.0.0
  */
-
 @Service
-public class WebUserServiceImpl implements WebUserService {
+public class ContributorServiceImpl implements ContributorService {
 
     @Autowired
-    private WebUserMapper webUserMapper;
+    private ContributorMapper contributorMapper;
 
     @Override
-    public Integer insert(WebUser webUser) {
-        return webUserMapper.insertSelective(webUser);
+    public int deleteByPrimaryKey(Integer id) {
+        return contributorMapper.deleteByPrimaryKey(id);
     }
 
     @Override
-    public WebUser selectByPrimaryKey(Integer id) {
-        return webUserMapper.selectByPrimaryKey(id);
+    public int insertSelective(Contributor record) {
+        return contributorMapper.insertSelective(record);
     }
 
+    @Override
+    public Contributor selectByPrimaryKey(Integer id) {
+        return contributorMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public int updateByPrimaryKeySelective(Contributor record) {
+        return contributorMapper.updateByPrimaryKeySelective(record);
+    }
 }
