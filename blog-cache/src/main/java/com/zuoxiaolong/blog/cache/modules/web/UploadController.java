@@ -17,10 +17,18 @@ package com.zuoxiaolong.blog.cache.modules.web;
 
 import com.zuoxiaolong.blog.common.web.BaseController;
 import com.zuoxiaolong.blog.model.persistent.WebUser;
+import com.zuoxiaolong.blog.service.UploadService;
 import com.zuoxiaolong.blog.service.WebUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author Boren You
@@ -34,6 +42,9 @@ public class UploadController extends BaseController {
     @Autowired
     private WebUserService webUserService;
 
+    @Autowired
+    private UploadService uploadService;
+
     @RequestMapping(value = "/cache/test")
     public void test(){
 
@@ -43,5 +54,10 @@ public class UploadController extends BaseController {
         logger.debug("password:" + webUser.getPassword());
         renderString(getHttpServletResponse(),webUser);
 
+    }
+
+    @RequestMapping(value = "/cache/upload", method = RequestMethod.POST)
+    public void upload(HttpServletRequest request, HttpServletResponse response, @RequestParam("uid") String uid, @RequestParam("file") MultipartFile [] file) {
+        renderString(response, uploadService.doUpload(request, uid, file));
     }
 }
