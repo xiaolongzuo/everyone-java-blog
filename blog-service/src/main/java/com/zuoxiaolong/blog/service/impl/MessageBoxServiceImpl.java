@@ -20,7 +20,6 @@ import com.zuoxiaolong.blog.model.persistent.MessageBox;
 import com.zuoxiaolong.blog.service.MessageBoxService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.github.pagehelper.*;
 
 import java.util.List;
 
@@ -42,8 +41,7 @@ public class MessageBoxServiceImpl implements MessageBoxService {
 
     @Override
     public List<MessageBox> selectMessageBoxList(Integer offset,Integer limit) {
-        PageHelper.startPage(offset, limit);
-        List<MessageBox> messageBoxes=messageBoxMapper.selectMessageBoxList();
+        List<MessageBox> messageBoxes=messageBoxMapper.selectMessageBoxList(offset,limit);
         return messageBoxes;
     }
 
