@@ -23,6 +23,11 @@
             <groupId>com.zuoxiaolong.blog</groupId>
             <artifactId>blog-service</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>4.0.1</version>
+        </dependency>
     </dependencies>
 
     <build>

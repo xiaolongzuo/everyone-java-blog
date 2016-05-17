@@ -13,4 +13,6 @@ public class MessageBox extends BaseModel {
 
     private Byte status;
 
+    private  String title;
+
 }
