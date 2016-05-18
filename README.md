@@ -18,13 +18,13 @@
 
  > #### 1、请先fork本项目，在你自己的仓库里创建一个副本。
  > 
- > #### 2、执行以下命令下载项目，并且你需要给你的开发工具安装lombok插件，强烈建议使用idea作为你的开发工具。
+ > #### 2、进入到你的workspace，执行以下命令下载项目，并且你需要给你的开发工具安装lombok插件，强烈建议使用idea作为你的开发工具。
  > 
  > ```
  > git clone git@github.com:xiaolongzuo/everyone-java-blog.git
  > ```
  > 
- > #### 3、执行以下命令，将你的副本地址加入到你的远端仓库中。
+ > #### 3、进入到clone好的everyone-java-blog目录里，执行以下命令，将你的副本地址加入到你的远端仓库中。
  > 
  > ```
  > git remote add remote [你fork的地址，比如：git@github.com:your_username/everyone-java-blog.git]
@@ -32,7 +32,7 @@
  > 
  > #### 4、进行你想要进行的任何代码修改。
  > 
- > #### 5、提交之前，请先执行以下命令与主库的代码保持同步。在这个过程中，你可能需要处理冲突。
+ > #### 5、提交之前，请先执行以下命令与主库的代码保持同步。在这个过程中，你可能需要处理冲突。(PS：该过程必须要经常做，时刻让本地的代码与主库代码保持一致，这样做有助于减少冲突。)
  > 
  > ```
  > git pull origin master
@@ -50,7 +50,7 @@
  
 ## 代码规范
 
-请务必遵守规范进行编码，否则你提交的Pull Request很可能不被merge哦。
+请务必遵守规范进行编码，否则你提交的Pull Request将会被拒绝。
 
 #### 1、命名规范
  > 
@@ -219,3 +219,25 @@ public interface StringUtils {
 }
 ```
 
+## 提交代码需要注意的问题
+
+##### 下面是本人在review pull request时发现的一些问题，请贡献代码的同学务必记得，要避免以下问题出现。
+
+ * 请严格按照以上代码规范检查自己提交的代码
+ * 避免提交不该提交的代码，例如构建生成的文件。
+ * 类当中切勿带有main函数，如果需要测试，放到test下使用junit进行测试
+ * 一定类型的类放在一定的包下，具体的规则如下
+
+ > 数据库model：放在blog-model下的com.zuoxiaolong.blog.model.persistent包内
+
+ > 传给前端的值对象：放在blog-model下的com.zuoxiaolong.blog.model.dto包内
+
+ > 数据库的DAO类：放在blog-dao下的com.zuoxiaolong.blog.mapper包内
+
+ > 业务逻辑service：接口放在blog-service下的com.zuoxiaolong.blog.service包内，实现类放在com.zuoxiaolong.blog.service.impl包内
+
+ > 工具类：放在blog-common下的com.zuoxiaolong.blog.common.utils包内
+
+ > web框架通用的类：放在blog-common的com.zuoxiaolong.blog.common.web包内
+
+ > blog-{module}下的controller：放在blog-{module}下的com.zuoxiaolong.blog.{module}.controller包内，其中module为admin、api、cache、web其中一个

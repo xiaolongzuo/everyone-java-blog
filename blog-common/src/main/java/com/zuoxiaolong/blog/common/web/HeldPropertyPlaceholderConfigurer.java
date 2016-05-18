@@ -22,6 +22,8 @@ import java.io.IOException;
 import java.util.Properties;
 
 /**
+ * 自定义spring的PropertyPlaceholderConfigurer,支持持有properties.
+ *
  * @author Xiaolong Zuo
  * @since 1.0.0
  */
