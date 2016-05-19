@@ -1,8 +1,10 @@
-package com.zuoxiaolong.blog.model.persistent;
+package com.zuoxiaolong.blog.model.dto;
 
 import lombok.Data;
 
 /**
+ * 错误码
+ *
  * @author Bing Pei
  * @since 1.0.0
  */

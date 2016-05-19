@@ -1,11 +1,10 @@
-package com.zuoxiaolong.blog.model.persistent;
+package com.zuoxiaolong.blog.model.dto;
 
 import lombok.Data;
 
-import java.util.Arrays;
-import java.util.Map;
-
 /**
+ * 文件上传基本信息
+ *
  * @author Bing Pei
  * @since 1.0.0
  */

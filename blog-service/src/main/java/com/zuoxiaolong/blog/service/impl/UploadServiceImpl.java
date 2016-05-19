@@ -1,10 +1,9 @@
 package com.zuoxiaolong.blog.service.impl;
 
 import com.zuoxiaolong.blog.common.utils.StringUtils;
-import com.zuoxiaolong.blog.model.persistent.UploadInfo;
+import com.zuoxiaolong.blog.model.dto.UploadInfo;
 import com.zuoxiaolong.blog.service.UploadService;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.support.HttpRequestHandlerServlet;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
