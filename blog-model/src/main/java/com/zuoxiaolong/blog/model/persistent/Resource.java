@@ -7,6 +7,6 @@ public class Resource extends BaseModel {
 
     private String resourcePath;
 
-    private Byte resourceType;
+    private Integer resourceType;
 
 }
