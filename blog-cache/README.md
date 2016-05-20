@@ -124,13 +124,11 @@
 
   - **HTTP Status Code**
 
-    `401`
+    `500`
 
   - **Content**
 
     `{"error":"异常发生了"}`
-
-    ​
 
 - **actionType类型说明**
 
