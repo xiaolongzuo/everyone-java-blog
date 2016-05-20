@@ -25,7 +25,6 @@ import java.util.List;
         * @date 2016/5/16
         * @since 1.0.0
         */
-@Service
 public interface MessageBoxService {
     MessageBox selectByPrimaryKey(Integer id);
 
