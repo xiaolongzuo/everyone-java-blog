@@ -21,7 +21,9 @@ public interface UserArticleMapper {
     List<UserArticle> getTopCommendArticles(Map<String, Object> map);
 
     List<UserArticle> getArticlesByCategoryId(Integer categoryId);
-    
+
     List<UserArticle> getArticleCommentByCategoryId(Integer categoryId);
+
+    List<UserArticle> selectByWebUserId(Integer webUserId);
 
 }

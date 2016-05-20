@@ -7,6 +7,6 @@ public class UserOperationRecord extends BaseModel {
 
     private Integer webUserId;
 
-    private Byte operationType;
+    private Integer operationType;
 
 }

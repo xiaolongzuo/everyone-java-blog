@@ -2,6 +2,7 @@ package com.zuoxiaolong.blog.mapper;
 
 import com.zuoxiaolong.blog.model.persistent.BlogConfig;
 
+
 public interface BlogConfigMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -10,5 +11,7 @@ public interface BlogConfigMapper {
     BlogConfig selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(BlogConfig record);
+
+    BlogConfig selectByWebUserId(Integer webUserId);
 
 }
