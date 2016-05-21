@@ -54,17 +54,17 @@ public class ArticleRankController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/article/rank", method = RequestMethod.GET)
-    public ResponseEntity articleRank() {
+    public ResponseEntity<?> articleRank() {
         logger.info("Starting get article rank...");
-        List<ArticleRankResponseDto> articleRankResponseDtoList;
         try {
-            articleRankResponseDtoList = userArticleServiceManager.getArticlesRank();
+            List<ArticleRankResponseDto> articleRankResponseDtoList = userArticleServiceManager.getArticlesRank();
+            return new ResponseEntity(articleRankResponseDtoList, HttpStatus.OK);
+            //return ResponseEntity.ok().body(articleRankResponseDtoList);
         } catch (Exception e) {
             logger.error("Getting article rank occur an error.", e);
             Map<String, String> map = Maps.newHashMap();
             map.put("error", e.getMessage());
             return new ResponseEntity(map, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity(articleRankResponseDtoList, HttpStatus.OK);
     }
 }
