@@ -54,13 +54,16 @@ public class WebBlogController {
     }
 
     /**
-     * 更新个人简介
+     * 更新个人简介,地址等信息
      * @param blogConfig
      * @return
      */
     @RequestMapping("/update/config")
-    public boolean updateBlogConfig(@RequestBody BlogConfig blogConfig) {
-
-        return false;
+    public int updateBlogConfig(@RequestBody BlogConfig blogConfig) {
+        if(true) {  //有待队友脏词过滤工具类写好后使用修改这里
+            return webBlogService.updateBlogConfig(blogConfig);
+        } else {
+            return -1;
+        }
     }
 }
