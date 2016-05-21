@@ -11,6 +11,6 @@ public class MessageBox extends BaseModel {
 
     private Integer receiver;
 
-    private Byte status;
+    private Integer status;
 
 }
