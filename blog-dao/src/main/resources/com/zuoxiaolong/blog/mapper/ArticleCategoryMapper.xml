@@ -48,4 +48,8 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <select id="getAllArticleCategory" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/> FROM article_category
+  </select>
 </mapper>

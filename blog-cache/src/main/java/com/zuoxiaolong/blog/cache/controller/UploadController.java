@@ -13,18 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.zuoxiaolong.blog.cache.modules.web;
+package com.zuoxiaolong.blog.cache.controller;
 
 import com.zuoxiaolong.blog.common.web.BaseController;
 import com.zuoxiaolong.blog.model.persistent.WebUser;
+import com.zuoxiaolong.blog.service.UploadService;
 import com.zuoxiaolong.blog.service.WebUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
- * @author Boren You
- * @date 2016/5/12 19:45
+ * 文件上传接口
+ *
+ * @author Bing Pei
  * @since 1.0.0
  */
 
@@ -32,16 +40,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class UploadController extends BaseController {
 
     @Autowired
-    private WebUserService webUserService;
+    private UploadService uploadService;
 
-    @RequestMapping(value = "/cache/test")
-    public void test(){
-
-        WebUser webUser = webUserService.selectByPrimaryKey(1);
-        logger.debug("userId:" + webUser.getId());
-        logger.debug("username:" + webUser.getUsername());
-        logger.debug("password:" + webUser.getPassword());
-        renderString(getHttpServletResponse(),webUser);
-
+    /**
+     * 文件上传方法
+     *
+     * @param request
+     * @param response
+     * @param uid 用户编号
+     * @param file 上传资源名称
+     */
+    @RequestMapping(value = "/cache/upload", method = RequestMethod.POST)
+    public void upload(HttpServletRequest request, HttpServletResponse response, @RequestParam("uid") String uid, @RequestParam("file") MultipartFile [] file) {
+        renderString(response, uploadService.doUpload(request, uid, file));
     }
 }

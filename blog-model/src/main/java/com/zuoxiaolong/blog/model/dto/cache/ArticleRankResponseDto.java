@@ -13,23 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.zuoxiaolong.blog.web.service;
 
-import com.zuoxiaolong.blog.model.dto.UserBlogInfo;
-import com.zuoxiaolong.blog.model.persistent.BlogConfig;
+package com.zuoxiaolong.blog.model.dto.cache;
+
+import java.util.List;
 
 /**
- * 用户博客个人主页业务接口
- *
- * @author linjiedeng
- * @date 16/5/14 下午7:49
+ * @author goozi
+ * @create 2016-05-15 23:23
  * @since 1.0.0
  */
+public class ArticleRankResponseDto {
+    private String actionType;
+    private List<ArticleRankResponseDataResult> dataResult;
 
-public interface WebBlogService {
+    public String getActionType() {
+        return actionType;
+    }
 
-    UserBlogInfo selectUserBlogInfoByUsername(String username);
+    public void setActionType(String actionType) {
+        this.actionType = actionType;
+    }
 
-    int updateBlogConfig(BlogConfig blogConfig);
+    public List<ArticleRankResponseDataResult> getDataResult() {
+        return dataResult;
+    }
 
+    public void setDataResult(List<ArticleRankResponseDataResult> dataResult) {
+        this.dataResult = dataResult;
+    }
 }
