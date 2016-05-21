@@ -16,6 +16,7 @@
 package com.zuoxiaolong.blog.web.service;
 
 import com.zuoxiaolong.blog.model.dto.UserBlogInfo;
+import com.zuoxiaolong.blog.model.persistent.BlogConfig;
 
 /**
  * 用户博客个人主页业务接口
@@ -26,5 +27,9 @@ import com.zuoxiaolong.blog.model.dto.UserBlogInfo;
  */
 
 public interface WebBlogService {
+
     UserBlogInfo selectUserBlogInfoByUsername(String username);
+
+    int updateBlogConfig(BlogConfig blogConfig);
+
 }

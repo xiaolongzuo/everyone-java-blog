@@ -14,4 +14,5 @@ public interface BlogConfigMapper {
 
     BlogConfig selectByWebUserId(Integer webUserId);
 
+    int updateByWebUserId(BlogConfig blogConfig);
 }
