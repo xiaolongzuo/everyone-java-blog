@@ -41,6 +41,7 @@
         <module>blog-cache</module>
     </modules>
 
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <blog.version>1.0.0-SNAPSHOT</blog.version>
@@ -347,6 +348,8 @@
             <artifactId>junit</artifactId>
         </dependency>
     </dependencies>
+
+
 
     <build>
         <pluginManagement>

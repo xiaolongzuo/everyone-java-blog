@@ -18,7 +18,7 @@ package com.zuoxiaolong.blog.web.controller;
 
 import com.zuoxiaolong.blog.model.dto.UserBlogInfo;
 import com.zuoxiaolong.blog.model.persistent.BlogConfig;
-import com.zuoxiaolong.blog.web.service.WebBlogService;
+import com.zuoxiaolong.blog.service.WebBlogService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -53,13 +53,16 @@ public class WebBlogController {
     }
 
     /**
-     * 更新个人简介
+     * 更新个人简介,地址等信息
      * @param blogConfig
      * @return
      */
     @RequestMapping("/update/config")
-    public boolean updateBlogConfig(@RequestBody BlogConfig blogConfig) {
-
-        return false;
+    public int updateBlogConfig(@RequestBody BlogConfig blogConfig) {
+        if(true) {  //有待队友脏词过滤工具类写好后使用修改这里
+            return webBlogService.updateBlogConfig(blogConfig);
+        } else {
+            return -1;
+        }
     }
 }

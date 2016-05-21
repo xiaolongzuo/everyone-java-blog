@@ -19,7 +19,7 @@
         where id = #{id,jdbcType=INTEGER}
     </select>
 
-    <select id="selectByWebUserId" resultMap="BaseResultMap" parameterMap="java.lang.Integer">
+    <select id="selectByWebUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         SELECT
         <include refid="Base_Column_List"/>
         from blog_config
@@ -75,4 +75,19 @@
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
+
+    <update id="updateByWebUserId" parameterType="com.zuoxiaolong.blog.model.persistent.BlogConfig">
+        update blog_config
+        <set>
+            <if test="introduction != null">
+                introduction = #{introduction,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where web_user_id = #{webUserId,jdbcType=INTEGER}
+    </update>
+
+
 </mapper>
