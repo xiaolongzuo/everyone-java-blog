@@ -40,7 +40,7 @@
         <module>blog-model</module>
         <module>blog-cache</module>
     </modules>
-    <repositories>
+  <!--  <repositories>
         <repository>
             <id>sonatype-nexus-snapshots</id>
             <name>Sonatype Nexus Snapshots</name>
@@ -52,7 +52,7 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
-    </repositories>
+    </repositories>-->
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
