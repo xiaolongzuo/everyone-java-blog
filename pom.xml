@@ -40,19 +40,7 @@
         <module>blog-model</module>
         <module>blog-cache</module>
     </modules>
-  <!--  <repositories>
-        <repository>
-            <id>sonatype-nexus-snapshots</id>
-            <name>Sonatype Nexus Snapshots</name>
-            <url>http://oss.sonatype.org/content/repositories/snapshots</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>-->
+
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
