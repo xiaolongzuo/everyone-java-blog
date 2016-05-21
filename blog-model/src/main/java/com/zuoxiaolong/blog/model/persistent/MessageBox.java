@@ -13,4 +13,6 @@ public class MessageBox extends BaseModel {
 
     private Integer status;
 
+    private  String title;
+
 }
