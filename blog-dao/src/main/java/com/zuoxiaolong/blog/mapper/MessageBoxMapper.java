@@ -1,6 +1,9 @@
 package com.zuoxiaolong.blog.mapper;
 
 import com.zuoxiaolong.blog.model.persistent.MessageBox;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface MessageBoxMapper {
     int deleteByPrimaryKey(Integer id);
@@ -11,4 +14,5 @@ public interface MessageBoxMapper {
 
     int updateByPrimaryKeySelective(MessageBox record);
 
+    List<MessageBox> selectMessageBoxList(@Param("offset")Integer offset,@Param("limit") Integer limit);
 }
