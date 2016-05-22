@@ -23,7 +23,7 @@ public class UserArticle extends BaseModel {
 
     private Integer thumbupTimes;
 
-    private Byte isMainPage;
+    private Integer isMainPage;
 
     private Integer status;
 
