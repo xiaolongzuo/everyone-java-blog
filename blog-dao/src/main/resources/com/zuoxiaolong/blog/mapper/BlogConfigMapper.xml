@@ -19,7 +19,7 @@
         where id = #{id,jdbcType=INTEGER}
     </select>
 
-    <select id="selectByWebUserId" resultMap="BaseResultMap" parameterMap="java.lang.Integer">
+    <select id="selectByWebUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         SELECT
         <include refid="Base_Column_List"/>
         from blog_config
