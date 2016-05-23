@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="starter">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<title>文章页 - Blog</title>
+
+	<link href="lib/css/materialize.min.css" rel="stylesheet">
+	<link href="lib/fonts/material-icons.css" rel="stylesheet">
+
+	<!-- 自定义样式表 -->
+	<link href="css/style.min.css" rel="stylesheet">
+
+	<!-- Materialize js -->
+	<script src="lib/js/jquery.min.js"></script>
+	<script src="lib/js/materialize.min.js"></script>
+
+	<!-- 自己的js -->
+	<!-- <script src="js/main.js"></script> -->
+	<script src="js/navbar.js"></script>
+	<script src="js/go_to_top.js"></script>
+
+	
+</head>
+<body>
+	<div class="post output">
+
+		<!-- 移动端顶部左侧抽屉菜单 开始 -->
+		<div class="navbar-mobile">
+			<nav>
+				<ul id="slide-out" class="side-nav fixed">
+					<li><a href="#"><i class="material-icons">home</i> 首页</a></li>
+					<li><a href="#"><i class="material-icons">format_list_bulleted</i> 专题</a></li>
+					<li class="divider"></li>
+					<li><a href="#"><i class="material-icons">exit_to_app</i> 登录</a></li>
+				</ul>
+				<a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">apps</i></a>
+
+				<ul class="login-wrap right">
+					<li><a href="#" class="login"><i class="material-icons">exit_to_app</i> 登录</a></li>
+					<li><a href="#" class="signup"><i class="material-icons">person_add</i> 注册</a></li>
+				</ul>
+			</nav>
+		</div>
+		<!-- 移动端顶部左侧抽屉菜单 结束 -->
+
+		
+		<!-- 桌面端左侧菜单 开始 -->
+		<div class="navbar navbar-blog expanded">
+			<!-- 菜单靠顶部的按钮组 -->
+			<div class="dropdown">
+				<a class="active logo" role="button" title="首页" href="#">
+					<!-- <b>叼</b> -->
+					<i class="material-icons">home</i>
+					<span class="title">首页</span>
+				</a>
+				<a title="专题" href="#">
+					<!-- <i class="fa fa-th"></i> -->
+					<i class="material-icons">format_list_bulleted</i>
+					<span class="title">专题</span>
+				</a>
+				<a title="XXX" href="#">
+					<i class="material-icons"></i>
+					<span class="title">XXXX</span>
+				</a>
+			</div>
+
+			<!-- 菜单靠底部的按钮组 -->
+			<div class="nav-user">
+				<a href="#" title="显示模式">
+					<i class="material-icons">text_format</i>
+					<span class="title">显示模式</span>
+				</a>
+
+				<a class="signin" title="登录" href="#">
+					<i class="material-icons">exit_to_app</i>
+					<span class="title">登录</span>
+				</a>
+			</div>
+		</div>
+		<!-- 桌面端左侧菜单 结束 -->
+
+		<!-- 主体部分 开始 -->
+		<div class="row-fluid container">
+			<div class="post-bg">
+				<div class="inner-container">
+					<div class="article">
+						<div class="preview">
+							<div class="author-info">
+								<div class="btn btn-small btn-success follow">
+									<a data-signin-link="true" data-toggle="modal" href="/sign_in"><i class="material-icons">add</i>  <span>添加关注</span></a>
+								</div>
+
+								<a class="avatar" href="#">
+									<img src="img/head.png">
+								</a>
+								<a class="author-name blue-link" href="#">
+									<span>测试作者</span>
+								</a>
+								<span class="time" data-shared-at="2016-05-13T21:47:39+08:00">2016.05.22 11:02</span>
+								<div>
+									<span>作者的一句话介绍。</span>
+								</div>
+							</div><!-- author-info 结束 -->
+
+							<h1 class="title">测试标题测试标题测试标题测试标题</h1>
+
+							<div class="meta-top">
+								<span class="wordage">阅 <i>2333</i></span>
+								<span class="views-count">评 <i>23</i></span>
+								<span class="comments-count">叼 <i>233</i></span>
+								<span class="likes-count">赏 <i>23</i></span>
+							</div>
+
+							<div class="show-content">
+								<div class="image-package imagebubble" widget="ImageBubble">
+									<img src="img/article-pic.jpg" class="imagebubble-image">
+									<br>
+									<div class="image-caption"></div>
+								</div>
+								<p>测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试<br></p>
+								<p>测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试<br></p>
+								<blockquote>
+									<p>测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试</p>
+									<p>测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试</p>
+								</blockquote>
+								<p>测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试<br></p>
+							</div>
+						</div>
+					</div><!-- article 结束 -->
+
+					<div class="support-author">
+						<p>打赏说明文字打赏说明文字</p>
+						<a class="btn btn-pay orange darken-3" data-toggle="modal" href="#">¥ 打赏支持</a>
+						<div class="avatar-list">
+							<!-- 鼠标移动到头像上的 Tool Tips 还没加 -->
+							<a href="#" class="avatar" data-nickname="叫我小T" data-created-at="2016-05-03T11:42:41+08:00" title="">
+								<img src="img/head.png">
+							</a>
+							<a href="#" class="avatar" data-nickname="叫我小T" data-created-at="2016-05-03T11:42:41+08:00" title="">
+								<img src="img/head.png">
+							</a>
+							<a href="javascript:void(0)" class="avatar" data-nickname="一位没有留下痕迹的读者" data-created-at="2016-01-19T00:28:00+08:00" title="">
+								<img src="img/head.png">
+							</a>
+							<a class="avatar more" href="javascript:void(null);">
+								<!-- <i class="fa fa-ellipsis-h"></i> -->
+								<i class="material-icons">more_horiz</i>
+							</a>
+						</div>
+					</div><!-- support-author 结束 -->
+
+					<div class="meta-bottom clearfix">
+						<div class="like ">
+							<div class="like-button">
+								<a id="like-note" class="like-content" data-toggle="modal" href="#">
+									<i class="material-icons">favorite_border</i>
+									<!-- <i class="material-icons">favorite</i> -->
+									叼
+								</a>
+							</div>
+							<span id="likes-count" data-toggle="tooltip" data-placement="right" title="" data-original-title="查看所有喜欢的用户">6655</span>
+						</div>
+					</div><!-- meta-bottom 赞（叼）按钮 结束 -->
+
+					<!-- 评论区域开始 -->
+					<div id="comments" class="comment-list clearfix">
+						<div class="comment-head clearfix">
+							233条评论
+							<a class="goto-comment right" data-toggle="modal" href="#">
+								<i class="material-icons">mode_edit</i>
+								添加新评论
+							</a>
+						</div>
+
+						<div id="comment-list">
+							<!-- 一条评论 开始 -->
+							<div class="note-comment clearfix" id="comment-0001">
+								<div class="content">
+									<div class="meta-top">
+										<a class="avatar" href="#">
+											<img src="img/head.png">
+										</a>
+										<p>
+											<a class="author-name" href="#">叫我小T</a>
+										</p>
+										<span class="reply-time">
+											<small><i>2</i> 楼 · </small>
+											<a href="#comment-0001">2015.01.27 11:56</a>
+										</span>
+									</div>
+									<p>评论内容，评论内容评论内容评论内容评论内容评论内容。</p>
+									<div class="comment-footer clearfix">
+										<a data-id="140241" data-nickname="叫我小T" class="reply" href="javascript:void(0)">
+											<i class="material-icons">reply</i>
+											回复
+										</a>
+									</div>
+									<div class="child-comment-list hide">
+										<div data-state="remaining-child-comments">
+											
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- 一条评论 结束 -->
+
+							<!-- 一条评论 开始 -->
+							<div class="note-comment clearfix" id="comment-0002">
+								<div class="content">
+									<div class="meta-top">
+										<a class="avatar" href="#">
+											<img src="img/head.png">
+										</a>
+										<p>
+											<a class="author-name" href="#">叫我小T</a>
+										</p>
+										<span class="reply-time">
+											<small><i>3</i> 楼 · </small>
+											<a href="#comment-0001">2015.01.27 11:56</a>
+										</span>
+									</div>
+									<p>评论内容，评论内容评论内容评论内容评论内容评论内容。</p>
+									<div class="comment-footer clearfix">
+										<a data-id="140241" data-nickname="叫我小T" class="reply" href="javascript:void(0)">
+											<i class="material-icons">reply</i>
+											回复
+										</a>
+									</div>
+									<div class="child-comment-list">
+										<div class="child-comment" id="comment-0003">
+											<p>
+												<a class="blue-link" href="#">某某某</a>：
+												<a href="#" class="maleskine-author" target="_blank">@叫我小T</a> 回复内容回复内容回复内容回复内容
+											</p>
+											<div class="child-comment-footer text-right clearfix">
+												<a data-id="xxxx" data-nickname="叫我小T" class="reply" href="javascript:void(null)"><i class="material-icons">reply</i> 回复</a>
+												<span class="reply-time pull-left">
+													<a href="#comment-0002">2016.04.03 15:58</a>
+												</span>
+											</div>
+										</div>
+
+										<div data-state="remaining-child-comments">
+											
+										</div>
+										<div class="comment-toolbar clearfix">
+											<span class="right">
+												<a data-id="xxxx" class="reply" href="javascript:void(null)">
+													<i class="material-icons">mode_edit</i>
+													添加新回复
+												</a>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- 一条评论 结束 -->
+
+							<p class="load-more">
+								<a class="blue-link" href="#">
+									加载更多
+									<i class="material-icons">arrow_downward</i>
+								</a>
+							</p>
+						</div>
+					</div>
+				</div><!-- inner-container 结束 -->
+			</div><!-- post-bg 结束 -->
+
+			
+		</div><!-- 主体部分 结束 -->
+
+	</div>
+
+	<div class="fixed-btn">
+		<a class="go-top js-jump-top" href="javascript:void(0);"> <i class="material-icons">keyboard_arrow_up</i></a>
+		<a class="writer" href="/writer#/" data-toggle="tooltip" data-original-title="写篇文章"><i class="material-icons">mode_edit</i></a>
+	</div>
+</body>
+</html>

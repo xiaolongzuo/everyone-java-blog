@@ -2,6 +2,8 @@ package com.zuoxiaolong.blog.mapper;
 
 import com.zuoxiaolong.blog.model.persistent.ArticleCategory;
 
+import java.util.List;
+
 public interface ArticleCategoryMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -11,4 +13,5 @@ public interface ArticleCategoryMapper {
 
     int updateByPrimaryKeySelective(ArticleCategory record);
 
+    List<ArticleCategory> getAllArticleCategory();
 }

@@ -13,18 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.zuoxiaolong.blog.web.service;
+package com.zuoxiaolong.blog.service;
 
-import com.zuoxiaolong.blog.model.dto.UserBlogInfo;
+import com.zuoxiaolong.blog.model.persistent.MessageBox;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
- * 用户博客个人主页业务接口
- *
- * @author linjiedeng
- * @date 16/5/14 下午7:49
- * @since 1.0.0
- */
+* @author voyagezhang
+        * @date 2016/5/16
+        * @since 1.0.0
+        */
+public interface MessageBoxService {
+    MessageBox selectByPrimaryKey(Integer id);
 
-public interface WebBlogService {
-    UserBlogInfo selectUserBlogInfoByUsername(String username);
+    List<MessageBox> selectMessageBoxList(Integer offset,Integer limit);
+
+    int insertSelective(MessageBox record);
+
+    int deleteByPrimaryKey(Integer deleteByPrimaryKey);
 }

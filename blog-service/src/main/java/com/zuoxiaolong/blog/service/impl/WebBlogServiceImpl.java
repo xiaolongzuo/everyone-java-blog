@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.zuoxiaolong.blog.web.service.impl;
+package com.zuoxiaolong.blog.service.impl;
 
 import com.zuoxiaolong.blog.mapper.BlogConfigMapper;
 import com.zuoxiaolong.blog.mapper.UserArticleMapper;
@@ -22,7 +22,7 @@ import com.zuoxiaolong.blog.model.dto.UserBlogInfo;
 import com.zuoxiaolong.blog.model.persistent.BlogConfig;
 import com.zuoxiaolong.blog.model.persistent.UserArticle;
 import com.zuoxiaolong.blog.model.persistent.WebUser;
-import com.zuoxiaolong.blog.web.service.WebBlogService;
+import com.zuoxiaolong.blog.service.WebBlogService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -75,5 +75,10 @@ public class WebBlogServiceImpl implements WebBlogService {
         userBlogInfo.setUserArticleList(userArticle);
 
         return userBlogInfo;
+    }
+
+    @Override
+    public int updateBlogConfig(BlogConfig blogConfig) {
+        return blogConfigMapper.updateByWebUserId(blogConfig);
     }
 }
