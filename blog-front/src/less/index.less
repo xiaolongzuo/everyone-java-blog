@@ -381,6 +381,56 @@
 				}
 			}
 		}
+		
+		.list-group-rank.simple{
+			.article-list{
+				&>li{
+					padding-bottom: 0;
+					border: none;
+					.title{
+						font-size: 1.5rem;
+						line-height: 24px;
+						height: 24px;
+						.chip{
+							color: #fff;
+							height: 24px;
+							line-height: 24px;
+							font-size: 12px;
+							position: relative;
+							top: -1px;
+						}
+						a{
+							color: #1C8931;
+							font-weight: normal;
+							&::after{
+								content: '»';
+								padding-left: 0.3rem;
+							}
+						}
+					}
+				}
+			}
+		}
+		.list-group, .list-group-rank{
+			a{
+				&:hover{
+					border-bottom: 1px dashed #F57E42 ;
+					color: #F57E42 ;
+				}
+			}
+			.article-list{
+				&>li{
+					.title{
+						a{
+							&:hover{
+								border-bottom: 1px dashed #F57E42 ;
+								color: #F57E42 ;
+							}
+						}
+					}
+				}
+			}
+		}
 
 	}
 }
