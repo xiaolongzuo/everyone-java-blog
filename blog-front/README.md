@@ -1,12 +1,16 @@
 # 前端说明文档
 
-本文档为 {{项目名称}} 前端部分说明文档，供内部开发人员阅读。
+> 本文档为 `everyone-java-blog` 前端部分说明文档，供内部开发人员阅读。
+> 
+> 更新日志见：[CHANGELOG.md](https://github.com/xiaolongzuo/everyone-java-blog/blob/master/blog-front/README.md)
 
 ## 目录（index）
 
 * [文档结构](#contents)
 * [页面说明](#instruction)
+    - [UI框架（Materialize）](#materialize)
     - [index.html](#indexhtml)
+    - [article.html](#articlehtml)
 * [前端开发参与说明](#develop)
     - [包管理](#bower)
     - [自动化构建](#gulp)
@@ -23,6 +27,7 @@
     - js/                       【脚本文件】
     - lib/                      【第三方库】
     - index.html                【首页】
+    - article.html              【文章页】
     - list.html                 【没有榜单那三条的列表页，暂时没啥用】
 
 
@@ -37,7 +42,9 @@
     - img-original/             【未压缩的图片，新增/删改图片需要放入此目录】
     - js/                       【脚本文件】
     - less/                     【 LESS 样式文件，新增/删改样式在此目录进行】【样式现在较乱，有待重构】
+        + article.less
         + color.less
+        + comment.less
         + index.less
         + main.less
         + media-query.less
@@ -50,12 +57,15 @@
 * gulpfile.js                   【Gulp 配置文件】
 * package.json                  【npm 配置文件】
 * README.md                     【项目说明】
+* CHANGELOG.md                  【更新日志】
 
 
 -----------------------------------------------------------------
 
 
 ## 页面详细说明（Instruction）
+
+### 框架（Materialize）
 
 前端部分没有使用 `Bootstrap` 作 UI 框架，使用了和 `Bootstrap` 同类的 `Materialize` 。因为 `Bootstrap 3` 的组件在处理移动端响应式时候有缺陷，而且 UI 风格和咱们项目差别较大；而 `Bootstrap 4` 还在初期测试，所以没有采用。
 
@@ -77,10 +87,12 @@
 * 主体右侧文章列表部分
     - 文章分类
         + 现在分为三类，当前分类的样式 控制 `<li>` 标签的 `class="active"` 就可以切换了；
-    - 推荐文章 列表（`div.list-group-rank`）
-        + 比下面的 常规列表 ，多了个 
-        > `<div class="rank-ctg"> <span>最多阅读</span> </div>`
-        + 其余部分一样
+    - ~~推荐文章 列表（`div.list-group-rank`）~~
+        + ~~比下面的 常规列表 ，多了个~~
+        > ~~`<div class="rank-ctg"> <span>最多阅读</span> </div>`~~
+        + ~~其余部分一样~~
+    - **推荐文章 列表 精简版** （`div.list-group-rank.simple`）
+        + 新的简化的推荐文章列表，没有缩略图、作者信息、文章阅读量等信息；
     - 常规文章 列表（`div.list-group`）
         + 和上面结构基本一致
 
@@ -106,6 +118,7 @@
 本项目前端部分使用 `Bower` 进行外部的包和依赖的管理。
 
 > `Bower` 官方网站：[http://bower.io/](http://bower.io/)
+> 
 > `Bower` 使用教程：[Bower——前端开发包管理工具](http://www.tuicool.com/articles/v2a2yq)
 
 安装完成后，在命令行中进入项目目录，执行 `bower install --save-dev` ，下载相关资源。
