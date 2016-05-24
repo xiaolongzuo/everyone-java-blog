@@ -27,7 +27,6 @@
     - js/                       【脚本文件】
     - lib/                      【第三方库】
     - index.html                【首页】
-    - article.html              【文章页】
     - list.html                 【没有榜单那三条的列表页，暂时没啥用】
 
 
@@ -42,9 +41,7 @@
     - img-original/             【未压缩的图片，新增/删改图片需要放入此目录】
     - js/                       【脚本文件】
     - less/                     【 LESS 样式文件，新增/删改样式在此目录进行】【样式现在较乱，有待重构】
-        + article.less
         + color.less
-        + comment.less
         + index.less
         + main.less
         + media-query.less
@@ -57,7 +54,6 @@
 * gulpfile.js                   【Gulp 配置文件】
 * package.json                  【npm 配置文件】
 * README.md                     【项目说明】
-* CHANGELOG.md                  【更新日志】
 
 
 -----------------------------------------------------------------
