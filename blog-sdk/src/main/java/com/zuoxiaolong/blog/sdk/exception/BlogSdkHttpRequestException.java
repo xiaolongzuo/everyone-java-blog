@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2016 the original author or authors.
+ * Copyright 2002-2016/5/25 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,25 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package com.zuoxiaolong.blog.sdk.util;
+package com.zuoxiaolong.blog.sdk.exception;
 
 /**
- * 处理string相关的工具方法
- *
- * @author Xiaolong Zuo
+ * @author Boren You
+ * @dateTime 2016/5/25 23:29
  * @since 1.0.0
  */
-public interface StringUtils {
+public class BlogSdkHttpRequestException extends Exception{
 
-    /**
-     * 判断一个字符串是否为空
-     *
-     * @param s 需要检查的字符串
-     * @return 如果s为null或空串则返回true,否则返回false
-     */
-    static boolean isEmpty(String s) {
-        return s == null || s.trim().length() == 0;
+    private static final long serialVersionUID = -9020304012274522297L;
+
+
+    public BlogSdkHttpRequestException(String message) {
+        super(message);
     }
 
+    public BlogSdkHttpRequestException(String message, Exception exception) {
+        super(message, exception);
+    }
+
+    public BlogSdkHttpRequestException(Exception exception) {
+        super(exception);
+    }
 }

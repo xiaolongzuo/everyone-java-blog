@@ -15,15 +15,13 @@
  */
 package com.zuoxiaolong.blog.sdk;
 
-import com.fasterxml.jackson.databind.JavaType;
-import com.zuoxiaolong.blog.sdk.util.http.common.HttpConfig;
-import com.zuoxiaolong.blog.sdk.util.http.exception.HttpProcessException;
-import com.zuoxiaolong.blog.sdk.util.http.httpclient.HttpClientUtil;
+import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
 import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDto;
-import com.zuoxiaolong.blog.sdk.util.JsonMapper;
+import com.zuoxiaolong.blog.sdk.util.http.HttpRequest;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.lang.reflect.Type;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -33,19 +31,28 @@ import java.util.List;
  */
 public class RequestTest {
 
-    public static void main(String[] args){
-        HttpConfig httpConfig = HttpConfig.custom().url("http://localhost:8080/cache/article/rank");
-        try {
-            String resp = HttpClientUtil.send(httpConfig);
+    public static void main(String[] args) throws Exception {
+        HttpRequest request = new HttpRequest();
 
-            JsonMapper jsonMapper = new JsonMapper();
-            JavaType javaType = jsonMapper.createCollectionType(ArrayList.class, ArticleRankResponseDto.class);
-            List<ArticleRankResponseDto> list = jsonMapper.fromJson(resp,javaType);
-            for(ArticleRankResponseDto dto : list){
-                System.out.println("ActionType:"+dto.getActionType());
+        String resp = request.doGet("http://localhost:8080/cache/article/rank");
+
+        System.out.println(resp);
+
+        // Creates the json object which will manage the information received
+        GsonBuilder builder = new GsonBuilder();
+        // Register an adapter to manage the date types as long values
+        builder.registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
+            public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+                return new Date(json.getAsJsonPrimitive().getAsLong());
             }
-        } catch (HttpProcessException e) {
-            e.printStackTrace();
+        });
+        Gson gson = builder.create();
+        Type personListType = new TypeToken<List<ArticleRankResponseDto>>(){}.getType();
+        List<ArticleRankResponseDto> jacks = gson.fromJson(resp, personListType);
+
+        for(ArticleRankResponseDto dto : jacks){
+            System.out.println(dto.getActionType());
         }
+
     }
 }

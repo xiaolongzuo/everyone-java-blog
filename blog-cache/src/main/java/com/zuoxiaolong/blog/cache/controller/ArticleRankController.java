@@ -53,7 +53,7 @@ public class ArticleRankController extends BaseController {
      *
      * @return
      */
-    @RequestMapping(value = "/article/rank", method = RequestMethod.GET)
+    @RequestMapping(value = "/article/rank")
     public ResponseEntity articleRank() {
         logger.info("Starting get article rank...");
         List<ArticleRankResponseDto> articleRankResponseDtoList;
