@@ -337,3 +337,38 @@
   position: relative;
   padding-left: 6rem;
 }
+.rank .recommended .list-group-rank.simple .article-list > li {
+  padding-bottom: 0;
+  border: none;
+}
+.rank .recommended .list-group-rank.simple .article-list > li .title {
+  font-size: 1.5rem;
+  line-height: 24px;
+  height: 24px;
+}
+.rank .recommended .list-group-rank.simple .article-list > li .title .chip {
+  color: #fff;
+  height: 24px;
+  line-height: 24px;
+  font-size: 12px;
+  position: relative;
+  top: -1px;
+}
+.rank .recommended .list-group-rank.simple .article-list > li .title a {
+  color: #1C8931;
+  font-weight: normal;
+}
+.rank .recommended .list-group-rank.simple .article-list > li .title a::after {
+  content: '»';
+  padding-left: 0.3rem;
+}
+.rank .recommended .list-group a:hover,
+.rank .recommended .list-group-rank a:hover {
+  border-bottom: 1px dashed #F57E42 ;
+  color: #F57E42 ;
+}
+.rank .recommended .list-group .article-list > li .title a:hover,
+.rank .recommended .list-group-rank .article-list > li .title a:hover {
+  border-bottom: 1px dashed #F57E42 ;
+  color: #F57E42 ;
+}
