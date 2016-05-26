@@ -73,7 +73,7 @@ public class HttpRequest {
         System.out.println("POST parameter : " + parameterString);
         HttpURLConnection httpURLConnection = openConnection(url);
         httpURLConnection.setDoOutput(true);
-        httpURLConnection.setRequestMethod("POST");
+        httpURLConnection.setRequestMethod(Constants.METHOD_POST);
         httpURLConnection.setRequestProperty("Content-Length", String.valueOf(parameterString.length()));
 
         OutputStream outputStream = null;

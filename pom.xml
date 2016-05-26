@@ -89,6 +89,11 @@
                 <version>${blog.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.zuoxiaolong.blog</groupId>
+                <artifactId>blog-sdk</artifactId>
+                <version>${blog.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.zookeeper</groupId>
                 <artifactId>zookeeper</artifactId>
                 <version>${zookeeper.version}</version>
