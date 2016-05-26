@@ -212,7 +212,7 @@ public class UserArticleServiceManager {
             commendMap.put(QUERY_PARAMETER_CATEGORY_ID, articleCategory.getId());
             commendMap.put(QUERY_PARAMETER_TIME, Timestamp.valueOf(LocalDateTime.now().minus(DEFAULT_DAYS_BEFORE,
                     ChronoUnit.DAYS)));
-            commendUserArticles = this.getTopCommendArticles(readMap);
+            commendUserArticles = this.getTopCommendArticles(commendMap);
             if (!CollectionUtils.isEmpty(commendUserArticles)) {
                 commendDataResult = new ArticleRankResponseDataResult();
                 commendDataResult.setCategoryInfo(articleCategory);
