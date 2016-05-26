@@ -17,20 +17,20 @@ package com.zuoxiaolong.blog.sdk.exception;
 
 /**
  * @author Boren You
- * @date 2016/5/26 17:20
+ * @date 2016/5/26 18:32
  * @since 1.0.0
  */
-public class BlogSdkHttpRequestException extends Exception {
+public class BlogSdkPropertiesUtilException extends Exception {
 
-    public BlogSdkHttpRequestException(String message) {
+    public BlogSdkPropertiesUtilException(String message) {
         super(message);
     }
 
-    public BlogSdkHttpRequestException(Exception cause) {
+    public BlogSdkPropertiesUtilException(Exception cause) {
         super(cause);
     }
 
-    public BlogSdkHttpRequestException(String message, Exception cause) {
+    public BlogSdkPropertiesUtilException(String message, Exception cause) {
         super(message, cause);
     }
 }
