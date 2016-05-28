@@ -26,7 +26,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -53,7 +52,7 @@ public class ArticleRankController extends BaseController {
      *
      * @return
      */
-    @RequestMapping(value = "/article/rank", method = RequestMethod.GET)
+    @RequestMapping(value = "/article/rank")
     public ResponseEntity articleRank() {
         logger.info("Starting get article rank...");
         List<ArticleRankResponseDto> articleRankResponseDtoList;

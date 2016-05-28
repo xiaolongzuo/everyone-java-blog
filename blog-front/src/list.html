@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="starter">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<title>首页 - Blog</title>
+	<!-- bootstrap -->
+	<!-- <link href="lib/css/bootstrap.min.css" rel="stylesheet"> -->
+	<!-- Materialize css -->
+	<link href="lib/css/materialize.min.css" rel="stylesheet">
+	<link href="lib/fonts/material-icons.css" rel="stylesheet">
+	<!-- icon -->
+	<link href="lib/css/ionicons.min.css" rel="stylesheet">
+
+	<!-- 自定义样式表 -->
+	<link href="css/style.min.css" rel="stylesheet">
+
+	<!-- bootstrap js -->
+	<!-- <script src="lib/js/jquery.min.js"></script>
+	<script src="lib/js/bootstrap.min.js"></script> -->
+
+	<!-- Materialize js -->
+	<script src="lib/js/jquery.min.js"></script>
+	<script src="lib/js/materialize.min.js"></script>
+
+
+	<!-- 自己的js -->
+	<!-- <script src="js/main.js"></script> -->
+	
+</head>
+<body>
+	<div class="index list output">
+		<div class="navbar-mobile">
+			<nav>
+				<ul id="slide-out" class="side-nav fixed">
+					<li><a href="#"><i class="material-icons">home</i> 首页</a></li>
+					<li><a href="#"><i class="material-icons">format_list_bulleted</i> 专题</a></li>
+					<li class="divider"></li>
+					<li><a href="#"><i class="material-icons">exit_to_app</i> 登录</a></li>
+				</ul>
+				<a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">apps</i></a>
+
+				<ul class="login-wrap right">
+					<li><a href="#" class="login"><i class="material-icons">exit_to_app</i> 登录</a></li>
+					<li><a href="#" class="signup"><i class="material-icons">person_add</i> 注册</a></li>
+				</ul>
+			</nav>
+		</div>
+		<script>
+			$('.button-collapse').sideNav({
+				menuWidth: 300, // Default is 240
+				edge: 'left', // Choose the horizontal origin
+				closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
+				}
+			);
+		</script>
+
+		<div class="navbar navbar-blog expanded">
+			<div class="dropdown">
+				<a class="active logo" role="button" title="首页" href="#">
+					<!-- <b>叼</b> -->
+					<i class="material-icons">home</i>
+					<span class="title">首页</span>
+				</a>
+				<a title="专题" href="#">
+					<!-- <i class="fa fa-th"></i> -->
+					<i class="material-icons">format_list_bulleted</i>
+					<span class="title">专题</span>
+				</a>
+				<a title="XXX" href="#">
+					<i class="material-icons"></i>
+					<span class="title">XXXX</span>
+				</a>
+			</div>
+			<div class="nav-user">
+				<a href="#" title="显示模式">
+					<i class="material-icons">text_format</i>
+					<span class="title">显示模式</span>
+				</a>
+
+				<a class="signin" title="登录" href="#">
+					<i class="material-icons">exit_to_app</i>
+					<span class="title">登录</span>
+				</a>
+			</div>
+		</div>
+
+		<div class="row-fluid container">
+			<div class="recommended">
+				<div class="row">
+					<div class="col s0 m3 left-aside">
+						<!-- aside -->
+						<div class="cover-img" style="background-image: url('img/recommended.jpg')"></div>
+						<div class="bottom-block">
+							<h1>产品名称</h1>
+							<h3>从心沟通，现在开始</h3>
+							<p>介绍文字</p>
+							<a class="btn btn-success" id="write-button" href="#">提笔写篇文章</a>
+						</div>
+					</div>
+					<div class="col s12 m7 offset-m3 right-content">
+						<div class="page-title">
+							<ul class="recommened-nav navigation clearfix">
+								<li>
+									<a href="index.html">排行</a>
+								</li>
+								<li class="active">
+									<a href="list.html">技术</a>
+								</li>
+								<li class="bonus">
+									<a href="#">职场</a>
+								</li>
+								<li class="bonus">
+									<a href="#">生活</a>
+								</li>
+								<!-- <img class="hide loader-tiny" src="img/tiny.gif" alt="Tiny"> -->
+							</ul>
+						</div><!-- page-title 结束 -->
+
+						<div class="list-container">
+							<div class="article-list thumbnails">
+								<li class="have-img">
+									<a class="wrap-img" href="#"><img src="img/pic-1.png"></a>
+									<div>
+										<p class="list-top">
+											<a class="author-name blue-link" target="_blank" href="#">测试作者</a>
+											<em>·</em>
+											<span class="time" data-shared-at="2016-05-13T21:47:39+08:00">1天之前</span>
+										</p>
+										<h4 class="title"><a target="_blank" href="#">测试标题测试标题测试标题测试标题测试标题</a></h4>
+										<div class="list-footer">
+											<a target="_blank" href="#">
+												阅 <span>2333</span>
+											</a>
+											<a target="_blank" href="#">
+												· 评 <span>23</span>
+											</a>
+											<a target="_blank" href="#">
+												· 叼 <span>233</span>
+											</a>
+											<a target="_blank" href="#">
+												· 赏 <span>233</span>
+											</a>
+										</div>
+									</div>
+								</li>
+
+								<li class="have-img">
+									<a class="wrap-img" href="#"><img src="img/pic-2.png"></a>
+									<div>
+										<p class="list-top">
+											<a class="author-name blue-link" target="_blank" href="#">测试作者</a>
+											<em>·</em>
+											<span class="time" data-shared-at="2016-05-13T21:47:39+08:00">1天之前</span>
+										</p>
+										<h4 class="title"><a target="_blank" href="#">测试标题测试标题测试标题测试标题测试标题</a></h4>
+										<div class="list-footer">
+											<a target="_blank" href="#">
+												阅 <span>2333</span>
+											</a>
+											<a target="_blank" href="#">
+												· 评 <span>23</span>
+											</a>
+											<a target="_blank" href="#">
+												· 叼 <span>233</span>
+											</a>
+											<a target="_blank" href="#">
+												· 赏 <span>233</span>
+											</a>
+										</div>
+									</div>
+								</li>
+
+								<li class="have-img">
+									<a class="wrap-img" href="#"><img src="img/pic-1.png"></a>
+									<div>
+										<p class="list-top">
+											<a class="author-name blue-link" target="_blank" href="#">测试作者</a>
+											<em>·</em>
+											<span class="time" data-shared-at="2016-05-13T21:47:39+08:00">1天之前</span>
+										</p>
+										<h4 class="title"><a target="_blank" href="#">测试标题测试标题测试标题测试标题测试标题</a></h4>
+										<div class="list-footer">
+											<a target="_blank" href="#">
+												阅 <span>2333</span>
+											</a>
+											<a target="_blank" href="#">
+												· 评 <span>23</span>
+											</a>
+											<a target="_blank" href="#">
+												· 叼 <span>233</span>
+											</a>
+											<a target="_blank" href="#">
+												· 赏 <span>233</span>
+											</a>
+										</div>
+									</div>
+								</li>
+
+								<li class="have-img">
+									<a class="wrap-img" href="#"><img src="img/pic-2.png"></a>
+									<div>
+										<p class="list-top">
+											<a class="author-name blue-link" target="_blank" href="#">测试作者</a>
+											<em>·</em>
+											<span class="time" data-shared-at="2016-05-13T21:47:39+08:00">1天之前</span>
+										</p>
+										<h4 class="title"><a target="_blank" href="#">测试标题测试标题测试标题测试标题测试标题</a></h4>
+										<div class="list-footer">
+											<a target="_blank" href="#">
+												阅 <span>2333</span>
+											</a>
+											<a target="_blank" href="#">
+												· 评 <span>23</span>
+											</a>
+											<a target="_blank" href="#">
+												· 叼 <span>233</span>
+											</a>
+											<a target="_blank" href="#">
+												· 赏 <span>233</span>
+											</a>
+										</div>
+									</div>
+								</li>
+
+								<li class="have-img">
+									<a class="wrap-img" href="#"><img src="img/pic-1.png"></a>
+									<div>
+										<p class="list-top">
+											<a class="author-name blue-link" target="_blank" href="#">测试作者</a>
+											<em>·</em>
+											<span class="time" data-shared-at="2016-05-13T21:47:39+08:00">1天之前</span>
+										</p>
+										<h4 class="title"><a target="_blank" href="#">测试标题测试标题测试标题测试标题测试标题</a></h4>
+										<div class="list-footer">
+											<a target="_blank" href="#">
+												阅 <span>2333</span>
+											</a>
+											<a target="_blank" href="#">
+												· 评 <span>23</span>
+											</a>
+											<a target="_blank" href="#">
+												· 叼 <span>233</span>
+											</a>
+											<a target="_blank" href="#">
+												· 赏 <span>233</span>
+											</a>
+										</div>
+									</div>
+								</li>
+
+								<li class="have-img">
+									<a class="wrap-img" href="#"><img src="img/pic-2.png"></a>
+									<div>
+										<p class="list-top">
+											<a class="author-name blue-link" target="_blank" href="#">测试作者</a>
+											<em>·</em>
+											<span class="time" data-shared-at="2016-05-13T21:47:39+08:00">1天之前</span>
+										</p>
+										<h4 class="title"><a target="_blank" href="#">测试标题测试标题测试标题测试标题测试标题</a></h4>
+										<div class="list-footer">
+											<a target="_blank" href="#">
+												阅 <span>2333</span>
+											</a>
+											<a target="_blank" href="#">
+												· 评 <span>23</span>
+											</a>
+											<a target="_blank" href="#">
+												· 叼 <span>233</span>
+											</a>
+											<a target="_blank" href="#">
+												· 赏 <span>233</span>
+											</a>
+										</div>
+									</div>
+								</li>
+
+								<li class="have-img">
+									<a class="wrap-img" href="#"><img src="img/pic-1.png"></a>
+									<div>
+										<p class="list-top">
+											<a class="author-name blue-link" target="_blank" href="#">测试作者</a>
+											<em>·</em>
+											<span class="time" data-shared-at="2016-05-13T21:47:39+08:00">1天之前</span>
+										</p>
+										<h4 class="title"><a target="_blank" href="#">测试标题测试标题测试标题测试标题测试标题</a></h4>
+										<div class="list-footer">
+											<a target="_blank" href="#">
+												阅 <span>2333</span>
+											</a>
+											<a target="_blank" href="#">
+												· 评 <span>23</span>
+											</a>
+											<a target="_blank" href="#">
+												· 叼 <span>233</span>
+											</a>
+											<a target="_blank" href="#">
+												· 赏 <span>233</span>
+											</a>
+										</div>
+									</div>
+								</li>
+
+								<li class="have-img">
+									<a class="wrap-img" href="#"><img src="img/pic-2.png"></a>
+									<div>
+										<p class="list-top">
+											<a class="author-name blue-link" target="_blank" href="#">测试作者</a>
+											<em>·</em>
+											<span class="time" data-shared-at="2016-05-13T21:47:39+08:00">1天之前</span>
+										</p>
+										<h4 class="title"><a target="_blank" href="#">测试标题测试标题测试标题测试标题测试标题</a></h4>
+										<div class="list-footer">
+											<a target="_blank" href="#">
+												阅 <span>2333</span>
+											</a>
+											<a target="_blank" href="#">
+												· 评 <span>23</span>
+											</a>
+											<a target="_blank" href="#">
+												· 叼 <span>233</span>
+											</a>
+											<a target="_blank" href="#">
+												· 赏 <span>233</span>
+											</a>
+										</div>
+									</div>
+								</li>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+
+			
+		</div>
+
+	</div>
+</body>
+</html>
