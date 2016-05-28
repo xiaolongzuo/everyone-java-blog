@@ -60,7 +60,7 @@ public class WebBlogController {
      */
     @RequestMapping("/update/config")
     public int updateBlogConfig(@RequestBody BlogConfig blogConfig) {
-        if(SensitiveWordCheckUtils.isContainSensitiveWord(blogConfig.getIntroduction(), SensitiveWordCheckUtils.MIN_MATCH_TYPE)) {
+        if(SensitiveWordCheckUtils.isContainSensitiveWord(blogConfig.getIntroduction())) {
             return webBlogService.updateBlogConfig(blogConfig);
         } else {
             return -1;

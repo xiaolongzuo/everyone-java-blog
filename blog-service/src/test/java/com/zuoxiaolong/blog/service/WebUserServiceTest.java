@@ -46,7 +46,7 @@ public class WebUserServiceTest extends AbstractSpringContextTest {
     public void testMonitorFileChange() throws Exception {
         Thread.sleep(1000);
         while (true) {
-            if(SensitiveWordCheckUtils.isContaintSensitiveWord("狗日的", 1)) {
+            if(SensitiveWordCheckUtils.isContainSensitiveWord("狗日的")) {
                 System.out.println(true);
                 break;
             }

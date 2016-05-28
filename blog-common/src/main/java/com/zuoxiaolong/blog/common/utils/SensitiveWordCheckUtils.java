@@ -30,10 +30,15 @@ public class SensitiveWordCheckUtils {
 
     public static int MAX_MATCH_TYPE = 2;   //最大匹配规则
 
-    public static boolean isContainSensitiveWord(String sentence, int matchType) {
+    /**
+     * 判断是否含敏感词
+     * @param sentence
+     * @return
+     */
+    public static boolean isContainSensitiveWord(String sentence) {
         boolean flag = false;
         for (int i = 0; i < sentence.length(); i++) {
-            if (hasSensitiveWord(sentence, i, matchType)) {
+            if (hasSensitiveWord(sentence, i)) {
                 return true;
             }
         }
@@ -44,10 +49,9 @@ public class SensitiveWordCheckUtils {
      * 是否包含敏感词
      * @param sentence
      * @param startCheckIndex
-     * @param matchType
      * @return
      */
-    private static boolean hasSensitiveWord(String sentence, int startCheckIndex, int matchType) {
+    private static boolean hasSensitiveWord(String sentence, int startCheckIndex) {
         int matchCount = 0;
         boolean findFlag = false;
         Map currentMap = SensitiveWordMonitor.sensitiveWordMap;
@@ -62,11 +66,7 @@ public class SensitiveWordCheckUtils {
                 // 如果为最后一个匹配规则,结束循环，返回匹配标识数
                 if ("1".equals(currentMap.get("isEnd"))) {
                     findFlag = true;
-
-                    // 最小规则，直接返回,最大规则还需继续查找
-                    if (MIN_MATCH_TYPE == matchType) {
-                        break;
-                    }
+                    break;
                 }
             } else {
                 break;
