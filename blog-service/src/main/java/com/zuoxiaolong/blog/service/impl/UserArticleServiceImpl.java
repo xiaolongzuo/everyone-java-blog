@@ -74,7 +74,7 @@ public class UserArticleServiceImpl implements UserArticleService {
      */
     @Override
     public List<UserArticle> getTopCommendArticles(Map<String, Object> map) {
-        return userArticleMapper.getTopRecommendArticles(map);
+        return userArticleMapper.getTopCommendArticles(map);
     }
 
     /**

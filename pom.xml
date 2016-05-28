@@ -39,6 +39,7 @@
         <module>blog-common</module>
         <module>blog-model</module>
         <module>blog-cache</module>
+        <module>blog-sdk</module>
     </modules>
 
 
@@ -85,6 +86,11 @@
             <dependency>
                 <groupId>com.zuoxiaolong.blog</groupId>
                 <artifactId>blog-service</artifactId>
+                <version>${blog.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zuoxiaolong.blog</groupId>
+                <artifactId>blog-sdk</artifactId>
                 <version>${blog.version}</version>
             </dependency>
             <dependency>
