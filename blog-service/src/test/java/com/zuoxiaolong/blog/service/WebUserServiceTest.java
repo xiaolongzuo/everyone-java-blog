@@ -16,6 +16,8 @@
 
 package com.zuoxiaolong.blog.service;
 
+import com.zuoxiaolong.blog.common.utils.SensitiveWordCheckUtils;
+import com.zuoxiaolong.blog.common.utils.SensitiveWordMonitor;
 import com.zuoxiaolong.blog.model.persistent.WebUser;
 import org.junit.Assert;
 import org.junit.Test;
@@ -40,4 +42,14 @@ public class WebUserServiceTest extends AbstractSpringContextTest {
         Assert.assertNotNull(webUserService.selectByPrimaryKey(1));
     }
 
+    @Test
+    public void testMonitorFileChange() throws Exception {
+        Thread.sleep(1000);
+        while (true) {
+            if(SensitiveWordCheckUtils.isContaintSensitiveWord("狗日的", 1)) {
+                System.out.println(true);
+                break;
+            }
+        }
+    }
 }

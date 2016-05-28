@@ -16,6 +16,7 @@
 
 package com.zuoxiaolong.blog.web.controller;
 
+import com.zuoxiaolong.blog.common.utils.SensitiveWordCheckUtils;
 import com.zuoxiaolong.blog.model.dto.UserBlogInfo;
 import com.zuoxiaolong.blog.model.persistent.BlogConfig;
 import com.zuoxiaolong.blog.service.WebBlogService;
@@ -59,7 +60,7 @@ public class WebBlogController {
      */
     @RequestMapping("/update/config")
     public int updateBlogConfig(@RequestBody BlogConfig blogConfig) {
-        if(true) {  //有待队友脏词过滤工具类写好后使用修改这里
+        if(SensitiveWordCheckUtils.isContainSensitiveWord(blogConfig.getIntroduction(), SensitiveWordCheckUtils.MIN_MATCH_TYPE)) {
             return webBlogService.updateBlogConfig(blogConfig);
         } else {
             return -1;
