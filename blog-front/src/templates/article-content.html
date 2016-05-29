@@ -1,0 +1,35 @@
+<div class="article">
+	<div class="preview">
+		<!-- 作者信息 开始 -->
+		<div class="author-info">
+			<div class="btn btn-small btn-success follow">
+				<a data-signin-link="true" data-toggle="modal" href="#"><i class="material-icons">add</i>  <span>添加关注</span></a>
+			</div>
+
+			<a class="avatar" href="{{article_data.author_info.href}}">
+				<img src="{{article_data.author_info.head}}">
+			</a>
+			<a class="author-name blue-link" href="{{article_data.author_info.href}}">
+				<span>{{article_data.author_info.name}}</span>
+			</a>
+			<span class="time" data-shared-at="{{article_data.datetime}}">{{article_data.timetext}}</span>
+			<div>
+				<span>{{article_data.author_info.desription}}</span>
+			</div>
+		</div><!-- author-info 结束 -->
+		<!-- 作者信息 结束 -->
+
+		<h1 class="title">{{article_data.title}}</h1>
+
+		<div class="meta-top">
+			<span class="views-count">阅 <i>{{article_data.stats.read}}</i></span>
+			<span class="comments-count">评 <i>{{article_data.stats.comment}}</i></span>
+			<span class="likes-count">叼 <i>{{article_data.stats.like}}</i></span>
+			<span class="support-count">赏 <i>{{article_data.stats.support}}</i></span>
+		</div>
+
+		<div class="show-content" ng-bind-html="article_data.content | trustHtml">
+			
+		</div>
+	</div>
+</div><!-- article 结束 -->

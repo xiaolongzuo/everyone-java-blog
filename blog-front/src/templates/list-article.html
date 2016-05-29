@@ -1,0 +1,35 @@
+<div class="list-container container list-group">
+	<div class="row">
+		<div class="col s12">
+			<ul class="article-list thumbnails">
+				<!-- 一条常规文章 开始 -->
+				<li class="have-img" ng-repeat="item in list_items">
+					<a class="wrap-img" ng-href="{{item.href}}"><img ng-src="{{item.img}}"></a>
+					<div>
+						<p class="list-top">
+							<a class="author-name blue-link" target="_blank" href="{{item.author_info.author_href}}">{{item.author_info.author}}</a>
+							<em>·</em>
+							<span class="time" data-shared-at="{{item.datetime}}">{{item.timetext}}</span>
+						</p>
+						<h4 class="title"><a target="_blank" href="{{item.href}}">{{item.title}}</a></h4>
+						<div class="list-footer">
+							<a target="_blank" href="javasript:void(0);">
+								阅 <span>{{item.stats.read}}</span>
+							</a>
+							<a target="_blank" href="javasript:void(0);">
+								· 评 <span>{{item.stats.comment}}</span>
+							</a>
+							<a target="_blank" href="javasript:void(0);">
+								· 叼 <span>{{item.stats.like}}</span>
+							</a>
+							<a target="_blank" href="javasript:void(0);">
+								· 赏 <span>{{item.stats.support}}</span>
+							</a>
+						</div>
+					</div>
+				</li>
+				<!-- 一条常规文章 结束 -->
+			</ul>
+		</div>
+	</div>
+</div><!-- list-container 结束 -->

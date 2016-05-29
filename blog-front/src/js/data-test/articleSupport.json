@@ -1,0 +1,18 @@
+{
+	"intro": "打赏说明文字打赏说明文字",
+	"users": [
+		{
+			"user_id": "user-1",
+			"user_href": "user_url-1",
+			"nickname": "叫我小T",
+			"creat_time": "2016-05-03T11:42:41+08:00",
+			"head": "img/head.png"
+		}, {
+			"user_id": "user-2",
+			"user_href": "user_url-2",
+			"nickname": "叫我小T",
+			"creat_time": "2016-05-03T11:42:41+08:00",
+			"head": "img/head.png"
+		}
+	]
+}
