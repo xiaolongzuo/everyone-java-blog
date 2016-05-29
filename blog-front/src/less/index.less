@@ -61,13 +61,15 @@
 			display: inline-block;
 			color: #999;
 			&:hover {
-				background-color: #eeeeee;
+				background-color: #ccc;
+				border-bottom: 2px solid #1c86ee;
 				color: #555;
+				margin-bottom: -2px;
 			}
 		}
 		.active {
 			margin-bottom: -2px;
-			border-bottom: 2px solid #555;
+			border-bottom: 2px solid #1c86ee;
 			a {
 				color: #555;
 			}
@@ -435,3 +437,58 @@
 	}
 }
 
+/*修改的内容样式*/
+.row .col.m7 {
+	// width: 62%;
+}
+.search-form{
+	width: 200px;
+	height: 52px;
+	margin-left: 200px;
+	position: relative;
+	// margin-top: 10px;
+	padding-top: 10px;
+	
+	#search{
+		font-size: 14px;
+		border-radius: 10px;
+		padding-left: 8px;
+		color: #ccc;
+		margin: 0;
+	}
+	.search-incon{
+		.material-icons{
+			position: absolute;
+			top: 50%;
+			left: 170px;
+			transform: translateY(-50%);
+		}
+	}
+}
+
+.sideBar-user{
+	width: 50px;
+	height: 40px;
+	position: absolute;
+	top: 6px;
+	right: 20px;
+}
+.shadow-block{position: absolute;top: 20px;right: 0px;}
+.sideBar-user  a  img  
+{
+	width:40px;height:40px;border-radius: 20px;border:2px solid  white;
+}
+.sideBar-user  a  img:hover{
+	border-color: red;
+}
+
+.shadow-block{
+	border-left: 4px solid transparent;
+	border-right: 4px solid transparent;
+	border-top: 4px solid black;
+	content: "";
+	display: inline-block;
+	height: 0;
+	vertical-align: top;
+	width: 0;
+}

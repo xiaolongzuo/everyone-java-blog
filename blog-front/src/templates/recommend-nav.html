@@ -1,0 +1,16 @@
+<div class="page-title">
+	<ul class="recommened-nav navigation clearfix">
+		<li ng-repeat="item in items" ng-class="{true: 'active', false: 'bonus'}[item.current]">
+			<a ng-href="{{item.sref}}">{{item.name}}</a>
+		</li>
+		<!-- <img class="hide loader-tiny" src="img/tiny.gif" alt="Tiny"> -->
+		<li class="search">
+			<form class="search-form" method="get" accept-charset="UTF-8" action="" target="_blank">
+				<span  class="search-incon">
+					<input id="search" placeholder="搜索" name="input">
+					<i class="material-icons">search</i>
+				</span>
+			</form>
+		</li>
+	</ul>
+</div><!-- page-title 结束 -->
