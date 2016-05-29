@@ -13,7 +13,7 @@ var gulp = require('gulp'),
 
 gulp.task('default', function() {
 	// 将你的默认的任务代码放在这
-	gulp.start('webserver', 'watch', 'initDistJs', 'imagemin', 'buildJsLib', 'buildCssLib', 'buildFontsLib');
+	gulp.start('webserver', 'watch', 'imagemin', 'buildJsLib', 'buildCssLib', 'buildFontsLib', 'initDistJs');
 });
 
 gulp.task('webserver', function() {
@@ -46,6 +46,7 @@ gulp.task('watch',['setLess'], function() {
 	gulp.watch(['src/img-original/*.{png,jpg,gif,ico}', 'src/img-original/*/*.{png,jpg,gif,ico}'], ['imagemin']);
 	gulp.watch(['src/*.html', 'src/templates/*.html'], ['re_html']);
 	gulp.watch(['src/js/*.js'], ['re_js']);
+	gulp.watch(['src/js/data-test/*.json'], ['re_html']);
 });
 
 gulp.task('re_html', function() {
@@ -53,7 +54,7 @@ gulp.task('re_html', function() {
 		.pipe(connect.reload());
 });
 gulp.task('re_js', function() {
-	gulp.src(['src/js/*.js'])
+	gulp.src(['src/js/*.js', 'src/js/data-test/*.json'])
 		.pipe(connect.reload());
 });
 
@@ -101,9 +102,9 @@ gulp.task('buildFontsLib', ['cleanLib'], function() {
 // 		])
 // 		.pipe(gulp.dest('dist'));
 // });
-gulp.task('initDistJs', ['cleanDistJS'], function() {
+gulp.task('initDistJs', [], function() {
 	gulp.src([
-		'src/js/*.js'
+		'src/js/*'
 		])
         .pipe(gulp.dest('../blog-cache/src/main/webapp/front/js'));
 });
