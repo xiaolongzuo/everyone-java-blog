@@ -45,12 +45,12 @@
   color: #999;
 }
 .page-title > ul a:hover {
-  background-color: #eeeeee;
-  color: #555;
+  background-color: #ccc;
+  color: white;
 }
 .page-title > ul .active {
   margin-bottom: -2px;
-  border-bottom: 2px solid #555;
+  border-bottom: 2px solid   #1c86ee ;
 }
 .page-title > ul .active a {
   color: #555;
@@ -372,3 +372,53 @@
   border-bottom: 1px dashed #F57E42 ;
   color: #F57E42 ;
 }
+/*修改的内容样式*/
+.row .col.m7 {
+    width: 62%;
+}
+.search-form{
+width: 200px;
+height: 30px;
+margin-left: 200px;
+position: relative;
+margin-top: 10px;
+
+}
+.search-form   .search-incon  .material-icons
+{
+    position: absolute;top: 0px;left: 170px;
+}
+.search-form  #search{
+  font-size: 14px;
+  border-radius: 10px;
+  padding-left: 8px;
+  color: #ccc;
+}
+.sideBar-user{
+  width: 50px;height: 40px;
+  position: absolute;top: 6px;
+  right: 20px;
+  
+ 
+}
+.shadow-block{position: absolute;top: 20px;right: 0px;}
+.sideBar-user  a  img  
+{
+  width:40px;height:40px;border-radius: 20px;border:2px solid  white;
+}
+.sideBar-user  a  img:hover{
+  border-color: red;
+}
+
+.shadow-block{
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid black;
+    content: "";
+    display: inline-block;
+    height: 0;
+    vertical-align: top;
+    width: 0;
+}
+
+
