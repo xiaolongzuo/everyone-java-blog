@@ -6,3 +6,24 @@ $(document).ready(function($) {
 		}
 	);
 });
+$(document).ready(function(){
+        var   oUl= document.getElementById("navigation-style");
+        var   oLi=oUl.getElementsByTagName('li');
+        var  i=0;
+        for(i=0;i<oLi.length-1;i++)
+        {
+                oLi[i].onmouseover=function()
+                {
+                        for(i=0;i<oLi.length-1;i++)
+                        {
+                            oLi[i].className="";
+                        }
+                        this.className="active";
+
+                }
+
+        }
+      
+           
+});
+
