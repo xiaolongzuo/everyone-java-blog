@@ -101,7 +101,7 @@
 		.page-title {
 			position: fixed;
 			top: 0;
-			width: 60%;
+			width: 56%;
 			background: white;
 			border-width: 2px;
 			box-sizing: border-box;
@@ -444,7 +444,7 @@
 .search-form{
 	width: 200px;
 	height: 52px;
-	margin-left: 200px;
+	margin-left: 160px;
 	position: relative;
 	// margin-top: 10px;
 	padding-top: 10px;
@@ -473,6 +473,7 @@
 	top: 6px;
 	right: 20px;
 }
+
 .shadow-block{position: absolute;top: 20px;right: 0px;}
 .sideBar-user  a  img  
 {
@@ -492,3 +493,76 @@
 	vertical-align: top;
 	width: 0;
 }
+
+/*右侧菜单*/
+.sidebar-menu{
+     position:absolute;
+     top:55px;
+     right:0px;
+     width:150px;
+     display:block;
+     border:1px  solid  #ccc;
+     box-shadow:#666  0px  0px  10px;
+             .menu-first{
+                     margin:0px;
+                     padding:0px;
+                             li{
+                
+                                line-height:20px;
+                                            a{
+                                                vertical-align:middle;
+                                                  padding:0px;
+                                                 margin:0px;
+                                               display:inline-block;
+                                             }
+                                                 span{
+                                                    position: relative;
+                                                    top: -6px;
+                                                    margin-top: 0px;
+                                                    padding-left:10px;
+                                                   }
+
+                
+                               }
+             }
+}
+/*小三角样式*/
+
+.icon-block{
+    border-bottom: 9px solid #d9d9d9;
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    content: "";
+    display: inline-block;
+    left: 60%;
+    position: absolute;
+    top: -10px;
+
+}
+/*重写图标的样式*/
+.material-icons {
+    direction: ltr;
+    display: inline-block;
+    font-family: "Material Icons";
+    font-feature-settings: "liga";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: normal;
+    height: 1em;
+    letter-spacing: normal;
+    line-height: 1;
+    padding-top: 2px;
+    position: relative;
+    text-rendering: optimizelegibility;
+    text-transform: none;
+    top: 0px;
+    white-space: nowrap;
+    width: 1em;
+    word-wrap: normal;
+    margin-right: 5px;
+}
+.sidebar-menu .menu-first  li:hover{
+    background: #ccc;
+}
+
+
