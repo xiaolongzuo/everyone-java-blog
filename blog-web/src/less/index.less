@@ -25,7 +25,7 @@
 
 .page-title {
 	padding-left: 20px;
-	border-bottom: 2px solid #d9d9d9;
+	/*border-bottom: 2px solid #d9d9d9;*/
 	font-size: 12px;
 	width: 100%;
 	.navigation {
@@ -61,17 +61,17 @@
 			display: inline-block;
 			color: #999;
 			&:hover {
-				background-color: #ccc;
-				border-bottom: 2px solid #1c86ee;
-				color: #555;
+				background-color:  #80deea;
+				/*border-bottom: 2px solid #1c86ee;*/
+				color: white;
 				margin-bottom: -2px;
 			}
 		}
 		.active {
 			margin-bottom: -2px;
-			border-bottom: 2px solid #1c86ee;
+			background-color: #80deea;
 			a {
-				color: #555;
+				color: white;
 			}
 		}
 		&.ui-sortable{
@@ -498,34 +498,11 @@
 /*右侧菜单*/
 .sidebar-menu{
      position:absolute;
-     top:55px;
+     top:50px;
      right:0px;
      width:150px;
      display:none;
-     border:1px  solid  #ccc;
-     box-shadow:#666  0px  0px  10px;
-             .menu-first{
-                     margin:0px;
-                     padding:0px;
-                             li{
-                
-                                line-height:20px;
-                                            a{
-                                                vertical-align:middle;
-                                                  padding:0px;
-                                                 margin:0px;
-                                               display:inline-block;
-                                             }
-                                                 span{
-                                                    position: relative;
-                                                    top: -6px;
-                                                    margin-top: 0px;
-                                                    padding-left:10px;
-                                                   }
-
-                
-                               }
-             }
+         
 }
 /*小三角样式*/
 
@@ -537,33 +514,28 @@
     display: inline-block;
     left: 60%;
     position: absolute;
-    top: -10px;
+    top: -4px;
 
 }
-/*重写图标的样式*/
-.material-icons {
-    direction: ltr;
-    display: inline-block;
-    font-family: "Material Icons";
-    font-feature-settings: "liga";
-    font-size: 20px;
-    font-style: normal;
-    font-weight: normal;
-    height: 1em;
-    letter-spacing: normal;
-    line-height: 1;
-    padding-top: 2px;
-    position: relative;
-    text-rendering: optimizelegibility;
-    text-transform: none;
-    top: 0px;
-    white-space: nowrap;
-    width: 1em;
-    word-wrap: normal;
-    margin-right: 5px;
+.sidebar-menu  .collapsible  li{
+	width:100%;
+
 }
-.sidebar-menu .menu-first  li:hover{
-    background: #ccc;
+.sidebar-menu ul  li:hover{
+	background:#ccc;
+	
 }
+.sidebar-menu ul  li  a:hover{
+	color:#1c86ee;
+}
+.progress{
+	
+	position:fixed;
+	top:47px;
+	left:360px;
+	width:58%;
+}
+
+
 
 
