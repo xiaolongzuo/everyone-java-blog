@@ -6,10 +6,28 @@ $(document).ready(function($) {
 		}
 	);
 });
-/*     
+/*   右侧弹出窗口 */ 
+$(document).ready(function(){
+
+               var  oDiv=document.getElementById("sideBarmenu");
+               var  oSideBar=document.getElementById("sideBar-user");
+               oDiv.onmouseover=oSideBar.onmouseover=function()
+               {
+                     oDiv.style.display="block";
+               }
+                oDiv.onmouseout=oSideBar.onmouseout=function()
+               {
+                     oDiv.style.display="none";
+               }
+         
+         
+               
+
+
+});
       
            
-*/
+
     
 
 

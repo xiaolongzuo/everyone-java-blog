@@ -432,7 +432,7 @@
   top: 55px;
   right: 0px;
   width: 150px;
-  display: block;
+  display: none;
   border: 1px  solid  #ccc;
   box-shadow: #666  0px  0px  10px;
 }
