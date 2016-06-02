@@ -10,10 +10,6 @@
     <import resource="application-context-service.xml"/>
     <import resource="application-context-transaction.xml"/>
 
-    <bean class="com.zuoxiaolong.blog.common.web.HeldPropertyPlaceholderConfigurer">
-        <property name="location" value="classpath:web-config.properties"/>
-    </bean>
-
     <!-- Annotation Config -->
     <context:annotation-config />
 

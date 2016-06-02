@@ -38,7 +38,7 @@ public class AccountController extends BaseController{
     @Autowired
     AccountService accountService;
 
-    @RequestMapping("/register}")
+    @RequestMapping("/register")
     public ModelAndView register(@RequestBody WebUser webUser) {
         ModelAndView modelAndView = new ModelAndView();
 
@@ -56,7 +56,7 @@ public class AccountController extends BaseController{
      * @param webUser
      * @return
      */
-    @RequestMapping("/isused}")
+    @RequestMapping("/isused")
     public ModelAndView isused(@RequestBody WebUser webUser) {
         ModelAndView modelAndView = new ModelAndView();
 
@@ -67,7 +67,7 @@ public class AccountController extends BaseController{
         return modelAndView;
     }
 
-    @RequestMapping("/login}")
+    @RequestMapping("/login")
     public ModelAndView login(@RequestBody WebUser webUser) {
         ModelAndView modelAndView = new ModelAndView();
 
@@ -84,7 +84,7 @@ public class AccountController extends BaseController{
         return modelAndView;
     }
 
-    @RequestMapping("/changepassword}")
+    @RequestMapping("/changepassword")
     public ModelAndView changePassword(@RequestBody WebUser webUser,@RequestParam("newpassword") String newpassword) {
         ModelAndView modelAndView = new ModelAndView();
 
@@ -100,7 +100,7 @@ public class AccountController extends BaseController{
         return modelAndView;
     }
 
-    @RequestMapping("/logout}")
+    @RequestMapping("/logout")
     public String logout(@RequestBody WebUser webUser) {
         getHttpSession().invalidate();
         return "index.jsp";

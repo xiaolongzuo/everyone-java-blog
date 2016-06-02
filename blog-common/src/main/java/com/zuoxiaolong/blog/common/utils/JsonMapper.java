@@ -11,7 +11,6 @@ import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
-
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,13 +30,13 @@ public class JsonMapper extends ObjectMapper {
 
 	private static Logger logger = LoggerFactory.getLogger(JsonMapper.class);
 
-	private static JsonMapper jsonMapper;
+	private static JsonMapper jsonMapper = new JsonMapper().enableSimple();
 
-	public JsonMapper() {
+	private JsonMapper() {
 		this(Include.NON_EMPTY);
 	}
 
-	public JsonMapper(Include include) {
+    private JsonMapper(Include include) {
 		// 设置输出时包含属性的风格
 		if (include != null) {
 			this.setSerializationInclusion(include);
@@ -72,9 +71,6 @@ public class JsonMapper extends ObjectMapper {
 	 * 创建只输出非Null且非Empty(如List.isEmpty)的属性到Json字符串的Mapper,建议在外部接口中使用.
 	 */
 	public static JsonMapper getInstance() {
-		if (jsonMapper == null){
-			jsonMapper = new JsonMapper().enableSimple();
-		}
 		return jsonMapper;
 	}
 

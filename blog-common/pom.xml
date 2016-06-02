@@ -39,12 +39,6 @@
             <artifactId>jackson-module-jaxb-annotations</artifactId>
         </dependency>
 
-        <!-- fastjson json -->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-        </dependency>
-
         <!--  log -->
         <dependency>
             <groupId>log4j</groupId>
