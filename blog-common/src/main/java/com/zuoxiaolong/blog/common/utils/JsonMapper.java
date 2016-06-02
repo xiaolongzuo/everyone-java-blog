@@ -30,7 +30,7 @@ public class JsonMapper extends ObjectMapper {
 
 	private static Logger logger = LoggerFactory.getLogger(JsonMapper.class);
 
-	private static JsonMapper jsonMapper = new JsonMapper().enableSimple();
+	private static JsonMapper jsonMapper = new JsonMapper();
 
 	private JsonMapper() {
 		this(Include.NON_EMPTY);
@@ -48,19 +48,15 @@ public class JsonMapper extends ObjectMapper {
         // 空值处理为空串
 		this.getSerializerProvider().setNullValueSerializer(new JsonSerializer<Object>(){
 			@Override
-			public void serialize(Object value, JsonGenerator jgen,
-					SerializerProvider provider) throws IOException,
-					JsonProcessingException {
-				jgen.writeString("");
+			public void serialize(Object value, JsonGenerator jsonGenerator, SerializerProvider provider) throws IOException {
+				jsonGenerator.writeString("");
 			}
         });
 		// 进行HTML解码。
 		this.registerModule(new SimpleModule().addSerializer(String.class, new JsonSerializer<String>(){
 			@Override
-			public void serialize(String value, JsonGenerator jgen,
-					SerializerProvider provider) throws IOException,
-					JsonProcessingException {
-				jgen.writeString(StringEscapeUtils.unescapeHtml4(value));
+			public void serialize(String value, JsonGenerator jsonGenerator, SerializerProvider provider) throws IOException {
+				jsonGenerator.writeString(StringEscapeUtils.unescapeHtml4(value));
 			}
         }));
 		// 设置时区
@@ -72,99 +68,6 @@ public class JsonMapper extends ObjectMapper {
 	 */
 	public static JsonMapper getInstance() {
 		return jsonMapper;
-	}
-
-	/**
-	 * 创建只输出初始值被改变的属性到Json字符串的Mapper, 最节约的存储方式，建议在内部接口中使用。
-	 */
-	public static JsonMapper nonDefaultMapper() {
-		if (jsonMapper == null){
-			jsonMapper = new JsonMapper(Include.NON_DEFAULT);
-		}
-		return jsonMapper;
-	}
-	
-	/**
-	 * Object可以是POJO，也可以是Collection或数组。
-	 * 如果对象为Null, 返回"null".
-	 * 如果集合为空集合, 返回"[]".
-	 */
-	public String toJson(Object object) {
-		try {
-			return this.writeValueAsString(object);
-		} catch (IOException e) {
-			logger.warn("write to json string error:" + object, e);
-			return null;
-		}
-	}
-
-	/**
-	 * 反序列化POJO或简单Collection如List<String>.
-	 * 
-	 * 如果JSON字符串为Null或"null"字符串, 返回Null.
-	 * 如果JSON字符串为"[]", 返回空集合.
-	 * 
-	 * 如需反序列化复杂Collection如List<MyBean>, 请使用fromJson(String,JavaType)
-	 * @see #fromJson(String, JavaType)
-	 */
-	public <T> T fromJson(String jsonString, Class<T> clazz) {
-		if (StringUtils.isEmpty(jsonString)) {
-			return null;
-		}
-		try {
-			return this.readValue(jsonString, clazz);
-		} catch (IOException e) {
-			logger.warn("parse json string error:" + jsonString, e);
-			return null;
-		}
-	}
-
-	/**
-	 * 反序列化复杂Collection如List<Bean>, 先使用函數createCollectionType构造类型,然后调用本函数.
-	 * @see #createCollectionType(Class, Class...)
-	 */
-	@SuppressWarnings("unchecked")
-	public <T> T fromJson(String jsonString, JavaType javaType) {
-		if (StringUtils.isEmpty(jsonString)) {
-			return null;
-		}
-		try {
-			return (T) this.readValue(jsonString, javaType);
-		} catch (IOException e) {
-			logger.warn("parse json string error:" + jsonString, e);
-			return null;
-		}
-	}
-
-	/**
-	 * 構造泛型的Collection Type如:
-	 * ArrayList<MyBean>, 则调用constructCollectionType(ArrayList.class,MyBean.class)
-	 * HashMap<String,MyBean>, 则调用(HashMap.class,String.class, MyBean.class)
-	 */
-	public JavaType createCollectionType(Class<?> collectionClass, Class<?>... elementClasses) {
-		return this.getTypeFactory().constructParametricType(collectionClass, elementClasses);
-	}
-
-	/**
-	 * 當JSON裡只含有Bean的部分屬性時，更新一個已存在Bean，只覆蓋該部分的屬性.
-	 */
-	@SuppressWarnings("unchecked")
-	public <T> T update(String jsonString, T object) {
-		try {
-			return (T) this.readerForUpdating(object).readValue(jsonString);
-		} catch (JsonProcessingException e) {
-			logger.warn("update json string:" + jsonString + " to object:" + object + " error.", e);
-		} catch (IOException e) {
-			logger.warn("update json string:" + jsonString + " to object:" + object + " error.", e);
-		}
-		return null;
-	}
-
-	/**
-	 * 輸出JSONP格式數據.
-	 */
-	public String toJsonP(String functionName, Object object) {
-		return toJson(new JSONPObject(functionName, object));
 	}
 
 	/**
@@ -223,5 +126,89 @@ public class JsonMapper extends ObjectMapper {
 	public static Object fromJsonString(String jsonString, Class<?> clazz){
 		return JsonMapper.getInstance().fromJson(jsonString, clazz);
 	}
-	
+
+    /**
+     * Object可以是POJO，也可以是Collection或数组。
+     * 如果对象为Null, 返回"null".
+     * 如果集合为空集合, 返回"[]".
+     */
+    public String toJson(Object object) {
+        try {
+            return this.writeValueAsString(object);
+        } catch (IOException e) {
+            logger.warn("write to json string error:" + object, e);
+            return null;
+        }
+    }
+
+    /**
+     * 反序列化POJO或简单Collection如List<String>.
+     *
+     * 如果JSON字符串为Null或"null"字符串, 返回Null.
+     * 如果JSON字符串为"[]", 返回空集合.
+     *
+     * 如需反序列化复杂Collection如List<MyBean>, 请使用fromJson(String,JavaType)
+     * @see #fromJson(String, JavaType)
+     */
+    public <T> T fromJson(String jsonString, Class<T> clazz) {
+        if (StringUtils.isEmpty(jsonString)) {
+            return null;
+        }
+        try {
+            return this.readValue(jsonString, clazz);
+        } catch (IOException e) {
+            logger.warn("parse json string error:" + jsonString, e);
+            return null;
+        }
+    }
+
+    /**
+     * 反序列化复杂Collection如List<Bean>, 先使用函數createCollectionType构造类型,然后调用本函数.
+     * @see #createCollectionType(Class, Class...)
+     */
+    @SuppressWarnings("unchecked")
+    public <T> T fromJson(String jsonString, JavaType javaType) {
+        if (StringUtils.isEmpty(jsonString)) {
+            return null;
+        }
+        try {
+            return (T) this.readValue(jsonString, javaType);
+        } catch (IOException e) {
+            logger.warn("parse json string error:" + jsonString, e);
+            return null;
+        }
+    }
+
+    /**
+     * 構造泛型的Collection Type如:
+     * ArrayList<MyBean>, 则调用constructCollectionType(ArrayList.class,MyBean.class)
+     * HashMap<String,MyBean>, 则调用(HashMap.class,String.class, MyBean.class)
+     */
+    public JavaType createCollectionType(Class<?> collectionClass, Class<?>... elementClasses) {
+        return this.getTypeFactory().constructParametricType(collectionClass, elementClasses);
+    }
+
+    /**
+     * 當JSON裡只含有Bean的部分屬性時，更新一個已存在Bean，只覆蓋該部分的屬性.
+     */
+    @SuppressWarnings("unchecked")
+    public <T> T update(String jsonString, T object) {
+        try {
+            return (T) this.readerForUpdating(object).readValue(jsonString);
+        } catch (JsonProcessingException e) {
+            logger.warn("update json string:" + jsonString + " to object:" + object + " error.", e);
+        } catch (IOException e) {
+            logger.warn("update json string:" + jsonString + " to object:" + object + " error.", e);
+        }
+        return null;
+    }
+
+    /**
+     * 輸出JSONP格式數據.
+     */
+    public String toJsonP(String functionName, Object object) {
+        return toJson(new JSONPObject(functionName, object));
+    }
+
+
 }
