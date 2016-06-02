@@ -41,18 +41,6 @@
             <artifactId>slf4j-api</artifactId>
         </dependency>
 
-        <!-- google java lib -->
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-        </dependency>
-
-        <!-- common util  -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-        </dependency>
-
         <!-- provided -->
         <dependency>
             <groupId>org.springframework</groupId>
