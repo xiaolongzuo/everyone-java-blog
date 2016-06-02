@@ -15,8 +15,6 @@
  */
 package com.zuoxiaolong.blog.sdk;
 
-import com.google.gson.*;
-import com.google.gson.reflect.TypeToken;
 import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDto;
 import com.zuoxiaolong.blog.sdk.util.BlogSdkPropertiesUtil;
 import com.zuoxiaolong.blog.sdk.util.http.HttpRequest;
