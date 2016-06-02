@@ -19,8 +19,6 @@ import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDto;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -40,7 +38,7 @@ public class UtilTest {
         Properties p = new Properties();
 
         try {
-            resourceAsStream   = BlogInterfaceHandler.class.getClassLoader().getResourceAsStream("blog-sdk.properties");
+            resourceAsStream   = BlogSdk.class.getClassLoader().getResourceAsStream("blog-sdk.properties");
             p.load(resourceAsStream);
             System.out.println(p.getProperty("articleRankUrl"));
         } catch (Exception e) {
