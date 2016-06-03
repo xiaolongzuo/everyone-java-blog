@@ -39,6 +39,7 @@
         <module>blog-model</module>
         <module>blog-cache</module>
         <module>blog-sdk</module>
+        <module>blog-fast</module>
     </modules>
 
 
@@ -125,6 +126,11 @@
                 <groupId>log4j</groupId>
                 <artifactId>log4j</artifactId>
                 <version>${log4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>1.1.1</version>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>

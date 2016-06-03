@@ -18,7 +18,7 @@ package com.zuoxiaolong.blog.cache.controller;
 
 import com.google.common.collect.Maps;
 import com.zuoxiaolong.blog.cache.service.UserArticleServiceManager;
-import com.zuoxiaolong.blog.common.web.BaseController;
+import com.zuoxiaolong.blog.common.spring.BaseController;
 import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

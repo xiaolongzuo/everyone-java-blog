@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.common.web;
+package com.zuoxiaolong.blog.common.spring;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;

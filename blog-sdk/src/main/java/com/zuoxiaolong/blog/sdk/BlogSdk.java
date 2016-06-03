@@ -15,11 +15,11 @@
  */
 package com.zuoxiaolong.blog.sdk;
 
-import com.fasterxml.jackson.databind.JavaType;
-import com.zuoxiaolong.blog.common.utils.JsonMapper;
+import com.google.gson.reflect.TypeToken;
+import com.zuoxiaolong.blog.common.utils.HttpUtils;
+import com.zuoxiaolong.blog.common.utils.JsonUtils;
 import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDto;
 import com.zuoxiaolong.blog.sdk.util.BlogSdkPropertiesUtil;
-import com.zuoxiaolong.blog.sdk.util.http.HttpRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,11 +37,8 @@ public interface BlogSdk {
      * @return
      */
     static List<ArticleRankResponseDto> getArticleRank() throws Exception {
-        HttpRequest request = new HttpRequest();
-        String responseString = request.doGet(BlogSdkPropertiesUtil.getProperty("articleRankUrl"));
-        System.out.println(responseString);
-        JavaType javaType = JsonMapper.createCollectionType(ArrayList.class, ArticleRankResponseDto.class);
-        ArrayList<ArticleRankResponseDto> list = JsonMapper.fromJson(responseString, javaType);
+        String responseString = HttpUtils.sendHttpRequest("GET", BlogSdkPropertiesUtil.getProperty("articleRankUrl"));
+        ArrayList<ArticleRankResponseDto> list = JsonUtils.fromJson(responseString, new TypeToken<List<ArticleRankResponseDto>>(){}.getType());
         return list;
     }
 

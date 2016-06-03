@@ -14,34 +14,32 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.common.utils;
-
-import java.io.UnsupportedEncodingException;
+package com.zuoxiaolong.blog.common.bean;
 
 /**
- * 处理string相关的工具方法
- *
  * @author Xiaolong Zuo
  * @since 1.0.0
  */
-public interface StringUtils {
+public enum ExceptionType {
 
-    /**
-     * 判断一个字符串是否为空
-     *
-     * @param s 需要检查的字符串
-     * @return 如果s为null或空串则返回true,否则返回false
-     */
-    static boolean isEmpty(String s) {
-        return s == null || s.trim().length() == 0;
+    NOT_FOUND(404, "数据未找到")
+    ;
+
+    private int code;
+
+    private String message;
+
+    ExceptionType(int code, String message) {
+        this.code = code;
+        this.message = message;
     }
 
-    static byte[] toBytes(String s) {
-        try {
-            return s.getBytes("UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
+    public int getCode() {
+        return code;
+    }
+
+    public String getMessage() {
+        return message;
     }
 
 }

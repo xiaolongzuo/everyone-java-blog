@@ -13,31 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.zuoxiaolong.blog.sdk.util.http.constants;
+
+package com.zuoxiaolong.blog.common.exception;
+
+import com.zuoxiaolong.blog.common.bean.ExceptionType;
 
 /**
- * @author Boren You
- * @dateTime 2016/5/25 22:44
+ * @author Xiaolong Zuo
  * @since 1.0.0
  */
-public interface Constants {
-    String DEFAULT_CHARSET = "UTF-8";
+public class BusinessException extends RuntimeException {
 
-    String PARAMETER_SEPARATOR = "&";
+    private int code;
 
-    String EQUAL_SIGN = "=";
+    private String message;
 
-    String QUESTION_MARK = "?";
+    public BusinessException(ExceptionType exceptionType) {
+        this.code = exceptionType.getCode();
+        this.message = exceptionType.getMessage();
+    }
 
-    Integer DEFAULT_CONNECT_TIMEOUT = 5000;
+    public int getCode() {
+        return code;
+    }
 
-    Integer DEFAULT_READ_TIMEOUT = 5000;
+    @Override
+    public String getMessage() {
+        return message;
+    }
 
-    String DEFAULT_CONTENT_TYPE = "application/x-www-form-urlencoded";
-
-    String METHOD_POST = "POST";
-
-    String METHOD_GET = "GET";
-
-    Integer HTTP_CODE_200 = 200;
 }

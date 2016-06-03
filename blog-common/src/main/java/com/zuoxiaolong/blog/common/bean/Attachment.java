@@ -14,26 +14,27 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.common.web;
+package com.zuoxiaolong.blog.common.bean;
 
-import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
-
-import java.io.IOException;
-import java.util.Properties;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
- * 自定义spring的PropertyPlaceholderConfigurer,支持持有properties.
- *
  * @author Xiaolong Zuo
  * @since 1.0.0
  */
-public class HeldPropertyPlaceholderConfigurer extends PropertyPlaceholderConfigurer {
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class Attachment {
 
-    @Override
-    protected Properties mergeProperties() throws IOException {
-        Properties properties = super.mergeProperties();
-        ConfigurerPropertiesHolder.setProperties(properties);
-        return properties;
-    }
+    private String fileName;
+
+    private byte[] data;
+
+    private String contentType = "application/octet-stream";
 
 }

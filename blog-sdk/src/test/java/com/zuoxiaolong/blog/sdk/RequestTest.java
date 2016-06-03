@@ -15,12 +15,13 @@
  */
 package com.zuoxiaolong.blog.sdk;
 
-import com.fasterxml.jackson.databind.JavaType;
-import com.zuoxiaolong.blog.common.utils.JsonMapper;
+import com.google.gson.reflect.TypeToken;
+import com.zuoxiaolong.blog.common.utils.HttpUtils;
+import com.zuoxiaolong.blog.common.utils.JsonUtils;
 import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDto;
-import com.zuoxiaolong.blog.sdk.util.http.HttpRequest;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Boren You
@@ -30,13 +31,11 @@ import java.util.ArrayList;
 public class RequestTest {
 
     public static void main(String[] args) throws Exception {
-        HttpRequest request = new HttpRequest();
-        String resp = request.doGet("http://localhost:8083/cache/article/rank");
+        String resp = HttpUtils.sendHttpRequest("GET", "http://localhost:8083/cache/article/rank");
         System.out.println(resp);
 
 
-        JavaType javaType = JsonMapper.createCollectionType(ArrayList.class, ArticleRankResponseDto.class);
-        ArrayList<ArticleRankResponseDto> list = JsonMapper.fromJson(resp, javaType);
+        ArrayList<ArticleRankResponseDto> list = JsonUtils.fromJson(resp, new TypeToken<List<ArticleRankResponseDto>>(){}.getType());
 
         for (ArticleRankResponseDto dto : list) {
             System.out.println(dto.getActionType());

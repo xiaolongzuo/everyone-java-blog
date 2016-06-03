@@ -26,11 +26,9 @@ import java.security.NoSuchAlgorithmException;
  * @date 2016/5/14 23:24
  * @since 1.0.0
  */
-public class Md5Utils {
+public interface Md5Utils {
 
-    private Md5Utils(){};
-
-    public static String EncoderByMd5(String str) {
+    static String EncoderByMd5(String str) {
         //确定计算方法
         MessageDigest md5 = null;
         String newstr = "";
@@ -46,4 +44,5 @@ public class Md5Utils {
         }
         return newstr;
     }
+
 }

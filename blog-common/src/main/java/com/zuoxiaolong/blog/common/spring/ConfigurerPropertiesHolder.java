@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.common.web;
+package com.zuoxiaolong.blog.common.spring;
 
 import java.util.Enumeration;
 import java.util.Properties;

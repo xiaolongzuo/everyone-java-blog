@@ -14,34 +14,26 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.common.utils;
+package com.zuoxiaolong.blog.common.spring;
 
-import java.io.UnsupportedEncodingException;
+import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
+
+import java.io.IOException;
+import java.util.Properties;
 
 /**
- * 处理string相关的工具方法
+ * 自定义spring的PropertyPlaceholderConfigurer,支持持有properties.
  *
  * @author Xiaolong Zuo
  * @since 1.0.0
  */
-public interface StringUtils {
+public class HeldPropertyPlaceholderConfigurer extends PropertyPlaceholderConfigurer {
 
-    /**
-     * 判断一个字符串是否为空
-     *
-     * @param s 需要检查的字符串
-     * @return 如果s为null或空串则返回true,否则返回false
-     */
-    static boolean isEmpty(String s) {
-        return s == null || s.trim().length() == 0;
-    }
-
-    static byte[] toBytes(String s) {
-        try {
-            return s.getBytes("UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
+    @Override
+    protected Properties mergeProperties() throws IOException {
+        Properties properties = super.mergeProperties();
+        ConfigurerPropertiesHolder.setProperties(properties);
+        return properties;
     }
 
 }

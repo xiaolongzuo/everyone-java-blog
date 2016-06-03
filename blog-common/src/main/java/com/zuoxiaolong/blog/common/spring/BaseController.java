@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.zuoxiaolong.blog.common.web;
+package com.zuoxiaolong.blog.common.spring;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 
 /**
  * @author Boren You
@@ -148,21 +147,4 @@ public abstract class BaseController {
         return value;
     }
 
-    /**
-     * 客户端返回字符串
-     * @param response
-     * @param string
-     * @return
-     */
-    protected String renderString(HttpServletResponse response, String string, String type) {
-        try {
-            response.reset();
-            response.setContentType(type);
-            response.setCharacterEncoding("utf-8");
-            response.getWriter().print(string);
-            return null;
-        } catch (IOException e) {
-            return null;
-        }
-    }
 }
