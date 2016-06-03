@@ -1,0 +1,14 @@
+<div class="support-author">
+	<p>{{support_data.intro}}</p>
+	<a class="btn btn-pay orange darken-3" data-toggle="modal" href="#">¥ 打赏支持</a>
+	<div class="avatar-list">
+		<!-- 鼠标移动到头像上的 Tool Tips 还没加 -->
+		<a ng-repeat="user in users" ng-href="{{user.user_href}}" class="avatar" data-nickname="{{user.nickname}}" data-created-at="{{user.creat_time}}" title="">
+			<img src="{{user.head}}">
+		</a>
+
+		<a class="avatar more" href="javascript:void(null);">
+			<i class="material-icons">more_horiz</i>
+		</a>
+	</div>
+</div><!-- support-author 结束 -->

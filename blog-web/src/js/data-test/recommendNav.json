@@ -1,0 +1,28 @@
+[
+	{
+		"id": 0,
+		"name": "技术",
+		"current": true,
+		"sref": "list-tech"
+	}, {
+		"id": 1,
+		"name": "职场",
+		"current": false,
+		"sref": "list-job"
+	}, {
+		"id": 2,
+		"name": "生活",
+		"current": false,
+		"sref": "list-life"
+	},  {
+		"id": 3,
+		"name": "新闻热点",
+		"current": false,
+		"sref": "list-news"
+	},  {
+		"id": 4,
+		"name": "2016精选",
+		"current": false,
+		"sref": "list-chosen"
+	}
+]

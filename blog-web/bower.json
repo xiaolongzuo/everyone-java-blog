@@ -1,0 +1,29 @@
+{
+  "name": "java_blog",
+  "description": "JAVA Blog Project",
+  "main": "",
+  "authors": [
+    "xiaotee"
+  ],
+  "license": "MIT",
+  "moduleType": [
+    "node"
+  ],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "jquery": "^2.2.4",
+    "Materialize": "materialize#^0.97.6",
+    "material-design-icons": "^2.2.3",
+    "angular": "angularjs#^1.5.6",
+    "angular-ui-router": "^0.3.0"
+  }
+}

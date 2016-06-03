@@ -20,5 +20,5 @@ blog-dao/src/main/resources/generator-config.xml
 hs_err_pid*
 
 # bower & node files
-**/bower_components
-**/node_modules
+bower_components/
+node_modules/

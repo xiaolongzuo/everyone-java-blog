@@ -34,7 +34,6 @@
         <module>blog-api</module>
         <module>blog-dao</module>
         <module>blog-service</module>
-        <module>blog-web</module>
         <module>blog-admin</module>
         <module>blog-common</module>
         <module>blog-model</module>
@@ -64,6 +63,10 @@
         <shiro.version>1.2.4</shiro.version>
         <mockito.version>1.10.19</mockito.version>
         <derby.version>10.7.1.1</derby.version>
+        <jackson.version>2.2.3</jackson.version>
+        <fastjson.version>1.1.40</fastjson.version>
+        <guava.version>17.0</guava.version>
+        <commons-lang3.version>3.3.2</commons-lang3.version>
     </properties>
 
     <dependencyManagement>
@@ -347,6 +350,51 @@
                 <artifactId>commons-io</artifactId>
                 <version>${commons.io.version}</version>
             </dependency>
+
+
+            <!-- jackson json -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.module</groupId>
+                <artifactId>jackson-module-jaxb-annotations</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <!-- fastjson json -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+
+            <!-- google java lib -->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+
+            <!-- common util  -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

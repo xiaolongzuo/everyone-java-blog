@@ -17,8 +17,8 @@
             <artifactId>blog-model</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
+            <groupId>com.zuoxiaolong.blog</groupId>
+            <artifactId>blog-common</artifactId>
         </dependency>
     </dependencies>
 </project>

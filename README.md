@@ -21,7 +21,7 @@
  > #### 2、进入到你的workspace，执行以下命令下载项目，并且你需要给你的开发工具安装lombok插件，强烈建议使用idea作为你的开发工具。
  > 
  > ```
- > git clone git@github.com:xiaolongzuo/everyone-java-blog.git
+ > git clone git@github.com:EveryoneJavaBlog/everyone-java-blog.git
  > ```
  > 
  > #### 3、进入到clone好的everyone-java-blog目录里，执行以下命令，将你的副本地址加入到你的远端仓库中。
