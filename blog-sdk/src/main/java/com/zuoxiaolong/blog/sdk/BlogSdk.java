@@ -20,6 +20,8 @@ import com.zuoxiaolong.blog.common.utils.JsonMapper;
 import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDto;
 import com.zuoxiaolong.blog.sdk.util.BlogSdkPropertiesUtil;
 import com.zuoxiaolong.blog.sdk.util.http.HttpRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,7 @@ import java.util.List;
  * @since 1.0.0
  */
 public interface BlogSdk {
+    Logger logger = LoggerFactory.getLogger(BlogSdk.class);
 
     /**
      * 从文章排名接口中获取文章数据
@@ -39,6 +42,7 @@ public interface BlogSdk {
     static List<ArticleRankResponseDto> getArticleRank() throws Exception {
         HttpRequest request = new HttpRequest();
         String responseString = request.doGet(BlogSdkPropertiesUtil.getProperty("articleRankUrl"));
+        logger.debug("文章排名列表接口返回：" + responseString);
         System.out.println(responseString);
         JavaType javaType = JsonMapper.createCollectionType(ArrayList.class, ArticleRankResponseDto.class);
         ArrayList<ArticleRankResponseDto> list = JsonMapper.fromJson(responseString, javaType);
