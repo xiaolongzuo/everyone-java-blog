@@ -15,8 +15,6 @@
  */
 package com.zuoxiaolong.blog.sdk;
 
-import com.google.gson.*;
-import com.google.gson.reflect.TypeToken;
 import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDto;
 import com.zuoxiaolong.blog.sdk.util.BlogSdkPropertiesUtil;
 import com.zuoxiaolong.blog.sdk.util.http.HttpRequest;
@@ -30,14 +28,14 @@ import java.util.List;
  * @date 2016/5/26 10:52
  * @since 1.0.0
  */
-public class BlogInterfaceHandler {
+public interface BlogSdk {
 
     /**
      * 从文章排名接口中获取文章数据
      *
      * @return
      */
-    public static List<ArticleRankResponseDto> getArticleRank() throws Exception {
+    static List<ArticleRankResponseDto> getArticleRank() throws Exception {
         HttpRequest request = new HttpRequest();
         String responseString = request.doGet(BlogSdkPropertiesUtil.getProperty("articleRankUrl"));
         System.out.println(responseString);

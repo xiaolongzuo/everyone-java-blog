@@ -26,6 +26,6 @@ import java.util.List;
  */
 public class BlogInterfaceHandlerTest {
     public static void main(String[] args) throws Exception {
-        List<ArticleRankResponseDto> list = BlogInterfaceHandler.getArticleRank();
+        List<ArticleRankResponseDto> list = BlogSdk.getArticleRank();
     }
 }
