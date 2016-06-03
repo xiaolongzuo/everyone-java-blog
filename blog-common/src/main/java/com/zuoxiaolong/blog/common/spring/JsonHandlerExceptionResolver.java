@@ -59,14 +59,24 @@ public class JsonHandlerExceptionResolver implements HandlerExceptionResolver {
                 HandlerMethod handlerMethod = (HandlerMethod) handler;
                 Class<?> beanType = handlerMethod.getBeanType();
                 String methodName = handlerMethod.getMethod().getName();
-                String classMapping = beanType.getDeclaredAnnotation(RequestMapping.class).value()[0];
-                String methodMapping = handlerMethod.getMethodAnnotation(RequestMapping.class).value()[0];
+                RequestMapping controllerRequestMapping = beanType.getDeclaredAnnotation(RequestMapping.class);
+                String classMapping = "";
+                if (controllerRequestMapping != null) {
+                    classMapping = controllerRequestMapping.value()[0];
+                }
+                RequestMapping methodRequestMapping = handlerMethod.getMethodAnnotation(RequestMapping.class);
+                String methodMapping = "";
+                if (methodRequestMapping != null) {
+                    methodMapping = methodRequestMapping.value()[0];
+                }
                 if (!methodMapping.startsWith("/")) {
                     methodMapping = "/" + methodMapping;
                 }
-                String message = "【" + classMapping + methodMapping + "】" + beanType.getSimpleName() + "." + methodName + " execute failed.";
                 Logger logger = LoggerFactory.getLogger(beanType);
-                logger.error(message);
+                logger.error("RequestMapping is:");
+                logger.error(classMapping + methodMapping);
+                logger.error("HandlerMethod is:");
+                logger.error(beanType.getSimpleName() + "." + methodName + "()");
                 logger.error("ParameterMap is:");
                 logger.error(JsonUtils.toJson(parameterMap), exception);
             } catch (Exception e) {
