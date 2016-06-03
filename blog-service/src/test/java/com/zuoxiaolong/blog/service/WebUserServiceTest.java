@@ -41,15 +41,4 @@ public class WebUserServiceTest extends AbstractSpringContextTest {
         webUserService.insert(user);
         Assert.assertNotNull(webUserService.selectByPrimaryKey(1));
     }
-
-    @Test
-    public void testMonitorFileChange() throws Exception {
-        Thread.sleep(1000);
-        while (true) {
-            if(SensitiveWordCheckUtils.isContainSensitiveWord("狗日的")) {
-                System.out.println(true);
-                break;
-            }
-        }
-    }
 }

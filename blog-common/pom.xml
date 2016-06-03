@@ -28,6 +28,10 @@
             <artifactId>spring-web</artifactId>
         </dependency>
 
+        <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        </dependency>
         <!-- jackson json -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -86,11 +90,6 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>${commons-lang3.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>RELEASE</version>
         </dependency>
     </dependencies>
 
