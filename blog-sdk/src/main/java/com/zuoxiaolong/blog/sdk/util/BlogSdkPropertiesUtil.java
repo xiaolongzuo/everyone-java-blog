@@ -15,6 +15,9 @@
  */
 package com.zuoxiaolong.blog.sdk.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -25,6 +28,8 @@ import java.util.Properties;
  * @since 1.0.0
  */
 public class BlogSdkPropertiesUtil {
+
+    Logger logger = LoggerFactory.getLogger(BlogSdkPropertiesUtil.class);
 
     private static final String PROPERTIES_NAME = "blog-sdk.properties";
 
@@ -40,7 +45,7 @@ public class BlogSdkPropertiesUtil {
             inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(PROPERTIES_NAME);
             properties.load(inputStream);
         } catch (IOException e) {
-            System.out.println("Load properties fail : " + e.getMessage());
+            logger.error("Load properties fail : " + e.getMessage());
         } finally {
             if (inputStream != null) {
                 try {
