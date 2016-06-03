@@ -9,7 +9,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 import java.io.IOException;
 
@@ -23,7 +22,7 @@ public interface JsonMapper {
 
     Logger logger = LoggerFactory.getLogger(JsonMapper.class);
 
-	ObjectMapper OBJECT_MAPPER = Jackson2ObjectMapperBuilder.json().build();
+	ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     /**
      * Object可以是POJO，也可以是Collection或数组。
