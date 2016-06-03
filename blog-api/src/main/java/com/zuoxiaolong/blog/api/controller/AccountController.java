@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.zuoxiaolong.blog.web.controller;
+package com.zuoxiaolong.blog.api.controller;
 
 import com.zuoxiaolong.blog.common.utils.Md5Utils;
 import com.zuoxiaolong.blog.common.spring.BaseController;

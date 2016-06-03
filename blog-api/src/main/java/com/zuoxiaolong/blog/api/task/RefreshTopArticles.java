@@ -14,13 +14,17 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.cache.service;
+package com.zuoxiaolong.blog.api.task;
 
+import com.zuoxiaolong.blog.api.cache.ApiCache;
 import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDto;
+import com.zuoxiaolong.blog.service.UserArticleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -31,20 +35,23 @@ import java.util.List;
  * @create 2016-05-15 0:36
  * @since 1.0.0
  */
-public class SchedulingJobManager {
+@Component
+@EnableScheduling
+public class RefreshTopArticles {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    UserArticleServiceManager userArticleServiceManager;
+    private UserArticleService userArticleService;
 
     /**
-     * 文章排名JOB，每五分钟执行一次
+     * 文章排名JOB，每30秒执行一次
      */
-    @Scheduled(cron = "0 */5 * * * *")
+    @Scheduled(cron = "0/30 * * * * *")
     public void articleTopRecommend() {
         logger.info("Starting cron job get article rank!");
-        List<ArticleRankResponseDto> articles = userArticleServiceManager.getArticlesRank();
+        List<ArticleRankResponseDto> articles = userArticleService.getArticlesRank();
+        ApiCache.instance().setArticleRankResponseDtoList(articles);
     }
 
 }

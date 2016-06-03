@@ -13,19 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.zuoxiaolong.blog.cache.controller;
+package com.zuoxiaolong.blog.api.controller;
 
 import com.zuoxiaolong.blog.common.spring.BaseController;
 import com.zuoxiaolong.blog.service.UploadService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * 文件上传接口
@@ -33,7 +30,8 @@ import javax.servlet.http.HttpServletResponse;
  * @author Bing Pei
  * @since 1.0.0
  */
-@RestController
+@Controller
+@RequestMapping("/file")
 public class UploadController extends BaseController {
 
     @Autowired
@@ -42,13 +40,12 @@ public class UploadController extends BaseController {
     /**
      * 文件上传方法
      *
-     * @param request
-     * @param response
      * @param uid 用户编号
      * @param file 上传资源名称
      */
-    @RequestMapping(value = "/cache/upload", method = RequestMethod.POST)
-    public void upload(HttpServletRequest request, HttpServletResponse response, @RequestParam("uid") String uid, @RequestParam("file") MultipartFile [] file) {
-        uploadService.doUpload(request, uid, file);
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    public void upload(@RequestParam("uid") String uid, @RequestParam("file") MultipartFile [] file) {
+        uploadService.doUpload(getHttpServletRequest(), uid, file);
     }
+
 }

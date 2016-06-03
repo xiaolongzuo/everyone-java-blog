@@ -14,35 +14,33 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.cache.service;
+package com.zuoxiaolong.blog.api.controller;
 
-import com.zuoxiaolong.blog.model.persistent.ArticleCategory;
-import com.zuoxiaolong.blog.service.ArticleCategoryService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.zuoxiaolong.blog.api.cache.ApiCache;
+import com.zuoxiaolong.blog.common.spring.BaseController;
+import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDto;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 /**
- * 文章类别服务类
+ * 文章排名Controller
  *
  * @author goozi
- * @create 2016-05-17 19:21
+ * @create 2016-05-17 20:15
  * @since 1.0.0
  */
-@Service
-public class ArticleCategoryServiceManager {
-
-    @Autowired
-    ArticleCategoryService articleCategoryService;
+@RestController
+@RequestMapping("/article")
+public class ArticleRankController extends BaseController {
 
     /**
-     * 查询所有的文章类别
-     *
-     * @return 所有的文章类别信息
+     * 文章排名查询接口
      */
-    public List<ArticleCategory> getAllArticleCategory() {
-        return articleCategoryService.getAllArticleCategory();
+    @RequestMapping(value = "/rank")
+    public List<ArticleRankResponseDto> articleRank() {
+        return ApiCache.instance().getArticleRankResponseDtoList();
     }
 
 }

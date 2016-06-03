@@ -16,10 +16,9 @@
 
 package com.zuoxiaolong.blog.service;
 
-import com.zuoxiaolong.blog.model.persistent.UserArticle;
+import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDto;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * 用户文章接口类
@@ -30,13 +29,6 @@ import java.util.Map;
  */
 public interface UserArticleService {
 
-    List<UserArticle> getTopRecommendArticles(Map<String, Object> map);
+    List<ArticleRankResponseDto> getArticlesRank();
 
-    List<UserArticle> getTopReadArticles(Map<String, Object> map);
-
-    List<UserArticle> getTopCommendArticles(Map<String, Object> map);
-
-    List<UserArticle> getArticlesByCategoryId(Integer categoryId);
-
-    List<UserArticle> getArticleCommentByCategoryId(Integer categoryId);
 }

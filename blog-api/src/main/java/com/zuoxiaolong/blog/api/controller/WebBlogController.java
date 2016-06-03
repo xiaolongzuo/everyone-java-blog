@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.web.controller;
+package com.zuoxiaolong.blog.api.controller;
 
 import com.zuoxiaolong.blog.model.dto.UserBlogInfo;
 import com.zuoxiaolong.blog.model.persistent.BlogConfig;

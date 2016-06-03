@@ -13,24 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.zuoxiaolong.blog.sdk.exception;
+
+package com.zuoxiaolong.blog.api.cache;
+
+import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDto;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.List;
 
 /**
- * @author Boren You
- * @date 2016/5/26 17:20
+ * @author Xiaolong Zuo
  * @since 1.0.0
  */
-public class BlogSdkHttpRequestException extends Exception {
+public class ApiCache {
 
-    public BlogSdkHttpRequestException(String message) {
-        super(message);
+    @Getter
+    @Setter
+    private volatile List<ArticleRankResponseDto> articleRankResponseDtoList;
+
+    private static ApiCache instance = new ApiCache();
+
+    private ApiCache() {}
+
+    public static ApiCache instance() {
+        return instance;
     }
 
-    public BlogSdkHttpRequestException(Exception cause) {
-        super(cause);
-    }
-
-    public BlogSdkHttpRequestException(String message, Exception cause) {
-        super(message, cause);
-    }
 }
