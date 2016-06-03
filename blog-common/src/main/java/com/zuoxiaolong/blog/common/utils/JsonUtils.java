@@ -8,7 +8,7 @@ import com.google.gson.Gson;
 import java.lang.reflect.Type;
 
 /**
- * 简单封装Jackson，实现JSON String<->Java Object的Mapper.
+ * 使用GSON作为Json转换工具
  * @author ThinkGem
  * @author Xiaolong Zuo
  * @since 1.0.0
