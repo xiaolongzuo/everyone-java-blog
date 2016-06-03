@@ -15,14 +15,12 @@
  */
 package com.zuoxiaolong.blog.sdk;
 
-import com.google.gson.*;
-import com.google.gson.reflect.TypeToken;
+import com.fasterxml.jackson.databind.JavaType;
+import com.zuoxiaolong.blog.common.utils.JsonMapper;
 import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDto;
 import com.zuoxiaolong.blog.sdk.util.http.HttpRequest;
 
-import java.lang.reflect.Type;
-import java.util.Date;
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * @author Boren You
@@ -33,22 +31,14 @@ public class RequestTest {
 
     public static void main(String[] args) throws Exception {
         HttpRequest request = new HttpRequest();
-        String resp = request.doGet("http://localhost:8080/cache/article/rank");
+        String resp = request.doGet("http://localhost:8083/cache/article/rank");
         System.out.println(resp);
 
-        // Creates the json object which will manage the information received
-        GsonBuilder builder = new GsonBuilder();
-        // Register an adapter to manage the date types as long values
-        builder.registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
-            public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-                return new Date(json.getAsJsonPrimitive().getAsLong());
-            }
-        });
-        Gson gson = builder.create();
-        Type personListType = new TypeToken<List<ArticleRankResponseDto>>(){}.getType();
-        List<ArticleRankResponseDto> jacks = gson.fromJson(resp, personListType);
 
-        for(ArticleRankResponseDto dto : jacks){
+        JavaType javaType = JsonMapper.createCollectionType(ArrayList.class, ArticleRankResponseDto.class);
+        ArrayList<ArticleRankResponseDto> list = JsonMapper.fromJson(resp, javaType);
+
+        for (ArticleRankResponseDto dto : list) {
             System.out.println(dto.getActionType());
         }
 

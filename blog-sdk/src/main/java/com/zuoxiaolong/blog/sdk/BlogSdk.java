@@ -15,12 +15,13 @@
  */
 package com.zuoxiaolong.blog.sdk;
 
+import com.fasterxml.jackson.databind.JavaType;
+import com.zuoxiaolong.blog.common.utils.JsonMapper;
 import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDto;
 import com.zuoxiaolong.blog.sdk.util.BlogSdkPropertiesUtil;
 import com.zuoxiaolong.blog.sdk.util.http.HttpRequest;
 
-import java.lang.reflect.Type;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,20 +40,9 @@ public interface BlogSdk {
         HttpRequest request = new HttpRequest();
         String responseString = request.doGet(BlogSdkPropertiesUtil.getProperty("articleRankUrl"));
         System.out.println(responseString);
-
-        // Creates the json object which will manage the information received
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        // Register an adapter to manage the date types as long values
-        gsonBuilder.registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
-            public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-                return new Date(json.getAsJsonPrimitive().getAsLong());
-            }
-        });
-        Gson gson = gsonBuilder.create();
-        Type articleRankResponseDtoListType = new TypeToken<List<ArticleRankResponseDto>>() {
-        }.getType();
-        List<ArticleRankResponseDto> articleRankResponseDtos = gson.fromJson(responseString, articleRankResponseDtoListType);
-        return articleRankResponseDtos;
+        JavaType javaType = JsonMapper.createCollectionType(ArrayList.class, ArticleRankResponseDto.class);
+        ArrayList<ArticleRankResponseDto> list = JsonMapper.fromJson(responseString, javaType);
+        return list;
     }
 
 }

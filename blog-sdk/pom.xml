@@ -20,5 +20,10 @@
             <groupId>com.zuoxiaolong.blog</groupId>
             <artifactId>blog-common</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>

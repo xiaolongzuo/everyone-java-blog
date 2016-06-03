@@ -24,6 +24,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,8 +36,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Bing Pei
  * @since 1.0.0
  */
-
-@Controller
+@RestController
 public class UploadController extends BaseController {
 
     @Autowired
@@ -52,6 +52,6 @@ public class UploadController extends BaseController {
      */
     @RequestMapping(value = "/cache/upload", method = RequestMethod.POST)
     public void upload(HttpServletRequest request, HttpServletResponse response, @RequestParam("uid") String uid, @RequestParam("file") MultipartFile [] file) {
-        renderString(response, uploadService.doUpload(request, uid, file));
+        uploadService.doUpload(request, uid, file);
     }
 }
