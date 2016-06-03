@@ -15,8 +15,6 @@
  */
 package com.zuoxiaolong.blog.common.web;
 
-
-import com.zuoxiaolong.blog.common.utils.JsonMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ui.Model;
@@ -148,16 +146,6 @@ public abstract class BaseController {
         HttpServletRequest request = this.getHttpServletRequest();
         Object value = request.getAttribute(name);
         return value;
-    }
-
-    /**
-     * 客户端返回JSON字符串
-     * @param response
-     * @param object
-     * @return
-     */
-    protected String renderString(HttpServletResponse response, Object object) {
-        return renderString(response, JsonMapper.toJsonString(object), "application/json");
     }
 
     /**
