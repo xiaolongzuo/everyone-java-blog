@@ -43,7 +43,6 @@ public interface BlogSdk {
         HttpRequest request = new HttpRequest();
         String responseString = request.doGet(BlogSdkPropertiesUtil.getProperty("articleRankUrl"));
         logger.debug("文章排名列表接口返回：" + responseString);
-        System.out.println(responseString);
         JavaType javaType = JsonMapper.createCollectionType(ArrayList.class, ArticleRankResponseDto.class);
         ArrayList<ArticleRankResponseDto> list = JsonMapper.fromJson(responseString, javaType);
         return list;
