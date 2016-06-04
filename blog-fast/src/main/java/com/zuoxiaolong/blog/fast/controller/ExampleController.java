@@ -14,33 +14,21 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.common.bean;
+package com.zuoxiaolong.blog.fast.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * @author Xiaolong Zuo
  * @since 1.0.0
  */
-public enum ExceptionType {
+@Controller
+public class ExampleController {
 
-    NOT_FOUND(404, "数据未找到"),
-    AUTH_ERROR(401, "授权失败")
-    ;
-
-    private int code;
-
-    private String message;
-
-    ExceptionType(int code, String message) {
-        this.code = code;
-        this.message = message;
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public String getMessage() {
-        return message;
+    @RequestMapping("/example")
+    public String example() {
+        return "example";
     }
 
 }

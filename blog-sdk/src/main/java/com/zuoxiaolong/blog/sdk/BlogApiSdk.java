@@ -14,33 +14,18 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.common.bean;
+package com.zuoxiaolong.blog.sdk;
 
 /**
  * @author Xiaolong Zuo
  * @since 1.0.0
  */
-public enum ExceptionType {
+public class BlogApiSdk {
 
-    NOT_FOUND(404, "数据未找到"),
-    AUTH_ERROR(401, "授权失败")
-    ;
+    private String serverUrl;
 
-    private int code;
-
-    private String message;
-
-    ExceptionType(int code, String message) {
-        this.code = code;
-        this.message = message;
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public String getMessage() {
-        return message;
+    public BlogApiSdk(String serverUrl) {
+        this.serverUrl = serverUrl;
     }
 
 }
