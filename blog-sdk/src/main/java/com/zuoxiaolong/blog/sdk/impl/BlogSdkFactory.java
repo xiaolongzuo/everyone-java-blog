@@ -16,7 +16,7 @@
 
 package com.zuoxiaolong.blog.sdk.impl;
 
-import com.zuoxiaolong.blog.sdk.BlogApiSdk;
+import com.zuoxiaolong.blog.sdk.BlogSdk;
 
 /**
  * blog-api工厂
@@ -24,10 +24,10 @@ import com.zuoxiaolong.blog.sdk.BlogApiSdk;
  * @author Xiaolong Zuo
  * @since 1.0.0
  */
-public interface BlogApiSdkFactory {
+public interface BlogSdkFactory {
 
-    static BlogApiSdk createBlogApiSdk(String serverUrl) {
-        return new BlogApiSdkImpl(serverUrl);
+    static BlogSdk createBlogSdk(String serverUrl) {
+        return new BlogSdkImpl(serverUrl);
     }
 
 }

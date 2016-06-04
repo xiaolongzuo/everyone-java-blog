@@ -17,8 +17,8 @@
 package com.zuoxiaolong.blog.sdk.spring;
 
 import com.zuoxiaolong.blog.common.utils.StringUtils;
-import com.zuoxiaolong.blog.sdk.BlogApiSdk;
-import com.zuoxiaolong.blog.sdk.impl.BlogApiSdkFactory;
+import com.zuoxiaolong.blog.sdk.BlogSdk;
+import com.zuoxiaolong.blog.sdk.impl.BlogSdkFactory;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 
@@ -28,7 +28,7 @@ import org.springframework.beans.factory.InitializingBean;
  * @author Xiaolong Zuo
  * @since 1.0.0
  */
-public class BlogApiSdkFactoryBean implements FactoryBean<BlogApiSdk>, InitializingBean {
+public class BlogSdkFactoryBean implements FactoryBean<BlogSdk>, InitializingBean {
 
     private String serverUrl;
 
@@ -44,13 +44,13 @@ public class BlogApiSdkFactoryBean implements FactoryBean<BlogApiSdk>, Initializ
     }
 
     @Override
-    public BlogApiSdk getObject() throws Exception {
-        return BlogApiSdkFactory.createBlogApiSdk(serverUrl);
+    public BlogSdk getObject() throws Exception {
+        return BlogSdkFactory.createBlogSdk(serverUrl);
     }
 
     @Override
     public Class<?> getObjectType() {
-        return BlogApiSdk.class;
+        return BlogSdk.class;
     }
 
     @Override

@@ -27,16 +27,16 @@ import java.util.Map;
  * @author Xiaolong Zuo
  * @since 1.0.0
  *
- * @see ApiType
+ * @see Api
  */
-public interface BlogApiSdk {
+public interface BlogSdk {
 
-    JsonResponse invokeApi(ApiType apiType);
+    JsonResponse invokeApi(Api api);
 
-    JsonResponse invokeApi(ApiType apiType, Map<String, String> params);
+    JsonResponse invokeApi(Api api, Map<String, String> params);
 
-    JsonResponse invokeApi(ApiType apiType, String attachmentKey, Attachment[] attachments);
+    JsonResponse invokeApi(Api api, String attachmentKey, Attachment[] attachments);
 
-    JsonResponse invokeApi(ApiType apiType, Map<String, String> params, String attachmentKey, Attachment[] attachments);
+    JsonResponse invokeApi(Api api, Map<String, String> params, String attachmentKey, Attachment[] attachments);
 
 }

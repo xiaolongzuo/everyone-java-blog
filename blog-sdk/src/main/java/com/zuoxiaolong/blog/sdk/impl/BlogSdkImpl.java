@@ -21,8 +21,8 @@ import com.zuoxiaolong.blog.common.bean.JsonResponse;
 import com.zuoxiaolong.blog.common.utils.HttpUtils;
 import com.zuoxiaolong.blog.common.utils.JsonUtils;
 import com.zuoxiaolong.blog.common.utils.StringUtils;
-import com.zuoxiaolong.blog.sdk.ApiType;
-import com.zuoxiaolong.blog.sdk.BlogApiSdk;
+import com.zuoxiaolong.blog.sdk.Api;
+import com.zuoxiaolong.blog.sdk.BlogSdk;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,13 +34,13 @@ import java.util.Map;
  * @author Xiaolong Zuo
  * @since 1.0.0
  */
-public class BlogApiSdkImpl implements BlogApiSdk {
+public class BlogSdkImpl implements BlogSdk {
 
-    private static final Logger logger = LoggerFactory.getLogger(BlogApiSdkImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(BlogSdkImpl.class);
 
     private String serverUrl;
 
-    BlogApiSdkImpl(String serverUrl) {
+    BlogSdkImpl(String serverUrl) {
         if (StringUtils.isEmpty(serverUrl)) {
             throw new IllegalArgumentException("serverUrl can't be empty.");
         }
@@ -52,50 +52,50 @@ public class BlogApiSdkImpl implements BlogApiSdk {
     }
 
     @Override
-    public JsonResponse invokeApi(ApiType apiType) {
-        logger.info("Invoke Blog-api : " + apiType);
-        String response = HttpUtils.sendHttpRequest(apiType.getMethod(), apiType.getUrl(serverUrl));
-        return fromJson(response, apiType);
+    public JsonResponse invokeApi(Api api) {
+        logger.info("Invoke Blog-api : " + api);
+        String response = HttpUtils.sendHttpRequest(api.getMethod(), api.getUrl(serverUrl));
+        return fromJson(response, api);
     }
 
     @Override
-    public JsonResponse invokeApi(ApiType apiType, Map<String, String> params) {
-        logger.info("Invoke Blog-api : " + apiType);
-        String response = HttpUtils.sendHttpRequest(apiType.getMethod(), apiType.getUrl(serverUrl), params);
-        return fromJson(response, apiType);
+    public JsonResponse invokeApi(Api api, Map<String, String> params) {
+        logger.info("Invoke Blog-api : " + api);
+        String response = HttpUtils.sendHttpRequest(api.getMethod(), api.getUrl(serverUrl), params);
+        return fromJson(response, api);
     }
 
     @Override
-    public JsonResponse invokeApi(ApiType apiType, String attachmentKey, Attachment[] attachments) {
-        logger.info("Invoke Blog-api : " + apiType);
+    public JsonResponse invokeApi(Api api, String attachmentKey, Attachment[] attachments) {
+        logger.info("Invoke Blog-api : " + api);
         String response;
         try {
-            response = HttpUtils.sendSimpleHttpMultipartRequest(apiType.getUrl(serverUrl), new HashMap<>(), attachmentKey, attachments);
+            response = HttpUtils.sendSimpleHttpMultipartRequest(api.getUrl(serverUrl), new HashMap<>(), attachmentKey, attachments);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return fromJson(response, apiType);
+        return fromJson(response, api);
     }
 
     @Override
-    public JsonResponse invokeApi(ApiType apiType, Map<String, String> params, String attachmentKey, Attachment[] attachments) {
-        logger.info("Invoke Blog-api : " + apiType);
+    public JsonResponse invokeApi(Api api, Map<String, String> params, String attachmentKey, Attachment[] attachments) {
+        logger.info("Invoke Blog-api : " + api);
         String response;
         try {
-            response = HttpUtils.sendSimpleHttpMultipartRequest(apiType.getUrl(serverUrl), params, attachmentKey, attachments);
+            response = HttpUtils.sendSimpleHttpMultipartRequest(api.getUrl(serverUrl), params, attachmentKey, attachments);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return fromJson(response, apiType);
+        return fromJson(response, api);
     }
 
-    private JsonResponse fromJson(String response, ApiType apiType) {
+    private JsonResponse fromJson(String response, Api api) {
         JsonResponse jsonResponse = JsonUtils.fromJson(response, JsonResponse.class);
-        if (apiType.getResultType() == null) {
+        if (api.getResultType() == null) {
             return jsonResponse;
         }
         String dataJson = JsonUtils.toJson(jsonResponse.getData());
-        Object data = JsonUtils.fromJson(dataJson, apiType.getResultType());
+        Object data = JsonUtils.fromJson(dataJson, api.getResultType());
         jsonResponse.setData(data);
         return jsonResponse;
     }

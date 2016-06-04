@@ -9,7 +9,7 @@
     <!-- Annotation Config -->
     <context:annotation-config />
 
-    <bean class="com.zuoxiaolong.blog.sdk.spring.BlogApiSdkFactoryBean">
+    <bean class="com.zuoxiaolong.blog.sdk.spring.BlogSdkFactoryBean">
         <property name="serverUrl" value="http://localhost:8080"/>
     </bean>
 

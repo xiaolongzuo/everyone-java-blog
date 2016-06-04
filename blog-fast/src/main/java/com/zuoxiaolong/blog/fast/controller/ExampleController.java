@@ -18,8 +18,8 @@ package com.zuoxiaolong.blog.fast.controller;
 
 import com.zuoxiaolong.blog.common.spring.BaseController;
 import com.zuoxiaolong.blog.common.utils.CollectionUtils;
-import com.zuoxiaolong.blog.sdk.ApiType;
-import com.zuoxiaolong.blog.sdk.BlogApiSdk;
+import com.zuoxiaolong.blog.sdk.Api;
+import com.zuoxiaolong.blog.sdk.BlogSdk;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,23 +38,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ExampleController extends BaseController{
 
     @Autowired
-    private BlogApiSdk blogApiSdk;
+    private BlogSdk blogSdk;
 
     @RequestMapping("/example1")
     public String example1() {
-        setModelAttribute("result", blogApiSdk.invokeApi(ApiType.example1));
+        setModelAttribute("result", blogSdk.invokeApi(Api.example1));
         return "example";
     }
 
     @RequestMapping("/example2")
     public String example2() {
-        setModelAttribute("result", blogApiSdk.invokeApi(ApiType.example2, CollectionUtils.newMap("name", "zuoxiaolong")));
+        setModelAttribute("result", blogSdk.invokeApi(Api.example2, CollectionUtils.newMap("name", "zuoxiaolong")));
         return "example";
     }
 
     @RequestMapping("/example4")
     public String example4() {
-        setModelAttribute("result", blogApiSdk.invokeApi(ApiType.example4));
+        setModelAttribute("result", blogSdk.invokeApi(Api.example4));
         return "example";
     }
 }

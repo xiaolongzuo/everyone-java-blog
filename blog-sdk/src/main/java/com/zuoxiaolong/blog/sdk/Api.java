@@ -29,7 +29,7 @@ import java.util.List;
  * @author Xiaolong Zuo
  * @since 1.0.0
  */
-public enum ApiType {
+public enum Api {
 
     example1("GET", new TypeToken<List<ArticleCategory>>(){}.getType()),
     example2("GET", ArticleCategory.class),
@@ -42,11 +42,11 @@ public enum ApiType {
 
     private Type resultType;
 
-    ApiType(String method) {
+    Api(String method) {
         this(method, null);
     }
 
-    ApiType(String method, Type resultType) {
+    Api(String method, Type resultType) {
         String[] names = toString().split("_");
         StringBuffer url = new StringBuffer();
         for (int i = 0; i < names.length ; i++) {
