@@ -22,8 +22,12 @@ import com.zuoxiaolong.blog.common.bean.JsonResponse;
 import java.util.Map;
 
 /**
+ * blog-sdk接口,该接口提供了不同种类API调用的方法
+ *
  * @author Xiaolong Zuo
  * @since 1.0.0
+ *
+ * @see ApiType
  */
 public interface BlogApiSdk {
 

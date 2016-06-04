@@ -23,6 +23,9 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 /**
+ * API种类
+ * 没增加一种API的调用支持,就需要在这里添加一个枚举示例
+ *
  * @author Xiaolong Zuo
  * @since 1.0.0
  */

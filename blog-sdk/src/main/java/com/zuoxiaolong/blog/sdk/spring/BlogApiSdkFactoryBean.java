@@ -23,6 +23,8 @@ import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 
 /**
+ * 提供SDK对spring IOC的支持
+ *
  * @author Xiaolong Zuo
  * @since 1.0.0
  */

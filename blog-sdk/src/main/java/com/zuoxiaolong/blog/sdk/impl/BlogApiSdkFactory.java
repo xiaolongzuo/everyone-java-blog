@@ -19,6 +19,8 @@ package com.zuoxiaolong.blog.sdk.impl;
 import com.zuoxiaolong.blog.sdk.BlogApiSdk;
 
 /**
+ * blog-api工厂
+ *
  * @author Xiaolong Zuo
  * @since 1.0.0
  */
