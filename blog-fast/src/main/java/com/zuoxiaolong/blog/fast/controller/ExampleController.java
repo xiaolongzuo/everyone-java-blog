@@ -25,6 +25,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
+ * 这是一个示例控制器
+ *
+ * BlogApiSdk使用spring IOC的方式注入即可
+ *
+ * 调用接口时,选择适当的API种类传入,并且传入API所需要的参数即可调用
+ *
  * @author Xiaolong Zuo
  * @since 1.0.0
  */
