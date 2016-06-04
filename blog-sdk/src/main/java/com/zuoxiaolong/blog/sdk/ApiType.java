@@ -24,16 +24,16 @@ import java.util.List;
 
 /**
  * API种类
- * 没增加一种API的调用支持,就需要在这里添加一个枚举示例
+ * NOTE:每增加一种API的调用支持,就需要在这里添加一个枚举示例
  *
  * @author Xiaolong Zuo
  * @since 1.0.0
  */
 public enum ApiType {
 
-    example1("/example1", "GET", new TypeToken<List<ArticleCategory>>(){}.getType()),
-    example2("/example2", "GET", ArticleCategory.class),
-    example4("/example4", "GET")
+    example1("GET", new TypeToken<List<ArticleCategory>>(){}.getType()),
+    example2("GET", ArticleCategory.class),
+    example4("GET")
     ;
 
     private String url;
@@ -42,13 +42,17 @@ public enum ApiType {
 
     private Type resultType;
 
-    ApiType(String url, String method) {
-        this.url = url;
-        this.method = method;
+    ApiType(String method) {
+        this(method, null);
     }
 
-    ApiType(String url, String method, Type resultType) {
-        this.url = url;
+    ApiType(String method, Type resultType) {
+        String[] names = toString().split("_");
+        StringBuffer url = new StringBuffer();
+        for (int i = 0; i < names.length ; i++) {
+            url.append("/").append(names[i]);
+        }
+        this.url = url.toString();
         this.method = method;
         this.resultType = resultType;
     }
