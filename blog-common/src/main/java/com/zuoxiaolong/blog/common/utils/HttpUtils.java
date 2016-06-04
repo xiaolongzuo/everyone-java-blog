@@ -28,6 +28,8 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
+ * 发送HTTP请求的工具方法类
+ *
  * @author Xiaolong Zuo
  * @since 1.0.0
  */
@@ -35,18 +37,59 @@ public interface HttpUtils {
 
     String DEFAULT_CHARSET = "UTF-8";
 
+    /**
+     * 发送普通的HTTP请求
+     *
+     * @param method
+     * @param url
+     * @return
+     */
     static String sendHttpRequest(String method, String url ) {
-        return sendHttpRequest(url, null, method);
+        return sendHttpRequest(method, url, "");
     }
 
+    /**
+     * 发送普通的HTTP请求
+     *
+     * @param method
+     * @param url
+     * @param params
+     * @return
+     */
+    static String sendHttpRequest(String method, String url , Map<String, String> params) {
+        StringBuffer paramsString = new StringBuffer();
+        if (!CollectionUtils.isEmpty(params)) {
+            for (String key : params.keySet()) {
+                paramsString.append(key).append("=").append(params.get(key)).append("&");
+            }
+        }
+        return sendHttpRequest(method, url, paramsString.length() == 0 ? paramsString.toString() : paramsString.substring(0, paramsString.length() - 1));
+    }
+
+    /**
+     * 发送普通的HTTP请求
+     *
+     * @param method
+     * @param url
+     * @param params
+     * @return
+     */
     static String sendHttpRequest(String method, String url , String params) {
         try {
-            return new String(sendHttpRequestAndGetBytes(url, params, method), DEFAULT_CHARSET);
+            return new String(sendHttpRequestAndGetBytes(method, url, params), DEFAULT_CHARSET);
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
     }
 
+    /**
+     * 发送普通的HTTP请求
+     *
+     * @param method
+     * @param url
+     * @param params
+     * @return
+     */
     static byte[] sendHttpRequestAndGetBytes(String method , String url, String params) {
         try {
             if (method.equals("GET") && params != null) {
@@ -68,10 +111,44 @@ public interface HttpUtils {
         }
     }
 
+    /**
+     * 发送带文件的HTTP请求
+     *
+     * @param url
+     * @param params
+     * @param attachmentKey
+     * @param attachments
+     * @return
+     * @throws IOException
+     */
+    static String sendSimpleHttpMultipartRequest(String url, Map<String, String> params, String attachmentKey, Attachment[] attachments) throws IOException {
+        return sendHttpMultipartRequest(url, CollectionUtils.mapToArrayMap(params), CollectionUtils.newMap(attachmentKey, attachments));
+    }
+
+    /**
+     * 发送带文件的HTTP请求
+     *
+     * @param url
+     * @param params
+     * @param attachmentMap
+     * @return
+     * @throws IOException
+     */
     static String sendHttpMultipartRequest(String url, Map<String, String[]> params, Map<String, Attachment[]> attachmentMap) throws IOException {
         return sendHttpMultipartRequest(url, DEFAULT_CHARSET, new HashMap<>(), params, attachmentMap);
     }
 
+    /**
+     * 发送带文件的HTTP请求
+     *
+     * @param url
+     * @param charset
+     * @param headerMap
+     * @param params
+     * @param attachmentMap
+     * @return
+     * @throws IOException
+     */
     static String sendHttpMultipartRequest(String url, String charset, Map<String, String> headerMap, Map<String, String[]> params, Map<String, Attachment[]> attachmentMap) throws IOException {
         final String enter = "\r\n";
         String BOUNDARY = "---------HttpForward" + UUID.randomUUID().toString();
@@ -85,29 +162,33 @@ public interface HttpUtils {
         connection.setRequestProperty("connection", "Keep-Alive");
         connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + BOUNDARY);
         OutputStream outputStream = connection.getOutputStream();
-        for (String key : params.keySet()) {
-            String[] values = params.get(key);
-            for (String value : values) {
-                StringBuilder stringBuilder = new StringBuilder();
-                stringBuilder.append("--").append(BOUNDARY).append(enter);
-                stringBuilder.append("Content-Disposition: form-data;name=\"" + key + "\"" + enter + enter);
-                byte[] format = stringBuilder.toString().getBytes(charset);
-                outputStream.write(format);
-                outputStream.write(value.getBytes(charset));
-                outputStream.write(enter.getBytes(charset));
+        if (!CollectionUtils.isEmpty(params)) {
+            for (String key : params.keySet()) {
+                String[] values = params.get(key);
+                for (String value : values) {
+                    StringBuilder stringBuilder = new StringBuilder();
+                    stringBuilder.append("--").append(BOUNDARY).append(enter);
+                    stringBuilder.append("Content-Disposition: form-data;name=\"" + key + "\"" + enter + enter);
+                    byte[] format = stringBuilder.toString().getBytes(charset);
+                    outputStream.write(format);
+                    outputStream.write(value.getBytes(charset));
+                    outputStream.write(enter.getBytes(charset));
+                }
             }
         }
-        for(String key : attachmentMap.keySet()) {
-            Attachment[] attachments = attachmentMap.get(key);
-            for (Attachment attachment : attachments) {
-                StringBuilder stringBuilder = new StringBuilder();
-                stringBuilder.append("--").append(BOUNDARY).append(enter);
-                stringBuilder.append("Content-Disposition: form-data;name=\"" + key + "\";filename=\"" + attachment.getFileName() + "\"" + enter);
-                stringBuilder.append("Content-Type:" + attachment.getContentType() + enter + enter);
-                byte[] format = stringBuilder.toString().getBytes(charset);
-                outputStream.write(format);
-                outputStream.write(attachment.getData());
-                outputStream.write(enter.getBytes(charset));
+        if (!CollectionUtils.isEmpty(attachmentMap)) {
+            for (String key : attachmentMap.keySet()) {
+                Attachment[] attachments = attachmentMap.get(key);
+                for (Attachment attachment : attachments) {
+                    StringBuilder stringBuilder = new StringBuilder();
+                    stringBuilder.append("--").append(BOUNDARY).append(enter);
+                    stringBuilder.append("Content-Disposition: form-data;name=\"" + key + "\";filename=\"" + attachment.getFileName() + "\"" + enter);
+                    stringBuilder.append("Content-Type:" + attachment.getContentType() + enter + enter);
+                    byte[] format = stringBuilder.toString().getBytes(charset);
+                    outputStream.write(format);
+                    outputStream.write(attachment.getData());
+                    outputStream.write(enter.getBytes(charset));
+                }
             }
         }
         outputStream.write((enter + "--" + BOUNDARY + "--" + enter).getBytes(charset));

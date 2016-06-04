@@ -24,6 +24,8 @@ import java.util.Properties;
  *
  * @author Xiaolong Zuo
  * @since 1.0.0
+ *
+ * @see HeldPropertyPlaceholderConfigurer
  */
 public class ConfigurerPropertiesHolder {
 

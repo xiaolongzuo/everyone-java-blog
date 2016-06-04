@@ -16,6 +16,11 @@
 
 package com.zuoxiaolong.blog.fast.controller;
 
+import com.zuoxiaolong.blog.common.spring.BaseController;
+import com.zuoxiaolong.blog.common.utils.CollectionUtils;
+import com.zuoxiaolong.blog.sdk.ApiType;
+import com.zuoxiaolong.blog.sdk.BlogApiSdk;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -24,11 +29,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @since 1.0.0
  */
 @Controller
-public class ExampleController {
+public class ExampleController extends BaseController{
 
-    @RequestMapping("/example")
-    public String example() {
+    @Autowired
+    private BlogApiSdk blogApiSdk;
+
+    @RequestMapping("/example1")
+    public String example1() {
+        setModelAttribute("result", blogApiSdk.invokeApi(ApiType.example1));
         return "example";
     }
 
+    @RequestMapping("/example2")
+    public String example2() {
+        setModelAttribute("result", blogApiSdk.invokeApi(ApiType.example2, CollectionUtils.newMap("name", "zuoxiaolong")));
+        return "example";
+    }
+
+    @RequestMapping("/example4")
+    public String example4() {
+        setModelAttribute("result", blogApiSdk.invokeApi(ApiType.example4));
+        return "example";
+    }
 }

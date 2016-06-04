@@ -17,8 +17,12 @@
 package com.zuoxiaolong.blog.common.bean;
 
 /**
+ * 异常类型.
+ *
  * @author Xiaolong Zuo
  * @since 1.0.0
+ *
+ * @see com.zuoxiaolong.blog.common.exception.BusinessException
  */
 public enum ExceptionType {
 

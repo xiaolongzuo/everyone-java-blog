@@ -17,9 +17,7 @@ package com.zuoxiaolong.blog.common.utils;
 
 import sun.misc.BASE64Encoder;
 
-import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 /**
  * @author 郭松涛
@@ -28,21 +26,19 @@ import java.security.NoSuchAlgorithmException;
  */
 public interface Md5Utils {
 
-    static String EncoderByMd5(String str) {
+    static String EncoderByMd5(String s) {
         //确定计算方法
-        MessageDigest md5 = null;
-        String newstr = "";
+        MessageDigest messageDigest;
+        String result;
         try {
-            md5 = MessageDigest.getInstance("MD5");
-            BASE64Encoder base64en = new BASE64Encoder();
+            messageDigest = MessageDigest.getInstance("MD5");
+            BASE64Encoder base64Encoder = new BASE64Encoder();
             //加密后的字符串
-            newstr=base64en.encode(md5.digest(str.getBytes("utf-8")));
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            result = base64Encoder.encode(messageDigest.digest(s.getBytes("utf-8")));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        return newstr;
+        return result;
     }
 
 }
