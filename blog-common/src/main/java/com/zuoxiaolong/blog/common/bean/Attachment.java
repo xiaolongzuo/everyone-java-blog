@@ -14,21 +14,27 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.service;
+package com.zuoxiaolong.blog.common.bean;
 
-import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDto;
-
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
- * 用户文章接口类
- *
- * @author goozi
- * @create 2016-05-15 16:39
+ * @author Xiaolong Zuo
  * @since 1.0.0
  */
-public interface UserArticleService {
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class Attachment {
 
-    List<ArticleRankResponseDto> getArticlesRank();
+    private String fileName;
+
+    private byte[] data;
+
+    private String contentType = "application/octet-stream";
 
 }

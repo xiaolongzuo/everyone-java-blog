@@ -14,21 +14,32 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.service;
-
-import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDto;
-
-import java.util.List;
+package com.zuoxiaolong.blog.common.bean;
 
 /**
- * 用户文章接口类
- *
- * @author goozi
- * @create 2016-05-15 16:39
+ * @author Xiaolong Zuo
  * @since 1.0.0
  */
-public interface UserArticleService {
+public enum ExceptionType {
 
-    List<ArticleRankResponseDto> getArticlesRank();
+    NOT_FOUND(404, "数据未找到")
+    ;
+
+    private int code;
+
+    private String message;
+
+    ExceptionType(int code, String message) {
+        this.code = code;
+        this.message = message;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
 
 }

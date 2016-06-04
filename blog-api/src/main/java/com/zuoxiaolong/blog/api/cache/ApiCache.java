@@ -14,21 +14,30 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.service;
+package com.zuoxiaolong.blog.api.cache;
 
 import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDto;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
 /**
- * 用户文章接口类
- *
- * @author goozi
- * @create 2016-05-15 16:39
+ * @author Xiaolong Zuo
  * @since 1.0.0
  */
-public interface UserArticleService {
+public class ApiCache {
 
-    List<ArticleRankResponseDto> getArticlesRank();
+    @Getter
+    @Setter
+    private volatile List<ArticleRankResponseDto> articleRankResponseDtoList;
+
+    private static ApiCache instance = new ApiCache();
+
+    private ApiCache() {}
+
+    public static ApiCache instance() {
+        return instance;
+    }
 
 }

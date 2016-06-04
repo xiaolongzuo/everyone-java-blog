@@ -14,21 +14,26 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.service;
+package com.zuoxiaolong.blog.common.spring;
 
-import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDto;
+import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 
-import java.util.List;
+import java.io.IOException;
+import java.util.Properties;
 
 /**
- * 用户文章接口类
+ * 自定义spring的PropertyPlaceholderConfigurer,支持持有properties.
  *
- * @author goozi
- * @create 2016-05-15 16:39
+ * @author Xiaolong Zuo
  * @since 1.0.0
  */
-public interface UserArticleService {
+public class HeldPropertyPlaceholderConfigurer extends PropertyPlaceholderConfigurer {
 
-    List<ArticleRankResponseDto> getArticlesRank();
+    @Override
+    protected Properties mergeProperties() throws IOException {
+        Properties properties = super.mergeProperties();
+        ConfigurerPropertiesHolder.setProperties(properties);
+        return properties;
+    }
 
 }

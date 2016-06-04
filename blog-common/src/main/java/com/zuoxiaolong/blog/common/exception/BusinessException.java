@@ -14,21 +14,32 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.service;
+package com.zuoxiaolong.blog.common.exception;
 
-import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDto;
-
-import java.util.List;
+import com.zuoxiaolong.blog.common.bean.ExceptionType;
 
 /**
- * 用户文章接口类
- *
- * @author goozi
- * @create 2016-05-15 16:39
+ * @author Xiaolong Zuo
  * @since 1.0.0
  */
-public interface UserArticleService {
+public class BusinessException extends RuntimeException {
 
-    List<ArticleRankResponseDto> getArticlesRank();
+    private int code;
+
+    private String message;
+
+    public BusinessException(ExceptionType exceptionType) {
+        this.code = exceptionType.getCode();
+        this.message = exceptionType.getMessage();
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    @Override
+    public String getMessage() {
+        return message;
+    }
 
 }

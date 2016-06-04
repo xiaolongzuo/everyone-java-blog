@@ -14,21 +14,33 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.service;
+package com.zuoxiaolong.blog.api.controller;
 
+import com.zuoxiaolong.blog.api.cache.ApiCache;
+import com.zuoxiaolong.blog.common.spring.BaseController;
 import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDto;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 /**
- * 用户文章接口类
+ * 文章排名Controller
  *
  * @author goozi
- * @create 2016-05-15 16:39
+ * @create 2016-05-17 20:15
  * @since 1.0.0
  */
-public interface UserArticleService {
+@RestController
+@RequestMapping("/article")
+public class ArticleRankController extends BaseController {
 
-    List<ArticleRankResponseDto> getArticlesRank();
+    /**
+     * 文章排名查询接口
+     */
+    @RequestMapping(value = "/rank")
+    public List<ArticleRankResponseDto> articleRank() {
+        return ApiCache.instance().getArticleRankResponseDtoList();
+    }
 
 }

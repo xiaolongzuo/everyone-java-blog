@@ -16,6 +16,8 @@
 
 package com.zuoxiaolong.blog.common.utils;
 
+import java.io.UnsupportedEncodingException;
+
 /**
  * 处理string相关的工具方法
  *
@@ -32,6 +34,14 @@ public interface StringUtils {
      */
     static boolean isEmpty(String s) {
         return s == null || s.trim().length() == 0;
+    }
+
+    static byte[] toBytes(String s) {
+        try {
+            return s.getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
