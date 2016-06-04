@@ -10,7 +10,7 @@
     <import resource="application-context-service.xml"/>
     <import resource="application-context-transaction.xml"/>
 
-    <bean class="com.zuoxiaolong.blog.common.web.HeldPropertyPlaceholderConfigurer">
+    <bean class="com.zuoxiaolong.blog.common.spring.HeldPropertyPlaceholderConfigurer">
         <property name="location" value="classpath:admin-config.properties"/>
     </bean>
 

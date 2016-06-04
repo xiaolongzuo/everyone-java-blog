@@ -1,0 +1,10 @@
+<div class="list-container container list-group-rank simple">
+	<ul class="article-list">
+		<li ng-repeat="item in recommend_items">
+			<h4 class="title">
+				<span class="chip light-green darken-1">{{item.category}}</span>
+				<a target="_blank" ng-href="{{item.href}}">{{item.title}}</a>
+			</h4>
+		</li>
+	</ul>
+</div>

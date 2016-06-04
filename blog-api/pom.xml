@@ -9,9 +9,14 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>blog-api</artifactId>
+    <packaging>war</packaging>
     <name>${project.groupId}:${project.artifactId}</name>
 
     <dependencies>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
@@ -19,6 +24,22 @@
         <dependency>
             <groupId>com.zuoxiaolong.blog</groupId>
             <artifactId>blog-service</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.zuoxiaolong.blog</groupId>
+            <artifactId>blog-sdk</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
         </dependency>
     </dependencies>
 
@@ -30,7 +51,7 @@
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <configuration>
                     <path>/</path>
-                    <port>8081</port>
+                    <port>8080</port>
                     <uriEncoding>UTF-8</uriEncoding>
                     <contextReloadable>true</contextReloadable>
                 </configuration>

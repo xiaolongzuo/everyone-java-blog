@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="starter">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<title>首页 - Blog</title>
+
+	<link href="lib/css/materialize.min.css" rel="stylesheet">
+	<link href="lib/fonts/material-icons.css" rel="stylesheet">
+
+	<!-- 自定义样式表 -->
+	<link href="css/style.min.css" rel="stylesheet">
+
+	<!-- Materialize js -->
+	<script src="lib/js/angular.min.js"></script>
+	<script src="lib/js/angular-ui-router.min.js"></script>
+	<script src="lib/js/jquery.min.js"></script>
+	<script src="lib/js/materialize.min.js"></script>
+
+
+	<!-- 自己的js -->
+	<script src="js/app.js"></script>
+	<script src="js/controllers.js"></script>
+	<script src="js/services.js"></script>
+	<script src="js/directives.js"></script>
+
+	<!-- <script src="js/main.js"></script> -->
+	<script src="js/navbar.js"></script>
+
+	
+</head>
+<body>
+	<div class="output" ng-controller="mainCtrl" ng-class="{'post': 'post', 'index': 'index rank'}[now_page]">
+
+		<!-- 移动端顶部左侧抽屉菜单 开始 -->
+		<div class="navbar-mobile">
+			<nav>
+				<ul id="slide-out" class="side-nav fixed">
+					<li><a href="#"><i class="material-icons">home</i> 首页</a></li>
+					<li><a href="#"><i class="material-icons">format_list_bulleted</i> 专题</a></li>
+					<li class="divider"></li>
+					<li><a href="#"><i class="material-icons">exit_to_app</i> 登录</a></li>
+				</ul>
+				<a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">apps</i></a>
+
+				<ul class="login-wrap right">
+					<li><a href="#" class="login"><i class="material-icons">exit_to_app</i> 登录</a></li>
+					<li><a href="#" class="signup"><i class="material-icons">person_add</i> 注册</a></li>
+				</ul>
+			</nav>
+		</div>
+		<!-- 移动端顶部左侧抽屉菜单 结束 -->
+
+		
+		<!-- 桌面端左侧菜单 开始 -->
+		<div class="navbar navbar-blog expanded">
+			<!-- 菜单靠顶部的按钮组 -->
+			<div class="dropdown">
+				<a class="active logo" role="button" title="首页" href="#">
+					<!-- <b>叼</b> -->
+					<i class="material-icons">home</i>
+					<span class="title">首页</span>
+				</a>
+				<a title="专题" href="#">
+					<!-- <i class="fa fa-th"></i> -->
+					<i class="material-icons">format_list_bulleted</i>
+					<span class="title">专题</span>
+				</a>
+				<a title="猿友圈" href="#">
+					<i class="material-icons">person_pin</i>
+					<span class="title">猿友圈</span>
+				</a>
+				<a title="写文章" href="#">
+					<i class="material-icons">mode_edit</i>
+					<span class="title">写文章</span>
+				</a>
+			</div>
+
+			<!-- 菜单靠底部的按钮组 -->
+			<div class="nav-user">
+				<a href="#" title="我的主页">
+					<i class="Tiny material-icons">contact_phone</i>
+					<span class="title">我的主页</span>
+				</a>
+			             <a href="#" title="我的收藏">
+					<i class="Tiny material-icons">redeem</i>
+					<span class="title">我的收藏</span>
+				</a>
+			             <a href="#" title="提醒">
+					<i class="Tiny material-icons">volume_down</i>
+					<span class="title">提醒</span>
+				</a>
+				  <a href="#" title="邮件">
+					<i class="Tiny material-icons">movie</i>
+					<span class="title">邮件</span>
+				</a>
+				<a href="#" title="显示模式">
+					<i class="Tiny material-icons">text_format</i>
+					<span class="title">显示模式</span>
+				</a>
+				<a href="#" title="设置">
+					<i class="Tiny material-icons">settings</i>
+					<span class="title">设置</span>
+				</a>
+				<a class="signin" title="登出" href="#">
+					<i class="Small material-icons">exit_to_app</i>
+					<span class="title">登出</span>
+				</a>
+			</div>
+		</div>
+		<!-- 桌面端左侧菜单 结束 -->
+
+		<!-- 主体部分 开始 -->
+		<div class="row-fluid container">
+			<div ui-view>
+				{{test}}
+			</div>
+		</div><!-- 主体部分 结束 -->
+
+	</div>
+
+	<!-- 右下角固定浮动按钮 -->
+	<div class="fixed-btn">
+		<a class="go-top js-jump-top" href="javascript:void(0);"> <i class="material-icons">keyboard_arrow_up</i></a>
+		<a class="writer" href="/writer#/" data-toggle="tooltip" data-original-title="写篇文章"><i class="material-icons">mode_edit</i></a>
+	</div>
+</body>
+</html>

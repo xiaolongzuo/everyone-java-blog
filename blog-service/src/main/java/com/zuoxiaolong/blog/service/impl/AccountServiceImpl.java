@@ -15,7 +15,6 @@
  */
 package com.zuoxiaolong.blog.service.impl;
 
-import com.zuoxiaolong.blog.common.utils.Md5Utils;
 import com.zuoxiaolong.blog.mapper.WebUserMapper;
 import com.zuoxiaolong.blog.model.persistent.WebUser;
 import com.zuoxiaolong.blog.service.AccountService;

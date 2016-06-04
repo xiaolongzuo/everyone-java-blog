@@ -17,14 +17,20 @@
 package com.zuoxiaolong.blog.service.impl;
 
 import com.zuoxiaolong.blog.mapper.UserArticleMapper;
+import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDataResult;
+import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDto;
+import com.zuoxiaolong.blog.model.persistent.ArticleCategory;
 import com.zuoxiaolong.blog.model.persistent.UserArticle;
+import com.zuoxiaolong.blog.service.ArticleCategoryService;
 import com.zuoxiaolong.blog.service.UserArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
-import java.util.List;
-import java.util.Map;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
 
 /**
  * 用户文章服务类
@@ -34,25 +40,49 @@ import java.util.Map;
  * @since 1.0.0
  */
 @Service
-@Transactional(readOnly = true)
 public class UserArticleServiceImpl implements UserArticleService {
 
-    UserArticleMapper userArticleMapper;
+    @Autowired
+    private UserArticleMapper userArticleMapper;
+
+    //默认1
+    public static final Integer TOP_NUM = 1;
+    //默认推前的天数
+    public static final Integer DEFAULT_DAYS_BEFORE = 1;
+    //没有查询到排名结果是往前推的天数
+    public static final Integer DEFAULT_DAYS_BEFORE_PLUS = 3;
+
+    public static final String QUERY_PARAMETER_TIME = "time";
+
+    public static final String QUERY_PARAMETER_CATEGORY_ID = "categoryId";
+
+    //推荐
+    public static final String ACTION_TYPE_RECOMMEND = "1";
+    //阅读
+    public static final String ACTION_TYPE_READ = "2";
+    //评论
+    public static final String ACTION_TYPE_COMMEND = "3";
 
     @Autowired
-    public UserArticleServiceImpl(UserArticleMapper userArticleMapper) {
-        this.userArticleMapper = userArticleMapper;
-    }
+    private ArticleCategoryService articleCategoryServiceManager;
 
     /**
-     * 按照类别和文章发布时间取出推荐文章列表
+     * 按照类别和文章发布时间取出评论文章列表
      *
      * @param map
      * @return
      */
-    @Override
-    public List<UserArticle> getTopRecommendArticles(Map<String, Object> map) {
-        return userArticleMapper.getTopRecommendArticles(map);
+    private List<UserArticle> getTopCommendArticles(Map<String, Object> map) {
+        List<UserArticle> userArticles = userArticleMapper.getTopCommendArticles(map);
+        List<UserArticle> recommendUserArticle = userArticleMapper.getArticleCommentByCategoryId((Integer) map.get(QUERY_PARAMETER_CATEGORY_ID));
+        if (CollectionUtils.isEmpty(userArticles) && !CollectionUtils.isEmpty(recommendUserArticle)) {
+            //每次往前加DEFAULT_DAYS_BEFORE_PLUS天
+            map.put(QUERY_PARAMETER_TIME, Timestamp.valueOf(((Timestamp) map.get(QUERY_PARAMETER_TIME))
+                    .toLocalDateTime()
+                    .minus(DEFAULT_DAYS_BEFORE_PLUS, ChronoUnit.DAYS)));
+            userArticles = this.getTopReadArticlesByCategoryIdAndTime(map);
+        }
+        return userArticles;
     }
 
     /**
@@ -61,42 +91,121 @@ public class UserArticleServiceImpl implements UserArticleService {
      * @param map
      * @return
      */
-    @Override
-    public List<UserArticle> getTopReadArticles(Map<String, Object> map) {
-        return userArticleMapper.getTopReadArticles(map);
+    private List<UserArticle> getTopReadArticlesByCategoryIdAndTime(Map<String, Object> map) {
+        List<UserArticle> userArticles = userArticleMapper.getTopReadArticles(map);
+        List<UserArticle> articles = userArticleMapper.getArticlesByCategoryId((Integer) map.get(QUERY_PARAMETER_CATEGORY_ID));
+        if (CollectionUtils.isEmpty(userArticles) && !CollectionUtils.isEmpty(articles)) {
+            //每次往前加DEFAULT_DAYS_BEFORE_PLUS天
+            map.put(QUERY_PARAMETER_TIME, Timestamp.valueOf(((Timestamp) map.get(QUERY_PARAMETER_TIME))
+                    .toLocalDateTime()
+                    .minus(DEFAULT_DAYS_BEFORE_PLUS, ChronoUnit.DAYS)));
+            userArticles = this.getTopReadArticlesByCategoryIdAndTime(map);
+        }
+        return userArticles;
     }
 
     /**
-     * 按照类别和文章发布时间取出评论文章列表
+     * 按照类别和文章发布时间取出推荐文章列表
      *
      * @param map
      * @return
      */
-    @Override
-    public List<UserArticle> getTopCommendArticles(Map<String, Object> map) {
-        return userArticleMapper.getTopRecommendArticles(map);
+    private List<UserArticle> getTopRecommendArticlesByCategoryIdAndTime(Map<String, Object> map) {
+        List<UserArticle> userArticles = userArticleMapper.getTopRecommendArticles(map);
+        List<UserArticle> articles = userArticleMapper.getArticlesByCategoryId((Integer) map.get(QUERY_PARAMETER_CATEGORY_ID));
+        if (CollectionUtils.isEmpty(userArticles) && !CollectionUtils.isEmpty(articles)) {
+            //每次往前加DEFAULT_DAYS_BEFORE_PLUS天
+            map.put(QUERY_PARAMETER_TIME, Timestamp.valueOf(((Timestamp) map.get(QUERY_PARAMETER_TIME))
+                    .toLocalDateTime()
+                    .minus(DEFAULT_DAYS_BEFORE_PLUS, ChronoUnit.DAYS)));
+            userArticles = this.getTopRecommendArticlesByCategoryIdAndTime(map);
+        }
+        return userArticles;
     }
 
     /**
-     * 按照文章类别取出所有文章信息
+     * 取出排行榜的九篇文章的信息并缓存
      *
-     * @param categoryId 文章类别
      * @return
      */
-    @Override
-    public List<UserArticle> getArticlesByCategoryId(Integer categoryId) {
-        return userArticleMapper.getArticlesByCategoryId(categoryId);
-    }
+    public List<ArticleRankResponseDto> getArticlesRank() {
+        List<ArticleCategory> articleCategories = articleCategoryServiceManager.getAllArticleCategory();
+        if (CollectionUtils.isEmpty(articleCategories)) return Collections.emptyList();
 
-    /**
-     * 按照文章类别取出所有评论的文章信息
-     *
-     * @param categoryId 文章类别
-     * @return
-     */
-    @Override
-    public List<UserArticle> getArticleCommentByCategoryId(Integer categoryId) {
-        return userArticleMapper.getArticleCommentByCategoryId(categoryId);
+        List<ArticleRankResponseDto> articleRankResponseDtos = new ArrayList<>();
+
+        //推荐排行
+        ArticleRankResponseDto recommentArticleRankResponseDto = new ArticleRankResponseDto();
+        recommentArticleRankResponseDto.setActionType(ACTION_TYPE_RECOMMEND);
+
+        Map<String, Object> recommendMap = new HashMap<>();
+        List<UserArticle> recommendUserArticles;
+        List<ArticleRankResponseDataResult> recommendArticleRankResponseDataResultList = new ArrayList<>();
+        ArticleRankResponseDataResult recommendDataResult;
+        for (ArticleCategory articleCategory : articleCategories) {
+            recommendMap.put(QUERY_PARAMETER_CATEGORY_ID, articleCategory.getId());
+            recommendMap.put(QUERY_PARAMETER_TIME, Timestamp.valueOf(LocalDateTime.now().minus(DEFAULT_DAYS_BEFORE,
+                    ChronoUnit.DAYS)));
+            recommendUserArticles = this.getTopRecommendArticlesByCategoryIdAndTime(recommendMap);
+            if (!CollectionUtils.isEmpty(recommendUserArticles)) {
+                recommendDataResult = new ArticleRankResponseDataResult();
+                recommendDataResult.setCategoryInfo(articleCategory);
+                recommendDataResult.setArticleInfo(recommendUserArticles.get(TOP_NUM - 1));
+                recommendArticleRankResponseDataResultList.add(recommendDataResult);
+            }
+        }
+        recommentArticleRankResponseDto.setDataResult(recommendArticleRankResponseDataResultList);
+        articleRankResponseDtos.add(recommentArticleRankResponseDto);
+
+        //阅读排行
+        ArticleRankResponseDto readArticleRankResponseDto = new ArticleRankResponseDto();
+        readArticleRankResponseDto.setActionType(ACTION_TYPE_READ);
+
+        Map<String, Object> readMap = new HashMap<>();
+        List<UserArticle> readUserArticles;
+        ArticleRankResponseDataResult readDataResult;
+        List<ArticleRankResponseDataResult> readArticleRankResponseDataResultList = new ArrayList<>();
+        if (CollectionUtils.isEmpty(articleCategories)) return Collections.emptyList();
+        for (ArticleCategory articleCategory : articleCategories) {
+            readMap.put(QUERY_PARAMETER_CATEGORY_ID, articleCategory.getId());
+            readMap.put(QUERY_PARAMETER_TIME, Timestamp.valueOf(LocalDateTime.now().minus(DEFAULT_DAYS_BEFORE,
+                    ChronoUnit.DAYS)));
+            readUserArticles = this.getTopReadArticlesByCategoryIdAndTime(readMap);
+            if (!CollectionUtils.isEmpty(readUserArticles)) {
+                readDataResult = new ArticleRankResponseDataResult();
+                readDataResult.setCategoryInfo(articleCategory);
+                readDataResult.setArticleInfo(readUserArticles.get(TOP_NUM - 1));
+                readArticleRankResponseDataResultList.add(readDataResult);
+            }
+        }
+        readArticleRankResponseDto.setDataResult(readArticleRankResponseDataResultList);
+        articleRankResponseDtos.add(readArticleRankResponseDto);
+
+        //评论排行
+        ArticleRankResponseDto commendArticleRankResponseDto = new ArticleRankResponseDto();
+        commendArticleRankResponseDto.setActionType(ACTION_TYPE_COMMEND);
+
+        Map<String, Object> commendMap = new HashMap<>();
+        List<UserArticle> commendUserArticles;
+        ArticleRankResponseDataResult commendDataResult;
+        List<ArticleRankResponseDataResult> commendArticleRankResponseDataResultList = new ArrayList<>();
+        if (CollectionUtils.isEmpty(articleCategories)) return Collections.emptyList();
+        for (ArticleCategory articleCategory : articleCategories) {
+            commendMap.put(QUERY_PARAMETER_CATEGORY_ID, articleCategory.getId());
+            commendMap.put(QUERY_PARAMETER_TIME, Timestamp.valueOf(LocalDateTime.now().minus(DEFAULT_DAYS_BEFORE,
+                    ChronoUnit.DAYS)));
+            commendUserArticles = this.getTopCommendArticles(commendMap);
+            if (!CollectionUtils.isEmpty(commendUserArticles)) {
+                commendDataResult = new ArticleRankResponseDataResult();
+                commendDataResult.setCategoryInfo(articleCategory);
+                commendDataResult.setArticleInfo(commendUserArticles.get(TOP_NUM - 1));
+                commendArticleRankResponseDataResultList.add(commendDataResult);
+            }
+        }
+        commendArticleRankResponseDto.setDataResult(commendArticleRankResponseDataResultList);
+        articleRankResponseDtos.add(commendArticleRankResponseDto);
+
+        return articleRankResponseDtos;
     }
 
 

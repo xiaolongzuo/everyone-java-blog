@@ -1,0 +1,159 @@
+.navbar {
+  border-radius: 0;
+  overflow: visible;
+  margin-bottom: 20px;
+}
+.navbar i {
+  width: 20px;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+}
+.navbar-blog {
+  position: fixed;
+  width: 45px;
+  z-index: 1049;
+  -webkit-backface-visibility: hidden;
+}
+.navbar-blog a {
+  display: block;
+  padding: 10px;
+  font-size: 16px;
+  line-height: 25px;
+  text-align: center;
+}
+.navbar-blog a.logo {
+  font-size: 18px;
+  color: white;
+}
+.navbar-blog .nav-user {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding-bottom: 5px;
+}
+.navbar-blog .nav-user a {
+  position: relative;
+  padding: 5px 10px;
+}
+.navbar-user .login,
+.wrap-btn .login {
+  position: relative;
+  top: 7px;
+  float: right;
+  padding: 0 2px;
+  margin-right: 8px;
+}
+.shrink {
+  display: none;
+  transition: all 0.49s cubic-bezier(0.56, -0.29, 0.57, 1) !important;
+}
+.shrink .dropdown-menu {
+  position: fixed;
+  top: 8px;
+  left: 55px;
+  padding: 0;
+  border: none;
+  box-shadow: none;
+  z-index: 1000;
+}
+.shrink .dropdown-menu > li > a {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 20px;
+  color: #3f3f3f;
+  white-space: nowrap;
+}
+.shrink .dropdown-menu li a {
+  padding: 13px 13px 13px 15px;
+  color: white;
+  text-align: left;
+}
+.dropup,
+.dropdown {
+  position: relative;
+}
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  list-style: none;
+  background-color: white;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  background-clip: padding-box;
+}
+.dropdown-menu {
+  margin-top: 10px;
+  border-color: #d9d9d9;
+}
+.expanded {
+  left: 0;
+  top: 0;
+  height: 100%;
+  background: #2a2a2a;
+}
+.expanded .dropdown a:hover,
+.expanded .nav-user a:hover,
+.expanded .dropdown a:active,
+.expanded .nav-user a:active,
+.expanded .dropdown a.active,
+.expanded .nav-user a.active {
+  background-color: #e78170;
+  color: white;
+  text-shadow: 0 1px 0 #de533a;
+}
+.expanded .dropdown span,
+.expanded .nav-user span {
+  display: none;
+}
+.expanded a {
+  color: #999999;
+  text-shadow: 0 1px 0 black;
+}
+.expanded a.logo b {
+  font-weight: normal;
+}
+.navbar-mobile {
+  display: none;
+}
+.navbar-mobile .side-nav a {
+  font-size: 1.4rem;
+}
+.navbar-mobile .button-collapse {
+  padding: 0 1.2rem;
+}
+.navbar-mobile i {
+  display: inline-block !important;
+  font-size: 2rem;
+  height: 64px !important;
+  line-height: 64px !important;
+  vertical-align: middle;
+  width: 1.2em;
+  position: relative;
+  top: -2px;
+}
+.navbar-mobile .login-wrap {
+  height: 56px;
+  padding: 0 1.2rem;
+  overflow: hidden;
+}
+.navbar-mobile .login-wrap .signup,
+.navbar-mobile .login-wrap .login {
+  display: inline-block;
+  font-size: 1.4rem;
+  text-align: center;
+  padding: 0 1rem;
+}

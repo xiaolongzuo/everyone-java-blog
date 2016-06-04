@@ -1,0 +1,74 @@
+<div id="comments" class="comment-list clearfix">
+	<div class="comment-head clearfix">
+		{{comment_data.comment_count}}条评论
+		<a class="goto-comment right" data-toggle="modal" href="#">
+			<i class="material-icons">mode_edit</i>
+			添加新评论
+		</a>
+	</div>
+
+	<div id="comment-list">
+		<!-- 一条评论 开始 -->
+		<div class="note-comment clearfix" id="{{comment.comment_id}}" ng-repeat="comment in comments">
+			<div class="content">
+				<div class="meta-top">
+					<a class="avatar" href="{{comment.comment_user.user_href}}">
+						<img src="{{comment.comment_user.head}}">
+					</a>
+					<p>
+						<a class="author-name" href="{{comment.comment_user.user_href}}">{{comment.comment_user.nickname}}</a>
+					</p>
+					<span class="reply-time">
+						<small><i>{{comment.comment_index}}</i> 楼 · </small>
+						<a href="#{{comment.comment_id}}">{{comment.comment_time}}</a>
+					</span>
+				</div>
+				<p>{{comment.comment_content}}</p>
+				<div class="comment-footer clearfix">
+					<a data-id="{{comment.comment_id}}" data-nickname="{{comment.comment_user.nickname}}" class="reply" href="javascript:void(0)">
+						<i class="material-icons">reply</i>
+						回复
+					</a>
+				</div>
+
+				<!-- 二级评论还没做好 -->
+				<div class="child-comment-list" ng-if="comment.has_child">
+					<div class="child-comment" id="comment-0003">
+						<p>
+							<a class="blue-link" href="#">某某某</a>：
+							<a href="#" class="maleskine-author" target="_blank">@叫我小T</a> 回复内容回复内容回复内容回复内容
+						</p>
+						<div class="child-comment-footer text-right clearfix">
+							<a data-id="xxxx" data-nickname="叫我小T" class="reply" href="javascript:void(null)"><i class="material-icons">reply</i> 回复</a>
+							<span class="reply-time pull-left">
+								<a href="#comment-0002">2016.04.03 15:58</a>
+							</span>
+						</div>
+					</div>
+
+					<!-- <child-comment></child-comment> -->
+
+					<div data-state="remaining-child-comments">
+						
+					</div>
+					<div class="comment-toolbar clearfix">
+						<span class="right">
+							<a data-id="xxxx" class="reply" href="javascript:void(null)">
+								<i class="material-icons">mode_edit</i>
+								添加新回复
+							</a>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 一条评论 结束 -->
+
+		<p class="load-more">
+			<a class="blue-link" href="#">
+				加载更多
+				<i class="material-icons">arrow_downward</i>
+			</a>
+		</p>
+	</div>
+</div>
