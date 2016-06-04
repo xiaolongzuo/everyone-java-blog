@@ -16,8 +16,6 @@
 
 package com.zuoxiaolong.blog.service;
 
-import com.zuoxiaolong.blog.common.utils.SensitiveWordCheckUtils;
-import com.zuoxiaolong.blog.common.utils.SensitiveWordMonitor;
 import com.zuoxiaolong.blog.model.persistent.WebUser;
 import org.junit.Assert;
 import org.junit.Test;
