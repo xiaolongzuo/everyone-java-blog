@@ -15,8 +15,8 @@
  */
 package com.zuoxiaolong.blog.api.controller;
 
-import com.zuoxiaolong.blog.common.utils.Md5Utils;
 import com.zuoxiaolong.blog.common.spring.BaseController;
+import com.zuoxiaolong.blog.common.utils.Md5Utils;
 import com.zuoxiaolong.blog.model.persistent.WebUser;
 import com.zuoxiaolong.blog.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
