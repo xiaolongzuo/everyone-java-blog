@@ -75,9 +75,9 @@ public class AccountController extends BaseController{
         WebUser user=accountService.findUser(webUser);
         //如果用户名密码存在，放到session中
         if(user != null){
-            getHttpSession().setAttribute("USER_PK", user.getId());
-            getHttpSession().setAttribute("USER_NAME", user.getUsername());
-            getHttpSession().setAttribute("USER_NICK", user.getNickname());
+            getSession().setAttribute("USER_PK", user.getId());
+            getSession().setAttribute("USER_NAME", user.getUsername());
+            getSession().setAttribute("USER_NICK", user.getNickname());
         }
 
         modelAndView.addObject("user",user);
@@ -102,7 +102,7 @@ public class AccountController extends BaseController{
 
     @RequestMapping("/logout")
     public String logout(@RequestBody WebUser webUser) {
-        getHttpSession().invalidate();
+        getSession().invalidate();
         return "index.jsp";
     }
 }

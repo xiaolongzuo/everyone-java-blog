@@ -6,7 +6,6 @@ import com.zuoxiaolong.blog.service.UploadService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -29,7 +28,7 @@ public class UploadServiceImpl implements UploadService {
      * @return 文件上传信息
      */
     @Override
-    public Object doUpload(HttpServletRequest request, String uid, MultipartFile[] file) {
+    public Object doUpload(String uploadDirectory, String uid, MultipartFile[] file) {
         Map<String, List<Object>> map = new HashMap<String, List<Object>>();
         // 校验用户编号
         if(StringUtils.isEmpty(uid)) {
@@ -53,7 +52,7 @@ public class UploadServiceImpl implements UploadService {
                 StringBuilder stringBuilderFilePath = new StringBuilder("upload" + File.separator);
                 stringBuilderFilePath.append(uid);
                 try {
-                    File dirs = new File(request.getRealPath("/") + stringBuilderFilePath.toString());
+                    File dirs = new File(uploadDirectory + stringBuilderFilePath.toString());
                     if(!dirs.exists()) {
                         dirs.mkdirs();
                     }
@@ -61,7 +60,7 @@ public class UploadServiceImpl implements UploadService {
                     stringBuilderFilePath.append(File.separator);
                     stringBuilderFilePath.append(System.currentTimeMillis());
                     stringBuilderFilePath.append(".PNG");
-                    f.transferTo(new File(request.getRealPath("/") + stringBuilderFilePath.toString()));
+                    f.transferTo(new File(uploadDirectory + stringBuilderFilePath.toString()));
                 } catch (IOException e) {
                     e.printStackTrace();
                     if(map.get("err") == null || map.get("err").isEmpty())

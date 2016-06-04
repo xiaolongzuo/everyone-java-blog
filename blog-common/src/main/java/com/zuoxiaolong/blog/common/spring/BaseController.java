@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -53,53 +54,63 @@ public abstract class BaseController {
 
     /**
      * 使用@ModelAttribute注解标识的方法会在每个控制器中的方法访问之前先调用
+     *
      * @param request
      * @param response
      * @param model
      */
     @ModelAttribute
     protected void setThreadLocal(HttpServletRequest request, HttpServletResponse response, Model model) {
-        BaseController.httpServletRequestThreadLocal.set(request);
-        BaseController.httpServletResponseThreadLocal.set(response);
-        BaseController.modelThreadLocal.set(model);
+        httpServletRequestThreadLocal.set(request);
+        httpServletResponseThreadLocal.set(response);
+        modelThreadLocal.set(model);
     }
 
     /**
      * 获取当前线程的HttpServletRequest对象
-     * @return
+     *
+     * @return 当前线程的HttpServletRequest对象
      */
-    protected HttpServletRequest getHttpServletRequest() {
-        return BaseController.httpServletRequestThreadLocal.get();
+    protected HttpServletRequest getRequest() {
+        return httpServletRequestThreadLocal.get();
     }
 
     /**
      * 获取当前线程的HttpServletResponse对象
-     * @return
+     * @return 当前线程的HttpServletResponse对象
      */
-    protected HttpServletResponse getHttpServletResponse() {
-        return BaseController.httpServletResponseThreadLocal.get();
+    protected HttpServletResponse getResponse() {
+        return httpServletResponseThreadLocal.get();
     }
 
     /**
      * 获取当前线程的HttpSession对象
-     * @return
+     * @return 当前线程的HttpSession对象
      */
-    protected HttpSession getHttpSession() {
-        return getHttpServletRequest().getSession();
+    protected HttpSession getSession() {
+        return getRequest().getSession();
     }
 
     /**
      * 获取当前线程的Model对象
-     * @return
+     * @return 当前线程的Model对象
      */
     protected Model getModel() {
-        return BaseController.modelThreadLocal.get();
+        return modelThreadLocal.get();
+    }
+
+    /**
+     * 获取当前的ServletContext对象
+     * @return 当前的ServletContext对象
+     */
+    protected ServletContext getContext() {
+        return getRequest().getServletContext();
     }
 
     /**
      * 向 Model 设置属性值
-     * @param name
-     * @param value
+     * @param name 属性名
+     * @param value 属性值
      */
     protected void setModelAttribute(String name, Object value) {
         getModel().addAttribute(name, value);
@@ -107,42 +118,42 @@ public abstract class BaseController {
 
     /**
      * 向 HttpServletRequest 设置属性值
-     * @param name
-     * @param value
+     * @param name 属性名
+     * @param value 属性值
      */
-    protected void setHttpServletRequestAttribute(String name, Object value) {
-        HttpServletRequest request = this.getHttpServletRequest();
+    protected void setRequestAttribute(String name, Object value) {
+        HttpServletRequest request = this.getRequest();
         request.setAttribute(name, value);
     }
 
     /**
      * 向 HttpSession 设置属性值
-     * @param name
-     * @param value
+     * @param name 属性名
+     * @param value 属性值
      */
-    public void setHttpSessionAttribute(String name, Object value) {
-        HttpSession session = this.getHttpSession();
+    public void setSessionAttribute(String name, Object value) {
+        HttpSession session = this.getSession();
         session.setAttribute(name, value);
     }
 
     /**
      * 从 HttpSession 中获取属性值
-     * @param name
-     * @return
+     * @param name 属性名
+     * @return 属性值
      */
-    protected Object getHttpSessionAttribute(String name) {
-        HttpSession session = this.getHttpSession();
+    protected Object getSessionAttribute(String name) {
+        HttpSession session = this.getSession();
         Object value = session.getAttribute(name);
         return value;
     }
 
     /**
      * 从 HttpServletRequest 中获取属性值
-     * @param name
-     * @return
+     * @param name 属性名
+     * @return 属性值
      */
-    protected Object getHttpServletRequestAttribute(String name) {
-        HttpServletRequest request = this.getHttpServletRequest();
+    protected Object getRequestAttribute(String name) {
+        HttpServletRequest request = this.getRequest();
         Object value = request.getAttribute(name);
         return value;
     }
