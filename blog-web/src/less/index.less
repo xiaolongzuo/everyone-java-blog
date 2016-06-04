@@ -36,6 +36,8 @@
 	}
 	li {
 		float: left;
+		padding-top:0px;
+
 	}
 	.switch-default-tab{
 		a:hover {
@@ -57,21 +59,21 @@
 	// }
 	&>ul{
 		a {
-			padding: 15px;
+			padding: 14px;
 			display: inline-block;
 			color: #999;
 			&:hover {
-				background-color: #ccc;
-				border-bottom: 2px solid #1c86ee;
-				color: #555;
-				margin-bottom: -2px;
+				background-color:  #80deea;
+				/*border-bottom: 2px solid #1c86ee;*/
+				color: white;
+				margin-bottom: 0px;
 			}
 		}
 		.active {
-			margin-bottom: -2px;
-			border-bottom: 2px solid #1c86ee;
+			margin-bottom: 0px;
+			background-color: #80deea;
 			a {
-				color: #555;
+				color: white;
 			}
 		}
 		&.ui-sortable{
@@ -101,7 +103,7 @@
 		.page-title {
 			position: fixed;
 			top: 0;
-			width: 60%;
+			width: 56%;
 			background: white;
 			border-width: 2px;
 			box-sizing: border-box;
@@ -444,7 +446,7 @@
 .search-form{
 	width: 200px;
 	height: 52px;
-	margin-left: 200px;
+	margin-left: 160px;
 	position: relative;
 	// margin-top: 10px;
 	padding-top: 10px;
@@ -472,7 +474,9 @@
 	position: absolute;
 	top: 6px;
 	right: 20px;
+
 }
+
 .shadow-block{position: absolute;top: 20px;right: 0px;}
 .sideBar-user  a  img  
 {
@@ -492,3 +496,48 @@
 	vertical-align: top;
 	width: 0;
 }
+
+/*右侧菜单*/
+.sidebar-menu{
+     position:absolute;
+     top:50px;
+     right:0px;
+     width:150px;
+     display:none;
+         
+}
+/*小三角样式*/
+
+.icon-block{
+    border-bottom: 9px solid #d9d9d9;
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    content: "";
+    display: inline-block;
+    left: 60%;
+    position: absolute;
+    top: -4px;
+
+}
+.sidebar-menu  .collapsible  li{
+	width:100%;
+
+}
+.sidebar-menu ul  li:hover{
+	background:#ccc;
+	
+}
+.sidebar-menu ul  li  a:hover{
+	color:#1c86ee;
+}
+.progress{
+	
+	position:fixed;
+	top:47px;
+	left:360px;
+	width:58%;
+}
+
+
+
+

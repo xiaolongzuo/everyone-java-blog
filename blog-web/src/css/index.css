@@ -27,6 +27,7 @@
 }
 .page-title li {
   float: left;
+  padding-top: 0px;
 }
 .page-title .switch-default-tab a:hover {
   background: none;
@@ -40,22 +41,22 @@
   filter: alpha(opacity=40);
 }
 .page-title > ul a {
-  padding: 15px;
+  padding: 14px;
   display: inline-block;
   color: #999;
 }
 .page-title > ul a:hover {
-  background-color: #ccc;
-  border-bottom: 2px solid #1c86ee;
-  color: #555;
-  margin-bottom: -2px;
+  background-color: #80deea;
+  /*border-bottom: 2px solid #1c86ee;*/
+  color: white;
+  margin-bottom: 0px;
 }
 .page-title > ul .active {
-  margin-bottom: -2px;
-  border-bottom: 2px solid #1c86ee;
+  margin-bottom: 0px;
+  background-color: #80deea;
 }
 .page-title > ul .active a {
-  color: #555;
+  color: white;
 }
 .page-title > ul.ui-sortable .bonus a {
   color: whitesmoke;
@@ -76,7 +77,7 @@
 .row-fluid .recommended .page-title {
   position: fixed;
   top: 0;
-  width: 60%;
+  width: 56%;
   background: white;
   border-width: 2px;
   box-sizing: border-box;
@@ -378,7 +379,7 @@
 .search-form {
   width: 200px;
   height: 52px;
-  margin-left: 200px;
+  margin-left: 160px;
   position: relative;
   padding-top: 10px;
 }
@@ -425,4 +426,38 @@
   height: 0;
   vertical-align: top;
   width: 0;
+}
+/*右侧菜单*/
+.sidebar-menu {
+  position: absolute;
+  top: 50px;
+  right: 0px;
+  width: 150px;
+  display: none;
+}
+/*小三角样式*/
+.icon-block {
+  border-bottom: 9px solid #d9d9d9;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  content: "";
+  display: inline-block;
+  left: 60%;
+  position: absolute;
+  top: -4px;
+}
+.sidebar-menu .collapsible li {
+  width: 100%;
+}
+.sidebar-menu ul li:hover {
+  background: #ccc;
+}
+.sidebar-menu ul li a:hover {
+  color: #1c86ee;
+}
+.progress {
+  position: fixed;
+  top: 47px;
+  left: 360px;
+  width: 58%;
 }
