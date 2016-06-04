@@ -16,6 +16,8 @@
 
 package com.zuoxiaolong.blog.service;
 
+import com.zuoxiaolong.blog.common.utils.SensitiveWordCheckUtils;
+import com.zuoxiaolong.blog.common.utils.SensitiveWordMonitor;
 import com.zuoxiaolong.blog.model.persistent.WebUser;
 import org.junit.Assert;
 import org.junit.Test;
@@ -39,5 +41,4 @@ public class WebUserServiceTest extends AbstractSpringContextTest {
         webUserService.insert(user);
         Assert.assertNotNull(webUserService.selectByPrimaryKey(1));
     }
-
 }
