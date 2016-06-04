@@ -42,7 +42,7 @@ public class BlogApiSdkImpl implements BlogApiSdk {
 
     BlogApiSdkImpl(String serverUrl) {
         if (StringUtils.isEmpty(serverUrl)) {
-            throw new IllegalArgumentException("serverUrl can't be null.");
+            throw new IllegalArgumentException("serverUrl can't be empty.");
         }
         while (serverUrl.endsWith("/")) {
             serverUrl = serverUrl.substring(0, serverUrl.length() - 1);

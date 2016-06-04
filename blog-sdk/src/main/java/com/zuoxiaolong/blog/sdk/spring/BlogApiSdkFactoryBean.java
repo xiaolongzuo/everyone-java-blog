@@ -39,7 +39,7 @@ public class BlogApiSdkFactoryBean implements FactoryBean<BlogApiSdk>, Initializ
     @Override
     public void afterPropertiesSet() throws Exception {
         if (StringUtils.isEmpty(serverUrl)) {
-            throw new IllegalArgumentException("serverUrl can't be null.");
+            throw new IllegalArgumentException("serverUrl can't be empty.");
         }
     }
 
