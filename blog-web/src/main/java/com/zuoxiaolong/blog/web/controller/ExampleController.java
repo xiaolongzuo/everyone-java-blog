@@ -49,12 +49,12 @@ public class ExampleController extends BaseController{
     @RequestMapping("/example2")
     public String example2() {
         setModelAttribute("result", blogSdk.invokeApi(Api.example2, CollectionUtils.newMap("name", "zuoxiaolong")));
-        return "/index/index";
+        return "/blog/blog";
     }
 
     @RequestMapping("/example4")
     public String example4() {
         setModelAttribute("result", blogSdk.invokeApi(Api.example4));
-        return "/index/index";
+        return "/article/article";
     }
 }
