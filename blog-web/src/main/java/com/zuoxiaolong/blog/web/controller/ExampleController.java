@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.fast.controller;
+package com.zuoxiaolong.blog.web.controller;
 
 import com.zuoxiaolong.blog.common.spring.BaseController;
 import com.zuoxiaolong.blog.common.utils.CollectionUtils;

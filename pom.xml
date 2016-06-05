@@ -38,8 +38,8 @@
         <module>blog-admin</module>
         <module>blog-common</module>
         <module>blog-model</module>
-        <module>blog-fast</module>
         <module>blog-sdk</module>
+        <module>blog-web</module>
     </modules>
 
 
