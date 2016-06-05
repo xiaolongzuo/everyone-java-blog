@@ -43,18 +43,18 @@ public class ExampleController extends BaseController{
     @RequestMapping("/example1")
     public String example1() {
         setModelAttribute("result", blogSdk.invokeApi(Api.example1));
-        return "example";
+        return "/index/index";
     }
 
     @RequestMapping("/example2")
     public String example2() {
         setModelAttribute("result", blogSdk.invokeApi(Api.example2, CollectionUtils.newMap("name", "zuoxiaolong")));
-        return "example";
+        return "/index/index";
     }
 
     @RequestMapping("/example4")
     public String example4() {
         setModelAttribute("result", blogSdk.invokeApi(Api.example4));
-        return "example";
+        return "/index/index";
     }
 }

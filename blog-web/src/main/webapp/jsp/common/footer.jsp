@@ -1,4 +1,3 @@
-
 <%--
 
     Copyright 2002-2016 the original author or authors.
@@ -18,30 +17,14 @@
 --%>
 <%--
   User: Xiaolong Zuo
-  Time: 16/6/4 16:26
+  Time: 16/1/15 02:04
 --%>
+<!--Footer-part-->
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <jsp:include page="header.jsp"/>
-</head>
-<body>
-<table class="table table-condensed table-bordered">
-    <thead>
-    <tr class="danger">
-        <th>code</th>
-        <th>message</th>
-        <th>data</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr class="success">
-        <td>${result.code}</td>
-        <td>${result.message}</td>
-        <td>${result.data}</td>
-    </tr>
-    </tbody>
-</table>
-</body>
-</html>
+<footer class="blog-footer">
+    <p>Copyright © 2016 左潇龙 | <a href="http://www.miitbeian.gov.cn/" target="_blank">京ICP备15025768号</a></p>
+    <p>
+        <a href="#">回到顶部</a>
+    </p>
+</footer>
+<!--end-Footer-part-->

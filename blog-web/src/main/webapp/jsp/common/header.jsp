@@ -17,17 +17,10 @@
 --%>
 <%--
   User: Xiaolong Zuo
-  Time: 16/6/4 16:27
+  Time: 16/6/5 18:06
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-<title>大家的Java博客</title>
-<!-- Bootstrap -->
-<link href="../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="../lib/jquery/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="../lib/bootstrap/js/bootstrap.min.js"></script>
+<div class="blog-header">
+    <h1 class="blog-title">大家的Java博客</h1>
+    <p class="lead blog-description">这是一个开源的并且由Java程序猿自己给自己打造的Java博客网站</p>
+</div>
