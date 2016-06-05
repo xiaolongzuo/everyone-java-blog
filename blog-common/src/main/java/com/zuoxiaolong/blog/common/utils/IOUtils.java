@@ -22,6 +22,8 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 
 /**
+ * IO工具类,处理各种输入输出流的读取和写入
+ *
  * @author Xiaolong Zuo
  * @since 1.0.0
  */
