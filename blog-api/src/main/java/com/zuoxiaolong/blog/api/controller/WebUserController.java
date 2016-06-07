@@ -21,6 +21,7 @@ import com.zuoxiaolong.blog.service.WebUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * @author Xiaolong Zuo
@@ -34,7 +35,7 @@ public class WebUserController extends ApiBaseController {
     @Autowired
     private WebUserService webUserService;
 
-    @RequestMapping("/Register")
+    @RequestMapping(value = "/Register" , method = RequestMethod.POST)
     public String register(WebUser webUser) {
         webUserService.register(webUser);
         String token = webUserService.login(webUser.getUsername(), webUser.getPassword());
@@ -42,36 +43,36 @@ public class WebUserController extends ApiBaseController {
         return token;
     }
 
-    @RequestMapping("/CheckUsername")
+    @RequestMapping(value = "/CheckUsername" , method = RequestMethod.POST)
     public boolean checkUsername(String username) {
         return webUserService.checkUsername(username);
     }
 
-    @RequestMapping("/IsLogin")
+    @RequestMapping(value = "/IsLogin", method = RequestMethod.POST)
     public boolean isLogin() {
         return !ObjectUtils.isEmpty(getSessionAttribute(USERNAME_ATTRIBUTE_KEY));
     }
 
-    @RequestMapping("/Login")
+    @RequestMapping(value = "/Login", method = RequestMethod.POST)
     public String login(String username, String password) {
         String token = webUserService.login(username, password);
         setSessionAttribute(USERNAME_ATTRIBUTE_KEY, username);
         return token;
     }
 
-    @RequestMapping("/LoginWithToken")
+    @RequestMapping(value = "/LoginWithToken", method = RequestMethod.POST)
     public String loginWithToken(String token) {
         WebUser webUser = webUserService.loginWithToken(token);
         setSessionAttribute(USERNAME_ATTRIBUTE_KEY, webUser.getUsername());
         return webUser.getToken();
     }
 
-    @RequestMapping("/ModifyPassword")
+    @RequestMapping(value = "/ModifyPassword", method = RequestMethod.POST)
     public void modifyPassword(String username, String oldPassword, String newPassword) {
         webUserService.modifyPassword(username, oldPassword, newPassword);
     }
 
-    @RequestMapping("/Logout")
+    @RequestMapping(value = "/Logout", method = RequestMethod.POST)
     public void logout() {
         setSessionAttribute(USERNAME_ATTRIBUTE_KEY, null);
     }
