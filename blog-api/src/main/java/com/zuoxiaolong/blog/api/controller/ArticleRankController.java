@@ -16,7 +16,7 @@
 
 package com.zuoxiaolong.blog.api.controller;
 
-import com.zuoxiaolong.blog.api.cache.ApiCache;
+import com.zuoxiaolong.blog.common.cache.SingletonCache;
 import com.zuoxiaolong.blog.common.spring.BaseController;
 import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDto;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,7 +40,7 @@ public class ArticleRankController extends BaseController {
      */
     @RequestMapping(value = "/rank")
     public List<ArticleRankResponseDto> articleRank() {
-        return ApiCache.instance().getArticleRankResponseDtoList();
+        return (List<ArticleRankResponseDto>) SingletonCache.instance().get("ArticleRankResponseDto");
     }
 
 }

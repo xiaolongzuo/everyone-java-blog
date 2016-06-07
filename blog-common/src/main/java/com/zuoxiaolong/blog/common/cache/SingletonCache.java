@@ -14,30 +14,33 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.api.cache;
+package com.zuoxiaolong.blog.common.cache;
 
-import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDto;
-import lombok.Getter;
-import lombok.Setter;
-
-import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author Xiaolong Zuo
  * @since 1.0.0
  */
-public class ApiCache {
+public class SingletonCache {
 
-    @Getter
-    @Setter
-    private volatile List<ArticleRankResponseDto> articleRankResponseDtoList;
+    private static SingletonCache instance = new SingletonCache();
 
-    private static ApiCache instance = new ApiCache();
+    private SingletonCache() {}
 
-    private ApiCache() {}
-
-    public static ApiCache instance() {
+    public static SingletonCache instance() {
         return instance;
+    }
+
+    private Map<String, Object> cache = new ConcurrentHashMap<>();
+
+    public void put(String key, Object value) {
+        cache.put(key, value);
+    }
+
+    public Object get(String key) {
+        return cache.get(key);
     }
 
 }
