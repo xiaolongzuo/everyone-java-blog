@@ -13,33 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.zuoxiaolong.blog.service;
 
-import com.zuoxiaolong.blog.model.persistent.WebUser;
+package com.zuoxiaolong.blog.api.controller;
+
+import com.zuoxiaolong.blog.common.spring.BaseController;
 
 /**
- * @author 郭松涛
- * @date 2016/5/14 18:32
+ * @author Xiaolong Zuo
  * @since 1.0.0
  */
-public interface AccountService {
+public abstract class ApiBaseController extends BaseController {
 
-    /**
-     * 根据用户名和密码查找用户
-     * @param webUser
-     * @return
-     */
-    WebUser findUser(WebUser webUser);
+    protected static final String USERNAME_ATTRIBUTE_KEY = "username";
 
-    /**
-     * 新注册用户保存
-     * @param webUser
-     */
-    boolean insertUser(WebUser webUser) ;
-
-    /**
-     * 用户密码修改
-     * @param webUser
-     */
-    boolean modifyPassword(WebUser webUser);
 }

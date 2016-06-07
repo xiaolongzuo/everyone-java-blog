@@ -101,7 +101,8 @@ ALTER TABLE `java_blog`.`web_user` ADD UNIQUE ( `nickname` );
 ALTER TABLE `java_blog`.`contributor` ADD UNIQUE ( `contributor_name` );
 ALTER TABLE `java_blog`.`resource` ADD UNIQUE ( `resource_path` );
 
-ALTER TABLE `java_blog`.`message_box` ADD COLUMN 'title' NOT null DEFAULT '' COMMENT '标题'
+ALTER TABLE `java_blog`.`message_box` ADD COLUMN `title` NOT null DEFAULT '' COMMENT '标题';
+ALTER TABLE `java_blog`.`web_user` ADD COLUMN `token` NOT NULL DEFAULT '' COMMENT '移动端TOKEN';
 
 
 

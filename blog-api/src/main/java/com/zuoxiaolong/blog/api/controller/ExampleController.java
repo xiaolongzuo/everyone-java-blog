@@ -76,7 +76,7 @@ public class ExampleController {
 
     @RequestMapping("/example5")
     public void example5() {
-        throw new BusinessException(ExceptionType.NOT_FOUND);
+        throw new BusinessException(ExceptionType.DATA_NOT_FOUND);
     }
 
     @RequestMapping("/example6")

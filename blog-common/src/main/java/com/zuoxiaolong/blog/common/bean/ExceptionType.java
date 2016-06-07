@@ -26,8 +26,9 @@ package com.zuoxiaolong.blog.common.bean;
  */
 public enum ExceptionType {
 
-    NOT_FOUND(404, "数据未找到"),
-    AUTH_ERROR(401, "授权失败")
+    DATA_NOT_FOUND(404, "数据未找到"),
+    USER_NOT_FOUND(402, "用户不存在"),
+    USERNAME_PASSWORD_ERROR(401, "用户名或密码错误")
     ;
 
     private int code;
