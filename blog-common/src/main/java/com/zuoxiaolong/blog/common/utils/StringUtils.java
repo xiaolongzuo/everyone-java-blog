@@ -44,4 +44,12 @@ public interface StringUtils {
         }
     }
 
+    static String fromBytes(byte[] bytes) {
+        try {
+            return new String(bytes, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

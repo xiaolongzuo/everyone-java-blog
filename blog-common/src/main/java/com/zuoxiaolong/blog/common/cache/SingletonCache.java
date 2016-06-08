@@ -14,24 +14,33 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.service;
+package com.zuoxiaolong.blog.common.cache;
 
-import com.zuoxiaolong.blog.model.persistent.WebUser;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author Xiaolong Zuo
  * @since 1.0.0
  */
-public interface WebUserService {
+public class SingletonCache {
 
-    void register(WebUser webUser);
+    private static SingletonCache instance = new SingletonCache();
 
-    String login(String username, String password);
+    private SingletonCache() {}
 
-    WebUser loginWithToken(String token);
+    public static SingletonCache instance() {
+        return instance;
+    }
 
-    void modifyPassword(String username, String oldPassword, String newPassword);
+    private Map<String, Object> cache = new ConcurrentHashMap<>();
 
-    boolean checkUsername(String username);
+    public void put(String key, Object value) {
+        cache.put(key, value);
+    }
+
+    public Object get(String key) {
+        return cache.get(key);
+    }
 
 }

@@ -16,6 +16,11 @@
 
 package com.zuoxiaolong.blog.service.impl;
 
+import com.zuoxiaolong.blog.common.bean.ExceptionType;
+import com.zuoxiaolong.blog.common.exception.BusinessException;
+import com.zuoxiaolong.blog.common.utils.AssertUtils;
+import com.zuoxiaolong.blog.common.utils.ObjectUtils;
+import com.zuoxiaolong.blog.common.utils.StringUtils;
 import com.zuoxiaolong.blog.mapper.WebUserMapper;
 import com.zuoxiaolong.blog.model.persistent.WebUser;
 import com.zuoxiaolong.blog.service.WebUserService;
@@ -34,13 +39,64 @@ public class WebUserServiceImpl implements WebUserService {
     private WebUserMapper webUserMapper;
 
     @Override
-    public Integer insert(WebUser webUser) {
-        return webUserMapper.insertSelective(webUser);
+    public void register(WebUser webUser) {
+        AssertUtils.isEmpty(webUser);
+        AssertUtils.isEmpty(webUser.getUsername());
+        AssertUtils.isEmpty(webUser.getPassword());
+        if (StringUtils.isEmpty(webUser.getPasswordSalt())) {
+            webUser.setPasswordSalt(webUser.getUsername());
+        }
+        if (StringUtils.isEmpty(webUser.getNickname())) {
+            webUser.setNickname(webUser.getUsername());
+        }
+        webUser.encodePassword();
+        webUser.setEnable(true);
+        webUserMapper.insertSelective(webUser);
     }
 
     @Override
-    public WebUser selectByPrimaryKey(Integer id) {
-        return webUserMapper.selectByPrimaryKey(id);
+    public String login(String username, String password) {
+        WebUser webUser = webUserMapper.selectByUsername(username);
+        if (ObjectUtils.isEmpty(webUser)) {
+            throw new BusinessException(ExceptionType.USER_NOT_FOUND);
+        }
+        if (!webUser.checkPassword(password)) {
+            throw new BusinessException(ExceptionType.USERNAME_PASSWORD_ERROR);
+        }
+        webUser.generateToken();
+        webUserMapper.updateByPrimaryKeySelective(webUser);
+        return webUser.getToken();
+    }
+
+    @Override
+    public WebUser loginWithToken(String token) {
+        WebUser param = new WebUser();
+        param.setToken(token);
+        WebUser webUser = webUserMapper.selectByWebUser(param);
+        if (ObjectUtils.isEmpty(webUser)) {
+            throw new BusinessException(ExceptionType.USERNAME_PASSWORD_ERROR);
+        }
+        webUser.generateToken();
+        webUserMapper.updateByPrimaryKeySelective(webUser);
+        WebUser result = new WebUser();
+        result.setUsername(webUser.getUsername());
+        result.setToken(webUser.getToken());
+        return result;
+    }
+
+    @Override
+    public void modifyPassword(String username, String oldPassword, String newPassword) {
+        login(username, oldPassword);
+        WebUser webUser = webUserMapper.selectByUsername(username);
+        webUser.setPassword(newPassword);
+        webUser.encodePassword();
+        webUser.generateToken();
+        webUserMapper.updateByPrimaryKeySelective(webUser);
+    }
+
+    @Override
+    public boolean checkUsername(String username) {
+        return ObjectUtils.isEmpty(webUserMapper.selectByUsername(username));
     }
 
 }

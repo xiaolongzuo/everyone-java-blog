@@ -14,30 +14,24 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.api.cache;
-
-import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDto;
-import lombok.Getter;
-import lombok.Setter;
-
-import java.util.List;
+package com.zuoxiaolong.blog.common.utils;
 
 /**
  * @author Xiaolong Zuo
  * @since 1.0.0
  */
-public class ApiCache {
+public interface AssertUtils {
 
-    @Getter
-    @Setter
-    private volatile List<ArticleRankResponseDto> articleRankResponseDtoList;
+    static void isNull(Object o) {
+        if (o == null) {
+            throw new IllegalArgumentException();
+        }
+    }
 
-    private static ApiCache instance = new ApiCache();
-
-    private ApiCache() {}
-
-    public static ApiCache instance() {
-        return instance;
+    static void isEmpty(Object o) {
+        if (ObjectUtils.isEmpty(o)) {
+            throw new IllegalArgumentException();
+        }
     }
 
 }

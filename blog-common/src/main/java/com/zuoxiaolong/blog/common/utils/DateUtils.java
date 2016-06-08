@@ -14,24 +14,19 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.service;
+package com.zuoxiaolong.blog.common.utils;
 
-import com.zuoxiaolong.blog.model.persistent.WebUser;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * @author Xiaolong Zuo
  * @since 1.0.0
  */
-public interface WebUserService {
+public interface DateUtils {
 
-    void register(WebUser webUser);
-
-    String login(String username, String password);
-
-    WebUser loginWithToken(String token);
-
-    void modifyPassword(String username, String oldPassword, String newPassword);
-
-    boolean checkUsername(String username);
+    static String format(Date date, String format) {
+        return new SimpleDateFormat(format).format(date);
+    }
 
 }

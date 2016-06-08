@@ -33,7 +33,14 @@ public enum Api {
 
     example1("GET", new TypeToken<List<ArticleCategory>>(){}.getType()),
     example2("GET", ArticleCategory.class),
-    example4("GET")
+    example4("GET"),
+    WebUser_Register("POST", String.class),
+    WebUser_CheckUsername("POST", boolean.class),
+    WebUser_IsLogin("POST", boolean.class),
+    WebUser_Login("POST", String.class),
+    WebUser_LoginWithToken("POST", String.class),
+    WebUser_ModifyPassword("POST"),
+    WebUser_Logout("POST")
     ;
 
     private String url;

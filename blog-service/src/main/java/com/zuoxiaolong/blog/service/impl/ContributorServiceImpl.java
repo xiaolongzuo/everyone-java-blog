@@ -55,7 +55,7 @@ public class ContributorServiceImpl implements ContributorService {
     @Override
     public int updateByPrimaryKeySelective(Contributor record) {
         if (1 ==1) {
-            throw new BusinessException(ExceptionType.AUTH_ERROR);
+            throw new BusinessException(ExceptionType.USERNAME_PASSWORD_ERROR);
         }
         return contributorMapper.updateByPrimaryKeySelective(record);
     }
