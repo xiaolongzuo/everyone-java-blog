@@ -16,7 +16,7 @@
 
 package com.zuoxiaolong.blog.api.task;
 
-import com.zuoxiaolong.blog.api.cache.ApiCache;
+import com.zuoxiaolong.blog.common.cache.SingletonCache;
 import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDto;
 import com.zuoxiaolong.blog.service.UserArticleService;
 import org.slf4j.Logger;
@@ -51,7 +51,7 @@ public class RefreshTopArticles {
     public void articleTopRecommend() {
         logger.info("Starting cron job get article rank!");
         List<ArticleRankResponseDto> articles = userArticleService.getArticlesRank();
-        ApiCache.instance().setArticleRankResponseDtoList(articles);
+        SingletonCache.instance().put("ArticleRankResponseDto", articles);
     }
 
 }

@@ -16,6 +16,8 @@
 
 package com.zuoxiaolong.blog.service.impl;
 
+import com.zuoxiaolong.blog.common.bean.ExceptionType;
+import com.zuoxiaolong.blog.common.exception.BusinessException;
 import com.zuoxiaolong.blog.mapper.ContributorMapper;
 import com.zuoxiaolong.blog.model.persistent.Contributor;
 import com.zuoxiaolong.blog.service.ContributorService;
@@ -52,6 +54,9 @@ public class ContributorServiceImpl implements ContributorService {
 
     @Override
     public int updateByPrimaryKeySelective(Contributor record) {
+        if (1 ==1) {
+            throw new BusinessException(ExceptionType.USERNAME_PASSWORD_ERROR);
+        }
         return contributorMapper.updateByPrimaryKeySelective(record);
     }
 }

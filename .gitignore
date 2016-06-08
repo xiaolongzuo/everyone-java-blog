@@ -2,7 +2,6 @@
 .mtj.tmp/
 .idea/
 target/
-dist/
 
 # Package Files #
 *.jar
@@ -18,7 +17,3 @@ blog-dao/src/main/resources/generator-config.xml
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-
-# bower & node files
-bower_components/
-node_modules/

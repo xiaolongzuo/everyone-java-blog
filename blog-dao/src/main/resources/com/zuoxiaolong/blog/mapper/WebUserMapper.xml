@@ -10,9 +10,10 @@
         <result column="password_salt" property="passwordSalt" jdbcType="VARCHAR"/>
         <result column="nickname" property="nickname" jdbcType="VARCHAR"/>
         <result column="enable" property="enable" jdbcType="BIT"/>
+        <result column="token" property="token" jdbcType="VARCHAR"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, create_time, update_time, username, password, password_salt, nickname, enable
+    id, create_time, update_time, username, password, password_salt, nickname, enable, token
   </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
@@ -53,6 +54,9 @@
             <if test="enable != null">
                 enable,
             </if>
+            <if test="token != null">
+                token,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -72,6 +76,9 @@
             </if>
             <if test="enable != null">
                 #{enable,jdbcType=BIT},
+            </if>
+            <if test="token != null">
+                #{token,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -93,6 +100,9 @@
             <if test="enable != null">
                 enable = #{enable,jdbcType=BIT},
             </if>
+            <if test="token != null">
+                token = #{token,jdbcType=VARCHAR},
+            </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
@@ -103,13 +113,16 @@
         from web_user
         <where>
             <if test="username != null">
-              username = #{username,jdbcType=VARCHAR}
+                username = #{username,jdbcType=VARCHAR}
             </if>
             <if test="password != null">
-                username = #{password,jdbcType=VARCHAR}
+                password = #{password,jdbcType=VARCHAR}
             </if>
             <if test="nickname != null">
                 nickname = #{nickname,jdbcType=VARCHAR}
+            </if>
+            <if test="token != null">
+                token = #{token,jdbcType=VARCHAR}
             </if>
         </where>
     </select>

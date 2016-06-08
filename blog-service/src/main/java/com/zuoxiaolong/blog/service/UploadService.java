@@ -2,8 +2,6 @@ package com.zuoxiaolong.blog.service;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-
 /**
  * @author Bing Pei
  * @since 1.0.0
@@ -11,6 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 
 public interface UploadService {
 
-    Object doUpload(HttpServletRequest request, String uid, MultipartFile[] file);
+    Object doUpload(String uploadDirectory, String uid, MultipartFile[] file);
 
 }

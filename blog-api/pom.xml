@@ -26,10 +26,6 @@
             <artifactId>blog-service</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.zuoxiaolong.blog</groupId>
-            <artifactId>blog-sdk</artifactId>
-        </dependency>
-        <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
         </dependency>
