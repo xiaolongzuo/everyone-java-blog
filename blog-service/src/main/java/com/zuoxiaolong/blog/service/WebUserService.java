@@ -24,8 +24,14 @@ import com.zuoxiaolong.blog.model.persistent.WebUser;
  */
 public interface WebUserService {
 
-    Integer insert(WebUser webUser);
+    void register(WebUser webUser);
 
-    WebUser selectByPrimaryKey(Integer id);
+    String login(String username, String password);
+
+    WebUser loginWithToken(String token);
+
+    void modifyPassword(String username, String oldPassword, String newPassword);
+
+    boolean checkUsername(String username);
 
 }

@@ -17,12 +17,18 @@
 package com.zuoxiaolong.blog.common.bean;
 
 /**
+ * 异常类型.
+ *
  * @author Xiaolong Zuo
  * @since 1.0.0
+ *
+ * @see com.zuoxiaolong.blog.common.exception.BusinessException
  */
 public enum ExceptionType {
 
-    NOT_FOUND(404, "数据未找到")
+    DATA_NOT_FOUND(404, "数据未找到"),
+    USER_NOT_FOUND(402, "用户不存在"),
+    USERNAME_PASSWORD_ERROR(401, "用户名或密码错误")
     ;
 
     private int code;

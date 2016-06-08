@@ -45,7 +45,7 @@ public class UploadController extends BaseController {
      */
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public void upload(@RequestParam("uid") String uid, @RequestParam("file") MultipartFile [] file) {
-        uploadService.doUpload(getHttpServletRequest(), uid, file);
+        uploadService.doUpload(getContext().getRealPath("/"), uid, file);
     }
 
 }

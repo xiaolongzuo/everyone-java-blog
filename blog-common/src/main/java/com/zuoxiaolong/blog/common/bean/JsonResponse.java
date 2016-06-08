@@ -24,6 +24,9 @@ import lombok.Data;
  *
  * @author Xiaolong Zuo
  * @since 1.0.0
+ *
+ * @see com.zuoxiaolong.blog.common.spring.JsonHandlerExceptionResolver
+ * @see com.zuoxiaolong.blog.common.spring.JsonHandlerMethodReturnValueHandler
  */
 @Data
 public class JsonResponse {

@@ -22,6 +22,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
+ * 该类代表一个附件,用于HTTP请求中传送文件
+ *
  * @author Xiaolong Zuo
  * @since 1.0.0
  */

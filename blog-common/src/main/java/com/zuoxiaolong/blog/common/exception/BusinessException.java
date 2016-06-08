@@ -19,8 +19,12 @@ package com.zuoxiaolong.blog.common.exception;
 import com.zuoxiaolong.blog.common.bean.ExceptionType;
 
 /**
+ * 业务异常
+ *
  * @author Xiaolong Zuo
  * @since 1.0.0
+ *
+ * @see ExceptionType
  */
 public class BusinessException extends RuntimeException {
 

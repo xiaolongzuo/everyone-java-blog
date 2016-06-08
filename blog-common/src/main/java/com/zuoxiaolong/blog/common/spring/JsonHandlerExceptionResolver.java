@@ -32,6 +32,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 /**
+ * 通用的Json返回异常处理器
+ *
  * @author Xiaolong Zuo
  * @since 1.0.0
  */
