@@ -15,6 +15,9 @@
  */
 package com.zuoxiaolong.blog.service.impl;
 
+import com.zuoxiaolong.blog.common.bean.ExceptionType;
+import com.zuoxiaolong.blog.common.exception.BusinessException;
+import com.zuoxiaolong.blog.common.utils.StringUtils;
 import com.zuoxiaolong.blog.mapper.BlogConfigMapper;
 import com.zuoxiaolong.blog.mapper.UserArticleMapper;
 import com.zuoxiaolong.blog.mapper.WebUserMapper;
@@ -23,21 +26,24 @@ import com.zuoxiaolong.blog.model.persistent.BlogConfig;
 import com.zuoxiaolong.blog.model.persistent.UserArticle;
 import com.zuoxiaolong.blog.model.persistent.WebUser;
 import com.zuoxiaolong.blog.service.WebBlogService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
  * 用户博客个人主页业务实现类
  *
  * @author linjiedeng
+ * @author youboren
  * @date 16/5/14 下午7:50
  * @since 1.0.0
  */
 
 @Service
-public class WebBlogServiceImpl implements WebBlogService {
+public class WebBlogServiceImpl extends BaseServiceImpl implements WebBlogService {
 
     @Resource
     private BlogConfigMapper blogConfigMapper;
@@ -47,6 +53,9 @@ public class WebBlogServiceImpl implements WebBlogService {
 
     @Resource
     private UserArticleMapper userArticleMapper;
+
+    @Value("${defualtPageSize}")
+    private String defualtPageSize;
 
     /**
      * 根据用户名获取用户博客个人主页的相关信息
@@ -73,8 +82,44 @@ public class WebBlogServiceImpl implements WebBlogService {
         userBlogInfo.setUsername(webUser.getUsername());
         userBlogInfo.setWebUserId(webUser.getId());
         userBlogInfo.setUserArticleList(userArticle);
-
         return userBlogInfo;
+    }
+
+    /**
+     * 根据用户名获取用户博客个人主页的相关信息(新)
+     * @param username
+     * @param request
+     * @return
+     */
+    public UserBlogInfo selectUserBlogInfoByUsername(String username, HttpServletRequest request) {
+
+        // 根据用户名查询用户是否存在
+        WebUser webUser = webUserMapper.selectByUsername(username);
+        if(webUser == null) {
+            logger.error("用户：{} 不存在！" ,username);
+            throw new BusinessException(ExceptionType.USER_NOT_FOUND);
+        }
+
+        // 根据用户id查询博客是否开通
+        BlogConfig blogConfig = blogConfigMapper.selectByWebUserId(webUser.getId());
+        if(blogConfig == null) {
+            logger.error("{} 的博客未开通！",username);
+            throw new BusinessException(ExceptionType.DATA_NOT_FOUND);
+        }
+
+        // 获取分页编号
+        int pageNo = 1;
+        if(StringUtils.isNumeric(request.getParameter("pageNo"))){
+            pageNo = Integer.valueOf(request.getParameter("pageNo"));
+        }
+
+        // 获取分页大小
+        int pageSize = Integer.valueOf(defualtPageSize);
+        if(StringUtils.isNumeric(request.getParameter("pageSize"))){
+            pageSize = Integer.valueOf(request.getParameter("pageSize"));
+        }
+
+        return null;
     }
 
     @Override

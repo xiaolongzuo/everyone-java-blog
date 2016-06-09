@@ -16,6 +16,7 @@
 
 package com.zuoxiaolong.blog.api.controller;
 
+import com.zuoxiaolong.blog.common.spring.BaseController;
 import com.zuoxiaolong.blog.common.utils.SensitiveWordCheckUtils;
 import com.zuoxiaolong.blog.model.dto.UserBlogInfo;
 import com.zuoxiaolong.blog.model.persistent.BlogConfig;
@@ -34,8 +35,7 @@ import javax.annotation.Resource;
  * @since 1.0.0
  */
 @Controller
-@RequestMapping("/blog")
-public class WebBlogController {
+public class WebBlogController extends BaseController{
 
     @Resource
     private WebBlogService webBlogService;
@@ -65,5 +65,15 @@ public class WebBlogController {
         } else {
             return -1;
         }
+    }
+
+
+    /**
+     * 获取个人博客主页信息
+     * @return
+     */
+    @RequestMapping("/{username}")
+    public UserBlogInfo personalBlogHomePage(@PathVariable String username){
+        return null;
     }
 }

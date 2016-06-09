@@ -13,28 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.zuoxiaolong.blog.service;
+package com.zuoxiaolong.blog.service.impl;
 
-import com.zuoxiaolong.blog.model.dto.UserBlogInfo;
-import com.zuoxiaolong.blog.model.persistent.BlogConfig;
-
-import javax.servlet.http.HttpServletRequest;
+import com.zuoxiaolong.blog.service.BaseService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * 用户博客个人主页业务接口
- *
- * @author linjiedeng
- * @author youboren
- * @date 16/5/14 下午7:49
+ * @author Boren You
+ * @dateTime 2016/6/8 0:31
  * @since 1.0.0
  */
-
-public interface WebBlogService extends BaseService{
-
-    UserBlogInfo selectUserBlogInfoByUsername(String username);
-
-    UserBlogInfo selectUserBlogInfoByUsername(String username, HttpServletRequest request);
-
-    int updateBlogConfig(BlogConfig blogConfig);
-
+public class BaseServiceImpl implements BaseService{
+    protected Logger logger = LoggerFactory.getLogger(getClass());
 }

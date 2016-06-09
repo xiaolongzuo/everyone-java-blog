@@ -22,7 +22,9 @@ import java.util.List;
 
 /**
  * 用户博客信息
+ *
  * @author linjiedeng
+ * @author youboren
  * @date 16/5/14 下午6:38
  * @since 1.0.0
  */
@@ -30,14 +32,18 @@ import java.util.List;
 @Data
 public class UserBlogInfo {
 
-    private int webUserId;          //用户id
+    private int webUserId;// 用户id
 
-    private String username;        //用户名
+    private String username;// 用户名
 
-    private String nickname;        //用户昵称
+    private String nickname;// 用户昵称
 
-    private String introduction;    //个人简介
+    private String introduction;// 个人简介
 
-    private List<UserArticle> userArticleList;  //用户文章列表
+    private String blogIntroduction;// 博客简介
+
+    private List<UserArticle> userArticleList;// 用户文章列表
+
+    private List<UserArticle> userHotestArticleList;// 用户最热文章列表
 
 }
