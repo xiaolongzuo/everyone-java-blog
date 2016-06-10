@@ -32,7 +32,7 @@
     </dependencies>
 
     <build>
-        <finalName>blog-fast</finalName>
+        <finalName>blog-web</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
