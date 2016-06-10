@@ -81,4 +81,9 @@ public class WebBlogServiceImpl implements WebBlogService {
     public int updateBlogConfig(BlogConfig blogConfig) {
         return blogConfigMapper.updateByWebUserId(blogConfig);
     }
+
+    @Override
+    public BlogConfig selectBlogConfigByWebUserId(Integer webUserId) {
+        return blogConfigMapper.selectByWebUserId(webUserId);
+    }
 }

@@ -14,26 +14,25 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.api.controller;
+package com.zuoxiaolong.blog.web.controller;
 
 import com.zuoxiaolong.blog.common.bean.ExceptionType;
 import com.zuoxiaolong.blog.common.exception.BusinessException;
 import com.zuoxiaolong.blog.common.spring.BaseController;
-import com.zuoxiaolong.blog.common.utils.SensitiveWordCheckUtils;
-import com.zuoxiaolong.blog.model.dto.UserBlogInfo;
+import com.zuoxiaolong.blog.common.utils.CollectionUtils;
 import com.zuoxiaolong.blog.model.persistent.BlogConfig;
-import com.zuoxiaolong.blog.service.WebBlogService;
+import com.zuoxiaolong.blog.sdk.Api;
+import com.zuoxiaolong.blog.sdk.BlogSdk;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import java.util.Map;
 
 /**
- * 博客主页controller
+ * 博客主页展示及配置相关
  * @author linjiedeng
  * @since 1.0.0
  */
@@ -42,18 +41,7 @@ import javax.annotation.Resource;
 public class WebBlogController extends BaseController {
 
     @Resource
-    private WebBlogService webBlogService;
-
-    /**
-     * 根据请求路径中的用户名跳转到个人博客主页
-     * @param username
-     * @return
-     */
-    @RequestMapping("/homepage/{username}")
-    public UserBlogInfo blog(@PathVariable String username) {
-        UserBlogInfo userBlogInfo = webBlogService.selectUserBlogInfoByUsername(username);
-        return userBlogInfo;
-    }
+    private BlogSdk blogSdk;
 
     /**
      * 更新个人简介,地址,博客名称等信息
@@ -61,27 +49,35 @@ public class WebBlogController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/update/config", method = RequestMethod.POST)
-    public Integer updateBlogConfig(@RequestBody BlogConfig blogConfig) {
-        if(blogConfig == null
-                || SensitiveWordCheckUtils.isContainSensitiveWord(blogConfig.getIntroduction())
-                || SensitiveWordCheckUtils.isContainSensitiveWord(blogConfig.getBlogTitle())
-                || SensitiveWordCheckUtils.isContainSensitiveWord(blogConfig.getBlogSubTitle())) {
-            logger.info("blogConfig param: {} is invalid", blogConfig);
+    public String updateBlogConfig(@RequestBody BlogConfig blogConfig) {
+        if(blogConfig == null) {
+            logger.info("blogConfig param is null");
             throw new BusinessException(ExceptionType.PARAMETER_ILLEGAL);
         }
 
-        return webBlogService.updateBlogConfig(blogConfig);
+        Map<String, String> paraMap = CollectionUtils.newMap("webUserId", blogConfig.getWebUserId().toString());
+        paraMap.put("introduction", blogConfig.getIntroduction());
+        paraMap.put("address", blogConfig.getAddress());
+        paraMap.put("blogTitle", blogConfig.getBlogTitle());
+        paraMap.put("blogSubTitle", blogConfig.getBlogSubTitle());
+
+        setModelAttribute("result", blogSdk.invokeApi(Api.blog_update_config, paraMap));
+        return "/blog/blog-config";
     }
 
-
-
+    /**
+     * 查询用户博客的配置信息
+     * @param webUserId
+     * @return
+     */
     @RequestMapping(value = "/select/config" , method = RequestMethod.POST)
-    public BlogConfig selectUserBlogConfig(Integer webUserId) {
+    public String selectUserBlogConfig(Integer webUserId) {
         if(webUserId == null || webUserId < 0) {
             logger.info("webUserId: {} invalid", webUserId);
             throw new BusinessException(ExceptionType.PARAMETER_ILLEGAL);
         }
 
-        return webBlogService.selectBlogConfigByWebUserId(webUserId);
+        setModelAttribute("result", blogSdk.invokeApi(Api.blog_select_config, CollectionUtils.newMap("webUserId", webUserId.toString())));
+        return "/blog/blog-config";
     }
 }

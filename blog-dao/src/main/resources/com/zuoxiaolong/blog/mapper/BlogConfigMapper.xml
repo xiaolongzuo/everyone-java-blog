@@ -8,9 +8,11 @@
         <result column="web_user_id" property="webUserId" jdbcType="INTEGER"/>
         <result column="introduction" property="introduction" jdbcType="VARCHAR"/>
         <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="blog_title" property="blogTitle" jdbcType="VARCHAR"/>
+        <result column="blog_sub_title" property="blogSubTitle" jdbcType="VARCHAR"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, create_time, update_time, web_user_id, introduction, address
+    id, create_time, update_time, web_user_id, introduction, address, blog_title, blog_sub_title
   </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
@@ -44,6 +46,12 @@
             <if test="address != null">
                 address,
             </if>
+            <if test="blogTitle != null">
+                blog_title,
+            </if>
+            <if test="blogSubTitle != null">
+                blog_sub_title,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -57,6 +65,12 @@
             </if>
             <if test="address != null">
                 #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="blogTitle != null">
+                #{blogTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="blogSubTitle != null">
+                #{blogSubTitle,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -84,6 +98,12 @@
             </if>
             <if test="address != null">
                 address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="blogTitle != null">
+                blog_title = #{blogTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="blogSubTitle != null">
+                blog_sub_title = #{blogSubTitle,jdbcType=VARCHAR},
             </if>
         </set>
         where web_user_id = #{webUserId,jdbcType=INTEGER}

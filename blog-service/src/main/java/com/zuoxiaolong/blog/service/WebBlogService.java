@@ -32,4 +32,6 @@ public interface WebBlogService {
 
     int updateBlogConfig(BlogConfig blogConfig);
 
+    BlogConfig selectBlogConfigByWebUserId(Integer webUserId);
+
 }

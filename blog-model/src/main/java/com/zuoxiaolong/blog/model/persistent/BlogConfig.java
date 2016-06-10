@@ -11,4 +11,8 @@ public class BlogConfig extends BaseModel {
 
     private String address;
 
+    private String blogTitle;
+
+    private String blogSubTitle;
+
 }
