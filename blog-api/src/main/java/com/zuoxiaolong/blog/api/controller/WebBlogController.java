@@ -16,16 +16,13 @@
 
 package com.zuoxiaolong.blog.api.controller;
 
-import com.zuoxiaolong.blog.common.spring.BaseController;
 import com.zuoxiaolong.blog.common.utils.SensitiveWordCheckUtils;
 import com.zuoxiaolong.blog.model.dto.UserBlogInfo;
 import com.zuoxiaolong.blog.model.persistent.BlogConfig;
 import com.zuoxiaolong.blog.service.WebBlogService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 
@@ -36,7 +33,7 @@ import javax.annotation.Resource;
  */
 @Controller
 @RequestMapping("/WebBlog")
-public class WebBlogController extends BaseController{
+public class WebBlogController extends ApiBaseController{
 
     @Resource
     private WebBlogService webBlogService;
