@@ -15,7 +15,6 @@
  */
 package com.zuoxiaolong.blog.web.controller;
 
-import com.google.common.collect.ImmutableMap;
 import com.zuoxiaolong.blog.common.spring.BaseController;
 import com.zuoxiaolong.blog.sdk.Api;
 import com.zuoxiaolong.blog.sdk.BlogSdk;
@@ -24,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -32,8 +32,8 @@ import java.util.Map;
  * @since 1.0.0
  */
 @Controller
-@RequestMapping("/Homepage")
-public class UserArticleController extends BaseController {
+@RequestMapping("/HomePage")
+public class HomePageController extends BaseController {
     @Autowired
     private BlogSdk blogSdk;
 
@@ -41,11 +41,11 @@ public class UserArticleController extends BaseController {
     public String getArticles(@RequestParam("categoryId") int categoryId,
                               @RequestParam(required = false, defaultValue = "1") int pageNum,
                               @RequestParam(required = false, defaultValue = "20") int pageSize) {
-
-        Map<String, String> params = ImmutableMap.of("categoryId",categoryId+"",
-                "startRow",(pageNum-1)*pageSize+"",
-                "pageSize",pageSize+"");
-        setModelAttribute("result", blogSdk.invokeApi(Api.Homepage_Articles, params));
+        Map<String, String> params = new HashMap<>();
+        params.put("categoryId",categoryId+"");
+        params.put("startRow",(pageNum-1)*pageSize+"");
+        params.put("pageSize",pageSize+"");
+        setModelAttribute("result", blogSdk.invokeApi(Api.HomePage_Articles, params));
         return "/index/index";
     }
 }

@@ -15,7 +15,6 @@
  */
 package com.zuoxiaolong.blog.api.controller;
 
-import com.google.common.collect.ImmutableMap;
 import com.zuoxiaolong.blog.common.spring.BaseController;
 import com.zuoxiaolong.blog.model.persistent.UserArticle;
 import com.zuoxiaolong.blog.service.UserArticleService;
@@ -25,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,8 +34,8 @@ import java.util.Map;
  * @since 1.0.0
  */
 @Controller
-@RequestMapping("/Homepage")
-public class UserArticleController extends BaseController {
+@RequestMapping("/HomePage")
+public class HomePageController extends BaseController {
 
     @Autowired
     private UserArticleService userArticleService;
@@ -44,9 +44,10 @@ public class UserArticleController extends BaseController {
     public List<UserArticle> getArticles(@RequestParam("categoryId") int categoryId,
                                          @RequestParam(required = false, defaultValue = "1") int pageNum,
                                          @RequestParam(required = false, defaultValue = "20") int pageSize) {
-          Map<String, Object> params = ImmutableMap.of("categoryId", categoryId,
-                "startRow", (pageNum - 1) * pageSize,
-                "pageSize", pageSize);
+        Map<String, Object> params = new HashMap<>();
+        params.put("categoryId",categoryId);
+        params.put("startRow",(pageNum-1)*pageSize);
+        params.put("pageSize",pageSize);
         List<UserArticle> s =userArticleService.getArticles(params);
 
         return s;
