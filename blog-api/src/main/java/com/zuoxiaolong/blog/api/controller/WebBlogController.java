@@ -35,7 +35,7 @@ import javax.annotation.Resource;
  * @since 1.0.0
  */
 @Controller
-@RequestMapping("/blog")
+@RequestMapping("/WebBlog")
 public class WebBlogController extends BaseController{
 
     @Resource
@@ -60,7 +60,7 @@ public class WebBlogController extends BaseController{
      * 获取个人博客主页信息
      * @return
      */
-    @RequestMapping("/homepage")
+    @RequestMapping("/Homepage")
     public UserBlogInfo personalBlogHomePage(){
         return webBlogService.selectUserBlogInfoByUsername(getRequest());
     }

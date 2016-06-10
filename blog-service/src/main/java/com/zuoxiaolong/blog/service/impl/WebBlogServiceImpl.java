@@ -101,7 +101,7 @@ public class WebBlogServiceImpl extends BaseServiceImpl implements WebBlogServic
             pageSize = Integer.valueOf(size);
         }
 
-        List<UserArticle> userArticles = userArticleMapper.getPageByWebUserId(webUser.getId(), (pageNo - 1) * pageSize, pageNo * pageSize);
+        List<UserArticle> userArticles = userArticleMapper.getPageByWebUserId(webUser.getId(), (pageNo - 1) * pageSize, pageSize);
 
         List<UserArticle> userHotestArticles = userArticleMapper.getTopThumbupArticlesByWebUserId(webUser.getId(), Integer.valueOf(userHotestArticleListSize));
 
