@@ -35,6 +35,7 @@ import javax.annotation.Resource;
  * @since 1.0.0
  */
 @Controller
+@RequestMapping("/blog")
 public class WebBlogController extends BaseController{
 
     @Resource
