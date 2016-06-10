@@ -35,7 +35,7 @@ public class WebUserController extends ApiBaseController {
     @Autowired
     private WebUserService webUserService;
 
-    @RequestMapping(value = "/Register" , method = RequestMethod.POST)
+    @RequestMapping(value = "/Register", method = RequestMethod.POST)
     public String register(WebUser webUser) {
         webUserService.register(webUser);
         String token = webUserService.login(webUser.getUsername(), webUser.getPassword());
@@ -43,7 +43,7 @@ public class WebUserController extends ApiBaseController {
         return token;
     }
 
-    @RequestMapping(value = "/CheckUsername" , method = RequestMethod.POST)
+    @RequestMapping(value = "/CheckUsername", method = RequestMethod.POST)
     public boolean checkUsername(String username) {
         return webUserService.checkUsername(username);
     }
