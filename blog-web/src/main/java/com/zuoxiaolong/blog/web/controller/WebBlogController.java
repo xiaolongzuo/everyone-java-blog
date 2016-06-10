@@ -40,14 +40,17 @@ public class WebBlogController extends WebBaseController {
 
     /**
      * 获取个人博客主页信息
-     *
+     * @param username
      * @return
      */
-    @RequestMapping("/HomePage/{userName}")
-    public String personalBlogHomePage(@PathVariable String userName) {
-        JsonResponse response = blogSdk.invokeApi(Api.WebBlog_HomePage, CollectionUtils.newMap("userName", userName));
-        setModelAttribute("result", response);
-        return "/blog/blog";
+    @RequestMapping("/HomePage/{username}")
+    public String personalBlogHomePage(@PathVariable String username) {
+        JsonResponse response = blogSdk.invokeApi(Api.WebBlog_HomePage, CollectionUtils.newMap("username", username));
+        if(response.getCode() == 200){
+            setModelAttribute("result", response);
+            return "/blog/blog";
+        }
+        return "forward:/HomePage/index";
     }
 
 }

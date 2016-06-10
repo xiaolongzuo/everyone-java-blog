@@ -37,6 +37,21 @@ public class HomePageController extends WebBaseController {
     @Autowired
     private BlogSdk blogSdk;
 
+    /**
+     * 当访问错误的时候，跳转到默认的主页
+     * @return
+     */
+    @RequestMapping("/index")
+    public String index(){
+        Map<String, String> params = new HashMap<>();
+        params.put("categoryId","1");
+        params.put("startRow","0");
+        params.put("pageSize","20");
+        setModelAttribute("result", blogSdk.invokeApi(Api.HomePage_Articles, params));
+        return "/index/index";
+    }
+
+
     @RequestMapping("/Articles")
     public String getArticles(@RequestParam("categoryId") int categoryId,
                               @RequestParam(required = false, defaultValue = "1") int pageNum,
