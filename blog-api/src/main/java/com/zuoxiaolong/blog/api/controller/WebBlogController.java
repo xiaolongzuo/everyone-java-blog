@@ -57,7 +57,9 @@ public class WebBlogController extends ApiBaseController {
 
     /**
      * 获取个人博客主页信息
-     *
+     * @param userName
+     * @param pageSize
+     * @param pageNo
      * @return
      */
     @RequestMapping("/HomePage")
