@@ -1,9 +1,5 @@
 /*
-<<<<<<< HEAD
- * Copyright 2016-2016 the original author or authors.
-=======
  * Copyright 2002-2016 the original author or authors.
->>>>>>> fast
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.zuoxiaolong.blog.api.controller;
 
 
@@ -24,6 +21,7 @@ import com.zuoxiaolong.blog.common.spring.BaseController;
 import com.zuoxiaolong.blog.model.persistent.UserArticle;
 import com.zuoxiaolong.blog.service.UserArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,9 +36,9 @@ import java.util.Map;
  * @version 1.0
  * @date 2016/6/10 19:28
  */
-@RestController
+@Controller
 @RequestMapping("/HomePage")
-public class HomePageController extends BaseController {
+public class HomePageController extends ApiBaseController {
 
     @Autowired
     private UserArticleService userArticleService;

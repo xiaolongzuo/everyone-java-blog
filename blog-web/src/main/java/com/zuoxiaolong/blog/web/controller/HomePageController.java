@@ -1,9 +1,5 @@
 /*
-<<<<<<< HEAD
- * Copyright 2016-2016 the original author or authors.
-=======
  * Copyright 2002-2016 the original author or authors.
->>>>>>> fast
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,13 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.zuoxiaolong.blog.web.controller;
 
 import com.zuoxiaolong.blog.common.bean.JsonResponse;
-import com.zuoxiaolong.blog.common.spring.BaseController;
 import com.zuoxiaolong.blog.common.utils.CollectionUtils;
 import com.zuoxiaolong.blog.common.utils.JsonUtils;
-import com.zuoxiaolong.blog.model.persistent.UserArticle;
 import com.zuoxiaolong.blog.sdk.Api;
 import com.zuoxiaolong.blog.sdk.BlogSdk;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +28,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -45,7 +38,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/HomePage")
-public class HomePageController extends BaseController {
+public class HomePageController extends WebBaseController{
     @Autowired
     private BlogSdk blogSdk;
 

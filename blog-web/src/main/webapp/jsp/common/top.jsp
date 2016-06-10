@@ -27,7 +27,6 @@
             <a class="pull-left blog-nav-item active" href="#blog-technical">技术</a>
             <a class="pull-left blog-nav-item" href="#blog-jobs">职场</a>
             <a class="pull-left blog-nav-item" href="#blog-life">人生</a>
-            <a class="pull-left blog-nav-item" href="#blog-ranks">排行榜</a>
             <a class="pull-right blog-nav-item blog-nav-right-first-item" href="#">注册</a>
             <a class="pull-right blog-nav-item" href="#">登录</a>
         </nav>
