@@ -34,4 +34,10 @@ public interface AssertUtils {
         }
     }
 
+    static void isEmpty(Object[] array) {
+        if (CollectionUtils.isEmpty(array)) {
+            throw new IllegalArgumentException();
+        }
+    }
+
 }

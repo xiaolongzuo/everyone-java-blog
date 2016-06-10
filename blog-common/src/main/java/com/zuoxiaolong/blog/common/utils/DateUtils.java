@@ -25,6 +25,10 @@ import java.util.Date;
  */
 public interface DateUtils {
 
+    static String format(Date date) {
+        return format(date, "yyyy-MM-dd HH:mm:ss");
+    }
+
     static String format(Date date, String format) {
         return new SimpleDateFormat(format).format(date);
     }
