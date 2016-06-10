@@ -42,7 +42,7 @@ public enum Api {
     WebUser_LoginWithToken("POST", String.class),
     WebUser_ModifyPassword("POST"),
     WebUser_Logout("POST"),
-    WebBlog_Homepage("POST", UserBlogInfo.class)
+    WebBlog_HomePage("POST", UserBlogInfo.class)
     ;
 
     private String url;

@@ -26,7 +26,8 @@ import com.zuoxiaolong.blog.model.persistent.BlogConfig;
 import com.zuoxiaolong.blog.model.persistent.UserArticle;
 import com.zuoxiaolong.blog.model.persistent.WebUser;
 import com.zuoxiaolong.blog.service.WebBlogService;
-import org.springframework.beans.factory.annotation.Value;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -43,7 +44,9 @@ import java.util.List;
  */
 
 @Service
-public class WebBlogServiceImpl extends BaseServiceImpl implements WebBlogService {
+public class WebBlogServiceImpl implements WebBlogService {
+
+    protected Logger logger = LoggerFactory.getLogger(WebBlogServiceImpl.class);
 
     @Resource
     private BlogConfigMapper blogConfigMapper;
@@ -54,13 +57,9 @@ public class WebBlogServiceImpl extends BaseServiceImpl implements WebBlogServic
     @Resource
     private UserArticleMapper userArticleMapper;
 
-    // @Value("${defualtPageSize}")
-    @Value("#{blog_api['defualtPageSize']}")
-    private String defualtPageSize;
+    protected static final int DEFUALT_PAGE_SIZE = 20;
 
-    // @Value("${userHotestArticleListSize}")
-    @Value("#{blog_api['userHotestArticleListSize']}")
-    private String userHotestArticleListSize;
+    protected  static final int USER_HOTEST_ARTICLE_PAGE_SIZE = 10;
 
 
     /**
@@ -96,14 +95,14 @@ public class WebBlogServiceImpl extends BaseServiceImpl implements WebBlogServic
 
         // 获取分页大小
         String size = request.getParameter("pageSize");
-        int pageSize = Integer.valueOf(defualtPageSize);
+        int pageSize = Integer.valueOf(DEFUALT_PAGE_SIZE);
         if (StringUtils.isNumeric(size)) {
             pageSize = Integer.valueOf(size);
         }
 
         List<UserArticle> userArticles = userArticleMapper.getPageByWebUserId(webUser.getId(), (pageNo - 1) * pageSize, pageSize);
 
-        List<UserArticle> userHotestArticles = userArticleMapper.getTopThumbupArticlesByWebUserId(webUser.getId(), Integer.valueOf(userHotestArticleListSize));
+        List<UserArticle> userHotestArticles = userArticleMapper.getTopThumbupArticlesByWebUserId(webUser.getId(), USER_HOTEST_ARTICLE_PAGE_SIZE);
 
         UserBlogInfo userBlogInfo = new UserBlogInfo();
 

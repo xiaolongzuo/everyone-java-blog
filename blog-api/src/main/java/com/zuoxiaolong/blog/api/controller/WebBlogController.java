@@ -60,7 +60,7 @@ public class WebBlogController extends BaseController{
      * 获取个人博客主页信息
      * @return
      */
-    @RequestMapping("/Homepage")
+    @RequestMapping("/HomePage")
     public UserBlogInfo personalBlogHomePage(){
         return webBlogService.selectUserBlogInfoByUsername(getRequest());
     }

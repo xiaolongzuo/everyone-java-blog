@@ -13,17 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.zuoxiaolong.blog.service.impl;
+package com.zuoxiaolong.blog.web.controller;
 
-import com.zuoxiaolong.blog.service.BaseService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.zuoxiaolong.blog.common.spring.BaseController;
 
 /**
  * @author Boren You
- * @dateTime 2016/6/8 0:31
+ * @dateTime 2016/6/11 0:23
  * @since 1.0.0
  */
-public abstract class BaseServiceImpl implements BaseService{
-    protected Logger logger = LoggerFactory.getLogger(getClass());
+public abstract class WebBaseController extends BaseController {
 }
