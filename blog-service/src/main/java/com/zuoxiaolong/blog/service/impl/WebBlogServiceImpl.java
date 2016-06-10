@@ -54,10 +54,12 @@ public class WebBlogServiceImpl extends BaseServiceImpl implements WebBlogServic
     @Resource
     private UserArticleMapper userArticleMapper;
 
-    @Value("${defualtPageSize}")
+    // @Value("${defualtPageSize}")
+    @Value("#{blog_api['defualtPageSize']}")
     private String defualtPageSize;
 
-    @Value("${userHotestArticleListSize}")
+    // @Value("${userHotestArticleListSize}")
+    @Value("#{blog_api['userHotestArticleListSize']}")
     private String userHotestArticleListSize;
 
 
@@ -117,8 +119,8 @@ public class WebBlogServiceImpl extends BaseServiceImpl implements WebBlogServic
         dtoBlogConfig.setBlogTitle(blogConfig.getBlogTitle());
         dtoBlogConfig.setBlogSubTitle(blogConfig.getBlogSubTitle());
 
-        userBlogInfo.setWebUser(webUser);
-        userBlogInfo.setBlogConfig(blogConfig);
+        userBlogInfo.setWebUser(dtoUser);
+        userBlogInfo.setBlogConfig(dtoBlogConfig);
         userBlogInfo.setUserArticleList(userArticles);
         userBlogInfo.setUserHotestArticleList(userHotestArticles);
 
