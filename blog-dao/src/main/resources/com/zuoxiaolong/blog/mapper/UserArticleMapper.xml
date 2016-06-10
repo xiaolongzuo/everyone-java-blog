@@ -223,4 +223,25 @@
         LIMIT #{startRow,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
     </select>
 
+    <!-- 获取文章分页列表，根据个人文章创建时间倒序排序 -->
+    <!-- 因为在Mapper接口方法中使用了@Param注解了参数，所以无需在配置文件中指定参数类型，是希望让大家就知道有多种做法，如果后续需要统一编码规范，再改 -->
+    <select id="getPageByWebUserId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user_article
+        where web_user_id = #{webUserId} and status = 1
+        order by create_time desc
+        --         limit #{offset},#{pageSize}
+    </select>
+
+    <!-- 根据用户id，获取推荐的文章列表，按推荐次数倒序排序 -->
+    <!-- 因为在Mapper接口方法中使用了@Param注解了参数，所以无需在配置文件中指定参数类型，是希望让大家就知道有多种做法，如果后续需要统一编码规范，再改 -->
+    <select id="getTopThumbupArticlesByWebUserId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user_article
+        where web_user_id = #{webUserId} and status = 1
+        order by thumbup_times desc
+        limit #{pageSize}
+    </select>
 </mapper>

@@ -13,39 +13,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.zuoxiaolong.blog.web.controller;
 
-import com.zuoxiaolong.blog.common.spring.BaseController;
+import com.zuoxiaolong.blog.common.bean.JsonResponse;
+import com.zuoxiaolong.blog.common.utils.CollectionUtils;
 import com.zuoxiaolong.blog.sdk.Api;
 import com.zuoxiaolong.blog.sdk.BlogSdk;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
- * @author 郭松涛
- * @date 2016/6/10 8:23
+ * 博客主页controller
+ *
+ * @author linjiedeng
  * @since 1.0.0
  */
 @Controller
-@RequestMapping("/HomePage")
-public class HomePageController extends WebBaseController {
+@RequestMapping("/WebBlog")
+public class WebBlogController extends WebBaseController {
+
     @Autowired
     private BlogSdk blogSdk;
 
-    @RequestMapping("/Articles")
-    public String getArticles(@RequestParam("categoryId") int categoryId,
-                              @RequestParam(required = false, defaultValue = "1") int pageNum,
-                              @RequestParam(required = false, defaultValue = "20") int pageSize) {
-        Map<String, String> params = new HashMap<>();
-        params.put("categoryId",categoryId+"");
-        params.put("startRow",(pageNum-1)*pageSize+"");
-        params.put("pageSize",pageSize+"");
-        setModelAttribute("result", blogSdk.invokeApi(Api.HomePage_Articles, params));
-        return "/index/index";
+    /**
+     * 获取个人博客主页信息
+     *
+     * @return
+     */
+    @RequestMapping("/Homepage/{username}")
+    public String personalBlogHomePage(@PathVariable String username) {
+        JsonResponse response = blogSdk.invokeApi(Api.WebBlog_HomePage, CollectionUtils.newMap("username", username));
+        setModelAttribute("result", response);
+        return "/blog/blog";
     }
 }

@@ -35,7 +35,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/HomePage")
-public class HomePageController extends BaseController {
+public class HomePageController extends ApiBaseController {
 
     @Autowired
     private UserArticleService userArticleService;

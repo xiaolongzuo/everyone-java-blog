@@ -13,24 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.zuoxiaolong.blog.service;
+package com.zuoxiaolong.blog.web.controller;
 
-import com.zuoxiaolong.blog.model.dto.UserBlogInfo;
-import com.zuoxiaolong.blog.model.persistent.BlogConfig;
+import com.zuoxiaolong.blog.common.spring.BaseController;
 
 /**
- * 用户博客个人主页业务接口
- *
- * @author linjiedeng
- * @author youboren
- * @date 16/5/14 下午7:49
+ * @author Boren You
+ * @dateTime 2016/6/11 0:23
  * @since 1.0.0
  */
-
-public interface WebBlogService {
-
-    UserBlogInfo selectUserBlogInfoByUsername(String userName, String pageSize, String pageNo);
-
-    int updateBlogConfig(BlogConfig blogConfig);
-
+public abstract class WebBaseController extends BaseController {
 }

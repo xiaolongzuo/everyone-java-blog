@@ -27,6 +27,6 @@ public class UserArticle extends BaseModel {
 
     private Integer status;
 
-    private Integer commentTimes;
+    private Integer commentTimes;// 评论次数
 
 }
