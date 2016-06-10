@@ -18,8 +18,6 @@ package com.zuoxiaolong.blog.service;
 import com.zuoxiaolong.blog.model.dto.UserBlogInfo;
 import com.zuoxiaolong.blog.model.persistent.BlogConfig;
 
-import javax.servlet.http.HttpServletRequest;
-
 /**
  * 用户博客个人主页业务接口
  *
@@ -29,9 +27,9 @@ import javax.servlet.http.HttpServletRequest;
  * @since 1.0.0
  */
 
-public interface WebBlogService extends BaseService{
+public interface WebBlogService {
 
-    UserBlogInfo selectUserBlogInfoByUsername(HttpServletRequest request);
+    UserBlogInfo selectUserBlogInfoByUsername(String userName, String pageSize, String pageNo);
 
     int updateBlogConfig(BlogConfig blogConfig);
 

@@ -31,7 +31,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -59,48 +58,46 @@ public class WebBlogServiceImpl implements WebBlogService {
 
     protected static final int DEFUALT_PAGE_SIZE = 20;
 
-    protected  static final int USER_HOTEST_ARTICLE_PAGE_SIZE = 10;
+    protected static final int USER_HOTEST_ARTICLE_PAGE_SIZE = 10;
 
 
     /**
      * 根据用户名获取用户博客个人主页的相关信息(新)
      *
-     * @param request
+     * @param userName
+     * @param pageSize
+     * @param pageNo
      * @return
      */
-    public UserBlogInfo selectUserBlogInfoByUsername(HttpServletRequest request) {
-
-        String username = request.getParameter("username");
+    public UserBlogInfo selectUserBlogInfoByUsername(String userName, String pageSize, String pageNo) {
 
         // 根据用户名查询用户是否存在
-        WebUser webUser = webUserMapper.selectByUsername(username);
+        WebUser webUser = webUserMapper.selectByUsername(userName);
         if (webUser == null) {
-            logger.error("用户：{} 不存在！", username);
+            logger.error("用户：{} 不存在！", userName);
             throw new BusinessException(ExceptionType.USER_NOT_FOUND);
         }
 
         // 根据用户id查询博客是否开通
         BlogConfig blogConfig = blogConfigMapper.selectByWebUserId(webUser.getId());
         if (blogConfig == null) {
-            logger.error("{} 的博客未开通！", username);
+            logger.error("{} 的博客未开通！", userName);
             throw new BusinessException(ExceptionType.DATA_NOT_FOUND);
         }
 
         // 获取分页编号
-        String no = request.getParameter("pageNo");
-        int pageNo = 1;
-        if (StringUtils.isNumeric(no)) {
-            pageNo = Integer.valueOf(no);
+        int num = 1;
+        if (StringUtils.isNumeric(pageNo)) {
+            num = Integer.valueOf(pageNo);
         }
 
         // 获取分页大小
-        String size = request.getParameter("pageSize");
-        int pageSize = Integer.valueOf(DEFUALT_PAGE_SIZE);
-        if (StringUtils.isNumeric(size)) {
-            pageSize = Integer.valueOf(size);
+        int size = DEFUALT_PAGE_SIZE;
+        if (StringUtils.isNumeric(pageSize)) {
+            size = Integer.valueOf(pageSize);
         }
 
-        List<UserArticle> userArticles = userArticleMapper.getPageByWebUserId(webUser.getId(), (pageNo - 1) * pageSize, pageSize);
+        List<UserArticle> userArticles = userArticleMapper.getPageByWebUserId(webUser.getId(), (num - 1) * size, size);
 
         List<UserArticle> userHotestArticles = userArticleMapper.getTopThumbupArticlesByWebUserId(webUser.getId(), USER_HOTEST_ARTICLE_PAGE_SIZE);
 

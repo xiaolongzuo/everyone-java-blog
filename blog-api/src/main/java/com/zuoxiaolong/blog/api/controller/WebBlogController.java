@@ -28,24 +28,26 @@ import javax.annotation.Resource;
 
 /**
  * 博客主页controller
+ *
  * @author linjiedeng
  * @since 1.0.0
  */
 @Controller
 @RequestMapping("/WebBlog")
-public class WebBlogController extends ApiBaseController{
+public class WebBlogController extends ApiBaseController {
 
     @Resource
     private WebBlogService webBlogService;
 
     /**
      * 更新个人简介,地址等信息
+     *
      * @param blogConfig
      * @return
      */
     @RequestMapping("/update/config")
     public int updateBlogConfig(@RequestBody BlogConfig blogConfig) {
-        if(SensitiveWordCheckUtils.isContainSensitiveWord(blogConfig.getIntroduction())) {
+        if (SensitiveWordCheckUtils.isContainSensitiveWord(blogConfig.getIntroduction())) {
             return webBlogService.updateBlogConfig(blogConfig);
         } else {
             return -1;
@@ -55,10 +57,11 @@ public class WebBlogController extends ApiBaseController{
 
     /**
      * 获取个人博客主页信息
+     *
      * @return
      */
     @RequestMapping("/HomePage")
-    public UserBlogInfo personalBlogHomePage(){
-        return webBlogService.selectUserBlogInfoByUsername(getRequest());
+    public UserBlogInfo personalBlogHomePage(String userName, String pageSize, String pageNo) {
+        return webBlogService.selectUserBlogInfoByUsername(userName, pageSize, pageNo);
     }
 }
