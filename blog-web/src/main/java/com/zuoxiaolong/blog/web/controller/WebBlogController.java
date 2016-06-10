@@ -43,10 +43,11 @@ public class WebBlogController extends WebBaseController {
      *
      * @return
      */
-    @RequestMapping("/Homepage/{username}")
-    public String personalBlogHomePage(@PathVariable String username) {
-        JsonResponse response = blogSdk.invokeApi(Api.WebBlog_HomePage, CollectionUtils.newMap("username", username));
+    @RequestMapping("/HomePage/{userName}")
+    public String personalBlogHomePage(@PathVariable String userName) {
+        JsonResponse response = blogSdk.invokeApi(Api.WebBlog_HomePage, CollectionUtils.newMap("userName", userName));
         setModelAttribute("result", response);
         return "/blog/blog";
     }
+
 }
