@@ -22,13 +22,14 @@ import com.zuoxiaolong.blog.model.persistent.BlogConfig;
  * 用户博客个人主页业务接口
  *
  * @author linjiedeng
+ * @author youboren
  * @date 16/5/14 下午7:49
  * @since 1.0.0
  */
 
 public interface WebBlogService {
 
-    UserBlogInfo selectUserBlogInfoByUsername(String username);
+    UserBlogInfo selectUserBlogInfoByUsername(String userName, String pageSize, String pageNo);
 
     int updateBlogConfig(BlogConfig blogConfig);
 

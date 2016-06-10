@@ -13,25 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.zuoxiaolong.blog.web.controller;
 
-package com.zuoxiaolong.blog.service;
-
-import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDto;
-import com.zuoxiaolong.blog.model.persistent.UserArticle;
-
-import java.util.List;
-import java.util.Map;
+import com.zuoxiaolong.blog.common.spring.BaseController;
 
 /**
- * 用户文章接口类
- *
- * @author goozi
- * @create 2016-05-15 16:39
+ * @author Boren You
+ * @dateTime 2016/6/11 0:23
  * @since 1.0.0
  */
-public interface UserArticleService {
-
-    List<ArticleRankResponseDto> getArticlesRank();
-
-    List<UserArticle> getArticles(Map<String,Object> params);
+public abstract class WebBaseController extends BaseController {
 }
