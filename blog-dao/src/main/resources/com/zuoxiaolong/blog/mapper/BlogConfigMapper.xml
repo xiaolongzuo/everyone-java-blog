@@ -8,9 +8,11 @@
         <result column="web_user_id" property="webUserId" jdbcType="INTEGER"/>
         <result column="introduction" property="introduction" jdbcType="VARCHAR"/>
         <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="blog_title" property="blogTitle" jdbcType="VARCHAR"/>
+        <result column="blog_sub_title" property="blogSubTitle" jdbcType="VARCHAR"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, create_time, update_time, web_user_id, introduction, address
+    id, create_time, update_time, web_user_id, introduction, address, blog_title, blog_sub_title
   </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select

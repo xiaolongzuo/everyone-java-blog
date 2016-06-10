@@ -15,14 +15,18 @@
  */
 package com.zuoxiaolong.blog.model.dto;
 
+import com.zuoxiaolong.blog.model.persistent.BlogConfig;
 import com.zuoxiaolong.blog.model.persistent.UserArticle;
+import com.zuoxiaolong.blog.model.persistent.WebUser;
 import lombok.Data;
 
 import java.util.List;
 
 /**
  * 用户博客信息
+ *
  * @author linjiedeng
+ * @author youboren
  * @date 16/5/14 下午6:38
  * @since 1.0.0
  */
@@ -30,14 +34,12 @@ import java.util.List;
 @Data
 public class UserBlogInfo {
 
-    private int webUserId;          //用户id
+    private WebUser webUser; // 用户（注入对象的时候，不要带密码跟盐这两个字段的值）
 
-    private String username;        //用户名
+    private BlogConfig blogConfig; // 博客配置
 
-    private String nickname;        //用户昵称
+    private List<UserArticle> userArticleList;// 用户文章列表
 
-    private String introduction;    //个人简介
-
-    private List<UserArticle> userArticleList;  //用户文章列表
+    private List<UserArticle> userHotestArticleList;// 用户最热文章列表
 
 }
