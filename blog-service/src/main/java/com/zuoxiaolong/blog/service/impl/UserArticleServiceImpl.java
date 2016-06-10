@@ -208,5 +208,10 @@ public class UserArticleServiceImpl implements UserArticleService {
         return articleRankResponseDtos;
     }
 
+    @Override
+    public List<UserArticle> getArticles(Map<String, Object> params) {
+        return userArticleMapper.getArticlesByCategoryIdAndPage(params);
+    }
+
 
 }

@@ -18,6 +18,7 @@ package com.zuoxiaolong.blog.sdk;
 
 import com.google.gson.reflect.TypeToken;
 import com.zuoxiaolong.blog.model.persistent.ArticleCategory;
+import com.zuoxiaolong.blog.model.persistent.UserArticle;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -34,6 +35,7 @@ public enum Api {
     example1("GET", new TypeToken<List<ArticleCategory>>(){}.getType()),
     example2("GET", ArticleCategory.class),
     example4("GET"),
+    Homepage_Articles("POST", new TypeToken<List<UserArticle>>(){}.getType()),
     WebUser_Register("POST", String.class),
     WebUser_CheckUsername("POST", boolean.class),
     WebUser_IsLogin("POST", boolean.class),
