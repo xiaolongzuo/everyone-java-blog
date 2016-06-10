@@ -24,6 +24,6 @@ import org.slf4j.LoggerFactory;
  * @dateTime 2016/6/8 0:31
  * @since 1.0.0
  */
-public class BaseServiceImpl implements BaseService{
+public abstract class BaseServiceImpl implements BaseService{
     protected Logger logger = LoggerFactory.getLogger(getClass());
 }

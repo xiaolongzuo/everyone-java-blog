@@ -11,11 +11,12 @@
         <result column="content" property="content" jdbcType="VARCHAR"/>
         <result column="read_times" property="readTimes" jdbcType="INTEGER"/>
         <result column="thumbup_times" property="thumbupTimes" jdbcType="INTEGER"/>
+        <result column="comment_times" property="commentTimes" jdbcType="INTEGER"/>
         <result column="is_main_page" property="isMainPage" jdbcType="TINYINT"/>
         <result column="status" property="status" jdbcType="TINYINT"/>
     </resultMap>
     <sql id="Base_Column_List">
-        id, create_time, update_time, web_user_id, category_id, title, content, read_times, thumbup_times, is_main_page,
+        id, create_time, update_time, web_user_id, category_id, title, content, read_times, thumbup_times, comment_times, is_main_page,
         status
     </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
@@ -201,5 +202,27 @@
         LEFT JOIN article_comment b ON a.id = b.article_id
         WHERE
         a.category_id = #{categoryId,jdbcType=INTEGER}
+    </select>
+
+    <!-- 获取文章分页列表，根据个人文章创建时间倒序排序 -->
+    <!-- 因为在Mapper接口方法中使用了@Param注解了参数，所以无需在配置文件中指定参数类型，是希望让大家就知道有多种做法，如果后续需要统一编码规范，再改 -->
+    <select id="getPageByWebUserId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user_article
+        where web_user_id = #{webUserId} and status = 1
+        order by create_time desc
+        limit #{first},#{last}
+    </select>
+
+    <!-- 根据用户id，获取推荐的文章列表，按推荐次数倒序排序 -->
+    <!-- 因为在Mapper接口方法中使用了@Param注解了参数，所以无需在配置文件中指定参数类型，是希望让大家就知道有多种做法，如果后续需要统一编码规范，再改 -->
+    <select id="getTopThumbupArticlesByWebUserId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user_article
+        where web_user_id = #{webUserId} and status = 1
+        order by thumbup_times desc
+        limit #{size}
     </select>
 </mapper>

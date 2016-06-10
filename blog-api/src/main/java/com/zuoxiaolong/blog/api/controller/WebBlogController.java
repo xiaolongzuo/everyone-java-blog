@@ -41,19 +41,6 @@ public class WebBlogController extends BaseController{
     private WebBlogService webBlogService;
 
     /**
-     * 根据请求路径中的用户名跳转到个人博客主页
-     * @param username
-     * @return
-     */
-    @RequestMapping("/homepage/{username}")
-    public ModelAndView blog(@PathVariable String username) {
-        UserBlogInfo userBlogInfo = webBlogService.selectUserBlogInfoByUsername(username);
-        ModelAndView view = new ModelAndView("homepage");
-        view.addObject(userBlogInfo);
-        return view;
-    }
-
-    /**
      * 更新个人简介,地址等信息
      * @param blogConfig
      * @return
@@ -72,8 +59,8 @@ public class WebBlogController extends BaseController{
      * 获取个人博客主页信息
      * @return
      */
-    @RequestMapping("/{username}")
-    public UserBlogInfo personalBlogHomePage(@PathVariable String username){
-        return null;
+    @RequestMapping("/homepage")
+    public UserBlogInfo personalBlogHomePage(){
+        return webBlogService.selectUserBlogInfoByUsername(getRequest());
     }
 }

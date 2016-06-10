@@ -30,10 +30,18 @@ public interface UserArticleMapper {
     /**
      * 获取文章分页列表，根据个人文章创建时间倒序排序
      * @param webUserId
-     * @param start
-     * @param end
+     * @param firstIndex
+     * @param lastIndex
      * @return
      */
-    List<UserArticle> selectPageByWebUserId(@Param("webUserId") Integer webUserId, @Param("start") Integer start, @Param("end") Integer end);
+    List<UserArticle> getPageByWebUserId(@Param("webUserId") int webUserId, @Param("first") int firstIndex, @Param("last") int lastIndex);
+
+    /**
+     * 根据用户id，获取推荐的文章列表，按推荐次数倒序排序
+     * @param webUserId
+     * @param size
+     * @return
+     */
+    List<UserArticle> getTopThumbupArticlesByWebUserId(@Param("webUserId") int webUserId, @Param("size") int size);
 
 }

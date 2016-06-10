@@ -31,9 +31,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public interface WebBlogService extends BaseService{
 
-    UserBlogInfo selectUserBlogInfoByUsername(String username);
-
-    UserBlogInfo selectUserBlogInfoByUsername(String username, HttpServletRequest request);
+    UserBlogInfo selectUserBlogInfoByUsername(HttpServletRequest request);
 
     int updateBlogConfig(BlogConfig blogConfig);
 

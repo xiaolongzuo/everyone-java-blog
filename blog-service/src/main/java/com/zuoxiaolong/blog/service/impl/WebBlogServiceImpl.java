@@ -57,69 +57,72 @@ public class WebBlogServiceImpl extends BaseServiceImpl implements WebBlogServic
     @Value("${defualtPageSize}")
     private String defualtPageSize;
 
-    /**
-     * 根据用户名获取用户博客个人主页的相关信息
-     * @param username
-     * @return
-     */
-    @Override
-    public UserBlogInfo selectUserBlogInfoByUsername(String username) {
-        WebUser webUser = webUserMapper.selectByUsername(username);
-        if(webUser == null) {
-            return null;
-        }
+    @Value("${userHotestArticleListSize}")
+    private String userHotestArticleListSize;
 
-        BlogConfig blogConfig = blogConfigMapper.selectByWebUserId(webUser.getId());
-        if(blogConfig == null) {
-            return null;
-        }
-
-        List<UserArticle> userArticle = userArticleMapper.selectByWebUserId(webUser.getId());
-
-        UserBlogInfo userBlogInfo = new UserBlogInfo();
-        userBlogInfo.setIntroduction(blogConfig.getIntroduction());
-        userBlogInfo.setNickname(webUser.getNickname());
-        userBlogInfo.setUsername(webUser.getUsername());
-        userBlogInfo.setWebUserId(webUser.getId());
-        userBlogInfo.setUserArticleList(userArticle);
-        return userBlogInfo;
-    }
 
     /**
      * 根据用户名获取用户博客个人主页的相关信息(新)
-     * @param username
+     *
      * @param request
      * @return
      */
-    public UserBlogInfo selectUserBlogInfoByUsername(String username, HttpServletRequest request) {
+    public UserBlogInfo selectUserBlogInfoByUsername(HttpServletRequest request) {
+
+        String username = request.getParameter("username");
 
         // 根据用户名查询用户是否存在
         WebUser webUser = webUserMapper.selectByUsername(username);
-        if(webUser == null) {
-            logger.error("用户：{} 不存在！" ,username);
+        if (webUser == null) {
+            logger.error("用户：{} 不存在！", username);
             throw new BusinessException(ExceptionType.USER_NOT_FOUND);
         }
 
         // 根据用户id查询博客是否开通
         BlogConfig blogConfig = blogConfigMapper.selectByWebUserId(webUser.getId());
-        if(blogConfig == null) {
-            logger.error("{} 的博客未开通！",username);
+        if (blogConfig == null) {
+            logger.error("{} 的博客未开通！", username);
             throw new BusinessException(ExceptionType.DATA_NOT_FOUND);
         }
 
         // 获取分页编号
+        String no = request.getParameter("pageNo");
         int pageNo = 1;
-        if(StringUtils.isNumeric(request.getParameter("pageNo"))){
-            pageNo = Integer.valueOf(request.getParameter("pageNo"));
+        if (StringUtils.isNumeric(no)) {
+            pageNo = Integer.valueOf(no);
         }
 
         // 获取分页大小
+        String size = request.getParameter("pageSize");
         int pageSize = Integer.valueOf(defualtPageSize);
-        if(StringUtils.isNumeric(request.getParameter("pageSize"))){
-            pageSize = Integer.valueOf(request.getParameter("pageSize"));
+        if (StringUtils.isNumeric(size)) {
+            pageSize = Integer.valueOf(size);
         }
 
-        return null;
+        List<UserArticle> userArticles = userArticleMapper.getPageByWebUserId(webUser.getId(), (pageNo - 1) * pageSize, pageNo * pageSize);
+
+        List<UserArticle> userHotestArticles = userArticleMapper.getTopThumbupArticlesByWebUserId(webUser.getId(), Integer.valueOf(userHotestArticleListSize));
+
+        UserBlogInfo userBlogInfo = new UserBlogInfo();
+
+        WebUser dtoUser = new WebUser();
+        dtoUser.setId(webUser.getId());
+        dtoUser.setUsername(webUser.getUsername());
+        dtoUser.setNickname(webUser.getNickname());
+
+        BlogConfig dtoBlogConfig = new BlogConfig();
+        dtoBlogConfig.setId(blogConfig.getId());
+        dtoBlogConfig.setIntroduction(blogConfig.getIntroduction());
+        dtoBlogConfig.setAddress(blogConfig.getAddress());
+        dtoBlogConfig.setBlogTitle(blogConfig.getBlogTitle());
+        dtoBlogConfig.setBlogSubTitle(blogConfig.getBlogSubTitle());
+
+        userBlogInfo.setWebUser(webUser);
+        userBlogInfo.setBlogConfig(blogConfig);
+        userBlogInfo.setUserArticleList(userArticles);
+        userBlogInfo.setUserHotestArticleList(userHotestArticles);
+
+        return userBlogInfo;
     }
 
     @Override
