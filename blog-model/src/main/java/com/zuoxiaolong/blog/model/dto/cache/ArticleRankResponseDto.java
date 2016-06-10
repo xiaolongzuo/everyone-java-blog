@@ -25,6 +25,7 @@ import java.util.List;
  */
 public class ArticleRankResponseDto {
     private String actionType;
+
     private List<ArticleRankResponseDataResult> dataResult;
 
     public String getActionType() {
