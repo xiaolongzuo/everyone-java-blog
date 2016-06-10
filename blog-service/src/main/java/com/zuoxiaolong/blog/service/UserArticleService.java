@@ -17,8 +17,10 @@
 package com.zuoxiaolong.blog.service;
 
 import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDto;
+import com.zuoxiaolong.blog.model.persistent.UserArticle;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户文章接口类
@@ -31,4 +33,5 @@ public interface UserArticleService {
 
     List<ArticleRankResponseDto> getArticlesRank();
 
+    List<UserArticle> getArticles(Map<String,Object> params);
 }

@@ -27,6 +27,7 @@ public interface UserArticleMapper {
 
     List<UserArticle> selectByWebUserId(Integer webUserId);
 
+    List<UserArticle> getArticlesByCategoryIdAndPage(Map<String, Object> mapInfo);
     /**
      * 获取文章分页列表，根据个人文章创建时间倒序排序
      * @param webUserId
@@ -43,5 +44,4 @@ public interface UserArticleMapper {
      * @return
      */
     List<UserArticle> getTopThumbupArticlesByWebUserId(@Param("webUserId") int webUserId, @Param("pageSize") int pageSize);
-
 }
