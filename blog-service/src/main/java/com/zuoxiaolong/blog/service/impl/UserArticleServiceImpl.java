@@ -16,6 +16,7 @@
 
 package com.zuoxiaolong.blog.service.impl;
 
+import com.zuoxiaolong.blog.common.cache.SingletonCache;
 import com.zuoxiaolong.blog.mapper.UserArticleMapper;
 import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDataResult;
 import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDto;
