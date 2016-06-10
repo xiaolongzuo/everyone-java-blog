@@ -16,7 +16,6 @@
 
 package com.zuoxiaolong.blog.service.impl;
 
-import com.zuoxiaolong.blog.common.cache.SingletonCache;
 import com.zuoxiaolong.blog.mapper.UserArticleMapper;
 import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDataResult;
 import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDto;
@@ -231,4 +230,12 @@ public class UserArticleServiceImpl implements UserArticleService {
         }
         return topArticles;
     }
+
+
+    @Override
+    public List<UserArticle> getArticles(Map<String, Object> params) {
+        return userArticleMapper.getArticlesByCategoryIdAndPage(params);
+    }
+
+
 }

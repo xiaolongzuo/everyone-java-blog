@@ -13,14 +13,12 @@
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
-    
+
 --%>
 <%--
-  User: Xiaolong Zuo
-  Time: 16/6/5 18:06
+  User: Boren You
+  Time: 2016/6/10 23:00
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<div class="blog-header">
-    <h1 class="blog-title">${result.data.blogConfig.blogTitle}</h1>
-    <p class="lead blog-description">${result.data.blogConfig.blogSubTitle}</p>
-</div>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>

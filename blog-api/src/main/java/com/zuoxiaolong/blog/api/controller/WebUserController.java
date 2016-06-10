@@ -38,9 +38,9 @@ public class WebUserController extends ApiBaseController {
     @RequestMapping(value = "/Register", method = RequestMethod.POST)
     public String register(WebUser webUser) {
         webUserService.register(webUser);
-        String token = webUserService.login(webUser.getUsername(), webUser.getPassword());
-        setSessionAttribute(USERNAME_ATTRIBUTE_KEY, webUser.getUsername());
-        return token;
+        WebUser loginWebUser = webUserService.login(webUser.getUsername(), webUser.getPassword());
+        loginSuccess(loginWebUser);
+        return webUser.getToken();
     }
 
     @RequestMapping(value = "/CheckUsername", method = RequestMethod.POST)
@@ -55,16 +55,16 @@ public class WebUserController extends ApiBaseController {
 
     @RequestMapping(value = "/Login", method = RequestMethod.POST)
     public String login(String username, String password) {
-        String token = webUserService.login(username, password);
-        setSessionAttribute(USERNAME_ATTRIBUTE_KEY, username);
-        return token;
+        WebUser loginWebUser = webUserService.login(username, password);
+        loginSuccess(loginWebUser);
+        return loginWebUser.getToken();
     }
 
     @RequestMapping(value = "/LoginWithToken", method = RequestMethod.POST)
     public String loginWithToken(String token) {
-        WebUser webUser = webUserService.loginWithToken(token);
-        setSessionAttribute(USERNAME_ATTRIBUTE_KEY, webUser.getUsername());
-        return webUser.getToken();
+        WebUser loginWebUser = webUserService.loginWithToken(token);
+        loginSuccess(loginWebUser);
+        return loginWebUser.getToken();
     }
 
     @RequestMapping(value = "/ModifyPassword", method = RequestMethod.POST)

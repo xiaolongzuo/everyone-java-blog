@@ -23,19 +23,21 @@
 <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
     <div class="sidebar-module sidebar-module-inset">
         <h4>个人介绍</h4>
-        <p>我叫左潇龙,毕业于XXXX年,在XXX上学,大数据等哈就开始的贺卡较好的空间安徽科技是的哈会计核算的空间暗红色的尽快哈就开始的空间暗红色的尽快哈</p>
+        <p>${result.data.blogConfig.introduction}</p>
     </div>
     <div class="sidebar-module">
         <h4>最热文章</h4>
         <ol class="list-unstyled">
-            <li><a href="#">第一篇</a></li>
-            <li><a href="#">第二篇</a></li>
-            <li><a href="#">第二篇</a></li>
-            <li><a href="#">第二篇</a></li>
-            <li><a href="#">第二篇</a></li>
-            <li><a href="#">第二篇</a></li>
-            <li><a href="#">第二篇</a></li>
-            <li><a href="#">第二篇</a></li>
+            <c:choose>
+                <c:when test="${result.data.userHotestArticleList!=null && fn:length(result.data.userHotestArticleList) > 0}">
+                    <c:forEach var="article" items="${result.data.userHotestArticleList}" varStatus="index">
+                        <li><a href="#">${article.title}</a></li>
+                    </c:forEach>
+                </c:when>
+                <c:otherwise>
+                    没有热门文章
+                </c:otherwise>
+            </c:choose>
         </ol>
     </div>
 </div><!-- /.blog-sidebar -->

@@ -13,31 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.zuoxiaolong.blog.web.controller;
 
-package com.zuoxiaolong.blog.common.utils;
+import com.zuoxiaolong.blog.common.spring.BaseController;
 
 /**
- * @author Xiaolong Zuo
+ * @author Boren You
+ * @dateTime 2016/6/11 0:23
  * @since 1.0.0
  */
-public interface AssertUtils {
-
-    static void isNull(Object o) {
-        if (o == null) {
-            throw new IllegalArgumentException();
-        }
-    }
-
-    static void isEmpty(Object o) {
-        if (ObjectUtils.isEmpty(o)) {
-            throw new IllegalArgumentException();
-        }
-    }
-
-    static void isEmpty(Object[] array) {
-        if (CollectionUtils.isEmpty(array)) {
-            throw new IllegalArgumentException();
-        }
-    }
-
+public abstract class WebBaseController extends BaseController {
 }

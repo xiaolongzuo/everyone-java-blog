@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright 2016-2016 the original author or authors.
+=======
+ * Copyright 2002-2016 the original author or authors.
+>>>>>>> fast
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,5 +53,17 @@ public class HomePageController extends BaseController {
     Object topThreeUserArticles(String categoryName) {
         JsonResponse jsonResponse = blogSdk.invokeApi(Api.HomePage_TopThreeUserArticles, CollectionUtils.newMap("categoryName", categoryName));
         return JsonUtils.toJson(jsonResponse);
+    }
+
+    @RequestMapping("/Articles")
+    public String getArticles(@RequestParam("categoryId") int categoryId,
+                              @RequestParam(required = false, defaultValue = "1") int pageNum,
+                              @RequestParam(required = false, defaultValue = "20") int pageSize) {
+        Map<String, String> params = new HashMap<>();
+        params.put("categoryId",categoryId+"");
+        params.put("startRow",(pageNum-1)*pageSize+"");
+        params.put("pageSize",pageSize+"");
+        setModelAttribute("result", blogSdk.invokeApi(Api.HomePage_Articles, params));
+        return "/index/index";
     }
 }

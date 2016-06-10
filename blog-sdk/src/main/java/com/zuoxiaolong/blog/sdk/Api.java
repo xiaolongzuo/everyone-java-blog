@@ -18,11 +18,9 @@ package com.zuoxiaolong.blog.sdk;
 
 import com.google.gson.reflect.TypeToken;
 import com.zuoxiaolong.blog.model.persistent.ArticleCategory;
-import com.zuoxiaolong.blog.model.persistent.UserArticle;
 
 import java.lang.reflect.Type;
 import java.util.List;
-import java.util.Map;
 
 /**
  * API种类
@@ -33,8 +31,7 @@ import java.util.Map;
  */
 public enum Api {
 
-    example1("GET", new TypeToken<List<ArticleCategory>>() {
-    }.getType()),
+    example1("GET", new TypeToken<List<ArticleCategory>>(){}.getType()),
     example2("GET", ArticleCategory.class),
     example4("GET"),
     WebUser_Register("POST", String.class),
@@ -45,6 +42,8 @@ public enum Api {
     WebUser_ModifyPassword("POST"),
     WebUser_Logout("POST"),
     HomePage_TopThreeUserArticles("POST",new TypeToken<List<Map<String,UserArticle>>>(){}.getType());
+    WebBlog_HomePage("POST", UserBlogInfo.class)
+    ;
 
     private String url;
 
@@ -59,7 +58,7 @@ public enum Api {
     Api(String method, Type resultType) {
         String[] names = toString().split("_");
         StringBuffer url = new StringBuffer();
-        for (int i = 0; i < names.length; i++) {
+        for (int i = 0; i < names.length ; i++) {
             url.append("/").append(names[i]);
         }
         this.url = url.toString();
