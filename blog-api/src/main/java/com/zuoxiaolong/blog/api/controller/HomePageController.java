@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
+ * Copyright 2016-2016 the original author or authors.
+=======
  * Copyright 2002-2016 the original author or authors.
+>>>>>>> fast
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,42 +19,46 @@
  */
 package com.zuoxiaolong.blog.api.controller;
 
+
 import com.zuoxiaolong.blog.common.spring.BaseController;
 import com.zuoxiaolong.blog.model.persistent.UserArticle;
 import com.zuoxiaolong.blog.service.UserArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * @author 郭松涛
- * @date 2016/6/10 13:20
- * @since 1.0.0
+ * @author iCodingStar
+ * @version 1.0
+ * @date 2016/6/10 19:28
  */
-@Controller
+@RestController
 @RequestMapping("/HomePage")
-public class HomePageController extends ApiBaseController {
+public class HomePageController extends BaseController {
 
     @Autowired
     private UserArticleService userArticleService;
+
+    @RequestMapping(value = {"/TopThreeUserArticles"}, method = {RequestMethod.GET, RequestMethod.POST})
+    public List<Map<String, UserArticle>> topThreeUserArticles(String categoryName) {
+        return userArticleService.getTopThreeUserArticles(categoryName);
+    }
 
     @RequestMapping(value = "/Articles", method = RequestMethod.POST)
     public List<UserArticle> getArticles(@RequestParam("categoryId") int categoryId,
                                          @RequestParam(required = false, defaultValue = "1") int pageNum,
                                          @RequestParam(required = false, defaultValue = "20") int pageSize) {
         Map<String, Object> params = new HashMap<>();
-        params.put("categoryId",categoryId);
-        params.put("startRow",(pageNum-1)*pageSize);
-        params.put("pageSize",pageSize);
-        List<UserArticle> s =userArticleService.getArticles(params);
-
+        params.put("categoryId", categoryId);
+        params.put("startRow", (pageNum - 1) * pageSize);
+        params.put("pageSize", pageSize);
+        List<UserArticle> s = userArticleService.getArticles(params);
         return s;
     }
-
 }

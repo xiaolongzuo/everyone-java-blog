@@ -42,5 +42,4 @@ public class SingletonCache {
     public Object get(String key) {
         return cache.get(key);
     }
-
 }

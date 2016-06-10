@@ -43,9 +43,8 @@ public class ContributorController extends BaseController{
 
     @RequestMapping(value = "/edit")
     public String edit() {
-
         return "contributor/contributor-edit";
-    }
+}
 
     /**
      *
@@ -68,8 +67,8 @@ public class ContributorController extends BaseController{
                 model.addAttribute("result", "新增贡献者失败");
                 return "contributor/contributor-error";
             }
-
             model.addAttribute("result", contributor);
+
         } catch (Exception e) {
             logger.error("新增贡献者异常", e);
             model.addAttribute("result", "新增贡献者异常");

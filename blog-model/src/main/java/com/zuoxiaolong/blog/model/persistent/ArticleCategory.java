@@ -6,5 +6,4 @@ import lombok.Data;
 public class ArticleCategory extends BaseModel {
 
     private String categoryName;
-
 }
