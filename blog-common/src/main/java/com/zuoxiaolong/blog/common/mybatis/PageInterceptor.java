@@ -16,10 +16,7 @@
 
 package com.zuoxiaolong.blog.common.mybatis;
 
-import com.zuoxiaolong.blog.common.utils.CollectionUtils;
-import com.zuoxiaolong.blog.common.utils.ObjectUtils;
-import com.zuoxiaolong.blog.common.utils.ReflectUtils;
-import com.zuoxiaolong.blog.common.utils.StringUtils;
+import com.zuoxiaolong.blog.common.utils.*;
 import org.apache.ibatis.binding.MapperMethod;
 import org.apache.ibatis.executor.parameter.ParameterHandler;
 import org.apache.ibatis.executor.resultset.ResultSetHandler;
@@ -32,6 +29,7 @@ import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.scripting.defaults.DefaultParameterHandler;
 
 import java.sql.*;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.regex.Matcher;
@@ -48,6 +46,8 @@ import java.util.regex.Pattern;
         , @Signature(type = ResultSetHandler.class, method = "handleResultSets", args = {Statement.class})})
 public class PageInterceptor implements Interceptor {
 
+    private static final String PAGE_PARAM_NAME = "page";
+
     private ThreadLocal<Object> dataThreadLocal = new ThreadLocal<>();
 
     @Override
@@ -61,10 +61,10 @@ public class PageInterceptor implements Interceptor {
                 return invocation.proceed();
             }
             MapperMethod.ParamMap paramMap = (MapperMethod.ParamMap) parameterObject;
-            if (!paramMap.containsKey("page")) {
+            if (!paramMap.containsKey(PAGE_PARAM_NAME)) {
                 return invocation.proceed();
             }
-            Object pageObject = paramMap.get("page");
+            Object pageObject = paramMap.get(PAGE_PARAM_NAME);
             dataThreadLocal.set(pageObject);
             if (pageObject instanceof DigitalPage) {
                 DigitalPage page = (DigitalPage) pageObject;
@@ -93,7 +93,20 @@ public class PageInterceptor implements Interceptor {
             if (parameterObject instanceof DropDownPage) {
                 List<?> dataList = (List<?>) data;
                 if (!CollectionUtils.isEmpty(dataList)) {
-                    Integer offset = (Integer) ReflectUtils.getFieldValue(dataList.get(dataList.size() - 1), "id");
+                    String[] orderColumnArray = ((DropDownPage) parameterObject).getOrderColumn().split(",");
+                    String orderColumn = orderColumnArray[orderColumnArray.length - 1];
+                    String[] orderColumnNameArray = orderColumn.split("_");
+                    StringBuffer stringBuffer = new StringBuffer(orderColumnNameArray[0].toLowerCase());
+                    for (int i = 1; i < orderColumnNameArray.length ; i++) {
+                        stringBuffer.append(orderColumnNameArray[i].substring(0, 1).toUpperCase());
+                        if (orderColumnNameArray[i].length() > 1) {
+                            stringBuffer.append(orderColumnNameArray[i].substring(1));
+                        }
+                    }
+                    Object offset = ReflectUtils.getFieldValue(dataList.get(dataList.size() - 1), stringBuffer.toString());
+                    if (ObjectUtils.isNull(offset)) {
+                        throw new RuntimeException("please check the property name of " + orderColumn + " is right.");
+                    }
                     ReflectUtils.setFieldValueWithSetterMethod(parameterObject, offset, clazz, clazz.getDeclaredField("offset"));
                 }
             }
@@ -134,7 +147,6 @@ public class PageInterceptor implements Interceptor {
             if (resultSet.next()) {
                 int totalCount = resultSet.getInt(1);
                 page.setTotalCount(totalCount);
-                page.setTotalPageNumberWithTotalCount();
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -172,25 +184,53 @@ public class PageInterceptor implements Interceptor {
 
     private String getDigitalPageSql(DigitalPage page, String sql) {
         StringBuffer sqlBuffer = new StringBuffer(sql);
-        int offset = (page.getCurrentPageNumber() - 1) * page.getPageSize();
         String orderKeyword = findKeyword(sql, "order");
-        if (StringUtils.isEmpty(orderKeyword)) {
-            sqlBuffer.append(" ORDER BY id DESC ");
+        if (!StringUtils.isEmpty(orderKeyword)) {
+            throw new RuntimeException("page sql can't has 'order by' keyword.");
         }
-        sqlBuffer.append(" LIMIT ").append(offset).append(",").append(page.getPageSize());
+        int offset = (page.getCurrentPageNumber() - 1) * page.getPageSize();
+        sqlBuffer.append(" ORDER BY ").append(page.getOrderColumn()).append(" ").append(page.getOrderType()).append(" LIMIT ").append(offset).append(",").append(page.getPageSize());
         return sqlBuffer.toString();
     }
 
     private String getDropDownPageSql(DropDownPage page, String sql) {
         StringBuffer sqlBuffer = new StringBuffer(sql);
+        String orderKeyword = findKeyword(sql, "order");
+        if (!StringUtils.isEmpty(orderKeyword)) {
+            throw new RuntimeException("page sql can't has 'order by' keyword.");
+        }
         String whereKeyword = findKeyword(sql, "where");
         if (ObjectUtils.isNull(page.getOffset())) {
-            sqlBuffer.append(" ORDER BY id DESC LIMIT ").append(page.getSize());
+            sqlBuffer.append(" ORDER BY ").append(page.getOrderColumn()).append(" ").append(page.getOrderType()).append(" LIMIT ").append(page.getSize());
         } else {
             if (!StringUtils.isEmpty(whereKeyword)) {
-                sqlBuffer.append(" AND id < ").append(page.getOffset()).append(" ORDER BY id DESC LIMIT ").append(page.getSize());
+                sqlBuffer.append(" AND ").append(page.getOrderColumn()).append(" ");
+                if (page.getOrderType().toUpperCase().equals("DESC")) {
+                    sqlBuffer.append("<");
+                } else {
+                    sqlBuffer.append(">");
+                }
+                sqlBuffer.append(" ");
+                if (page.getOffset().getClass() == Date.class) {
+                    sqlBuffer.append("'").append(DateUtils.format((Date) page.getOffset())).append("'");
+                } else {
+                    sqlBuffer.append(page.getOffset());
+                }
+                sqlBuffer.append(" ORDER BY ").append(page.getOrderColumn()).append(" ").append(page.getOrderType()).append(" LIMIT ").append(page.getSize());
             } else {
-                sqlBuffer.append(" WHERE id < ").append(page.getOffset()).append(" ORDER BY id DESC LIMIT ").append(page.getSize());
+                sqlBuffer.append(" WHERE ").append(page.getOrderColumn()).append(" ");
+                if (page.getOrderType().toUpperCase().equals("DESC")) {
+                    sqlBuffer.append("<");
+                } else {
+                    sqlBuffer.append(">");
+                }
+                sqlBuffer.append(" ");
+                if (page.getOffset().getClass() == Date.class) {
+                    sqlBuffer.append("'").append(DateUtils.format((Date) page.getOffset())).append("'");
+                } else {
+                    sqlBuffer.append(page.getOffset());
+                }
+                sqlBuffer.append(" ORDER BY ").append(page.getOrderColumn()).append(" ").append(page.getOrderType()).append(" LIMIT ").append(page.getSize());
             }
         }
         return sqlBuffer.toString();
