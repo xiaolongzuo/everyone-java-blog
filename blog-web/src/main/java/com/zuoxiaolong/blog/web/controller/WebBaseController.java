@@ -67,6 +67,15 @@ public abstract class WebBaseController extends BaseController {
     }
 
     /**
+     * 获取用户的username
+     *
+     * @return
+     */
+    protected String getUsername() {
+        return (String) getSessionAttribute(USERNAME_ATTRIBUTE_NAME);
+    }
+
+    /**
      * 获取用户的token
      *
      * @return
