@@ -25,6 +25,7 @@ public interface WebUserMapper {
      * 测试分页,后面会删掉
      * 必须有一个被@Param注解的参数,参数名必须为page,类型为DigitalPage,即数字分页的含义.
      * 返回值为查出来的分页数据,而且返回结果同时会被自动装配到page对象中.
+     * 拦截器默认的排序方式为ORDER BY id DESC排序,暂不支持定制化排序
      *
      * @param page
      * @param param
@@ -44,6 +45,8 @@ public interface WebUserMapper {
      * 测试分页,后面会删掉
      * 必须有一个被@Param注解的参数,参数名必须为page,类型为DropDownPage,即下拉分页的意思.
      * 返回值为查出来的分页数据,而且返回结果同时会被自动装配到page对象中.
+     * 此外,在下拉分页时,框架会将末尾的offset自动填充到page对象中,前端可以直接传递offset来进行下一次查询.
+     * 拦截器默认的排序方式为ORDER BY id DESC排序,暂不支持定制化排序
      *
      * @param page
      * @param param

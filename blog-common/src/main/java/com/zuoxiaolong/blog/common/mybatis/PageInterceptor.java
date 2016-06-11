@@ -16,6 +16,7 @@
 
 package com.zuoxiaolong.blog.common.mybatis;
 
+import com.zuoxiaolong.blog.common.utils.CollectionUtils;
 import com.zuoxiaolong.blog.common.utils.ObjectUtils;
 import com.zuoxiaolong.blog.common.utils.ReflectUtils;
 import com.zuoxiaolong.blog.common.utils.StringUtils;
@@ -89,6 +90,13 @@ public class PageInterceptor implements Interceptor {
             }
             Class<?> clazz = parameterObject.getClass();
             ReflectUtils.setFieldValueWithSetterMethod(parameterObject, data, clazz, clazz.getDeclaredField("data"));
+            if (parameterObject instanceof DropDownPage) {
+                List<?> dataList = (List<?>) data;
+                if (!CollectionUtils.isEmpty(dataList)) {
+                    Integer offset = (Integer) ReflectUtils.getFieldValue(dataList.get(dataList.size() - 1), "id");
+                    ReflectUtils.setFieldValueWithSetterMethod(parameterObject, offset, clazz, clazz.getDeclaredField("offset"));
+                }
+            }
             return data;
         }
         return invocation.proceed();
