@@ -14,30 +14,24 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.common.utils;
+package com.zuoxiaolong.blog.web.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
+ * 用户登录,注册等功能
+ *
  * @author Xiaolong Zuo
  * @since 1.0.0
  */
-public interface AssertUtils {
+@Controller
+@RequestMapping("/WebUser")
+public class WebUserController {
 
-    static void isNull(Object o) {
-        if (o == null) {
-            throw new IllegalArgumentException();
-        }
-    }
-
-    static void isEmpty(Object o) {
-        if (ObjectUtils.isEmpty(o)) {
-            throw new IllegalArgumentException();
-        }
-    }
-
-    static void isEmpty(Object[] array) {
-        if (CollectionUtils.isEmpty(array)) {
-            throw new IllegalArgumentException();
-        }
+    @RequestMapping("Login")
+    public String login() {
+        return "/user/login";
     }
 
 }

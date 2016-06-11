@@ -16,6 +16,12 @@
 
 package com.zuoxiaolong.blog.common.utils;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author Xiaolong Zuo
  * @since 1.0.0
@@ -24,6 +30,46 @@ public interface ObjectUtils {
 
     static boolean isEmpty(Object o) {
         return o == null || o.toString().length() == 0;
+    }
+
+    static boolean isNull(Object o) {
+        return o == null;
+    }
+
+    /**
+     * 将对象转换成Map
+     *
+     * @param o
+     * @return
+     */
+    static Map<String, String> objectToMap(Object o) {
+        AssertUtils.isNull(o);
+        Class<?> clazz = o.getClass();
+        Field[] fields = ReflectUtils.getAllFields(clazz);
+        Map<String, String> map = new HashMap<>();
+        if (CollectionUtils.isEmpty(fields)) {
+            return map;
+        }
+        for (Field field : fields) {
+            int modifiers = field.getModifiers();
+            if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || !Modifier.isPrivate(modifiers)) {
+                continue;
+            }
+            Object value = ReflectUtils.getFieldValueWithGetterMethod(o, clazz, field);
+            if (isNull(value)) {
+                continue;
+            }
+            Class<?> fieldClass = value.getClass();
+            if (!ClassUtils.isPrimitive(fieldClass)) {
+                continue;
+            }
+            if (fieldClass == Date.class) {
+                map.put(field.getName(), DateUtils.format((Date) value));
+            } else {
+                map.put(field.getName(), value.toString());
+            }
+        }
+        return map;
     }
 
 }
