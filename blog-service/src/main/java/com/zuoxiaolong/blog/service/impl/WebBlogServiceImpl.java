@@ -64,24 +64,24 @@ public class WebBlogServiceImpl implements WebBlogService {
     /**
      * 根据用户名获取用户博客个人主页的相关信息(新)
      *
-     * @param userName
+     * @param username
      * @param pageSize
      * @param pageNo
      * @return
      */
-    public UserBlogInfo selectUserBlogInfoByUsername(String userName, String pageSize, String pageNo) {
+    public UserBlogInfo selectUserBlogInfoByUsername(String username, String pageSize, String pageNo) {
 
         // 根据用户名查询用户是否存在
-        WebUser webUser = webUserMapper.selectByUsername(userName);
+        WebUser webUser = webUserMapper.selectByUsername(username);
         if (webUser == null) {
-            logger.error("用户：{} 不存在！", userName);
+            logger.error("用户：{} 不存在！", username);
             throw new BusinessException(ExceptionType.USER_NOT_FOUND);
         }
 
         // 根据用户id查询博客是否开通
         BlogConfig blogConfig = blogConfigMapper.selectByWebUserId(webUser.getId());
         if (blogConfig == null) {
-            logger.error("{} 的博客未开通！", userName);
+            logger.error("{} 的博客未开通！", username);
             throw new BusinessException(ExceptionType.DATA_NOT_FOUND);
         }
 

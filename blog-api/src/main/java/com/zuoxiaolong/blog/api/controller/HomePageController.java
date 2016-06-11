@@ -15,7 +15,6 @@
  */
 package com.zuoxiaolong.blog.api.controller;
 
-import com.zuoxiaolong.blog.common.spring.BaseController;
 import com.zuoxiaolong.blog.model.persistent.UserArticle;
 import com.zuoxiaolong.blog.service.UserArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +50,11 @@ public class HomePageController extends ApiBaseController {
         List<UserArticle> s =userArticleService.getArticles(params);
 
         return s;
+    }
+
+    @RequestMapping(value = {"/TopThreeUserArticles"}, method = {RequestMethod.GET, RequestMethod.POST})
+    public List<Map<String, UserArticle>> topThreeUserArticles(String categoryName) {
+        return userArticleService.getTopThreeUserArticles(categoryName);
     }
 
 }

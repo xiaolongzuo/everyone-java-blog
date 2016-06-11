@@ -55,7 +55,7 @@ public class WebUserServiceImpl implements WebUserService {
     }
 
     @Override
-    public String login(String username, String password) {
+    public WebUser login(String username, String password) {
         WebUser webUser = webUserMapper.selectByUsername(username);
         if (ObjectUtils.isEmpty(webUser)) {
             throw new BusinessException(ExceptionType.USER_NOT_FOUND);
@@ -65,7 +65,7 @@ public class WebUserServiceImpl implements WebUserService {
         }
         webUser.generateToken();
         webUserMapper.updateByPrimaryKeySelective(webUser);
-        return webUser.getToken();
+        return webUser;
     }
 
     @Override
@@ -78,10 +78,7 @@ public class WebUserServiceImpl implements WebUserService {
         }
         webUser.generateToken();
         webUserMapper.updateByPrimaryKeySelective(webUser);
-        WebUser result = new WebUser();
-        result.setUsername(webUser.getUsername());
-        result.setToken(webUser.getToken());
-        return result;
+        return webUser;
     }
 
     @Override

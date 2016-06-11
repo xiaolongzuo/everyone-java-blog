@@ -16,6 +16,10 @@
 package com.zuoxiaolong.blog.web.controller;
 
 import com.zuoxiaolong.blog.common.spring.BaseController;
+import com.zuoxiaolong.blog.common.utils.JsonUtils;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * @author Boren You
@@ -23,4 +27,31 @@ import com.zuoxiaolong.blog.common.spring.BaseController;
  * @since 1.0.0
  */
 public abstract class WebBaseController extends BaseController {
+
+    /**
+     * 客户端返回JSON字符串
+     * @param object
+     * @return
+     */
+    protected void renderJson(Object object) {
+        renderText(JsonUtils.toJson(object), "application/json");
+    }
+
+    /**
+     * 客户端返回字符串
+     * @param string
+     * @return
+     */
+    protected void renderText(String string, String type) {
+        try {
+            HttpServletResponse response = getResponse();
+            response.reset();
+            response.setContentType(type);
+            response.setCharacterEncoding("utf-8");
+            response.getWriter().print(string);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

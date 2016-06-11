@@ -26,7 +26,7 @@ public interface WebUserService {
 
     void register(WebUser webUser);
 
-    String login(String username, String password);
+    WebUser login(String username, String password);
 
     WebUser loginWithToken(String token);
 

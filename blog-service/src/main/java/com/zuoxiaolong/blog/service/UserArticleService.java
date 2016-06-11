@@ -34,4 +34,6 @@ public interface UserArticleService {
     List<ArticleRankResponseDto> getArticlesRank();
 
     List<UserArticle> getArticles(Map<String,Object> params);
+
+    List<Map<String, UserArticle>> getTopThreeUserArticles(String categoryName);
 }

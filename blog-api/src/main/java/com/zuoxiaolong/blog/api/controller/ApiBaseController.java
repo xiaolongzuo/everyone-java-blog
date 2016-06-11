@@ -17,6 +17,7 @@
 package com.zuoxiaolong.blog.api.controller;
 
 import com.zuoxiaolong.blog.common.spring.BaseController;
+import com.zuoxiaolong.blog.model.persistent.WebUser;
 
 /**
  * @author Xiaolong Zuo
@@ -25,5 +26,19 @@ import com.zuoxiaolong.blog.common.spring.BaseController;
 public abstract class ApiBaseController extends BaseController {
 
     protected static final String USERNAME_ATTRIBUTE_KEY = "username";
+    protected static final String WEB_USER_ID_ATTRIBUTE_KEY = "webUserId";
+
+    protected String getUsername() {
+        return (String) getSessionAttribute(USERNAME_ATTRIBUTE_KEY);
+    }
+
+    protected Integer getWebUserId() {
+        return (Integer) getSessionAttribute(WEB_USER_ID_ATTRIBUTE_KEY);
+    }
+
+    protected void loginSuccess(WebUser webUser) {
+        setSessionAttribute(USERNAME_ATTRIBUTE_KEY, webUser.getUsername());
+        setSessionAttribute(WEB_USER_ID_ATTRIBUTE_KEY, webUser.getId());
+    }
 
 }
