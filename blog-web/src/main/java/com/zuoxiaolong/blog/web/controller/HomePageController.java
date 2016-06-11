@@ -37,14 +37,15 @@ public class HomePageController extends AbstractWebController {
 
     /**
      * 当访问错误的时候，跳转到默认的主页
+     *
      * @return
      */
     @RequestMapping("/index")
-    public String index(){
+    public String index() {
         Map<String, String> params = new HashMap<>();
-        params.put("categoryId","1");
-        params.put("startRow","0");
-        params.put("pageSize","20");
+        params.put("categoryId", "1");
+        params.put("startRow", "0");
+        params.put("pageSize", "20");
         setModelAttribute("result", invokeApi(Api.HomePage_Articles, params));
         return "/index/index";
     }
@@ -61,10 +62,11 @@ public class HomePageController extends AbstractWebController {
                               @RequestParam(required = false, defaultValue = "1") int pageNum,
                               @RequestParam(required = false, defaultValue = "20") int pageSize) {
         Map<String, String> params = new HashMap<>();
-        params.put("categoryId",categoryId+"");
-        params.put("startRow",(pageNum-1)*pageSize+"");
-        params.put("pageSize",pageSize+"");
+        params.put("categoryId", categoryId + "");
+        params.put("startRow", (pageNum - 1) * pageSize + "");
+        params.put("pageSize", pageSize + "");
         setModelAttribute("result", invokeApi(Api.HomePage_Articles, params));
         return "/index/index";
     }
+
 }

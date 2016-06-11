@@ -72,4 +72,5 @@ public class WebUserController extends AbstractWebController {
             return "/user/register";
         }
     }
+
 }

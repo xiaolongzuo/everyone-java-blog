@@ -35,13 +35,14 @@ public class WebBlogController extends AbstractWebController {
 
     /**
      * 获取个人博客主页信息
+     *
      * @param username
      * @return
      */
     @RequestMapping("/HomePage/{username}")
     public String personalBlogHomePage(@PathVariable String username) {
         JsonResponse response = invokeApi(Api.WebBlog_HomePage, CollectionUtils.newMap("username", username));
-        if(response.getCode() == 200){
+        if (response.getCode() == 200) {
             setModelAttribute("result", response);
             return "/blog/blog";
         }

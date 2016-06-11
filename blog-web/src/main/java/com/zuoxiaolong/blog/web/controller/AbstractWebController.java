@@ -17,8 +17,8 @@ package com.zuoxiaolong.blog.web.controller;
 
 import com.zuoxiaolong.blog.common.bean.Attachment;
 import com.zuoxiaolong.blog.common.bean.JsonResponse;
-import com.zuoxiaolong.blog.common.web.AbstractController;
 import com.zuoxiaolong.blog.common.utils.JsonUtils;
+import com.zuoxiaolong.blog.common.web.AbstractController;
 import com.zuoxiaolong.blog.sdk.Api;
 import com.zuoxiaolong.blog.sdk.BlogSdk;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +51,7 @@ public abstract class AbstractWebController extends AbstractController {
         return blogSdk.invokeApi(getToken(), api);
     }
 
-    protected JsonResponse invokeApi(Api api, Map<String, String> params ){
+    protected JsonResponse invokeApi(Api api, Map<String, String> params) {
         return blogSdk.invokeApi(getToken(), api, params);
     }
 
@@ -65,6 +65,7 @@ public abstract class AbstractWebController extends AbstractController {
 
     /**
      * 绑定response对象
+     *
      * @param response
      */
     @ModelAttribute
@@ -84,7 +85,6 @@ public abstract class AbstractWebController extends AbstractController {
 
     /**
      * 成功注销后处理session
-     *
      */
     protected void logoutSuccess() {
         setSessionAttribute(USERNAME_ATTRIBUTE_NAME, null);
@@ -111,6 +111,7 @@ public abstract class AbstractWebController extends AbstractController {
 
     /**
      * 获取当前线程的HttpServletResponse对象
+     *
      * @return 当前线程的HttpServletResponse对象
      */
     protected HttpServletResponse getResponse() {
@@ -119,6 +120,7 @@ public abstract class AbstractWebController extends AbstractController {
 
     /**
      * 客户端返回JSON字符串
+     *
      * @param object
      * @return
      */
@@ -128,6 +130,7 @@ public abstract class AbstractWebController extends AbstractController {
 
     /**
      * 客户端返回字符串
+     *
      * @param string
      * @return
      */
