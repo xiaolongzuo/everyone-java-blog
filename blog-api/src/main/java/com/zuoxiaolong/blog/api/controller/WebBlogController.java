@@ -57,13 +57,13 @@ public class WebBlogController extends ApiBaseController {
 
     /**
      * 获取个人博客主页信息
-     * @param userName
+     * @param username
      * @param pageSize
      * @param pageNo
      * @return
      */
     @RequestMapping("/HomePage")
-    public UserBlogInfo personalBlogHomePage(String userName, String pageSize, String pageNo) {
-        return webBlogService.selectUserBlogInfoByUsername(userName, pageSize, pageNo);
+    public UserBlogInfo personalBlogHomePage(String username, String pageSize, String pageNo) {
+        return webBlogService.selectUserBlogInfoByUsername(username, pageSize, pageNo);
     }
 }

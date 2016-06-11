@@ -13,24 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.zuoxiaolong.blog.service;
 
-import com.zuoxiaolong.blog.model.dto.UserBlogInfo;
-import com.zuoxiaolong.blog.model.persistent.BlogConfig;
+package com.zuoxiaolong.blog.web.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * 用户博客个人主页业务接口
+ * 用户登录,注册等功能
  *
- * @author linjiedeng
- * @author youboren
- * @date 16/5/14 下午7:49
+ * @author Xiaolong Zuo
  * @since 1.0.0
  */
+@Controller
+@RequestMapping("/WebUser")
+public class WebUserController {
 
-public interface WebBlogService {
-
-    UserBlogInfo selectUserBlogInfoByUsername(String username, String pageSize, String pageNo);
-
-    int updateBlogConfig(BlogConfig blogConfig);
+    @RequestMapping("Login")
+    public String login() {
+        return "/user/login";
+    }
 
 }

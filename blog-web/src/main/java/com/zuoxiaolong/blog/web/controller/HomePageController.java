@@ -13,20 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.zuoxiaolong.blog.web.controller;
 
-import com.zuoxiaolong.blog.common.bean.JsonResponse;
-import com.zuoxiaolong.blog.common.utils.CollectionUtils;
-import com.zuoxiaolong.blog.common.utils.JsonUtils;
+import com.zuoxiaolong.blog.common.spring.BaseController;
 import com.zuoxiaolong.blog.sdk.Api;
 import com.zuoxiaolong.blog.sdk.BlogSdk;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,6 +37,20 @@ public class HomePageController extends WebBaseController {
     @Autowired
     private BlogSdk blogSdk;
 
+    /**
+     * 当访问错误的时候，跳转到默认的主页
+     * @return
+     */
+    @RequestMapping("/index")
+    public String index(){
+        Map<String, String> params = new HashMap<>();
+        params.put("categoryId","1");
+        params.put("startRow","0");
+        params.put("pageSize","20");
+        setModelAttribute("result", blogSdk.invokeApi(Api.HomePage_Articles, params));
+        return "/index/index";
+    }
+
     @RequestMapping(value = {"/TopThreeUserArticles"}, method = {RequestMethod.GET, RequestMethod.POST})
     public
     @ResponseBody
@@ -49,6 +58,7 @@ public class HomePageController extends WebBaseController {
         JsonResponse jsonResponse = blogSdk.invokeApi(Api.HomePage_TopThreeUserArticles, CollectionUtils.newMap("categoryName", categoryName));
         return JsonUtils.toJson(jsonResponse);
     }
+
 
     @RequestMapping("/Articles")
     public String getArticles(@RequestParam("categoryId") int categoryId,
