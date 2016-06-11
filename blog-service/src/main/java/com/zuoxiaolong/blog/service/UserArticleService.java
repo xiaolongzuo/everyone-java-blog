@@ -33,7 +33,7 @@ public interface UserArticleService {
 
     List<ArticleRankResponseDto> getArticlesRank();
 
-    List<Map<String,UserArticle>> getTopThreeUserArticles(String categoryName);
+    List<UserArticle> getArticles(Map<String, Object> params);
 
-    List<UserArticle> getArticles(Map<String,Object> params);
+    List<Map<String, UserArticle>> getTopThreeUserArticles(String categoryName);
 }
