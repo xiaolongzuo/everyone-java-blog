@@ -13,4 +13,6 @@
     <!-- Annotation Config -->
     <context:annotation-config />
 
+    <context:component-scan base-package="com.zuoxiaolong.blog.api.component"/>
+
 </beans>
