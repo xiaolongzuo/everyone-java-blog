@@ -83,7 +83,7 @@ public interface CollectionUtils {
      */
     static <T> Map<String, T> newMap(String[] keys, T... values) {
         Map<String, T> map = new HashMap<>();
-        if (!isEmpty(keys) && !isEmpty(values) && values.length > keys.length) {
+        if (!isEmpty(keys) && !isEmpty(values) && values.length >= keys.length) {
             for (int i = 0;i < keys.length;i++) {
                 map.put(keys[i], values[i]);
             }
