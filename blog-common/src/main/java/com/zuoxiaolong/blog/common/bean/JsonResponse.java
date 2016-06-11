@@ -55,4 +55,8 @@ public class JsonResponse {
         this.data = data;
     }
 
+    public boolean success() {
+        return this.code == 200;
+    }
+
 }
