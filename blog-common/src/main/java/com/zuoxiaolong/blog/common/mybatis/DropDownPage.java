@@ -16,7 +16,13 @@
 
 package com.zuoxiaolong.blog.common.mybatis;
 
+import com.zuoxiaolong.blog.common.utils.AssertUtils;
+import com.zuoxiaolong.blog.common.utils.ObjectUtils;
 import lombok.Data;
+
+import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author Xiaolong Zuo
@@ -25,10 +31,52 @@ import lombok.Data;
 @Data
 public class DropDownPage {
 
-    private Integer offset;
+    private Object offset;
 
     private int size = 10;
 
+    private String orderColumn = "id";
+
+    private String orderType = "DESC";
+
     private Object data;
+
+    public void setOffset(Object offset) {
+        if (!ObjectUtils.isNull(offset)) {
+            Class<?> clazz = offset.getClass();
+            if (clazz != Integer.class && clazz != String.class && clazz != Date.class) {
+                throw new RuntimeException("offset must be Integer or String or Date");
+            }
+        }
+        this.offset = offset;
+    }
+
+    public void setSize(int size) {
+        if (size < 1) {
+            size = 1;
+        }
+        if (size > 100) {
+            size = 100;
+        }
+        this.size = size;
+    }
+
+    public void setOrderColumn(String orderColumn) {
+        AssertUtils.isEmpty(orderColumn);
+        Pattern pattern = Pattern.compile("\\s+");
+        Matcher matcher = pattern.matcher(orderColumn);
+        if (matcher.find()) {
+            throw new IllegalArgumentException("orderColumn can't contains space.");
+        }
+        this.orderColumn = orderColumn;
+    }
+
+    public void setOrderType(String orderType) {
+        AssertUtils.isEmpty(orderType);
+        if (!orderType.toUpperCase().equals("DESC") && !orderType.toUpperCase().equals("ASC")) {
+            throw new IllegalArgumentException("orderType must be DESC or ASC.");
+        }
+        this.orderType = orderType;
+    }
 
 }

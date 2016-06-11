@@ -16,7 +16,11 @@
 
 package com.zuoxiaolong.blog.common.mybatis;
 
+import com.zuoxiaolong.blog.common.utils.AssertUtils;
 import lombok.Data;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author Xiaolong Zuo
@@ -33,10 +37,60 @@ public class DigitalPage {
 
     private int pageSize = 10;
 
+    private String orderColumn = "id";
+
+    private String orderType = "DESC";
+
     private Object data;
 
-    public void setTotalPageNumberWithTotalCount() {
+    public void setTotalCount(int totalCount) {
+        if (totalCount < 0) {
+            totalCount = 0;
+        }
+        this.totalCount = totalCount;
         this.totalPageNumber = (this.totalCount % pageSize == 0) ? (this.totalCount / pageSize) : (this.totalCount / pageSize + 1);
+    }
+
+    public void setTotalPageNumber(int totalPageNumber) {
+        if (totalPageNumber < 0) {
+            totalPageNumber = 0;
+        }
+        this.totalPageNumber = totalPageNumber;
+    }
+
+    public void setCurrentPageNumber(int currentPageNumber) {
+        if (currentPageNumber < 1) {
+            currentPageNumber = 1;
+        }
+        this.currentPageNumber = currentPageNumber;
+    }
+
+    public void setPageSize(int pageSize) {
+        if (pageSize < 1) {
+            pageSize = 1;
+        }
+        if (pageSize > 100) {
+            pageSize = 100;
+        }
+        this.pageSize = pageSize;
+    }
+
+    public void setOrderColumn(String orderColumn) {
+        AssertUtils.isEmpty(orderColumn);
+        Pattern pattern = Pattern.compile("\\s+");
+        Matcher matcher = pattern.matcher(orderColumn);
+        if (matcher.find()) {
+            throw new IllegalArgumentException("orderColumn can't contains space.");
+        }
+        this.orderColumn = orderColumn;
+    }
+
+    public void setOrderType(String orderType) {
+        AssertUtils.isEmpty(orderType);
+        if (!orderType.toUpperCase().equals("DESC") && !orderType.toUpperCase().equals("ASC")) {
+            throw new IllegalArgumentException("orderType must be DESC or ASC.");
+        }
+        this.orderType = orderType;
     }
 
 }
