@@ -26,4 +26,5 @@ public interface UserArticleMapper {
 
     List<UserArticle> selectByWebUserId(Integer webUserId);
 
+    int updateArticleStatusByArticleId(UserArticle record);
 }

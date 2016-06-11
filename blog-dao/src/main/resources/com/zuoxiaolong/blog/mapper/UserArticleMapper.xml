@@ -127,6 +127,15 @@
         where id = #{id,jdbcType=INTEGER}
     </update>
 
+    <update id="updateArticleStatusByArticleId"
+            parameterType="com.zuoxiaolong.blog.model.persistent.UserArticle">
+      update user_article
+         SET status = #{status,jdbcType=TINYINT},
+             update_time = #{updateTime,jdbcType="TIMESTAMP"}
+       where articleId = #{id,jdbcType=INTEGER}
+
+    </update>
+
     <select id="getTopRecommendArticles" resultMap="BaseResultMap" parameterType="java.util.Map">
         SELECT
         <include refid="Base_Column_List"/>
