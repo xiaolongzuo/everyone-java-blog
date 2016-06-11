@@ -17,6 +17,7 @@ package com.zuoxiaolong.blog.web.controller;
 
 import com.zuoxiaolong.blog.common.spring.BaseController;
 import com.zuoxiaolong.blog.common.utils.JsonUtils;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -27,6 +28,48 @@ import java.io.IOException;
  * @since 1.0.0
  */
 public abstract class WebBaseController extends BaseController {
+
+    /**
+     * 存放当前线程的HttpServletResponse对象
+     */
+    private static ThreadLocal<HttpServletResponse> httpServletResponseThreadLocal = new ThreadLocal<>();
+
+    protected static final String TOKEN_ATTRIBUTE_NAME = "token";
+
+    /**
+     * 绑定response对象
+     * @param response
+     */
+    @ModelAttribute
+    protected void setThreadLocal(HttpServletResponse response) {
+        httpServletResponseThreadLocal.set(response);
+    }
+
+    /**
+     * 成功登录后处理session
+     *
+     * @param token
+     */
+    protected void loginSuccess(String token) {
+        setSessionAttribute(TOKEN_ATTRIBUTE_NAME, token);
+    }
+
+    /**
+     * 获取用户的token
+     *
+     * @return
+     */
+    protected String getToken() {
+        return (String) getSessionAttribute(TOKEN_ATTRIBUTE_NAME);
+    }
+
+    /**
+     * 获取当前线程的HttpServletResponse对象
+     * @return 当前线程的HttpServletResponse对象
+     */
+    protected HttpServletResponse getResponse() {
+        return httpServletResponseThreadLocal.get();
+    }
 
     /**
      * 客户端返回JSON字符串
