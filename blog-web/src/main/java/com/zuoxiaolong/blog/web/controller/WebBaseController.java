@@ -36,6 +36,8 @@ public abstract class WebBaseController extends BaseController {
 
     protected static final String TOKEN_ATTRIBUTE_NAME = "token";
 
+    protected static final String USERNAME_ATTRIBUTE_NAME = "username";
+
     /**
      * 绑定response对象
      * @param response
@@ -50,8 +52,18 @@ public abstract class WebBaseController extends BaseController {
      *
      * @param token
      */
-    protected void loginSuccess(String token) {
+    protected void loginSuccess(String username, String token) {
+        setSessionAttribute(USERNAME_ATTRIBUTE_NAME, username);
         setSessionAttribute(TOKEN_ATTRIBUTE_NAME, token);
+    }
+
+    /**
+     * 成功注销后处理session
+     *
+     */
+    protected void logoutSuccess() {
+        setSessionAttribute(USERNAME_ATTRIBUTE_NAME, null);
+        setSessionAttribute(TOKEN_ATTRIBUTE_NAME, null);
     }
 
     /**

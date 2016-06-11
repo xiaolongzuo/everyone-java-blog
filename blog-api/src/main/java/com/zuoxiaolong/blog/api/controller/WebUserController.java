@@ -37,10 +37,10 @@ public class WebUserController extends ApiBaseController {
 
     @RequestMapping(value = "/Register" , method = RequestMethod.POST)
     public String register(WebUser webUser) {
-        webUserService.register(webUser);
-        WebUser loginWebUser = webUserService.login(webUser.getUsername(), webUser.getPassword());
+        WebUser originWebUser = webUserService.register(webUser);
+        WebUser loginWebUser = webUserService.login(originWebUser.getUsername(), originWebUser.getPassword());
         loginSuccess(loginWebUser);
-        return webUser.getToken();
+        return loginWebUser.getToken();
     }
 
     @RequestMapping(value = "/CheckUsername" , method = RequestMethod.POST)

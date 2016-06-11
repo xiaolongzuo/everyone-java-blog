@@ -15,14 +15,13 @@
  */
 package com.zuoxiaolong.blog.common.utils;
 
-import sun.misc.BASE64Encoder;
-
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
+import java.util.Base64;
 
 /**
  * @author 郭松涛
@@ -30,6 +29,14 @@ import java.security.SecureRandom;
  * @since 1.0.0
  */
 public interface EncodeDecodeUtils {
+
+    static String encodeBase64(byte[] bytes) {
+        return Base64.getEncoder().encodeToString(bytes);
+    }
+
+    static byte[] decodeBase64(String source) {
+        return Base64.getDecoder().decode(source);
+    }
 
     static String encryptDes(String source, String password) {
         try {
@@ -39,35 +46,22 @@ public interface EncodeDecodeUtils {
             SecretKey secretKey = keyFactory.generateSecret(desKeySpec);
             Cipher cipher = Cipher.getInstance("DES");
             cipher.init(Cipher.ENCRYPT_MODE, secretKey, random);
-            return StringUtils.fromBytes(cipher.doFinal(StringUtils.toBytes(source)));
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    static String decryptDes(String source, String password) {
-        try {
-            SecureRandom random = new SecureRandom();
-            DESKeySpec desKeySpec = new DESKeySpec(StringUtils.toBytes(password));
-            SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
-            SecretKey secretKey = keyFactory.generateSecret(desKeySpec);
-            Cipher cipher = Cipher.getInstance("DES");
-            cipher.init(Cipher.DECRYPT_MODE, secretKey, random);
-            return StringUtils.fromBytes(cipher.doFinal(StringUtils.toBytes(source)));
+            return encodeByMd5(cipher.doFinal(StringUtils.toBytes(source)));
         } catch (Throwable e) {
             throw new RuntimeException(e);
         }
     }
 
     static String encodeByMd5(String s) {
-        //确定计算方法
+        return encodeByMd5(StringUtils.toBytes(s));
+    }
+
+    static String encodeByMd5(byte[] bytes) {
         MessageDigest messageDigest;
         String result;
         try {
             messageDigest = MessageDigest.getInstance("MD5");
-            BASE64Encoder base64Encoder = new BASE64Encoder();
-            //加密后的字符串
-            result = base64Encoder.encode(messageDigest.digest(s.getBytes("utf-8")));
+            result = encodeBase64(messageDigest.digest(bytes));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

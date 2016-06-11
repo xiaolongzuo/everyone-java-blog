@@ -24,7 +24,7 @@ import com.zuoxiaolong.blog.model.persistent.WebUser;
  */
 public interface WebUserService {
 
-    void register(WebUser webUser);
+    WebUser register(WebUser webUser);
 
     WebUser login(String username, String password);
 

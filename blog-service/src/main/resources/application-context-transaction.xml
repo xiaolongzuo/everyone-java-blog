@@ -18,6 +18,9 @@
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
             <tx:method name="initialize" propagation="REQUIRED"/>
+            <tx:method name="register" propagation="REQUIRED"/>
+            <tx:method name="login" propagation="REQUIRED"/>
+            <tx:method name="loginWithToken" propagation="REQUIRED"/>
             <tx:method name="insert*" propagation="REQUIRED"/>
             <tx:method name="update*" propagation="REQUIRED"/>
             <tx:method name="delete*" propagation="REQUIRED"/>
