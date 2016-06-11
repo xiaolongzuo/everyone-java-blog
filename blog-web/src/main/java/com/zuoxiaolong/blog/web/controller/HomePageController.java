@@ -16,9 +16,7 @@
 package com.zuoxiaolong.blog.web.controller;
 
 import com.zuoxiaolong.blog.common.bean.JsonResponse;
-import com.zuoxiaolong.blog.common.spring.BaseController;
 import com.zuoxiaolong.blog.common.utils.CollectionUtils;
-import com.zuoxiaolong.blog.common.utils.JsonUtils;
 import com.zuoxiaolong.blog.sdk.Api;
 import com.zuoxiaolong.blog.sdk.BlogSdk;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +24,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -57,11 +54,9 @@ public class HomePageController extends WebBaseController {
     }
 
     @RequestMapping(value = {"/TopThreeUserArticles"}, method = {RequestMethod.GET, RequestMethod.POST})
-    public
-    @ResponseBody
-    Object topThreeUserArticles(String categoryName) {
+    public void topThreeUserArticles(String categoryName) {
         JsonResponse jsonResponse = blogSdk.invokeApi(Api.HomePage_TopThreeUserArticles, CollectionUtils.newMap("categoryName", categoryName));
-        return JsonUtils.toJson(jsonResponse);
+        renderJson(jsonResponse);
     }
 
 
