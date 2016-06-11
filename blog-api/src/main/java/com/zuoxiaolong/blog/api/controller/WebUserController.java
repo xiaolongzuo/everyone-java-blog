@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 @RequestMapping("/WebUser")
-public class WebUserController extends ApiBaseController {
+public class WebUserController extends AbstractApiController {
 
     @Autowired
     private WebUserService webUserService;
@@ -39,7 +39,6 @@ public class WebUserController extends ApiBaseController {
     public String register(WebUser webUser) {
         WebUser originWebUser = webUserService.register(webUser);
         WebUser loginWebUser = webUserService.login(originWebUser.getUsername(), originWebUser.getPassword());
-        loginSuccess(loginWebUser);
         return loginWebUser.getToken();
     }
 
@@ -56,14 +55,12 @@ public class WebUserController extends ApiBaseController {
     @RequestMapping(value = "/Login", method = RequestMethod.POST)
     public String login(String username, String password) {
         WebUser loginWebUser = webUserService.login(username, password);
-        loginSuccess(loginWebUser);
         return loginWebUser.getToken();
     }
 
     @RequestMapping(value = "/LoginWithToken", method = RequestMethod.POST)
     public String loginWithToken(String token) {
         WebUser loginWebUser = webUserService.loginWithToken(token);
-        loginSuccess(loginWebUser);
         return loginWebUser.getToken();
     }
 

@@ -53,6 +53,17 @@ public interface HttpUtils {
      *
      * @param method
      * @param url
+     * @return
+     */
+    static String sendHttpRequest(String method, Map<String, String> headerMap, String url) {
+        return sendHttpRequest(method, headerMap, url, "");
+    }
+
+    /**
+     * 发送普通的HTTP请求
+     *
+     * @param method
+     * @param url
      * @param params
      * @return
      */
@@ -64,6 +75,24 @@ public interface HttpUtils {
             }
         }
         return sendHttpRequest(method, url, paramsString.length() == 0 ? paramsString.toString() : paramsString.substring(0, paramsString.length() - 1));
+    }
+
+    /**
+     * 发送普通的HTTP请求
+     *
+     * @param method
+     * @param url
+     * @param params
+     * @return
+     */
+    static String sendHttpRequest(String method, Map<String, String> headerMap, String url , Map<String, String> params) {
+        StringBuffer paramsString = new StringBuffer();
+        if (!CollectionUtils.isEmpty(params)) {
+            for (String key : params.keySet()) {
+                paramsString.append(key).append("=").append(params.get(key)).append("&");
+            }
+        }
+        return sendHttpRequest(method, headerMap, url, paramsString.length() == 0 ? paramsString.toString() : paramsString.substring(0, paramsString.length() - 1));
     }
 
     /**
@@ -90,7 +119,35 @@ public interface HttpUtils {
      * @param params
      * @return
      */
+    static String sendHttpRequest(String method, Map<String, String> headerMap, String url , String params) {
+        try {
+            return new String(sendHttpRequestAndGetBytes(method, headerMap, url, params), DEFAULT_CHARSET);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 发送普通的HTTP请求
+     *
+     * @param method
+     * @param url
+     * @param params
+     * @return
+     */
     static byte[] sendHttpRequestAndGetBytes(String method , String url, String params) {
+        return sendHttpRequestAndGetBytes(method, new HashMap<>(), url,  params);
+    }
+
+    /**
+     * 发送普通的HTTP请求
+     *
+     * @param method
+     * @param url
+     * @param params
+     * @return
+     */
+    static byte[] sendHttpRequestAndGetBytes(String method , Map<String, String> headerMap, String url, String params) {
         try {
             if (method.equals("GET") && params != null) {
                 url = url + "?" + params;
@@ -99,6 +156,11 @@ public interface HttpUtils {
             connection.setDoOutput(true);
             connection.setDoInput(true);
             connection.setRequestMethod(method);
+            if (!ObjectUtils.isNull(headerMap)) {
+                for (String headerName : headerMap.keySet()) {
+                    connection.setRequestProperty(headerName, headerMap.get(headerName));
+                }
+            }
             connection.connect();
             if (params != null && method.equals("POST")) {
                 OutputStream outputStream = connection.getOutputStream();
@@ -130,12 +192,39 @@ public interface HttpUtils {
      *
      * @param url
      * @param params
+     * @param attachmentKey
+     * @param attachments
+     * @return
+     * @throws IOException
+     */
+    static String sendSimpleHttpMultipartRequest(Map<String, String> headerMap, String url, Map<String, String> params, String attachmentKey, Attachment[] attachments) throws IOException {
+        return sendHttpMultipartRequest(headerMap, url, CollectionUtils.mapToArrayMap(params), CollectionUtils.newMap(attachmentKey, attachments));
+    }
+
+    /**
+     * 发送带文件的HTTP请求
+     *
+     * @param url
+     * @param params
      * @param attachmentMap
      * @return
      * @throws IOException
      */
     static String sendHttpMultipartRequest(String url, Map<String, String[]> params, Map<String, Attachment[]> attachmentMap) throws IOException {
-        return sendHttpMultipartRequest(url, DEFAULT_CHARSET, new HashMap<>(), params, attachmentMap);
+        return sendHttpMultipartRequest(new HashMap<>(), url, DEFAULT_CHARSET, params, attachmentMap);
+    }
+
+    /**
+     * 发送带文件的HTTP请求
+     *
+     * @param url
+     * @param params
+     * @param attachmentMap
+     * @return
+     * @throws IOException
+     */
+    static String sendHttpMultipartRequest(Map<String, String> headerMap, String url, Map<String, String[]> params, Map<String, Attachment[]> attachmentMap) throws IOException {
+        return sendHttpMultipartRequest(headerMap, url, DEFAULT_CHARSET, params, attachmentMap);
     }
 
     /**
@@ -149,15 +238,17 @@ public interface HttpUtils {
      * @return
      * @throws IOException
      */
-    static String sendHttpMultipartRequest(String url, String charset, Map<String, String> headerMap, Map<String, String[]> params, Map<String, Attachment[]> attachmentMap) throws IOException {
+    static String sendHttpMultipartRequest( Map<String, String> headerMap, String url, String charset, Map<String, String[]> params, Map<String, Attachment[]> attachmentMap) throws IOException {
         final String enter = "\r\n";
         String BOUNDARY = "---------HttpForward" + UUID.randomUUID().toString();
         HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
         connection.setDoOutput(true);
         connection.setDoInput(true);
         connection.setRequestMethod("POST");
-        for (String headerName : headerMap.keySet()) {
-            connection.setRequestProperty(headerName, headerMap.get(headerName));
+        if (!ObjectUtils.isNull(headerMap)) {
+            for (String headerName : headerMap.keySet()) {
+                connection.setRequestProperty(headerName, headerMap.get(headerName));
+            }
         }
         connection.setRequestProperty("connection", "Keep-Alive");
         connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + BOUNDARY);

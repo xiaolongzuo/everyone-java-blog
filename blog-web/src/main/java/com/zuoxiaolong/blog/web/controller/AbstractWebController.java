@@ -15,19 +15,25 @@
  */
 package com.zuoxiaolong.blog.web.controller;
 
-import com.zuoxiaolong.blog.common.spring.BaseController;
+import com.zuoxiaolong.blog.common.bean.Attachment;
+import com.zuoxiaolong.blog.common.bean.JsonResponse;
+import com.zuoxiaolong.blog.common.web.AbstractController;
 import com.zuoxiaolong.blog.common.utils.JsonUtils;
+import com.zuoxiaolong.blog.sdk.Api;
+import com.zuoxiaolong.blog.sdk.BlogSdk;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * @author Boren You
  * @dateTime 2016/6/11 0:23
  * @since 1.0.0
  */
-public abstract class WebBaseController extends BaseController {
+public abstract class AbstractWebController extends AbstractController {
 
     /**
      * 存放当前线程的HttpServletResponse对象
@@ -37,6 +43,25 @@ public abstract class WebBaseController extends BaseController {
     protected static final String TOKEN_ATTRIBUTE_NAME = "token";
 
     protected static final String USERNAME_ATTRIBUTE_NAME = "username";
+
+    @Autowired
+    private BlogSdk blogSdk;
+
+    protected JsonResponse invokeApi(Api api) {
+        return blogSdk.invokeApi(getToken(), api);
+    }
+
+    protected JsonResponse invokeApi(Api api, Map<String, String> params ){
+        return blogSdk.invokeApi(getToken(), api, params);
+    }
+
+    protected JsonResponse invokeApi(Api api, String attachmentKey, Attachment[] attachments) {
+        return blogSdk.invokeApi(getToken(), api, attachmentKey, attachments);
+    }
+
+    protected JsonResponse invokeApi(Api api, Map<String, String> params, String attachmentKey, Attachment[] attachments) {
+        return blogSdk.invokeApi(getToken(), api, params, attachmentKey, attachments);
+    }
 
     /**
      * 绑定response对象

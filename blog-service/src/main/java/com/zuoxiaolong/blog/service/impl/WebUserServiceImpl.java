@@ -100,4 +100,11 @@ public class WebUserServiceImpl implements WebUserService {
         return ObjectUtils.isEmpty(webUserMapper.selectByUsername(username));
     }
 
+    @Override
+    public WebUser checkToken(String token) {
+        WebUser param = new WebUser();
+        param.setToken(token);
+        return webUserMapper.selectByWebUser(param);
+    }
+
 }

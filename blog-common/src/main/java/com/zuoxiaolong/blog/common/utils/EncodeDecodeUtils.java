@@ -30,6 +30,41 @@ import java.util.Base64;
  */
 public interface EncodeDecodeUtils {
 
+    static byte charToByte(char c) {
+        return (byte) "0123456789ABCDEF".indexOf(c);
+    }
+
+    static String bytesToHex(byte[] bytes){
+        StringBuilder stringBuilder = new StringBuilder("");
+        if (bytes == null || bytes.length <= 0) {
+            return null;
+        }
+        for (int i = 0; i < bytes.length; i++) {
+            int integer = bytes[i] & 0xFF;
+            String hexString = Integer.toHexString(integer);
+            if (hexString.length() < 2) {
+                stringBuilder.append(0);
+            }
+            stringBuilder.append(hexString);
+        }
+        return stringBuilder.toString();
+    }
+
+    static byte[] hexToBytes(String hex) {
+        if (hex == null || hex.equals("")) {
+            return null;
+        }
+        hex = hex.toUpperCase();
+        int length = hex.length() / 2;
+        char[] hexChars = hex.toCharArray();
+        byte[] bytes = new byte[length];
+        for (int i = 0; i < length; i++) {
+            int pos = i * 2;
+            bytes[i] = (byte) (charToByte(hexChars[pos]) << 4 | charToByte(hexChars[pos + 1]));
+        }
+        return bytes;
+    }
+
     static String encodeBase64(byte[] bytes) {
         return Base64.getEncoder().encodeToString(bytes);
     }
@@ -46,7 +81,21 @@ public interface EncodeDecodeUtils {
             SecretKey secretKey = keyFactory.generateSecret(desKeySpec);
             Cipher cipher = Cipher.getInstance("DES");
             cipher.init(Cipher.ENCRYPT_MODE, secretKey, random);
-            return encodeByMd5(cipher.doFinal(StringUtils.toBytes(source)));
+            return bytesToHex(cipher.doFinal(StringUtils.toBytes(source)));
+        } catch (Throwable e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    static String decryptDes(String source, String password) {
+        try {
+            SecureRandom random = new SecureRandom();
+            DESKeySpec desKeySpec = new DESKeySpec(StringUtils.toBytes(password));
+            SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
+            SecretKey secretKey = keyFactory.generateSecret(desKeySpec);
+            Cipher cipher = Cipher.getInstance("DES");
+            cipher.init(Cipher.DECRYPT_MODE, secretKey, random);
+            return StringUtils.fromBytes(cipher.doFinal(hexToBytes(source)));
         } catch (Throwable e) {
             throw new RuntimeException(e);
         }

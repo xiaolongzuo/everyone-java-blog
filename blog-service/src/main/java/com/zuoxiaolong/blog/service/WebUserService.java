@@ -34,4 +34,6 @@ public interface WebUserService {
 
     boolean checkUsername(String username);
 
+    WebUser checkToken(String token);
+
 }

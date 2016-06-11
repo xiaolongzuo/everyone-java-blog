@@ -19,8 +19,6 @@ package com.zuoxiaolong.blog.web.controller;
 import com.zuoxiaolong.blog.common.bean.JsonResponse;
 import com.zuoxiaolong.blog.common.utils.CollectionUtils;
 import com.zuoxiaolong.blog.sdk.Api;
-import com.zuoxiaolong.blog.sdk.BlogSdk;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,10 +31,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/WebBlog")
-public class WebBlogController extends WebBaseController {
-
-    @Autowired
-    private BlogSdk blogSdk;
+public class WebBlogController extends AbstractWebController {
 
     /**
      * 获取个人博客主页信息
@@ -45,7 +40,7 @@ public class WebBlogController extends WebBaseController {
      */
     @RequestMapping("/HomePage/{username}")
     public String personalBlogHomePage(@PathVariable String username) {
-        JsonResponse response = blogSdk.invokeApi(Api.WebBlog_HomePage, CollectionUtils.newMap("username", username));
+        JsonResponse response = invokeApi(Api.WebBlog_HomePage, CollectionUtils.newMap("username", username));
         if(response.getCode() == 200){
             setModelAttribute("result", response);
             return "/blog/blog";
