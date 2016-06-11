@@ -38,7 +38,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/HomePage")
-public class HomePageController extends WebBaseController{
+public class HomePageController extends WebBaseController {
     @Autowired
     private BlogSdk blogSdk;
 
