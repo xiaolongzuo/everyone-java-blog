@@ -1,3 +1,4 @@
+
 <%--
 
     Copyright 2002-2016 the original author or authors.
@@ -26,10 +27,8 @@
     <jsp:include page="../common/head.jsp"/>
 </head>
 <body>
-<jsp:include page="../common/top.jsp"/>
-
-<div class="content">
-    <div id="blog-technical" class="container">
+    <jsp:include page="../common/top.jsp"/>
+    <div class="container">
         <jsp:include page="../common/index_header.jsp"/>
         <div class="row">
             <div class="col-sm-8 blog-main">
@@ -70,10 +69,8 @@
             <jsp:include page="../common/contributor.jsp"/>
         </div><!-- /.row -->
     </div><!-- /.container -->
-</div>
-
-<jsp:include page="../common/footer.jsp"/>
-<jsp:include page="../common/bottom.jsp"/>
+    <jsp:include page="../common/footer.jsp"/>
+    <jsp:include page="../common/bottom.jsp"/>
 </body>
 </html>
 

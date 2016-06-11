@@ -36,7 +36,6 @@
 <!-- Custom styles for this template -->
 <link href="${pageContext.request.contextPath}/css/blog.css" rel="stylesheet">
 
-
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
 <script src="${pageContext.request.contextPath}/assets/html5shiv.min.js"></script>

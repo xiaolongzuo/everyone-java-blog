@@ -24,9 +24,9 @@
 <div class="blog-masthead">
     <div class="container">
         <nav class="blog-nav">
-            <a class="pull-left blog-nav-item active" href="#blog-technical">技术</a>
-            <a class="pull-left blog-nav-item" href="#blog-jobs">职场</a>
-            <a class="pull-left blog-nav-item" href="#blog-life">人生</a>
+            <a class="pull-left blog-nav-item active" href="#">技术</a>
+            <a class="pull-left blog-nav-item" href="#">职场</a>
+            <a class="pull-left blog-nav-item" href="#">人生</a>
             <a class="pull-right blog-nav-item blog-nav-right-first-item" href="#">注册</a>
             <a class="pull-right blog-nav-item" href="#">登录</a>
         </nav>
