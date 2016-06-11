@@ -51,6 +51,14 @@ public class HomePageController extends WebBaseController {
         return "/index/index";
     }
 
+    @RequestMapping(value = {"/TopThreeUserArticles"}, method = {RequestMethod.GET, RequestMethod.POST})
+    public
+    @ResponseBody
+    Object topThreeUserArticles(String categoryName) {
+        JsonResponse jsonResponse = blogSdk.invokeApi(Api.HomePage_TopThreeUserArticles, CollectionUtils.newMap("categoryName", categoryName));
+        return JsonUtils.toJson(jsonResponse);
+    }
+
 
     @RequestMapping("/Articles")
     public String getArticles(@RequestParam("categoryId") int categoryId,

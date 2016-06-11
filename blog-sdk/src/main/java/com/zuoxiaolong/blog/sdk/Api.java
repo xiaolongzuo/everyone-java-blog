@@ -23,6 +23,7 @@ import com.zuoxiaolong.blog.model.persistent.UserArticle;
 
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Map;
 
 /**
  * API种类
@@ -44,7 +45,8 @@ public enum Api {
     WebUser_LoginWithToken("POST", String.class),
     WebUser_ModifyPassword("POST"),
     WebUser_Logout("POST"),
-    WebBlog_HomePage("POST", UserBlogInfo.class)
+    WebBlog_HomePage("POST",UserBlogInfo.class),
+    HomePage_TopThreeUserArticles("POST",new TypeToken<List<Map<String,UserArticle>>>(){}.getType())
     ;
 
     private String url;
