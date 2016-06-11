@@ -34,6 +34,7 @@ function getDataAndParse(url, data) {
 
         },
         error: function () {
+
         }
     });
 }
