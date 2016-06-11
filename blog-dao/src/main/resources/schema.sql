@@ -109,11 +109,7 @@ ALTER TABLE `java_blog`.`user_article` ADD COLUMN `comment_times` INT(11) NOT NU
 ALTER TABLE `java_blog`.`blog_config` ADD COLUMN `blog_title` VARCHAR(128) NOT NULL DEFAULT '' COMMENT '博客标题';
 ALTER TABLE `java_blog`.`blog_config` ADD COLUMN `blog_sub_title` VARCHAR(128) NOT NULL DEFAULT '' COMMENT '博客子标题';
 
-/**
- * @author iCodingStar
- * @date 2016/6/12 0:39
- * @version 1.0
- */
+
 
 
 
