@@ -44,10 +44,10 @@ public class HomePageController extends ApiBaseController {
                                          @RequestParam(required = false, defaultValue = "1") int pageNum,
                                          @RequestParam(required = false, defaultValue = "20") int pageSize) {
         Map<String, Object> params = new HashMap<>();
-        params.put("categoryId", categoryId);
-        params.put("startRow", (pageNum - 1) * pageSize);
-        params.put("pageSize", pageSize);
-        List<UserArticle> s = userArticleService.getArticles(params);
+        params.put("categoryId",categoryId);
+        params.put("startRow",(pageNum-1)*pageSize);
+        params.put("pageSize",pageSize);
+        List<UserArticle> s =userArticleService.getArticles(params);
 
         return s;
     }
