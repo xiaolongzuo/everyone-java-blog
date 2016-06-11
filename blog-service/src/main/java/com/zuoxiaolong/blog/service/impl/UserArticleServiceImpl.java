@@ -223,7 +223,7 @@ public class UserArticleServiceImpl implements UserArticleService {
         for (ArticleRankResponseDto articleRankResponseDto : articleRankResponseDtos) {
             for (ArticleRankResponseDataResult articleRankResponseDataResult : articleRankResponseDto.getDataResult()) {
                 String cacheCategoryName = articleRankResponseDataResult.getCategoryInfo().getCategoryName();
-                if (categoryName.equals(cacheCategoryName)) {
+                if (categoryName!=null && categoryName.equals(cacheCategoryName)) {
                     articleMap.put(articleRankResponseDto.getActionType(), articleRankResponseDataResult.getArticleInfo());
                     topArticles.add(articleMap);
                 }

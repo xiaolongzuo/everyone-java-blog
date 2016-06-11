@@ -31,11 +31,10 @@ function getDataAndParse(url, data) {
         type: "POST",
         cache: false,
         success: function (data, status) {
-            //alert(status);
-            //alert(data);
+
         },
         error: function () {
-            //alert("error");
+
         }
     });
 }
