@@ -37,7 +37,7 @@ public enum Api {
     example1("GET", new TypeToken<List<ArticleCategory>>(){}.getType()),
     example2("GET", ArticleCategory.class),
     example4("GET"),
-    HomePage_Articles("POST",new TypeToken<List<UserArticle>>(){}.getType()),
+    HomePage_Articles("POST", new TypeToken<List<UserArticle>>(){}.getType()),
     WebUser_Register("POST", String.class),
     WebUser_CheckUsername("POST", boolean.class),
     WebUser_IsLogin("POST", boolean.class),
