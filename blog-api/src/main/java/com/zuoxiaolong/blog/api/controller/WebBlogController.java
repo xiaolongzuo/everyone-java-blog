@@ -21,49 +21,49 @@ import com.zuoxiaolong.blog.model.dto.UserBlogInfo;
 import com.zuoxiaolong.blog.model.persistent.BlogConfig;
 import com.zuoxiaolong.blog.service.WebBlogService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 
 /**
  * 博客主页controller
+ *
  * @author linjiedeng
  * @since 1.0.0
  */
 @Controller
-@RequestMapping("/blog")
-public class WebBlogController {
+@RequestMapping("/WebBlog")
+public class WebBlogController extends ApiBaseController {
 
     @Resource
     private WebBlogService webBlogService;
 
     /**
-     * 根据请求路径中的用户名跳转到个人博客主页
-     * @param username
-     * @return
-     */
-    @RequestMapping("/homepage/{username}")
-    public ModelAndView blog(@PathVariable String username) {
-        UserBlogInfo userBlogInfo = webBlogService.selectUserBlogInfoByUsername(username);
-        ModelAndView view = new ModelAndView("homepage");
-        view.addObject(userBlogInfo);
-        return view;
-    }
-
-    /**
      * 更新个人简介,地址等信息
+     *
      * @param blogConfig
      * @return
      */
     @RequestMapping("/update/config")
     public int updateBlogConfig(@RequestBody BlogConfig blogConfig) {
-        if(SensitiveWordCheckUtils.isContainSensitiveWord(blogConfig.getIntroduction())) {
+        if (SensitiveWordCheckUtils.isContainSensitiveWord(blogConfig.getIntroduction())) {
             return webBlogService.updateBlogConfig(blogConfig);
         } else {
             return -1;
         }
+    }
+
+
+    /**
+     * 获取个人博客主页信息
+     * @param username
+     * @param pageSize
+     * @param pageNo
+     * @return
+     */
+    @RequestMapping("/HomePage")
+    public UserBlogInfo personalBlogHomePage(String username, String pageSize, String pageNo) {
+        return webBlogService.selectUserBlogInfoByUsername(username, pageSize, pageNo);
     }
 }

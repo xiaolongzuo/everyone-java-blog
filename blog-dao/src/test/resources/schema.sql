@@ -100,3 +100,19 @@ ALTER TABLE `java_blog_test`.`web_user` ADD UNIQUE ( `username` );
 ALTER TABLE `java_blog_test`.`web_user` ADD UNIQUE ( `nickname` );
 ALTER TABLE `java_blog_test`.`contributor` ADD UNIQUE ( `contributor_name` );
 ALTER TABLE `java_blog_test`.`resource` ADD UNIQUE ( `resource_path` );
+
+ALTER TABLE `java_blog_test`.`message_box` ADD COLUMN `title` VARCHAR(128) NOT null DEFAULT '' COMMENT '标题';
+ALTER TABLE `java_blog_test`.`web_user` ADD COLUMN `token` VARCHAR(128) NOT NULL DEFAULT '' COMMENT '移动端TOKEN';
+
+ALTER TABLE `java_blog_test`.`user_article` ADD COLUMN `comment_times` INT(11) NOT NULL COMMENT '评论次数';
+
+ALTER TABLE `java_blog_test`.`blog_config` ADD COLUMN `blog_title` VARCHAR(128) NOT NULL DEFAULT '' COMMENT '博客标题';
+ALTER TABLE `java_blog_test`.`blog_config` ADD COLUMN `blog_sub_title` VARCHAR(128) NOT NULL DEFAULT '' COMMENT '博客子标题';
+
+
+
+
+
+
+
+

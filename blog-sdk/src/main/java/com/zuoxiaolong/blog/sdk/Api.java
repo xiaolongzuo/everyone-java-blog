@@ -17,10 +17,13 @@
 package com.zuoxiaolong.blog.sdk;
 
 import com.google.gson.reflect.TypeToken;
+import com.zuoxiaolong.blog.model.dto.UserBlogInfo;
 import com.zuoxiaolong.blog.model.persistent.ArticleCategory;
+import com.zuoxiaolong.blog.model.persistent.UserArticle;
 
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Map;
 
 /**
  * API种类
@@ -34,13 +37,16 @@ public enum Api {
     example1("GET", new TypeToken<List<ArticleCategory>>(){}.getType()),
     example2("GET", ArticleCategory.class),
     example4("GET"),
+    HomePage_Articles("POST", new TypeToken<List<UserArticle>>(){}.getType()),
     WebUser_Register("POST", String.class),
     WebUser_CheckUsername("POST", boolean.class),
     WebUser_IsLogin("POST", boolean.class),
     WebUser_Login("POST", String.class),
     WebUser_LoginWithToken("POST", String.class),
     WebUser_ModifyPassword("POST"),
-    WebUser_Logout("POST")
+    WebUser_Logout("POST"),
+    WebBlog_HomePage("POST",UserBlogInfo.class),
+    HomePage_TopThreeUserArticles("POST",new TypeToken<List<Map<String,UserArticle>>>(){}.getType())
     ;
 
     private String url;
