@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -45,11 +44,6 @@ public abstract class BaseController {
     private static ThreadLocal<HttpServletRequest> httpServletRequestThreadLocal = new ThreadLocal<HttpServletRequest>();
 
     /**
-     * 存放当前线程的HttpServletResponse对象
-     */
-    private static ThreadLocal<HttpServletResponse> httpServletResponseThreadLocal = new ThreadLocal<HttpServletResponse>();
-
-    /**
      * 存放当前线程的Model对象
      */
     private static ThreadLocal<Model> modelThreadLocal = new ThreadLocal<Model>();
@@ -58,13 +52,11 @@ public abstract class BaseController {
      * 使用@ModelAttribute注解标识的方法会在每个控制器中的方法访问之前先调用
      *
      * @param request
-     * @param response
      * @param model
      */
     @ModelAttribute
-    protected void setThreadLocal(HttpServletRequest request, HttpServletResponse response, Model model) {
+    protected void setThreadLocal(HttpServletRequest request, Model model) {
         httpServletRequestThreadLocal.set(request);
-        httpServletResponseThreadLocal.set(response);
         modelThreadLocal.set(model);
     }
 
@@ -75,14 +67,6 @@ public abstract class BaseController {
      */
     protected HttpServletRequest getRequest() {
         return httpServletRequestThreadLocal.get();
-    }
-
-    /**
-     * 获取当前线程的HttpServletResponse对象
-     * @return 当前线程的HttpServletResponse对象
-     */
-    protected HttpServletResponse getResponse() {
-        return httpServletResponseThreadLocal.get();
     }
 
     /**
