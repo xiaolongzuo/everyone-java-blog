@@ -15,7 +15,6 @@
  */
 package com.zuoxiaolong.blog.api.controller;
 
-import com.zuoxiaolong.blog.common.spring.BaseController;
 import com.zuoxiaolong.blog.model.persistent.UserArticle;
 import com.zuoxiaolong.blog.service.UserArticleService;
 import org.springframework.beans.factory.annotation.Autowired;

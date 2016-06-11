@@ -27,8 +27,8 @@
             <a class="pull-left blog-nav-item active" href="#">技术</a>
             <a class="pull-left blog-nav-item" href="#">职场</a>
             <a class="pull-left blog-nav-item" href="#">人生</a>
-            <a class="pull-right blog-nav-item blog-nav-right-first-item" href="#">注册</a>
-            <a class="pull-right blog-nav-item" href="#">登录</a>
+            <a class="pull-right blog-nav-item blog-nav-right-first-item" href="${pageContext.request.contextPath}/WebUser/Register">注册</a>
+            <a class="pull-right blog-nav-item" href="${pageContext.request.contextPath}/WebUser/Login">登录</a>
         </nav>
     </div>
 </div>

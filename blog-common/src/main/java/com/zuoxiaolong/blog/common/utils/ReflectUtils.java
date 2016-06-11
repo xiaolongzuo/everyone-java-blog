@@ -264,4 +264,64 @@ public interface ReflectUtils {
         }
     }
 
+    /**
+     * 利用反射获取指定对象的指定属性
+     *
+     * @param target    目标对象
+     * @param fieldName 目标属性
+     * @return 目标属性的值
+     */
+    static Object getFieldValue(Object target, String fieldName) {
+        Object result = null;
+        Field field = getField(target, fieldName);
+        if (field != null) {
+            field.setAccessible(true);
+            try {
+                result = field.get(target);
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 利用反射获取指定对象里面的指定属性
+     *
+     * @param target    目标对象
+     * @param fieldName 目标属性
+     * @return 目标字段
+     */
+    static Field getField(Object target, String fieldName) {
+        Field field = null;
+        for (Class<?> clazz = target.getClass(); clazz != Object.class; clazz = clazz.getSuperclass()) {
+            try {
+                field = clazz.getDeclaredField(fieldName);
+                break;
+            } catch (NoSuchFieldException e) {
+                //ignored
+            }
+        }
+        return field;
+    }
+
+    /**
+     * 利用反射设置指定对象的指定属性为指定的值
+     *
+     * @param target     目标对象
+     * @param fieldName  目标属性
+     * @param fieldValue 目标值
+     */
+    static void setFieldValue(Object target, String fieldName, String fieldValue) {
+        Field field = getField(target, fieldName);
+        if (field != null) {
+            field.setAccessible(true);
+            try {
+                field.set(target, fieldValue);
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
 }
