@@ -37,6 +37,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * mybatis分页拦截器实现.
+ * 该拦截器可以自动识别需要分页的方法,并且按照一定的规范进行分页.
+ *
  * @author Xiaolong Zuo
  * @since 1.0.0
  */
