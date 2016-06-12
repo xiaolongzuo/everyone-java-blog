@@ -53,7 +53,7 @@ public abstract class AbstractWebController extends AbstractController {
     }
 
     protected JsonResponse invokeApi(Api api, Object params) {
-        return invokeApi(api, ObjectUtils.objectToMap(params));
+        return blogSdk.invokeApi(getToken(), api, ObjectUtils.objectToMap(params));
     }
 
     protected JsonResponse invokeApi(Api api, Map<String, String> params) {
