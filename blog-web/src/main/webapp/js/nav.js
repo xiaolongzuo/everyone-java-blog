@@ -31,7 +31,7 @@ function getDataAndParse(url, data) {
         type: "POST",
         cache: false,
         success: function (data, status) {
-            console.log("连接成功");
+
         },
         error: function () {
 
