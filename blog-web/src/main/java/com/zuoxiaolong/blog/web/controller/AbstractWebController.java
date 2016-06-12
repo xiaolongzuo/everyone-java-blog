@@ -49,23 +49,43 @@ public abstract class AbstractWebController extends AbstractController {
     private BlogSdk blogSdk;
 
     protected JsonResponse invokeApi(Api api) {
-        return blogSdk.invokeApi(getToken(), api);
+        JsonResponse jsonResponse = blogSdk.invokeApi(getToken(), api);
+        checkJsonResponse(jsonResponse);
+        return jsonResponse;
     }
 
     protected JsonResponse invokeApi(Api api, Object params) {
-        return blogSdk.invokeApi(getToken(), api, ObjectUtils.objectToMap(params));
+        JsonResponse jsonResponse = blogSdk.invokeApi(getToken(), api, ObjectUtils.objectToMap(params));
+        checkJsonResponse(jsonResponse);
+        return jsonResponse;
     }
 
     protected JsonResponse invokeApi(Api api, Map<String, String> params) {
-        return blogSdk.invokeApi(getToken(), api, params);
+        JsonResponse jsonResponse = blogSdk.invokeApi(getToken(), api, params);
+        checkJsonResponse(jsonResponse);
+        return jsonResponse;
     }
 
     protected JsonResponse invokeApi(Api api, String attachmentKey, Attachment[] attachments) {
-        return blogSdk.invokeApi(getToken(), api, attachmentKey, attachments);
+        JsonResponse jsonResponse = blogSdk.invokeApi(getToken(), api, attachmentKey, attachments);
+        checkJsonResponse(jsonResponse);
+        return jsonResponse;
     }
 
     protected JsonResponse invokeApi(Api api, Map<String, String> params, String attachmentKey, Attachment[] attachments) {
-        return blogSdk.invokeApi(getToken(), api, params, attachmentKey, attachments);
+        JsonResponse jsonResponse = blogSdk.invokeApi(getToken(), api, params, attachmentKey, attachments);
+        checkJsonResponse(jsonResponse);
+        return jsonResponse;
+    }
+
+    private void checkJsonResponse(JsonResponse jsonResponse) {
+        if (jsonResponse.authorizationError()) {
+            try {
+                getResponse().sendRedirect("/WebUser/Login");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     /**
