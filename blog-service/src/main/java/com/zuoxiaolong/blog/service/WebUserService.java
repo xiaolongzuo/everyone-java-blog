@@ -24,7 +24,7 @@ import com.zuoxiaolong.blog.model.persistent.WebUser;
  */
 public interface WebUserService {
 
-    void register(WebUser webUser);
+    WebUser register(WebUser webUser);
 
     WebUser login(String username, String password);
 
@@ -33,5 +33,7 @@ public interface WebUserService {
     void modifyPassword(String username, String oldPassword, String newPassword);
 
     boolean checkUsername(String username);
+
+    WebUser checkToken(String token);
 
 }

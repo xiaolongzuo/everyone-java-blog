@@ -17,14 +17,12 @@
 package com.zuoxiaolong.blog.api.controller;
 
 import com.zuoxiaolong.blog.common.cache.SingletonCache;
-import com.zuoxiaolong.blog.common.spring.BaseController;
+import com.zuoxiaolong.blog.common.web.AbstractController;
 import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDto;
-import com.zuoxiaolong.blog.model.persistent.UserArticle;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * 文章排名Controller
@@ -35,7 +33,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/article")
-public class ArticleRankController extends BaseController {
+public class ArticleRankController extends AbstractController {
 
     /**
      * 文章排名查询接口

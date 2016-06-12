@@ -32,7 +32,7 @@
     <%@include file="../common/blog_header.jsp"%>
     <div class="row">
         <div class="col-sm-8 blog-main">
-            <form action="${pageContext.request.contextPath}/WebUser/Login" method="post">
+            <form action="${pageContext.request.contextPath}/WebUser/Register" method="post">
                 <div class="form-group">
                     <label for="username">用户名</label>
                     <input type="email" class="form-control" name="username" id="username" placeholder="">
@@ -42,9 +42,13 @@
                     <input type="password" class="form-control" name="password" id="password" placeholder="">
                 </div>
                 <div class="form-group">
+                    <label for="repeatPassword">确认密码</label>
+                    <input type="password" class="form-control" name="repeatPassword" id="repeatPassword" placeholder="">
+                </div>
+                <div class="form-group">
                     <p style="color: red; font-size: 14px;">&nbsp;${error}</p>
                 </div>
-                <button type="submit" class="btn btn-success">登录</button>
+                <button type="submit" class="btn btn-info" style="margin-bottom: 20px;">注册</button>
             </form>
         </div><!-- /.blog-main -->
         <%@include file="../common/contributor.jsp"%>

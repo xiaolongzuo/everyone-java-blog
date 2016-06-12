@@ -43,7 +43,7 @@ import java.util.List;
  * @since 1.0.0
  */
 @Controller
-public class ExampleController {
+public class ExampleController extends AbstractApiController {
 
     @RequestMapping("/example1")
     public List<ArticleCategory> example1() {

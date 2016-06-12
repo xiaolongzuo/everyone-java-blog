@@ -18,8 +18,6 @@ package com.zuoxiaolong.blog.web.controller;
 import com.zuoxiaolong.blog.common.bean.JsonResponse;
 import com.zuoxiaolong.blog.common.utils.CollectionUtils;
 import com.zuoxiaolong.blog.sdk.Api;
-import com.zuoxiaolong.blog.sdk.BlogSdk;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,27 +33,26 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/HomePage")
-public class HomePageController extends WebBaseController {
-    @Autowired
-    private BlogSdk blogSdk;
+public class HomePageController extends AbstractWebController {
 
     /**
      * 当访问错误的时候，跳转到默认的主页
+     *
      * @return
      */
     @RequestMapping("/index")
-    public String index(){
+    public String index() {
         Map<String, String> params = new HashMap<>();
-        params.put("categoryId","1");
-        params.put("startRow","0");
-        params.put("pageSize","20");
-        setModelAttribute("result", blogSdk.invokeApi(Api.HomePage_Articles, params));
+        params.put("categoryId", "1");
+        params.put("startRow", "0");
+        params.put("pageSize", "20");
+        setModelAttribute("result", invokeApi(Api.HomePage_Articles, params));
         return "/index/index";
     }
 
     @RequestMapping(value = {"/TopThreeUserArticles"}, method = {RequestMethod.GET, RequestMethod.POST})
     public void topThreeUserArticles(String categoryName) {
-        JsonResponse jsonResponse = blogSdk.invokeApi(Api.HomePage_TopThreeUserArticles, CollectionUtils.newMap("categoryName", categoryName));
+        JsonResponse jsonResponse = invokeApi(Api.HomePage_TopThreeUserArticles, CollectionUtils.newMap("categoryName", categoryName));
         renderJson(jsonResponse);
     }
 
@@ -65,10 +62,11 @@ public class HomePageController extends WebBaseController {
                               @RequestParam(required = false, defaultValue = "1") int pageNum,
                               @RequestParam(required = false, defaultValue = "20") int pageSize) {
         Map<String, String> params = new HashMap<>();
-        params.put("categoryId",categoryId+"");
-        params.put("startRow",(pageNum-1)*pageSize+"");
-        params.put("pageSize",pageSize+"");
-        setModelAttribute("result", blogSdk.invokeApi(Api.HomePage_Articles, params));
+        params.put("categoryId", categoryId + "");
+        params.put("startRow", (pageNum - 1) * pageSize + "");
+        params.put("pageSize", pageSize + "");
+        setModelAttribute("result", invokeApi(Api.HomePage_Articles, params));
         return "/index/index";
     }
+
 }

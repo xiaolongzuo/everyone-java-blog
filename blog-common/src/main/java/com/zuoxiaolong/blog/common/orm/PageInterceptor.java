@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.common.mybatis;
+package com.zuoxiaolong.blog.common.orm;
 
 import com.zuoxiaolong.blog.common.utils.*;
 import org.apache.ibatis.binding.MapperMethod;
