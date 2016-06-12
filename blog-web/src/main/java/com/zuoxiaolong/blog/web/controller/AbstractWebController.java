@@ -15,6 +15,7 @@
  */
 package com.zuoxiaolong.blog.web.controller;
 
+import com.zuoxiaolong.blog.common.authorization.AuthorizationException;
 import com.zuoxiaolong.blog.common.bean.Attachment;
 import com.zuoxiaolong.blog.common.bean.JsonResponse;
 import com.zuoxiaolong.blog.common.utils.JsonUtils;
@@ -80,11 +81,7 @@ public abstract class AbstractWebController extends AbstractController {
 
     private void checkJsonResponse(JsonResponse jsonResponse) {
         if (jsonResponse.authorizationError()) {
-            try {
-                getResponse().sendRedirect("/WebUser/Login");
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            throw new AuthorizationException();
         }
     }
 

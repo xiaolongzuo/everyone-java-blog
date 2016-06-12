@@ -46,5 +46,19 @@
         <servlet-name>dispatcherServlet</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+    
+    <error-page>
+        <error-code>500</error-code>
+        <location>/jsp/common/redirect.jsp?url=/Error/500</location>
+    </error-page>
+
+    <error-page>
+        <exception-type>java.lang.Throwable</exception-type>
+        <location>/jsp/common/redirect.jsp?url=/Error/500</location>
+    </error-page>
+    
+    <welcome-file-list>
+        <welcome-file>/jsp/common/redirect.jsp?url=/WebUser/Login</welcome-file>
+    </welcome-file-list>
 
 </web-app>

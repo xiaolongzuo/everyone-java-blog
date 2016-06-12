@@ -57,4 +57,9 @@ public class ExampleController extends AbstractWebController {
         setModelAttribute("result", invokeApi(Api.example7));
         return "/article/article";
     }
+
+    @RequestMapping("/example8")
+    public String example8() throws Exception {
+        throw new Exception();
+    }
 }
