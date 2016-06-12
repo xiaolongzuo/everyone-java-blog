@@ -31,7 +31,7 @@ function getDataAndParse(url, data) {
         type: "POST",
         cache: false,
         success: function (data, status) {
-
+        console.log(data);
         },
         error: function () {
 
