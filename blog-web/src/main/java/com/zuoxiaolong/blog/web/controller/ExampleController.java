@@ -51,4 +51,10 @@ public class ExampleController extends AbstractWebController {
         setModelAttribute("result", invokeApi(Api.example4));
         return "/article/article";
     }
+
+    @RequestMapping("/example7")
+    public String example7() {
+        setModelAttribute("result", invokeApi(Api.example7));
+        return "/article/article";
+    }
 }
