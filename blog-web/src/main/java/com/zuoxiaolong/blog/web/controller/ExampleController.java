@@ -62,4 +62,5 @@ public class ExampleController extends AbstractWebController {
     public String example8() throws Exception {
         throw new Exception();
     }
+
 }

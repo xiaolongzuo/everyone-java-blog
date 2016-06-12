@@ -21,5 +21,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    response.sendRedirect(request.getParameter("url"));
+    String url = request.getParameter("url");
+    if (url == null) {
+        url = "/WebUser/Login";
+    }
+    response.sendRedirect(url);
 %>
