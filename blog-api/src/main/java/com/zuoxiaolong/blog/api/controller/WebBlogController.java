@@ -18,7 +18,6 @@ package com.zuoxiaolong.blog.api.controller;
 
 import com.zuoxiaolong.blog.common.bean.ExceptionType;
 import com.zuoxiaolong.blog.common.exception.BusinessException;
-import com.zuoxiaolong.blog.common.spring.BaseController;
 import com.zuoxiaolong.blog.common.utils.SensitiveWordCheckUtils;
 import com.zuoxiaolong.blog.model.dto.UserBlogInfo;
 import com.zuoxiaolong.blog.model.persistent.BlogConfig;
@@ -34,12 +33,13 @@ import javax.annotation.Resource;
 
 /**
  * 博客主页controller
+ *
  * @author linjiedeng
  * @since 1.0.0
  */
 @Controller
-@RequestMapping("/blog")
-public class WebBlogController extends BaseController {
+@RequestMapping("/WebBlog")
+public class WebBlogController extends AbstractApiController {
 
     @Resource
     private WebBlogService webBlogService;
@@ -83,5 +83,18 @@ public class WebBlogController extends BaseController {
         }
 
         return webBlogService.selectBlogConfigByWebUserId(webUserId);
+    }
+
+
+    /**
+     * 获取个人博客主页信息
+     * @param username
+     * @param pageSize
+     * @param pageNo
+     * @return
+     */
+    @RequestMapping("/HomePage")
+    public UserBlogInfo personalBlogHomePage(String username, String pageSize, String pageNo) {
+        return webBlogService.selectUserBlogInfoByUsername(username, pageSize, pageNo);
     }
 }

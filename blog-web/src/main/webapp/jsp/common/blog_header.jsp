@@ -21,6 +21,6 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div class="blog-header">
-    <h1 class="blog-title">左潇龙的个人博客</h1>
-    <p class="lead blog-description">一个屌丝程序猿</p>
+    <h1 class="blog-title">${result.data.blogConfig.blogTitle}</h1>
+    <p class="lead blog-description">${result.data.blogConfig.blogSubTitle}</p>
 </div>

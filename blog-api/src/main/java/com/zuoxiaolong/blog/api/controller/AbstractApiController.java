@@ -16,14 +16,24 @@
 
 package com.zuoxiaolong.blog.api.controller;
 
-import com.zuoxiaolong.blog.common.spring.BaseController;
+import com.zuoxiaolong.blog.common.web.AbstractController;
 
 /**
  * @author Xiaolong Zuo
  * @since 1.0.0
  */
-public abstract class ApiBaseController extends BaseController {
+public abstract class AbstractApiController extends AbstractController {
 
     protected static final String USERNAME_ATTRIBUTE_KEY = "username";
+
+    protected static final String WEB_USER_ID_ATTRIBUTE_KEY = "webUserId";
+
+    protected String getUsername() {
+        return (String) getSessionAttribute(USERNAME_ATTRIBUTE_KEY);
+    }
+
+    protected Integer getWebUserId() {
+        return (Integer) getSessionAttribute(WEB_USER_ID_ATTRIBUTE_KEY);
+    }
 
 }

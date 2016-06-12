@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.common.spring;
+package com.zuoxiaolong.blog.common.web;
 
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 

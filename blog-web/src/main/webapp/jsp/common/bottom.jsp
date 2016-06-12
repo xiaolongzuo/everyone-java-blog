@@ -25,5 +25,7 @@
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="${pageContext.request.contextPath}/lib/bootstrap/js/bootstrap.min.js"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="${pageContext.request.contextPath}/assets/ie10-viewport-bug-workaround.js"></script>
+<script src="${pageContext.request.contextPath}/asset/ie10-viewport-bug-workaround.js"></script>
+<!--导航栏选项卡-->
+<script src="${pageContext.request.contextPath}/js/nav.js"></script>
 

@@ -17,31 +17,37 @@
 package com.zuoxiaolong.blog.web.controller;
 
 import com.zuoxiaolong.blog.common.bean.ExceptionType;
+import com.zuoxiaolong.blog.common.bean.JsonResponse;
 import com.zuoxiaolong.blog.common.exception.BusinessException;
-import com.zuoxiaolong.blog.common.spring.BaseController;
 import com.zuoxiaolong.blog.common.utils.CollectionUtils;
 import com.zuoxiaolong.blog.model.persistent.BlogConfig;
 import com.zuoxiaolong.blog.sdk.Api;
-import com.zuoxiaolong.blog.sdk.BlogSdk;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.annotation.Resource;
 import java.util.Map;
 
-/**
- * 个人博客配置信息的查询和修改
- * @author linjiedeng
- * @since 1.0.0
- */
-@Controller
-@RequestMapping("/blog")
-public class WebBlogController extends BaseController {
 
-    @Resource
-    private BlogSdk blogSdk;
+@RequestMapping("/WebBlog")
+public class WebBlogController extends AbstractWebController {
+
+    /**
+     * 获取个人博客主页信息
+     *
+     * @param username
+     * @return
+     */
+    @RequestMapping("/HomePage/{username}")
+    public String personalBlogHomePage(@PathVariable String username) {
+        JsonResponse response = invokeApi(Api.WebBlog_HomePage, CollectionUtils.newMap("username", username));
+        if (response.getCode() == 200) {
+            setModelAttribute("result", response);
+            return "/blog/blog";
+        }
+        return "forward:/HomePage/index";
+    }
 
     /**
      * 更新个人简介,地址,博客名称等信息
@@ -61,7 +67,7 @@ public class WebBlogController extends BaseController {
         paraMap.put("blogTitle", blogConfig.getBlogTitle());
         paraMap.put("blogSubTitle", blogConfig.getBlogSubTitle());
 
-        setModelAttribute("result", blogSdk.invokeApi(Api.blog_update_config, paraMap));
+        setModelAttribute("result", invokeApi(Api.WebBlog_update_config, paraMap));
         return "/blog/blog-config";
     }
 
@@ -77,7 +83,8 @@ public class WebBlogController extends BaseController {
             throw new BusinessException(ExceptionType.PARAMETER_ILLEGAL);
         }
 
-        setModelAttribute("result", blogSdk.invokeApi(Api.blog_select_config, CollectionUtils.newMap("webUserId", webUserId.toString())));
+        setModelAttribute("result", invokeApi(Api.WebBlog_select_config, CollectionUtils.newMap("webUserId", webUserId.toString())));
         return "/blog/blog-config";
     }
+
 }

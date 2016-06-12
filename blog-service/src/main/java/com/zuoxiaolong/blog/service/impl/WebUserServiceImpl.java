@@ -39,10 +39,13 @@ public class WebUserServiceImpl implements WebUserService {
     private WebUserMapper webUserMapper;
 
     @Override
-    public void register(WebUser webUser) {
+    public WebUser register(WebUser webUser) {
         AssertUtils.isEmpty(webUser);
         AssertUtils.isEmpty(webUser.getUsername());
         AssertUtils.isEmpty(webUser.getPassword());
+        WebUser originWebUser = new WebUser();
+        originWebUser.setUsername(webUser.getUsername());
+        originWebUser.setPassword(webUser.getPassword());
         if (StringUtils.isEmpty(webUser.getPasswordSalt())) {
             webUser.setPasswordSalt(webUser.getUsername());
         }
@@ -52,10 +55,11 @@ public class WebUserServiceImpl implements WebUserService {
         webUser.encodePassword();
         webUser.setEnable(true);
         webUserMapper.insertSelective(webUser);
+        return originWebUser;
     }
 
     @Override
-    public String login(String username, String password) {
+    public WebUser login(String username, String password) {
         WebUser webUser = webUserMapper.selectByUsername(username);
         if (ObjectUtils.isEmpty(webUser)) {
             throw new BusinessException(ExceptionType.USER_NOT_FOUND);
@@ -65,7 +69,7 @@ public class WebUserServiceImpl implements WebUserService {
         }
         webUser.generateToken();
         webUserMapper.updateByPrimaryKeySelective(webUser);
-        return webUser.getToken();
+        return webUser;
     }
 
     @Override
@@ -78,10 +82,7 @@ public class WebUserServiceImpl implements WebUserService {
         }
         webUser.generateToken();
         webUserMapper.updateByPrimaryKeySelective(webUser);
-        WebUser result = new WebUser();
-        result.setUsername(webUser.getUsername());
-        result.setToken(webUser.getToken());
-        return result;
+        return webUser;
     }
 
     @Override
@@ -97,6 +98,13 @@ public class WebUserServiceImpl implements WebUserService {
     @Override
     public boolean checkUsername(String username) {
         return ObjectUtils.isEmpty(webUserMapper.selectByUsername(username));
+    }
+
+    @Override
+    public WebUser checkToken(String token) {
+        WebUser param = new WebUser();
+        param.setToken(token);
+        return webUserMapper.selectByWebUser(param);
     }
 
 }

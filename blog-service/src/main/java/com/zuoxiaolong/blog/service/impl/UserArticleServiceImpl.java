@@ -16,6 +16,7 @@
 
 package com.zuoxiaolong.blog.service.impl;
 
+import com.zuoxiaolong.blog.common.cache.SingletonCache;
 import com.zuoxiaolong.blog.mapper.UserArticleMapper;
 import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDataResult;
 import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDto;
@@ -206,6 +207,35 @@ public class UserArticleServiceImpl implements UserArticleService {
         articleRankResponseDtos.add(commendArticleRankResponseDto);
 
         return articleRankResponseDtos;
+    }
+
+    /**
+     * @author iCodingStar
+     * @date 2016/6/11 0:49
+     * @version 1.0
+     * @description:根据文章类别名称获取最多评论、最多推荐、最多阅读的三篇文章
+     */
+    @Override
+    public List<Map<String, UserArticle>> getTopThreeUserArticles(String categoryName) {
+        List<Map<String, UserArticle>> topArticles = new ArrayList<>();
+        Map<String, UserArticle> articleMap = new HashMap<>();
+        List<ArticleRankResponseDto> articleRankResponseDtos = (List<ArticleRankResponseDto>) SingletonCache.instance().get("ArticleRankResponseDto");
+        for (ArticleRankResponseDto articleRankResponseDto : articleRankResponseDtos) {
+            for (ArticleRankResponseDataResult articleRankResponseDataResult : articleRankResponseDto.getDataResult()) {
+                String cacheCategoryName = articleRankResponseDataResult.getCategoryInfo().getCategoryName();
+                if (categoryName!=null && categoryName.equals(cacheCategoryName)) {
+                    articleMap.put(articleRankResponseDto.getActionType(), articleRankResponseDataResult.getArticleInfo());
+                    topArticles.add(articleMap);
+                }
+            }
+        }
+        return topArticles;
+    }
+
+
+    @Override
+    public List<UserArticle> getArticles(Map<String, Object> params) {
+        return userArticleMapper.getArticlesByCategoryIdAndPage(params);
     }
 
 

@@ -16,7 +16,7 @@
 
 package com.zuoxiaolong.blog.admin.controller;
 
-import com.zuoxiaolong.blog.common.spring.BaseController;
+import com.zuoxiaolong.blog.common.web.AbstractController;
 import com.zuoxiaolong.blog.model.persistent.Contributor;
 import com.zuoxiaolong.blog.service.ContributorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +36,7 @@ import java.util.Date;
  */
 @Controller
 @RequestMapping("/contributor")
-public class ContributorController extends BaseController{
+public class ContributorController extends AbstractController {
 
     @Autowired
     private ContributorService contributorService;
