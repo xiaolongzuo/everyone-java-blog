@@ -32,7 +32,7 @@ import javax.annotation.Resource;
 import java.util.Map;
 
 /**
- * 博客主页展示及配置相关
+ * 个人博客配置信息的查询和修改
  * @author linjiedeng
  * @since 1.0.0
  */
