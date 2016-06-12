@@ -59,4 +59,8 @@ public class JsonResponse {
         return this.code == 200;
     }
 
+    public boolean authorizationError() {
+        return this.code == 401;
+    }
+
 }
