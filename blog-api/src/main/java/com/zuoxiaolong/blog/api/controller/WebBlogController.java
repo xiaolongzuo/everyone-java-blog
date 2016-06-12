@@ -45,17 +45,6 @@ public class WebBlogController extends AbstractApiController {
     private WebBlogService webBlogService;
 
     /**
-     * 根据请求路径中的用户名跳转到个人博客主页
-     * @param username
-     * @return
-     */
-    @RequestMapping("/homepage/{username}")
-    public UserBlogInfo blog(@PathVariable String username) {
-        UserBlogInfo userBlogInfo = webBlogService.selectUserBlogInfoByUsername(username);
-        return userBlogInfo;
-    }
-
-    /**
      * 更新个人简介,地址,博客名称等信息
      * @param blogConfig
      * @return

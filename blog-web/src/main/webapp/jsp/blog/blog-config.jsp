@@ -16,7 +16,7 @@
 
 --%>
 <%--
-  User: linjiedeng Zuo
+  User: linjiedeng
   Time: 16/6/5 18:58
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -26,7 +26,7 @@
     <jsp:include page="../common/head.jsp"/>
 </head>
 <body>
-<form action="${pageContext.request.contextPath}/blog/update/config" method="post">
+<form action="${pageContext.request.contextPath}/WebBlog/update/config" method="post">
     博客名称: <input name="blogTitle" value="${result.data.blogTitle}"/><br/>
     博客子标题: <textarea name="blogSubTitle" cols="20" rows="10">${result.data.blogSubTitle}</textarea><br/>
     个人简介: <textarea name="introduction" cols="30" rows="20">${result.data.introduction}</textarea><br/>
