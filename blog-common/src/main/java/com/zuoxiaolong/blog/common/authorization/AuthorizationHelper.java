@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.common.auth;
+package com.zuoxiaolong.blog.common.authorization;
 
 import com.zuoxiaolong.blog.common.utils.DateUtils;
 import com.zuoxiaolong.blog.common.utils.EncodeDecodeUtils;
@@ -27,7 +27,7 @@ import java.util.Date;
  * @author Xiaolong Zuo
  * @since 1.0.0
  */
-public interface AuthHelper {
+public interface AuthorizationHelper {
 
     String DATE_FORMAT = "yyyyMMddHHmmss";
 

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.api.component.auth;
+package com.zuoxiaolong.blog.api.component.authorization;
 
-import com.zuoxiaolong.blog.common.auth.AuthHelper;
+import com.zuoxiaolong.blog.common.authorization.AuthorizationHelper;
 import com.zuoxiaolong.blog.common.utils.ObjectUtils;
 import com.zuoxiaolong.blog.common.utils.StringUtils;
 import com.zuoxiaolong.blog.model.persistent.WebUser;
@@ -36,8 +36,8 @@ import java.io.IOException;
  * @author Xiaolong Zuo
  * @since 1.0.0
  */
-@Component("authFilter")
-public class AuthFilter extends OncePerRequestFilter {
+@Component("authorizationFilter")
+public class AuthorizationFilter extends OncePerRequestFilter {
 
     @Autowired
     private WebUserService webUserService;
@@ -54,7 +54,7 @@ public class AuthFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
-        String username = AuthHelper.retrieveUsername(token, webUser.getPassword());
+        String username = AuthorizationHelper.retrieveUsername(token, webUser.getPassword());
         HttpSession session = request.getSession(true);
         session.setAttribute("username", username);
         session.setAttribute("webUserId", webUser.getId());
