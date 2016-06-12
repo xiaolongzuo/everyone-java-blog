@@ -18,6 +18,7 @@ package com.zuoxiaolong.blog.web.controller;
 import com.zuoxiaolong.blog.common.bean.Attachment;
 import com.zuoxiaolong.blog.common.bean.JsonResponse;
 import com.zuoxiaolong.blog.common.utils.JsonUtils;
+import com.zuoxiaolong.blog.common.utils.ObjectUtils;
 import com.zuoxiaolong.blog.common.web.AbstractController;
 import com.zuoxiaolong.blog.sdk.Api;
 import com.zuoxiaolong.blog.sdk.BlogSdk;
@@ -49,6 +50,10 @@ public abstract class AbstractWebController extends AbstractController {
 
     protected JsonResponse invokeApi(Api api) {
         return blogSdk.invokeApi(getToken(), api);
+    }
+
+    protected JsonResponse invokeApi(Api api, Object params) {
+        return invokeApi(api, ObjectUtils.objectToMap(params));
     }
 
     protected JsonResponse invokeApi(Api api, Map<String, String> params) {
