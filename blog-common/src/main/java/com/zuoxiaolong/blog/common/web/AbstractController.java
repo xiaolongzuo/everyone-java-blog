@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.zuoxiaolong.blog.common.spring;
+package com.zuoxiaolong.blog.common.web;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +31,7 @@ import javax.servlet.http.HttpSession;
  * @date 2016/5/12 21:28
  * @since 1.0.0
  */
-public abstract class BaseController {
+public abstract class AbstractController {
 
     /**
      * 日志对象
@@ -41,12 +41,12 @@ public abstract class BaseController {
     /**
      * 存放当前线程的HttpServletRequest对象
      */
-    private static ThreadLocal<HttpServletRequest> httpServletRequestThreadLocal = new ThreadLocal<HttpServletRequest>();
+    private static ThreadLocal<HttpServletRequest> httpServletRequestThreadLocal = new ThreadLocal<>();
 
     /**
      * 存放当前线程的Model对象
      */
-    private static ThreadLocal<Model> modelThreadLocal = new ThreadLocal<Model>();
+    private static ThreadLocal<Model> modelThreadLocal = new ThreadLocal<>();
 
     /**
      * 使用@ModelAttribute注解标识的方法会在每个控制器中的方法访问之前先调用

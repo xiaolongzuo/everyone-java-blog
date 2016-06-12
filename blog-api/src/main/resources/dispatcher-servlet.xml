@@ -14,11 +14,11 @@
     <!-- 自定义返回数据格式 -->
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
         <property name="returnValueHandlers">
-            <bean class="com.zuoxiaolong.blog.common.spring.JsonHandlerMethodReturnValueHandler"/>
+            <bean class="com.zuoxiaolong.blog.common.web.JsonHandlerMethodReturnValueHandler"/>
         </property>
     </bean>
 
-    <bean class="com.zuoxiaolong.blog.common.spring.JsonHandlerExceptionResolver"/>
+    <bean class="com.zuoxiaolong.blog.common.web.JsonHandlerExceptionResolver"/>
 
     <bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="maxUploadSize" value="5400000"/>

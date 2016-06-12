@@ -14,29 +14,28 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.sdk;
+package com.zuoxiaolong.blog.common.web;
 
-import com.zuoxiaolong.blog.common.bean.Attachment;
-import com.zuoxiaolong.blog.common.bean.JsonResponse;
+import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 
-import java.util.Map;
+import java.io.IOException;
+import java.util.Properties;
 
 /**
- * blog-sdk接口,该接口提供了不同种类API调用的方法
+ * 自定义spring的PropertyPlaceholderConfigurer,支持持有properties.
  *
  * @author Xiaolong Zuo
  * @since 1.0.0
  *
- * @see Api
+ * @see ConfigurerPropertiesHolder
  */
-public interface BlogSdk {
+public class HeldPropertyPlaceholderConfigurer extends PropertyPlaceholderConfigurer {
 
-    JsonResponse invokeApi(String token, Api api);
-
-    JsonResponse invokeApi(String token, Api api, Map<String, String> params);
-
-    JsonResponse invokeApi(String token, Api api, String attachmentKey, Attachment[] attachments);
-
-    JsonResponse invokeApi(String token, Api api, Map<String, String> params, String attachmentKey, Attachment[] attachments);
+    @Override
+    protected Properties mergeProperties() throws IOException {
+        Properties properties = super.mergeProperties();
+        ConfigurerPropertiesHolder.setProperties(properties);
+        return properties;
+    }
 
 }
