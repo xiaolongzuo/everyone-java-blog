@@ -16,6 +16,7 @@
 
 package com.zuoxiaolong.blog.common.utils;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -31,6 +32,14 @@ public interface DateUtils {
 
     static String format(Date date, String format) {
         return new SimpleDateFormat(format).format(date);
+    }
+
+    static Date parse(String source, String format) {
+        try {
+            return new SimpleDateFormat(format).parse(source);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
