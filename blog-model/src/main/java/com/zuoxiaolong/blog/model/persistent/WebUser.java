@@ -1,6 +1,6 @@
 package com.zuoxiaolong.blog.model.persistent;
 
-import com.zuoxiaolong.blog.common.auth.AuthHelper;
+import com.zuoxiaolong.blog.common.authorization.AuthorizationHelper;
 import lombok.Data;
 
 @Data
@@ -19,15 +19,15 @@ public class WebUser extends BaseModel {
     private String token;
 
     public void encodePassword() {
-        this.password = AuthHelper.encodePassword(this.password, this.passwordSalt);
+        this.password = AuthorizationHelper.encodePassword(this.password, this.passwordSalt);
     }
 
     public boolean checkPassword(String password) {
-        return this.password.equals(AuthHelper.encodePassword(password, this.passwordSalt));
+        return this.password.equals(AuthorizationHelper.encodePassword(password, this.passwordSalt));
     }
 
     public void generateToken() {
-        this.token = AuthHelper.generateToken(this.username, this.password);
+        this.token = AuthorizationHelper.generateToken(this.username, this.password);
     }
 
 }
