@@ -54,9 +54,12 @@ public class AuthorizationFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
-        String username = AuthorizationHelper.retrieveUsername(token, webUser.getPassword());
+        if (AuthorizationHelper.isTokenExpired(token, webUser.getPassword())) {
+            filterChain.doFilter(request, response);
+            return;
+        }
         HttpSession session = request.getSession(true);
-        session.setAttribute("username", username);
+        session.setAttribute("username", webUser.getUsername());
         session.setAttribute("webUserId", webUser.getId());
         filterChain.doFilter(request, response);
     }
