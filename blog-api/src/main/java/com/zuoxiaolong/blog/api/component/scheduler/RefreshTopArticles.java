@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.api.component.task;
+package com.zuoxiaolong.blog.api.component.scheduler;
 
 import com.zuoxiaolong.blog.common.cache.SingletonCache;
 import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDto;
