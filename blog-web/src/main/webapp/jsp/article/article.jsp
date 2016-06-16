@@ -16,71 +16,69 @@
     
 --%>
 <%--
-  User: Xiaolong Zuo
+  User: DeseverL
   Time: 16/6/5 18:58
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@include file="../common/taglib.jsp"%>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <jsp:include page="../common/head.jsp"/>
+    <%@include file="../common/head.jsp"%>
+    <link href="${pageContext.request.contextPath}/css/article.css" rel="stylesheet">
 </head>
 <body>
-<jsp:include page="../common/top.jsp"/>
+<%@include file="../common/top.jsp"%>
 <div class="container">
-    <jsp:include page="../common/blog_header.jsp"/>
+    <%@include file="../common/blog_header.jsp"%>
     <div class="row">
         <div class="col-sm-8 blog-main">
-
             <div class="blog-post">
-                <h2 class="blog-post-title"><a href="#" class="blog-article">第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章</a></h2>
-                <p class="blog-post-meta">左潇龙发表于1天前 推荐(10) 评论(10) 阅读(1000)</p>
-                <p>第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章
-                    第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章
-                    第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章
-                    第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章
-                    第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章
-                    第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章
-                    第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章
-                    第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章
-                    第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章
-                    第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章
-                </p>
+                <h2 class="blog-post-title"><a href="#" class="blog-article">${result.data.userArticle.title}</a></h2>
+                <jsp:useBean id="now" class="java.util.Date" />
+                <fmt:formatDate value="${now}" type="both" dateStyle="long" pattern="yyyy-MM-dd" var="today"/>
+                <fmt:formatDate value="${result.data.userArticle.createTime}" type="both" dateStyle="long" pattern="yyyy-MM-dd" var="date"/>
+                <c:choose>
+                    <c:when test="${today == date}">
+                        <p class="blog-post-meta">${result.data.webUser.nickname}发表于今天<fmt:formatDate value="${result.data.userArticle.createTime}" type="both" pattern="HH:mm:ss" />&nbsp;&nbsp;&nbsp;&nbsp;推荐(${result.data.userArticle.thumbupTimes}) 评论(${result.data.userArticle.commentTimes}) 阅读(${result.data.userArticle.readTimes})</p>
+                    </c:when>
+                    <c:otherwise>
+                        <p class="blog-post-meta">${result.data.webUser.nickname}发表于<fmt:formatDate value="${result.data.userArticle.createTime}" type="both" pattern="yyyy.MM.dd HH:mm" />&nbsp;&nbsp;&nbsp;&nbsp;推荐(${result.data.userArticle.thumbupTimes}) 评论(${result.data.userArticle.commentTimes}) 阅读(${result.data.userArticle.readTimes})</p>
+                    </c:otherwise>
+                </c:choose>
+                <p>${result.data.userArticle.content}</p>
             </div><!-- /.blog-post -->
             <div class="blog-thumbs-up center-block">
-                <a href="#" class="btn btn-danger btn-lg btn-block" >推荐</a>
-                <a href="#" class="btn btn-info btn-lg btn-block" >评论</a>
+                <a href="javascript:void(null)" class="btn btn-danger btn-lg btn-block" onclick="thumbsUp(this)">推荐</a>
             </div>
-            <div class="blog-comment">
-                <div class="blog-comment-item-head">
-                    <a class="btn btn-sm btn-warning" href="javascript:void(0)">回复</a>
-                    <a class="btn btn-sm btn-success" href="javascript:void(0)">引用</a>
-                    <a href="javascript:void(0)" class="layer">1楼</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                    时间：<span class="comment_date">2015-01-01</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    来源：<a href="javascript:void(0)">松</a>
+            <div>
+                <div class="panel comment-head">
+                    <div class="panel-body">
+                        <span id = 'commentCount'>${result.data.userArticle.commentTimes}</span>条评论
+                        <a href="#comment-textarea" class="btn pull-right"><span class="glyphicon glyphicon-pencil"> 添加新评论</span></a>
+                    </div>
                 </div>
-                <div class="blog-comment-item-content">
-                    dasdasdasdasd评论啊评论啊评论啊评论啊评论啊评论啊评论啊评论啊评论啊评论啊评论啊评论啊评论啊评论啊评论啊评论啊评论啊评论啊评论啊评论啊评论啊评论啊评论啊评论啊评论啊
+                <div id="bottom-comment" class="panel load-more">
+                    <a class="btn " href="javascript:void(null)" onclick='getMoreComment()'>加载更多<span class="glyphicon glyphicon-arrow-down"></span></a>
                 </div>
-            </div>
-            <div class="blog-comment">
-                <div class="blog-comment-item-head">
-                    <a class="btn btn-sm btn-warning" href="javascript:void(0)">回复</a>
-                    <a class="btn btn-sm btn-success" href="javascript:void(0)">引用</a>
-                    <a href="javascript:void(0)" class="layer">1楼</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                    时间：<span class="comment_date">2015-01-01</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    来源：<a href="javascript:void(0)">松</a>
-                </div>
-                <div class="blog-comment-item-content">
-                    dasdasdasdasd评论啊评论啊评论啊评论啊评论啊评论啊评论啊评论啊评论啊评论啊评论啊评论啊评论啊评论啊评论啊评论啊评论啊评论啊评论啊评论啊评论啊评论啊评论啊评论啊评论啊
-                </div>
+                <form class='new-comment' style='display: block;'>
+                    <div class='panel-body comment-text'>
+                        <input type='hidden' value='${result.data.userArticle.id}' name='articleId'>
+                        <textarea id='comment-textarea' name='comment' class='textarea' placeholder='写下你的评论…' maxlength='2000'></textarea>
+                        <div>
+                            <input type='button' data-disable-with='提交中...' class='btn btn-small btn-info pull-right' onclick='addComment(this)' value='发 表'>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div><!-- /.blog-main -->
 
-        <jsp:include page="../common/author.jsp"/>
+       <jsp:include page="../common/author.jsp"/>
     </div><!-- /.row -->
 </div><!-- /.container -->
-<jsp:include page="../common/footer.jsp"/>
-<jsp:include page="../common/bottom.jsp"/>
+<input id="articleid" type="hidden" value="${result.data.userArticle.id}"/>
+<%@include file="../common/footer.jsp"%>
+<%@include file="../common/bottom.jsp"%>
+<script src="${pageContext.request.contextPath}/js/article.js"></script>
 </body>
 </html>

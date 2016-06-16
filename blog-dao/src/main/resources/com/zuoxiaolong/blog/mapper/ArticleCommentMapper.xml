@@ -9,10 +9,11 @@
         <result column="article_id" property="articleId" jdbcType="INTEGER"/>
         <result column="comment" property="comment" jdbcType="VARCHAR"/>
         <result column="reply_comment_id" property="replyCommentId" jdbcType="INTEGER"/>
+        <result column="parents_comment_id" property="parentsCommentId" jdbcType="VARCHAR"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, create_time, update_time, web_user_id, article_id, comment, reply_comment_id
-  </sql>
+        id, create_time, update_time, web_user_id, article_id, comment, reply_comment_id, parents_comment_id
+    </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
@@ -20,10 +21,10 @@
         where id = #{id,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from article_comment
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-    <insert id="insertSelective" parameterType="com.zuoxiaolong.blog.model.persistent.ArticleComment">
+        delete from article_comment
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.zuoxiaolong.blog.model.persistent.ArticleComment">
         insert into article_comment
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -40,6 +41,9 @@
             </if>
             <if test="replyCommentId != null">
                 reply_comment_id,
+            </if>
+            <if test="parentsCommentId != null">
+                parents_comment_id,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -58,6 +62,9 @@
             <if test="replyCommentId != null">
                 #{replyCommentId,jdbcType=INTEGER},
             </if>
+            <if test="parentsCommentId != null">
+                #{parentsCommentId,jdbcType=VARCHAR},
+            </if>
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.zuoxiaolong.blog.model.persistent.ArticleComment">
@@ -75,7 +82,31 @@
             <if test="replyCommentId != null">
                 reply_comment_id = #{replyCommentId,jdbcType=INTEGER},
             </if>
+            <if test="parentsCommentId != null">
+                parents_comment_id = #{parentsCommentId,jdbcType=VARCHAR},
+            </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
+    <select id="getReCommentCount" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+        select
+        count(*)
+        from article_comment
+        where parents_comment_id LIKE concat('0,',concat(#{commentId,jdbcType=INTEGER},',%'))
+    </select>
+    <select id="getCommentByArticleID" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from article_comment
+        where
+        article_id = #{articleId,jdbcType=INTEGER}
+        and reply_comment_id = 0
+    </select>
+    <select id="getReCommentByCommentId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from article_comment
+        where
+        parents_comment_id LIKE concat('0,',concat(#{commentId,jdbcType=INTEGER},',%'))
+    </select>
 </mapper>
