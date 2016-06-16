@@ -15,7 +15,6 @@
  */
 package com.zuoxiaolong.blog.api.controller;
 
-import com.zuoxiaolong.blog.common.utils.ObjectUtils;
 import com.zuoxiaolong.blog.model.dto.ArticleCommentAndReplyDTO;
 import com.zuoxiaolong.blog.model.dto.ArticleCommentDTO;
 import com.zuoxiaolong.blog.model.dto.ArticleInfoDTO;
@@ -48,15 +47,7 @@ public class ArticleController  extends AbstractApiController {
      */
     @RequestMapping(value = "/GetArticleInfo" , method = RequestMethod.GET)
     public ArticleInfoDTO getArticleInfo(int articleid) {
-
-        //获取文章详细信息
-        ArticleInfoDTO articleInfoDTO = articleService.getArticleInfo(articleid);
-
-        //此文章存在的情况，为此文章增加一次阅读量
-        if(!ObjectUtils.isEmpty(articleInfoDTO)){
-            articleService.updateArticle(articleid); //更新到数据库
-        }
-        return articleInfoDTO;
+        return articleService.getArticleInfo(articleid);
     }
 
     /**

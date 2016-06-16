@@ -40,14 +40,6 @@ public interface ArticleService {
     ArticleInfoDTO getArticleInfo(Integer articleid);
 
     /**
-     * 更新博客（增加一次阅读量）
-     *
-     * @param articleid
-     * @return
-     */
-    boolean updateArticle(Integer articleid);
-
-    /**
      * 查看评论和每条评论前三条回复列表
      *
      * @param articleid 文章id

@@ -115,20 +115,11 @@ public class ArticleServiceImpl implements ArticleService {
             //文章基本信息
             articleInfoDTO.setUserArticle(userArticle);
 
+            //增加一次阅读量
+            userArticleMapper.updateReadTimes(articleid);
+
             return articleInfoDTO;
         }
-    }
-
-    /**
-     * 更新博客（增加一次阅读量）
-     *
-     * @param articleid
-     * @return
-     */
-    @Override
-    public boolean updateArticle(Integer articleid) {
-        int record = userArticleMapper.updateReadTimes(articleid);
-        return record>0?true:false;
     }
 
     /**
