@@ -16,7 +16,9 @@
 package com.zuoxiaolong.blog.api.controller;
 
 import com.zuoxiaolong.blog.common.orm.DropDownPage;
+import com.zuoxiaolong.blog.common.utils.DateUtils;
 import com.zuoxiaolong.blog.common.utils.ObjectUtils;
+import com.zuoxiaolong.blog.model.dto.HomeAtrticleDTO;
 import com.zuoxiaolong.blog.model.persistent.UserArticle;
 import com.zuoxiaolong.blog.service.UserArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,20 +45,23 @@ public class HomePageController extends AbstractApiController {
     private UserArticleService userArticleService;
 
     @RequestMapping(value = "/Articles", method = RequestMethod.POST)
-    public List<UserArticle> getArticles(@RequestParam("categoryId") int categoryId,
-                                         @RequestParam("offset") Date offset,
+    public List<HomeAtrticleDTO> getArticles(@RequestParam("categoryId") int categoryId,
+                                         @RequestParam(required = false) String offset,
                                          @RequestParam(required = false) int size) {
+       ;
 
         DropDownPage page = new DropDownPage();
         if (!ObjectUtils.isEmpty(offset)) {
-            page.setOffset(offset);
+            page.setOffset(DateUtils.parse(offset, "yyyy-MM-dd HH:mm:ss"));
+        }else {
+            page.setOffset(new Date());
         }
         if (!ObjectUtils.isEmpty(size)) {
             page.setSize(size);
         }
         page.setOrderColumn("update_time");
 
-        List<UserArticle> s = userArticleService.getArticles(page,categoryId);
+        List<HomeAtrticleDTO> s = userArticleService.getArticles(page,categoryId);
         return s;
     }
 

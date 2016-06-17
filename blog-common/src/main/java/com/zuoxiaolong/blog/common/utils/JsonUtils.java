@@ -4,6 +4,7 @@
 package com.zuoxiaolong.blog.common.utils;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.lang.reflect.Type;
 
@@ -15,7 +16,9 @@ import java.lang.reflect.Type;
  */
 public interface JsonUtils {
 
-	Gson GSON = new Gson();
+	Gson GSON = new GsonBuilder()
+            .setDateFormat("yyyy-MM-dd HH:mm:ss")
+            .create();
 
     static String toJson(Object object) {
         return GSON.toJson(object);

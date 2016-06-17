@@ -28,7 +28,7 @@ public interface UserArticleMapper {
 
     List<UserArticle> selectByWebUserId(Integer webUserId);
 
-    List<UserArticle> getArticlesByCategoryIdAndPage(@Param("page") DropDownPage page, @Param("param") Integer categoryId);
+    List<UserArticle> getArticlesByCategoryIdAndPage(@Param("page") DropDownPage page, @Param("categoryId") Integer categoryId);
     /**
      * 获取文章分页列表，根据个人文章创建时间倒序排序
      * @param webUserId

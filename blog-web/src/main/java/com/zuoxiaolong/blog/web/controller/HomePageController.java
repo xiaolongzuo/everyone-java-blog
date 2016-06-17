@@ -62,11 +62,13 @@ public class HomePageController extends AbstractWebController {
 
     @RequestMapping("/Articles")
     public void getArticles(@RequestParam("categoryId") int categoryId,
-                                         @RequestParam("offset") String offset,
+                                         @RequestParam(required = false) String offset,
                                          @RequestParam(required = false) int size) {
         Map<String, String> params = new HashMap<>();
         params.put("categoryId", categoryId + "");
-        params.put("offset", offset);
+        if(offset!=null){
+            params.put("offset", offset);
+        }
         params.put("size", size+"");
         JsonResponse jsonResponse = invokeApi(Api.HomePage_Articles, params);
         renderJson(jsonResponse);

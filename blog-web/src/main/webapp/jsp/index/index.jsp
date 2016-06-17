@@ -26,6 +26,7 @@
 <head>
     <jsp:include page="../common/head.jsp"/>
 </head>
+
 <body>
     <jsp:include page="../common/top.jsp"/>
     <div class="container">
@@ -38,31 +39,7 @@
                     <p class="blog-post-meta">[最多评论]<a href="#" class="blog-top-article">springmvc详解</a></p>
                     <p class="blog-post-meta">[最多阅读]<a href="#" class="blog-top-article">Java集合框架</a></p>
                 </div><!-- /.blog-post -->
-
-                <div class="blog-post">
-                    <h2 class="blog-post-title"><a href="#" class="blog-article">第一篇文章第一篇文章第一篇文章第一篇文章第一篇文章</a></h2>
-                    <p class="blog-post-meta">左潇龙发表于1天前</p>
-                    <p class="blog-post-meta">推荐(10) 评论(10) 阅读(1000)</p>
-                </div><!-- /.blog-post -->
-
-                <div class="blog-post">
-                    <h2 class="blog-post-title"><a href="#" class="blog-article">第二篇文章</a></h2>
-                    <p class="blog-post-meta">左潇龙发表于1天前</p>
-                    <p class="blog-post-meta">推荐(10) 评论(10) 阅读(1000)</p>
-                </div><!-- /.blog-post -->
-
-                <div class="blog-post">
-                    <h2 class="blog-post-title"><a href="#" class="blog-article">第三篇文章</a></h2>
-                    <p class="blog-post-meta">左潇龙发表于1天前</p>
-                    <p class="blog-post-meta">推荐(10) 评论(10) 阅读(1000)</p>
-                </div><!-- /.blog-post -->
-
-                <nav>
-                    <ul class="pager">
-                        <li><a href="#">上一页</a></li>
-                        <li><a href="#">下一页</a></li>
-                    </ul>
-                </nav>
+                <div id ="loadmore"><a>加载更多</a></div>
 
             </div><!-- /.blog-main -->
 
@@ -71,6 +48,7 @@
     </div><!-- /.container -->
     <jsp:include page="../common/footer.jsp"/>
     <jsp:include page="../common/bottom.jsp"/>
+    <script src="${pageContext.request.contextPath}/js/index.js"></script>
 </body>
 </html>
 

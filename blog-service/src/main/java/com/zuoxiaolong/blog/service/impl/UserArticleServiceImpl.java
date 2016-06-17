@@ -18,11 +18,15 @@ package com.zuoxiaolong.blog.service.impl;
 
 import com.zuoxiaolong.blog.common.cache.SingletonCache;
 import com.zuoxiaolong.blog.common.orm.DropDownPage;
+import com.zuoxiaolong.blog.common.utils.DateUtils;
 import com.zuoxiaolong.blog.mapper.UserArticleMapper;
+import com.zuoxiaolong.blog.mapper.WebUserMapper;
+import com.zuoxiaolong.blog.model.dto.HomeAtrticleDTO;
 import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDataResult;
 import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDto;
 import com.zuoxiaolong.blog.model.persistent.ArticleCategory;
 import com.zuoxiaolong.blog.model.persistent.UserArticle;
+import com.zuoxiaolong.blog.model.persistent.WebUser;
 import com.zuoxiaolong.blog.service.ArticleCategoryService;
 import com.zuoxiaolong.blog.service.UserArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +50,8 @@ public class UserArticleServiceImpl implements UserArticleService {
 
     @Autowired
     private UserArticleMapper userArticleMapper;
-
+    @Autowired
+    private WebUserMapper webUserMapper;
     //默认1
     public static final Integer TOP_NUM = 1;
     //默认推前的天数
@@ -235,8 +240,22 @@ public class UserArticleServiceImpl implements UserArticleService {
 
 
     @Override
-    public List<UserArticle> getArticles(DropDownPage page,Integer categoryId) {
-        return userArticleMapper.getArticlesByCategoryIdAndPage(page,categoryId);
+    public List<HomeAtrticleDTO> getArticles(DropDownPage page,Integer categoryId) {
+        List<HomeAtrticleDTO> resultList = new ArrayList<HomeAtrticleDTO>();
+        List<UserArticle> list =  userArticleMapper.getArticlesByCategoryIdAndPage(page, categoryId);
+        for (UserArticle u:list){
+            HomeAtrticleDTO homeAtrticleDTO = new HomeAtrticleDTO();
+            homeAtrticleDTO.setUserArticle(u);
+
+            WebUser webUser = webUserMapper.selectByPrimaryKey(u.getWebUserId());
+            webUser.setNickname(webUser.getNickname()); //用户昵称
+            homeAtrticleDTO.setWebUser(webUser);
+
+            homeAtrticleDTO.setFriendlyTime(DateUtils.toFriendlyTime(u.getUpdateTime()));
+
+            resultList.add(homeAtrticleDTO);
+        }
+        return resultList;
     }
 
 
