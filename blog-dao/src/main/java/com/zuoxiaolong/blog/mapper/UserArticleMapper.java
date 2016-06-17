@@ -45,4 +45,28 @@ public interface UserArticleMapper {
      * @return
      */
     List<UserArticle> getTopThumbupArticlesByWebUserId(@Param("webUserId") int webUserId, @Param("pageSize") int pageSize);
+
+    /**
+     * 增加一个阅读次数
+     *
+     * @param articleId
+     * @return
+     */
+    int updateReadTimes(Integer articleId);
+
+    /**
+     * 增加一个评论次数
+     *
+     * @param articleId
+     * @return
+     */
+    int updateCommentTimes(Integer articleId);
+
+    /**
+     * 增加一个点赞次数
+     *
+     * @param articleId
+     * @return
+     */
+    int updateThumbupTimes(Integer articleId);
 }
