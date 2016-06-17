@@ -243,4 +243,26 @@
         order by thumbup_times desc
         limit #{pageSize}
     </select>
+
+    <update id="updateReadTimes" parameterType="java.lang.Integer">
+        update user_article
+        <set>
+            read_times = read_times+1
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateCommentTimes" parameterType="java.lang.Integer">
+        update user_article
+        <set>
+            comment_times = comment_times+1
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateThumbupTimes" parameterType="java.lang.Integer">
+        update user_article
+        <set>
+            thumbup_times = thumbup_times+1
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
 </mapper>

@@ -17,6 +17,9 @@
 package com.zuoxiaolong.blog.sdk;
 
 import com.google.gson.reflect.TypeToken;
+import com.zuoxiaolong.blog.model.dto.ArticleCommentAndReplyDTO;
+import com.zuoxiaolong.blog.model.dto.ArticleCommentDTO;
+import com.zuoxiaolong.blog.model.dto.ArticleInfoDTO;
 import com.zuoxiaolong.blog.model.dto.UserBlogInfo;
 import com.zuoxiaolong.blog.model.persistent.ArticleCategory;
 import com.zuoxiaolong.blog.model.persistent.UserArticle;
@@ -47,7 +50,12 @@ public enum Api {
     WebUser_ModifyPassword("POST"),
     WebUser_Logout("POST"),
     WebBlog_HomePage("POST",UserBlogInfo.class),
-    HomePage_TopThreeUserArticles("POST",new TypeToken<List<Map<String,UserArticle>>>(){}.getType())
+    HomePage_TopThreeUserArticles("POST",new TypeToken<List<Map<String,UserArticle>>>(){}.getType()),
+    Article_GetArticleInfo("GET", ArticleInfoDTO.class),
+    Article_GetCommentInfo("GET", new TypeToken<List<ArticleCommentAndReplyDTO>>(){}.getType()),
+    Article_GetMoreReComment("GET", new TypeToken<List<ArticleCommentDTO>>(){}.getType()),
+    Article_AddComment("POST", Integer.class),
+    Article_AddThumbupTimes("POST", boolean.class)
     ;
 
     private String url;
