@@ -16,6 +16,7 @@
 
 package com.zuoxiaolong.blog.api.controller;
 
+import com.zuoxiaolong.blog.common.authorization.CheckLogin;
 import com.zuoxiaolong.blog.common.bean.ExceptionType;
 import com.zuoxiaolong.blog.common.exception.BusinessException;
 import com.zuoxiaolong.blog.model.persistent.ArticleCategory;
@@ -43,7 +44,7 @@ import java.util.List;
  * @since 1.0.0
  */
 @Controller
-public class ExampleController {
+public class ExampleController extends AbstractApiController {
 
     @RequestMapping("/example1")
     public List<ArticleCategory> example1() {
@@ -84,5 +85,9 @@ public class ExampleController {
         throw new Exception("我也不知道");
     }
 
+    @RequestMapping("/example7")
+    @CheckLogin
+    public void example7() throws Exception {
+    }
 
 }

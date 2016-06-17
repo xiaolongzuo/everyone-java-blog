@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.zuoxiaolong.blog.common.spring;
+package com.zuoxiaolong.blog.common.web;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -32,7 +31,7 @@ import javax.servlet.http.HttpSession;
  * @date 2016/5/12 21:28
  * @since 1.0.0
  */
-public abstract class BaseController {
+public abstract class AbstractController {
 
     /**
      * 日志对象
@@ -42,29 +41,22 @@ public abstract class BaseController {
     /**
      * 存放当前线程的HttpServletRequest对象
      */
-    private static ThreadLocal<HttpServletRequest> httpServletRequestThreadLocal = new ThreadLocal<HttpServletRequest>();
-
-    /**
-     * 存放当前线程的HttpServletResponse对象
-     */
-    private static ThreadLocal<HttpServletResponse> httpServletResponseThreadLocal = new ThreadLocal<HttpServletResponse>();
+    private static ThreadLocal<HttpServletRequest> httpServletRequestThreadLocal = new ThreadLocal<>();
 
     /**
      * 存放当前线程的Model对象
      */
-    private static ThreadLocal<Model> modelThreadLocal = new ThreadLocal<Model>();
+    private static ThreadLocal<Model> modelThreadLocal = new ThreadLocal<>();
 
     /**
      * 使用@ModelAttribute注解标识的方法会在每个控制器中的方法访问之前先调用
      *
      * @param request
-     * @param response
      * @param model
      */
     @ModelAttribute
-    protected void setThreadLocal(HttpServletRequest request, HttpServletResponse response, Model model) {
+    protected void setThreadLocal(HttpServletRequest request, Model model) {
         httpServletRequestThreadLocal.set(request);
-        httpServletResponseThreadLocal.set(response);
         modelThreadLocal.set(model);
     }
 
@@ -75,14 +67,6 @@ public abstract class BaseController {
      */
     protected HttpServletRequest getRequest() {
         return httpServletRequestThreadLocal.get();
-    }
-
-    /**
-     * 获取当前线程的HttpServletResponse对象
-     * @return 当前线程的HttpServletResponse对象
-     */
-    protected HttpServletResponse getResponse() {
-        return httpServletResponseThreadLocal.get();
     }
 
     /**

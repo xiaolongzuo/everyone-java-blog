@@ -39,10 +39,13 @@ public class WebUserServiceImpl implements WebUserService {
     private WebUserMapper webUserMapper;
 
     @Override
-    public void register(WebUser webUser) {
+    public WebUser register(WebUser webUser) {
         AssertUtils.isEmpty(webUser);
         AssertUtils.isEmpty(webUser.getUsername());
         AssertUtils.isEmpty(webUser.getPassword());
+        WebUser originWebUser = new WebUser();
+        originWebUser.setUsername(webUser.getUsername());
+        originWebUser.setPassword(webUser.getPassword());
         if (StringUtils.isEmpty(webUser.getPasswordSalt())) {
             webUser.setPasswordSalt(webUser.getUsername());
         }
@@ -52,6 +55,7 @@ public class WebUserServiceImpl implements WebUserService {
         webUser.encodePassword();
         webUser.setEnable(true);
         webUserMapper.insertSelective(webUser);
+        return originWebUser;
     }
 
     @Override
@@ -94,6 +98,13 @@ public class WebUserServiceImpl implements WebUserService {
     @Override
     public boolean checkUsername(String username) {
         return ObjectUtils.isEmpty(webUserMapper.selectByUsername(username));
+    }
+
+    @Override
+    public WebUser checkToken(String token) {
+        WebUser param = new WebUser();
+        param.setToken(token);
+        return webUserMapper.selectByWebUser(param);
     }
 
 }

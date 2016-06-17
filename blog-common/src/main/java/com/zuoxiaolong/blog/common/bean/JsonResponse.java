@@ -25,8 +25,8 @@ import lombok.Data;
  * @author Xiaolong Zuo
  * @since 1.0.0
  *
- * @see com.zuoxiaolong.blog.common.spring.JsonHandlerExceptionResolver
- * @see com.zuoxiaolong.blog.common.spring.JsonHandlerMethodReturnValueHandler
+ * @see com.zuoxiaolong.blog.common.web.JsonHandlerExceptionResolver
+ * @see com.zuoxiaolong.blog.common.web.JsonHandlerMethodReturnValueHandler
  */
 @Data
 public class JsonResponse {
@@ -53,6 +53,14 @@ public class JsonResponse {
         this.code = 200;
         this.message = "请求成功";
         this.data = data;
+    }
+
+    public boolean success() {
+        return this.code == 200;
+    }
+
+    public boolean authorizationError() {
+        return this.code == 401;
     }
 
 }

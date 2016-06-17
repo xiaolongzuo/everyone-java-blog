@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.common.mybatis;
+package com.zuoxiaolong.blog.common.orm;
 
 import com.zuoxiaolong.blog.common.utils.*;
 import org.apache.ibatis.binding.MapperMethod;
@@ -81,6 +81,7 @@ public class PageInterceptor implements Interceptor {
             return invocation.proceed();
         } else if (invocation.getTarget() instanceof ResultSetHandler) {
             Object parameterObject = dataThreadLocal.get();
+            dataThreadLocal.remove();
             Object data = invocation.proceed();
             if (parameterObject == null) {
                 return data;

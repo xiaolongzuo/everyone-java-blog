@@ -23,7 +23,7 @@
         <property name="dataSource" ref="dataSource" />
         <property name="mapperLocations"  value="classpath:com/zuoxiaolong/blog/mapper/*.xml" />
         <property name="plugins">
-            <bean class="com.zuoxiaolong.blog.common.mybatis.PageInterceptor"/>
+            <bean class="com.zuoxiaolong.blog.common.orm.PageInterceptor"/>
         </property>
     </bean>
 

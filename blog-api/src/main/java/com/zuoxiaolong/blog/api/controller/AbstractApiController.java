@@ -14,28 +14,26 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.common.spring;
+package com.zuoxiaolong.blog.api.controller;
 
-import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
-
-import java.io.IOException;
-import java.util.Properties;
+import com.zuoxiaolong.blog.common.web.AbstractController;
 
 /**
- * 自定义spring的PropertyPlaceholderConfigurer,支持持有properties.
- *
  * @author Xiaolong Zuo
  * @since 1.0.0
- *
- * @see ConfigurerPropertiesHolder
  */
-public class HeldPropertyPlaceholderConfigurer extends PropertyPlaceholderConfigurer {
+public abstract class AbstractApiController extends AbstractController {
 
-    @Override
-    protected Properties mergeProperties() throws IOException {
-        Properties properties = super.mergeProperties();
-        ConfigurerPropertiesHolder.setProperties(properties);
-        return properties;
+    protected static final String USERNAME_ATTRIBUTE_KEY = "username";
+
+    protected static final String WEB_USER_ID_ATTRIBUTE_KEY = "webUserId";
+
+    protected String getUsername() {
+        return (String) getSessionAttribute(USERNAME_ATTRIBUTE_KEY);
+    }
+
+    protected Integer getWebUserId() {
+        return (Integer) getSessionAttribute(WEB_USER_ID_ATTRIBUTE_KEY);
     }
 
 }

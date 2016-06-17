@@ -71,7 +71,7 @@ public interface IOUtils {
             System.arraycopy(cache, 0, bytes, temp.length, len);
         }
         if (bytes.length == 0) {
-            return null;
+            return new byte[0];
         }
         return bytes;
     }
