@@ -16,6 +16,7 @@
 
 package com.zuoxiaolong.blog.service;
 
+import com.zuoxiaolong.blog.common.orm.DropDownPage;
 import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDto;
 import com.zuoxiaolong.blog.model.persistent.UserArticle;
 
@@ -33,7 +34,7 @@ public interface UserArticleService {
 
     List<ArticleRankResponseDto> getArticlesRank();
 
-    List<UserArticle> getArticles(Map<String,Object> params);
+    List<UserArticle> getArticles(DropDownPage page,Integer categoryId);
 
     List<Map<String, UserArticle>> getTopThreeUserArticles(String categoryName);
 }

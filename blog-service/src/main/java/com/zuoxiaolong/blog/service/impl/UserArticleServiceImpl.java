@@ -17,6 +17,7 @@
 package com.zuoxiaolong.blog.service.impl;
 
 import com.zuoxiaolong.blog.common.cache.SingletonCache;
+import com.zuoxiaolong.blog.common.orm.DropDownPage;
 import com.zuoxiaolong.blog.mapper.UserArticleMapper;
 import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDataResult;
 import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDto;
@@ -234,8 +235,8 @@ public class UserArticleServiceImpl implements UserArticleService {
 
 
     @Override
-    public List<UserArticle> getArticles(Map<String, Object> params) {
-        return userArticleMapper.getArticlesByCategoryIdAndPage(params);
+    public List<UserArticle> getArticles(DropDownPage page,Integer categoryId) {
+        return userArticleMapper.getArticlesByCategoryIdAndPage(page,categoryId);
     }
 
 
