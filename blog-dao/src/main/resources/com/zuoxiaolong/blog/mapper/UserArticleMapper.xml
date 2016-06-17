@@ -196,7 +196,7 @@
             a.read_times,
             a.thumbup_times,
             a.is_main_page,
-            a.STATUS
+            a.STATUS,
             a.comment_times
         FROM
         user_article a
