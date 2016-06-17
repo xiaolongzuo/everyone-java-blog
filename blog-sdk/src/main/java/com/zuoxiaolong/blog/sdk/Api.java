@@ -17,6 +17,9 @@
 package com.zuoxiaolong.blog.sdk;
 
 import com.google.gson.reflect.TypeToken;
+import com.zuoxiaolong.blog.model.dto.ArticleCommentAndReplyDTO;
+import com.zuoxiaolong.blog.model.dto.ArticleCommentDTO;
+import com.zuoxiaolong.blog.model.dto.ArticleInfoDTO;
 import com.zuoxiaolong.blog.model.dto.UserBlogInfo;
 import com.zuoxiaolong.blog.model.persistent.ArticleCategory;
 import com.zuoxiaolong.blog.model.persistent.BlogConfig;
@@ -38,6 +41,7 @@ public enum Api {
     example1("GET", new TypeToken<List<ArticleCategory>>(){}.getType()),
     example2("GET", ArticleCategory.class),
     example4("GET"),
+    example7("GET"),
     HomePage_Articles("POST", new TypeToken<List<UserArticle>>(){}.getType()),
     WebUser_Register("POST", String.class),
     WebUser_CheckUsername("POST", boolean.class),
@@ -49,7 +53,12 @@ public enum Api {
     WebBlog_select_config("POST", Integer.class),
     WebBlog_update_config("POST", BlogConfig.class),
     WebBlog_HomePage("POST",UserBlogInfo.class),
-    HomePage_TopThreeUserArticles("POST",new TypeToken<List<Map<String,UserArticle>>>(){}.getType())
+    HomePage_TopThreeUserArticles("POST",new TypeToken<List<Map<String,UserArticle>>>(){}.getType()),
+    Article_GetArticleInfo("GET", ArticleInfoDTO.class),
+    Article_GetCommentInfo("GET", new TypeToken<List<ArticleCommentAndReplyDTO>>(){}.getType()),
+    Article_GetMoreReComment("GET", new TypeToken<List<ArticleCommentDTO>>(){}.getType()),
+    Article_AddComment("POST", Integer.class),
+    Article_AddThumbupTimes("POST", boolean.class)
     ;
 
     private String url;

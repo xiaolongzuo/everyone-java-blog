@@ -14,32 +14,22 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.common.utils;
+package com.zuoxiaolong.blog.web.controller;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * @author Xiaolong Zuo
  * @since 1.0.0
  */
-public interface DateUtils {
+@Controller
+@RequestMapping("/Error")
+public class ErrorController {
 
-    static String format(Date date) {
-        return format(date, "yyyy-MM-dd HH:mm:ss");
-    }
-
-    static String format(Date date, String format) {
-        return new SimpleDateFormat(format).format(date);
-    }
-
-    static Date parse(String source, String format) {
-        try {
-            return new SimpleDateFormat(format).parse(source);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
+    @RequestMapping("/500")
+    public String error500() {
+        return "/error/500";
     }
 
 }

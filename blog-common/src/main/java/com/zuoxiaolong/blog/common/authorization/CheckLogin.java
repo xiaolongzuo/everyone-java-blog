@@ -14,32 +14,18 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.common.utils;
+package com.zuoxiaolong.blog.common.authorization;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * @author Xiaolong Zuo
  * @since 1.0.0
  */
-public interface DateUtils {
-
-    static String format(Date date) {
-        return format(date, "yyyy-MM-dd HH:mm:ss");
-    }
-
-    static String format(Date date, String format) {
-        return new SimpleDateFormat(format).format(date);
-    }
-
-    static Date parse(String source, String format) {
-        try {
-            return new SimpleDateFormat(format).parse(source);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
+@Target({ElementType.TYPE, ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+public @interface CheckLogin {
 }

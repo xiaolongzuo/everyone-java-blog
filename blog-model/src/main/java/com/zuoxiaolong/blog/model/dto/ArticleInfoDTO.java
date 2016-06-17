@@ -13,33 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.zuoxiaolong.blog.model.dto;
 
-package com.zuoxiaolong.blog.common.utils;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import com.zuoxiaolong.blog.model.persistent.*;
+import lombok.Data;
 
 /**
- * @author Xiaolong Zuo
+ * @author DeserveL
+ * @date 2016/5/15 13:41
  * @since 1.0.0
  */
-public interface DateUtils {
+@Data
+public class ArticleInfoDTO {
 
-    static String format(Date date) {
-        return format(date, "yyyy-MM-dd HH:mm:ss");
-    }
+    private WebUser webUser; // 用户
 
-    static String format(Date date, String format) {
-        return new SimpleDateFormat(format).format(date);
-    }
+    private BlogConfig blogConfig; // 博客配置
 
-    static Date parse(String source, String format) {
-        try {
-            return new SimpleDateFormat(format).parse(source);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    private UserArticle userArticle; //文章基本信息
+
+    private ArticleCategory articleCategory; //文章分类信息
 
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.common.auth;
+package com.zuoxiaolong.blog.common.authorization;
 
 import com.zuoxiaolong.blog.common.utils.DateUtils;
 import com.zuoxiaolong.blog.common.utils.EncodeDecodeUtils;
@@ -27,9 +27,11 @@ import java.util.Date;
  * @author Xiaolong Zuo
  * @since 1.0.0
  */
-public interface AuthHelper {
+public interface AuthorizationHelper {
 
     String DATE_FORMAT = "yyyyMMddHHmmss";
+
+    long EXPIRED_TIME = 1000 * 60  * 60 * 24 * 30;
 
     static String encodePassword(String password, String passwordSalt) {
         return EncodeDecodeUtils.encodeByMd5(password + passwordSalt);
@@ -39,9 +41,14 @@ public interface AuthHelper {
         return EncodeDecodeUtils.encryptDes(DateUtils.format(new Date(), DATE_FORMAT) + username, password);
     }
 
-    static String retrieveUsername(String token, String password) {
+    static boolean isTokenExpired(String token, String password) {
         String source = EncodeDecodeUtils.decryptDes(token, password);
-        return source.substring(DATE_FORMAT.length());
+        Date date = DateUtils.parse(source.substring(0, DATE_FORMAT.length()), DATE_FORMAT);
+        long time = System.currentTimeMillis() - date.getTime();
+        if (time > EXPIRED_TIME) {
+            return true;
+        }
+        return false;
     }
 
 }
