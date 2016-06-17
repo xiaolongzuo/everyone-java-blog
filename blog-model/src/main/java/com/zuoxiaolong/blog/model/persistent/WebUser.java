@@ -1,10 +1,7 @@
 package com.zuoxiaolong.blog.model.persistent;
 
-import com.zuoxiaolong.blog.common.utils.DateUtils;
-import com.zuoxiaolong.blog.common.utils.EncodeDecodeUtils;
+import com.zuoxiaolong.blog.common.authorization.AuthorizationHelper;
 import lombok.Data;
-
-import java.util.Date;
 
 @Data
 public class WebUser extends BaseModel {
@@ -22,15 +19,15 @@ public class WebUser extends BaseModel {
     private String token;
 
     public void encodePassword() {
-        this.password = EncodeDecodeUtils.encodeByMd5(password + passwordSalt);
+        this.password = AuthorizationHelper.encodePassword(this.password, this.passwordSalt);
     }
 
     public boolean checkPassword(String password) {
-        return this.password.equals(EncodeDecodeUtils.encodeByMd5(password + passwordSalt));
+        return this.password.equals(AuthorizationHelper.encodePassword(password, this.passwordSalt));
     }
 
     public void generateToken() {
-        this.token = EncodeDecodeUtils.encryptDes(DateUtils.format(new Date(), "yyyyMMddHHmmss") + username, password);
+        this.token = AuthorizationHelper.generateToken(this.username, this.password);
     }
 
 }

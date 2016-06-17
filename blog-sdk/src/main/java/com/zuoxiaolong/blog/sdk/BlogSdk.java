@@ -31,12 +31,12 @@ import java.util.Map;
  */
 public interface BlogSdk {
 
-    JsonResponse invokeApi(Api api);
+    JsonResponse invokeApi(String token, Api api);
 
-    JsonResponse invokeApi(Api api, Map<String, String> params);
+    JsonResponse invokeApi(String token, Api api, Map<String, String> params);
 
-    JsonResponse invokeApi(Api api, String attachmentKey, Attachment[] attachments);
+    JsonResponse invokeApi(String token, Api api, String attachmentKey, Attachment[] attachments);
 
-    JsonResponse invokeApi(Api api, Map<String, String> params, String attachmentKey, Attachment[] attachments);
+    JsonResponse invokeApi(String token, Api api, Map<String, String> params, String attachmentKey, Attachment[] attachments);
 
 }

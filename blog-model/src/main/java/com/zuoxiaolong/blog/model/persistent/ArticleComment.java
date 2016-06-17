@@ -13,4 +13,6 @@ public class ArticleComment extends BaseModel {
 
     private Integer replyCommentId;
 
+    private String parentsCommentId; //父级评论路径
+
 }

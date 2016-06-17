@@ -34,7 +34,7 @@ import javax.annotation.Resource;
  */
 @Controller
 @RequestMapping("/WebBlog")
-public class WebBlogController extends ApiBaseController {
+public class WebBlogController extends AbstractApiController {
 
     @Resource
     private WebBlogService webBlogService;

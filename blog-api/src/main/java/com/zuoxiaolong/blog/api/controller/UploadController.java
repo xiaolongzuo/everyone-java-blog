@@ -15,7 +15,7 @@
  */
 package com.zuoxiaolong.blog.api.controller;
 
-import com.zuoxiaolong.blog.common.spring.BaseController;
+import com.zuoxiaolong.blog.common.web.AbstractController;
 import com.zuoxiaolong.blog.service.UploadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,7 +32,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @Controller
 @RequestMapping("/file")
-public class UploadController extends BaseController {
+public class UploadController extends AbstractController {
 
     @Autowired
     private UploadService uploadService;
