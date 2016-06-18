@@ -13,29 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.zuoxiaolong.blog.model.dto;
 
-package com.zuoxiaolong.blog.service;
-
-import com.zuoxiaolong.blog.common.orm.DropDownPage;
-import com.zuoxiaolong.blog.model.dto.HomeAtrticleDTO;
-import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDto;
 import com.zuoxiaolong.blog.model.persistent.UserArticle;
-
-import java.util.List;
-import java.util.Map;
+import com.zuoxiaolong.blog.model.persistent.WebUser;
+import lombok.Data;
 
 /**
- * 用户文章接口类
- *
- * @author goozi
- * @create 2016-05-15 16:39
+ * @author 郭松涛
+ * @date 2016/6/18 1:20
  * @since 1.0.0
  */
-public interface UserArticleService {
-
-    List<ArticleRankResponseDto> getArticlesRank();
-
-    List<HomeAtrticleDTO> getArticles(String offset,int size,Integer categoryId);
-
-    List<Map<String, UserArticle>> getTopThreeUserArticles(String categoryName);
+@Data
+public class HomeAtrticleDTO {
+    private WebUser webUser; // 用户
+    private UserArticle userArticle; //文章基本信息
+    private String friendlyTime; //用户易于识别的时间
 }

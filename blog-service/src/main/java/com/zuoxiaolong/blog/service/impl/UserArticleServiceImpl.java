@@ -17,11 +17,17 @@
 package com.zuoxiaolong.blog.service.impl;
 
 import com.zuoxiaolong.blog.common.cache.SingletonCache;
+import com.zuoxiaolong.blog.common.orm.DropDownPage;
+import com.zuoxiaolong.blog.common.utils.DateUtils;
+import com.zuoxiaolong.blog.common.utils.ObjectUtils;
 import com.zuoxiaolong.blog.mapper.UserArticleMapper;
+import com.zuoxiaolong.blog.mapper.WebUserMapper;
+import com.zuoxiaolong.blog.model.dto.HomeAtrticleDTO;
 import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDataResult;
 import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDto;
 import com.zuoxiaolong.blog.model.persistent.ArticleCategory;
 import com.zuoxiaolong.blog.model.persistent.UserArticle;
+import com.zuoxiaolong.blog.model.persistent.WebUser;
 import com.zuoxiaolong.blog.service.ArticleCategoryService;
 import com.zuoxiaolong.blog.service.UserArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +51,8 @@ public class UserArticleServiceImpl implements UserArticleService {
 
     @Autowired
     private UserArticleMapper userArticleMapper;
-
+    @Autowired
+    private WebUserMapper webUserMapper;
     //默认1
     public static final Integer TOP_NUM = 1;
     //默认推前的天数
@@ -234,8 +241,35 @@ public class UserArticleServiceImpl implements UserArticleService {
 
 
     @Override
-    public List<UserArticle> getArticles(Map<String, Object> params) {
-        return userArticleMapper.getArticlesByCategoryIdAndPage(params);
+    public List<HomeAtrticleDTO> getArticles(String offset,int size,Integer categoryId) {
+        //构建分页对象
+        DropDownPage page = new DropDownPage();
+        if (!ObjectUtils.isEmpty(offset)) {
+            page.setOffset(DateUtils.parse(offset, "yyyy-MM-dd HH:mm:ss"));
+        }else {
+            page.setOffset(new Date());
+        }
+        if (!ObjectUtils.isEmpty(size)) {
+            page.setSize(size);
+        }
+        page.setOrderColumn("update_time");
+
+        List<HomeAtrticleDTO> resultList = new ArrayList<HomeAtrticleDTO>();
+        List<UserArticle> list =  userArticleMapper.getArticlesByCategoryIdAndPage(page, categoryId);
+        for (UserArticle u:list){
+            HomeAtrticleDTO homeAtrticleDTO = new HomeAtrticleDTO();
+            homeAtrticleDTO.setUserArticle(u);
+
+            WebUser webUser = webUserMapper.selectByPrimaryKey(u.getWebUserId());
+            WebUser webUserDto = new WebUser();
+            webUserDto.setNickname(webUser.getNickname()); //用户昵称
+            homeAtrticleDTO.setWebUser(webUserDto);
+
+            homeAtrticleDTO.setFriendlyTime(DateUtils.toFriendlyTime(u.getUpdateTime()));
+
+            resultList.add(homeAtrticleDTO);
+        }
+        return resultList;
     }
 
 
