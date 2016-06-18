@@ -17,10 +17,7 @@
 package com.zuoxiaolong.blog.sdk;
 
 import com.google.gson.reflect.TypeToken;
-import com.zuoxiaolong.blog.model.dto.ArticleCommentAndReplyDTO;
-import com.zuoxiaolong.blog.model.dto.ArticleCommentDTO;
-import com.zuoxiaolong.blog.model.dto.ArticleInfoDTO;
-import com.zuoxiaolong.blog.model.dto.UserBlogInfo;
+import com.zuoxiaolong.blog.model.dto.*;
 import com.zuoxiaolong.blog.model.persistent.ArticleCategory;
 import com.zuoxiaolong.blog.model.persistent.UserArticle;
 
@@ -41,7 +38,7 @@ public enum Api {
     example2("GET", ArticleCategory.class),
     example4("GET"),
     example7("GET"),
-    HomePage_Articles("POST", new TypeToken<List<UserArticle>>(){}.getType()),
+    HomePage_Articles("POST", new TypeToken<List<HomeAtrticleDTO>>(){}.getType()),
     WebUser_Register("POST", String.class),
     WebUser_CheckUsername("POST", boolean.class),
     WebUser_IsLogin("POST", boolean.class),
