@@ -54,21 +54,12 @@ public class WebBlogController extends AbstractWebController {
      * @param blogConfig
      * @return
      */
-    @RequestMapping(value = "/update/config", method = RequestMethod.POST)
+    @RequestMapping(value = "/Update/Config", method = RequestMethod.POST)
     public String updateBlogConfig(@RequestBody BlogConfig blogConfig) {
-        if(blogConfig == null) {
-            logger.info("blogConfig param is null");
-            throw new BusinessException(ExceptionType.PARAMETER_ILLEGAL);
-        }
+        JsonResponse response = invokeApi(Api.WebBlog_Update_Config, blogConfig);
+        setModelAttribute("result", response);
+        return "/blog/blog_result";
 
-        Map<String, String> paraMap = CollectionUtils.newMap("webUserId", blogConfig.getWebUserId().toString());
-        paraMap.put("introduction", blogConfig.getIntroduction());
-        paraMap.put("address", blogConfig.getAddress());
-        paraMap.put("blogTitle", blogConfig.getBlogTitle());
-        paraMap.put("blogSubTitle", blogConfig.getBlogSubTitle());
-
-        setModelAttribute("result", invokeApi(Api.WebBlog_update_config, paraMap));
-        return "/blog/blog-config";
     }
 
     /**
@@ -76,15 +67,11 @@ public class WebBlogController extends AbstractWebController {
      * @param webUserId
      * @return
      */
-    @RequestMapping(value = "/select/config" , method = RequestMethod.POST)
+    @RequestMapping(value = "/Select/Config" , method = RequestMethod.POST)
     public String selectUserBlogConfig(Integer webUserId) {
-        if(webUserId == null || webUserId < 0) {
-            logger.info("webUserId: {} invalid", webUserId);
-            throw new BusinessException(ExceptionType.PARAMETER_ILLEGAL);
-        }
-
-        setModelAttribute("result", invokeApi(Api.WebBlog_select_config, CollectionUtils.newMap("webUserId", webUserId.toString())));
-        return "/blog/blog-config";
+        JsonResponse response = invokeApi(Api.WebBlog_Select_Config, CollectionUtils.newMap("webUserId", webUserId.toString()));
+        setModelAttribute("result", response);
+        return "/blog/blog_config";
     }
 
 }

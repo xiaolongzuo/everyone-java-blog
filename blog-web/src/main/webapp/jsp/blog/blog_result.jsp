@@ -17,20 +17,19 @@
 --%>
 <%--
   User: linjiedeng
-  Time: 16/6/5 18:58
+  Time: 16/6/18 下午6:13
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <jsp:include page="../common/head.jsp"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>title</title>
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<form action="${pageContext.request.contextPath}/WebBlog/update/config" method="post">
-    博客名称: <input name="blogTitle" value="${result.data.blogTitle}"/><br/>
-    博客子标题: <textarea name="blogSubTitle" cols="20" rows="10">${result.data.blogSubTitle}</textarea><br/>
-    个人简介: <textarea name="introduction" cols="30" rows="20">${result.data.introduction}</textarea><br/>
-    <input type="submit" value="修改"/>
-</form>
+    ${result.message}
 </body>
 </html>

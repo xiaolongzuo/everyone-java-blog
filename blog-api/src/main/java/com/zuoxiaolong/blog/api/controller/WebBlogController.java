@@ -16,18 +16,13 @@
 
 package com.zuoxiaolong.blog.api.controller;
 
-import com.zuoxiaolong.blog.common.bean.ExceptionType;
-import com.zuoxiaolong.blog.common.exception.BusinessException;
-import com.zuoxiaolong.blog.common.utils.SensitiveWordCheckUtils;
 import com.zuoxiaolong.blog.model.dto.UserBlogInfo;
 import com.zuoxiaolong.blog.model.persistent.BlogConfig;
 import com.zuoxiaolong.blog.service.WebBlogService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 
@@ -49,28 +44,15 @@ public class WebBlogController extends AbstractApiController {
      * @param blogConfig
      * @return
      */
-    @RequestMapping(value = "/update/config", method = RequestMethod.POST)
+    @RequestMapping(value = "/Update/Config", method = RequestMethod.POST)
     public Integer updateBlogConfig(@RequestBody BlogConfig blogConfig) {
-        if(blogConfig == null
-                || SensitiveWordCheckUtils.isContainSensitiveWord(blogConfig.getIntroduction())
-                || SensitiveWordCheckUtils.isContainSensitiveWord(blogConfig.getBlogTitle())
-                || SensitiveWordCheckUtils.isContainSensitiveWord(blogConfig.getBlogSubTitle())) {
-            logger.info("blogConfig param: {} is invalid", blogConfig);
-            throw new BusinessException(ExceptionType.PARAMETER_ILLEGAL);
-        }
-
         return webBlogService.updateBlogConfig(blogConfig);
     }
 
 
 
-    @RequestMapping(value = "/select/config" , method = RequestMethod.POST)
+    @RequestMapping(value = "/Select/Config" , method = RequestMethod.POST)
     public BlogConfig selectUserBlogConfig(Integer webUserId) {
-        if(webUserId == null || webUserId < 0) {
-            logger.info("webUserId: {} invalid", webUserId);
-            throw new BusinessException(ExceptionType.PARAMETER_ILLEGAL);
-        }
-
         return webBlogService.selectBlogConfigByWebUserId(webUserId);
     }
 
