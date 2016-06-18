@@ -76,7 +76,7 @@ public class UserArticleServiceImpl implements UserArticleService {
      * @param map
      * @return
      */
-    public List<UserArticle> getTopCommendArticles(Map<String, Object> map) {
+    private List<UserArticle> getTopCommendArticles(Map<String, Object> map) {
         List<UserArticle> userArticles = userArticleMapper.getTopCommendArticles(map);
         List<UserArticle> recommendUserArticle = userArticleMapper.getArticleCommentByCategoryId((Integer) map.get(QUERY_PARAMETER_CATEGORY_ID));
         if (CollectionUtils.isEmpty(userArticles) && !CollectionUtils.isEmpty(recommendUserArticle)) {
@@ -95,7 +95,7 @@ public class UserArticleServiceImpl implements UserArticleService {
      * @param map
      * @return
      */
-    public List<UserArticle> getTopReadArticlesByCategoryIdAndTime(Map<String, Object> map) {
+   private List<UserArticle> getTopReadArticlesByCategoryIdAndTime(Map<String, Object> map) {
         List<UserArticle> userArticles = userArticleMapper.getTopReadArticles(map);
         List<UserArticle> articles = userArticleMapper.getArticlesByCategoryId((Integer) map.get(QUERY_PARAMETER_CATEGORY_ID));
         if (CollectionUtils.isEmpty(userArticles) && !CollectionUtils.isEmpty(articles)) {
@@ -114,7 +114,7 @@ public class UserArticleServiceImpl implements UserArticleService {
      * @param map
      * @return
      */
-    public List<UserArticle> getTopRecommendArticlesByCategoryIdAndTime(Map<String, Object> map) {
+    private List<UserArticle> getTopRecommendArticlesByCategoryIdAndTime(Map<String, Object> map) {
         List<UserArticle> userArticles = userArticleMapper.getTopRecommendArticles(map);
         List<UserArticle> articles = userArticleMapper.getArticlesByCategoryId((Integer) map.get(QUERY_PARAMETER_CATEGORY_ID));
         if (CollectionUtils.isEmpty(userArticles) && !CollectionUtils.isEmpty(articles)) {
