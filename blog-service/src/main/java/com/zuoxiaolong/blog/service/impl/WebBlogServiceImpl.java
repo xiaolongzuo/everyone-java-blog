@@ -17,6 +17,8 @@ package com.zuoxiaolong.blog.service.impl;
 
 import com.zuoxiaolong.blog.common.bean.ExceptionType;
 import com.zuoxiaolong.blog.common.exception.BusinessException;
+import com.zuoxiaolong.blog.common.orm.DropDownPage;
+import com.zuoxiaolong.blog.common.utils.ObjectUtils;
 import com.zuoxiaolong.blog.common.utils.StringUtils;
 import com.zuoxiaolong.blog.mapper.BlogConfigMapper;
 import com.zuoxiaolong.blog.mapper.UserArticleMapper;
@@ -56,7 +58,7 @@ public class WebBlogServiceImpl implements WebBlogService {
     @Resource
     private UserArticleMapper userArticleMapper;
 
-    protected static final int DEFUALT_PAGE_SIZE = 20;
+    protected static final int DEFUALT_PAGE_SIZE = 10;
 
     protected static final int USER_HOTEST_ARTICLE_PAGE_SIZE = 10;
 
@@ -97,7 +99,19 @@ public class WebBlogServiceImpl implements WebBlogService {
             size = Integer.valueOf(pageSize);
         }
 
-        List<UserArticle> userArticles = userArticleMapper.getPageByWebUserId(webUser.getId(), (num - 1) * size, size);
+        //分页数据设置
+        DropDownPage page = new DropDownPage();
+        if(!ObjectUtils.isEmpty(num)){
+            page.setOffset(num);
+        }else{
+            page.setOffset(0);
+        }
+        if(!ObjectUtils.isEmpty(size)){
+            page.setSize(size);
+        }
+
+
+        List<UserArticle> userArticles = userArticleMapper.getPageByWebUserId(webUser.getId(), page);
 
         List<UserArticle> userHotestArticles = userArticleMapper.getTopThumbupArticlesByWebUserId(webUser.getId(), USER_HOTEST_ARTICLE_PAGE_SIZE);
 
