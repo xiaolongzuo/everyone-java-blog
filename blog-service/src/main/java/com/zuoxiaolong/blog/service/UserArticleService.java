@@ -35,7 +35,7 @@ public interface UserArticleService {
 
     List<ArticleRankResponseDto> getArticlesRank();
 
-    List<HomeAtrticleDTO> getArticles(DropDownPage page,Integer categoryId);
+    List<HomeAtrticleDTO> getArticles(String offset,int size,Integer categoryId);
 
     List<Map<String, UserArticle>> getTopThreeUserArticles(String categoryName);
 }

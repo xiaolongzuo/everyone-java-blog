@@ -19,6 +19,7 @@ package com.zuoxiaolong.blog.service.impl;
 import com.zuoxiaolong.blog.common.cache.SingletonCache;
 import com.zuoxiaolong.blog.common.orm.DropDownPage;
 import com.zuoxiaolong.blog.common.utils.DateUtils;
+import com.zuoxiaolong.blog.common.utils.ObjectUtils;
 import com.zuoxiaolong.blog.mapper.UserArticleMapper;
 import com.zuoxiaolong.blog.mapper.WebUserMapper;
 import com.zuoxiaolong.blog.model.dto.HomeAtrticleDTO;
@@ -240,7 +241,19 @@ public class UserArticleServiceImpl implements UserArticleService {
 
 
     @Override
-    public List<HomeAtrticleDTO> getArticles(DropDownPage page,Integer categoryId) {
+    public List<HomeAtrticleDTO> getArticles(String offset,int size,Integer categoryId) {
+        //构建分页对象
+        DropDownPage page = new DropDownPage();
+        if (!ObjectUtils.isEmpty(offset)) {
+            page.setOffset(DateUtils.parse(offset, "yyyy-MM-dd HH:mm:ss"));
+        }else {
+            page.setOffset(new Date());
+        }
+        if (!ObjectUtils.isEmpty(size)) {
+            page.setSize(size);
+        }
+        page.setOrderColumn("update_time");
+
         List<HomeAtrticleDTO> resultList = new ArrayList<HomeAtrticleDTO>();
         List<UserArticle> list =  userArticleMapper.getArticlesByCategoryIdAndPage(page, categoryId);
         for (UserArticle u:list){
