@@ -55,9 +55,7 @@ public class UserArticleServiceImpl implements UserArticleService {
     public static final Integer DEFAULT_DAYS_BEFORE = 1;
     //没有查询到排名结果是往前推的天数
     public static final Integer DEFAULT_DAYS_BEFORE_PLUS = 3;
-
     public static final String QUERY_PARAMETER_TIME = "time";
-
     public static final String QUERY_PARAMETER_CATEGORY_ID = "categoryId";
     //推荐
     public static final String ACTION_TYPE_RECOMMEND = "mostRecommendArticle";
