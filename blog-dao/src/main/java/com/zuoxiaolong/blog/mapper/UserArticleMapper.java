@@ -32,11 +32,10 @@ public interface UserArticleMapper {
     /**
      * 获取文章分页列表，根据个人文章创建时间倒序排序
      * @param webUserId
-     * @param offset
-     * @param pageSize
+     * @param page
      * @return
      */
-    List<UserArticle> getPageByWebUserId(@Param("webUserId") int webUserId, @Param("offset") int offset, @Param("pageSize") int pageSize);
+    List<UserArticle> getPageByWebUserId(@Param("webUserId") int webUserId, @Param("page") DropDownPage page);
 
     /**
      * 根据用户id，获取推荐的文章列表，按推荐次数倒序排序
