@@ -1,4 +1,4 @@
-烧chemCREATE SCHEMA `java_blog` DEFAULT CHARACTER SET utf8 ;
+CREATE SCHEMA `java_blog` DEFAULT CHARACTER SET utf8 ;
 
 CREATE TABLE `java_blog`.`blog_config` (
   `id` INT NOT NULL AUTO_INCREMENT COMMENT '主键',
