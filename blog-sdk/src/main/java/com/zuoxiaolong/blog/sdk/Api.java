@@ -19,6 +19,7 @@ package com.zuoxiaolong.blog.sdk;
 import com.google.gson.reflect.TypeToken;
 import com.zuoxiaolong.blog.model.dto.*;
 import com.zuoxiaolong.blog.model.persistent.ArticleCategory;
+import com.zuoxiaolong.blog.model.persistent.BlogConfig;
 import com.zuoxiaolong.blog.model.persistent.UserArticle;
 
 import java.lang.reflect.Type;
@@ -46,6 +47,8 @@ public enum Api {
     WebUser_LoginWithToken("POST", String.class),
     WebUser_ModifyPassword("POST"),
     WebUser_Logout("POST"),
+    WebBlog_Select_Config("POST", Integer.class),
+    WebBlog_Update_Config("POST", BlogConfig.class),
     WebBlog_HomePage("POST",UserBlogInfo.class),
     HomePage_TopThreeUserArticles("POST",new TypeToken<Map<String,UserArticle>>(){}.getType()),
     Article_GetArticleInfo("GET", ArticleInfoDTO.class),

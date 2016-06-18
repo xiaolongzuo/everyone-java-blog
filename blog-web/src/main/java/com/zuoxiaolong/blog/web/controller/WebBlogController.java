@@ -16,20 +16,20 @@
 
 package com.zuoxiaolong.blog.web.controller;
 
+import com.zuoxiaolong.blog.common.bean.ExceptionType;
 import com.zuoxiaolong.blog.common.bean.JsonResponse;
+import com.zuoxiaolong.blog.common.exception.BusinessException;
 import com.zuoxiaolong.blog.common.utils.CollectionUtils;
+import com.zuoxiaolong.blog.model.persistent.BlogConfig;
 import com.zuoxiaolong.blog.sdk.Api;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-/**
- * 博客主页controller
- *
- * @author linjiedeng
- * @since 1.0.0
- */
-@Controller
+import java.util.Map;
+
+
 @RequestMapping("/WebBlog")
 public class WebBlogController extends AbstractWebController {
 
@@ -47,6 +47,31 @@ public class WebBlogController extends AbstractWebController {
             return "/blog/blog";
         }
         return "forward:/HomePage/index";
+    }
+
+    /**
+     * 更新个人简介,地址,博客名称等信息
+     * @param blogConfig
+     * @return
+     */
+    @RequestMapping(value = "/Update/Config", method = RequestMethod.POST)
+    public String updateBlogConfig(@RequestBody BlogConfig blogConfig) {
+        JsonResponse response = invokeApi(Api.WebBlog_Update_Config, blogConfig);
+        setModelAttribute("result", response);
+        return "/blog/blog_result";
+
+    }
+
+    /**
+     * 查询用户博客的配置信息
+     * @param webUserId
+     * @return
+     */
+    @RequestMapping(value = "/Select/Config" , method = RequestMethod.POST)
+    public String selectUserBlogConfig(Integer webUserId) {
+        JsonResponse response = invokeApi(Api.WebBlog_Select_Config, CollectionUtils.newMap("webUserId", webUserId.toString()));
+        setModelAttribute("result", response);
+        return "/blog/blog_config";
     }
 
 }
