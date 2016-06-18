@@ -7,13 +7,16 @@ $(function () {
     //打开网站时加载技术类文章并显示出来
     var url = "/HomePage/TopThreeUserArticles";
     var categoryName = "技术";
-    getDataAndParse(url, {categoryName:categoryName});
+    getDataAndParse(url, {categoryName: categoryName});
     //根据用户对菜单的选择显示相应的最多评论、最多推荐、最多阅读的文章
     $(".blog-nav").on("click", "a", function (event) {
         $(".blog-nav a").removeClass("active");
         $(this).addClass("active");
-        categoryName = $(this).text();
-        getDataAndParse(url, {categoryName:categoryName});
+        var content = $(this).text();
+        if (content == "技术" || content == "职场" || content == "人生") {
+            categoryName = content;
+            getDataAndParse(url, {categoryName: categoryName});
+        }
     });
 })
 
@@ -30,11 +33,24 @@ function getDataAndParse(url, data) {
         data: JSON.stringify(data),
         type: "POST",
         cache: false,
-        success: function (data, status) {
-
+        success: function (result) {
+            var data = result.data;
+            var node = "";
+            var mostRecommendArticle, mostCommentArticle, mostReadArticle;
+            $("#blog-rank ul li").remove();
+            if (1) {
+                node = "<li id='most-recommend-article'>[最多推荐]<a href='#'>" + "最多推荐" + "</a></li>";
+            }
+            if (1) {
+                node += "<li id='most-commend-article'>[最多评论]<a href='#'>" + "最多评论" + "</a></li>";
+            }
+            if (1) {
+                node += "<li id='most-read-article'>[最多阅读]<a href='#'>" + "最多阅读" + "</a></li>";
+            }
+            $("#blog-rank ul").append(node);
         },
         error: function () {
-
+            console.log("获取文章排名失败！");
         }
     });
 }

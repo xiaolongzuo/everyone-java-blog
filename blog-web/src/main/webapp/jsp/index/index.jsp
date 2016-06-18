@@ -33,14 +33,10 @@
         <jsp:include page="../common/index_header.jsp"/>
         <div class="row">
             <div class="col-sm-8 blog-main">
-
-                <div class="blog-post">
-                    <p class="blog-post-meta">[最多推荐]<a href="#" class="blog-top-article">我的Java五年</a></p>
-                    <p class="blog-post-meta">[最多评论]<a href="#" class="blog-top-article">springmvc详解</a></p>
-                    <p class="blog-post-meta">[最多阅读]<a href="#" class="blog-top-article">Java集合框架</a></p>
-                </div><!-- /.blog-post -->
+                <div id="blog-rank">
+                    <ul></ul>
+                </div>
                 <div id ="loadmore"><a>加载更多</a></div>
-
             </div><!-- /.blog-main -->
 
             <jsp:include page="../common/contributor.jsp"/>
