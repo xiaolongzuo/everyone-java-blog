@@ -37,5 +37,5 @@ public interface UserArticleService {
 
     List<HomeAtrticleDTO> getArticles(String offset,int size,Integer categoryId);
 
-    List<Map<String, UserArticle>> getTopThreeUserArticles(String categoryName);
+    Map<String, UserArticle> getTopThreeUserArticles(String categoryName);
 }

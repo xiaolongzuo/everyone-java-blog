@@ -49,28 +49,24 @@ import java.util.*;
 @Service
 public class UserArticleServiceImpl implements UserArticleService {
 
-    @Autowired
-    private UserArticleMapper userArticleMapper;
-    @Autowired
-    private WebUserMapper webUserMapper;
     //默认1
     public static final Integer TOP_NUM = 1;
     //默认推前的天数
     public static final Integer DEFAULT_DAYS_BEFORE = 1;
     //没有查询到排名结果是往前推的天数
     public static final Integer DEFAULT_DAYS_BEFORE_PLUS = 3;
-
     public static final String QUERY_PARAMETER_TIME = "time";
-
     public static final String QUERY_PARAMETER_CATEGORY_ID = "categoryId";
-
     //推荐
     public static final String ACTION_TYPE_RECOMMEND = "1";
     //阅读
     public static final String ACTION_TYPE_READ = "2";
     //评论
     public static final String ACTION_TYPE_COMMEND = "3";
-
+    @Autowired
+    private UserArticleMapper userArticleMapper;
+    @Autowired
+    private WebUserMapper webUserMapper;
     @Autowired
     private ArticleCategoryService articleCategoryServiceManager;
 
@@ -223,8 +219,7 @@ public class UserArticleServiceImpl implements UserArticleService {
      * @description:根据文章类别名称获取最多评论、最多推荐、最多阅读的三篇文章
      */
     @Override
-    public List<Map<String, UserArticle>> getTopThreeUserArticles(String categoryName) {
-        List<Map<String, UserArticle>> topArticles = new ArrayList<>();
+    public Map<String, UserArticle> getTopThreeUserArticles(String categoryName) {
         Map<String, UserArticle> articleMap = new HashMap<>();
         List<ArticleRankResponseDto> articleRankResponseDtos = (List<ArticleRankResponseDto>) SingletonCache.instance().get("ArticleRankResponseDto");
         for (ArticleRankResponseDto articleRankResponseDto : articleRankResponseDtos) {
@@ -232,11 +227,10 @@ public class UserArticleServiceImpl implements UserArticleService {
                 String cacheCategoryName = articleRankResponseDataResult.getCategoryInfo().getCategoryName();
                 if (categoryName!=null && categoryName.equals(cacheCategoryName)) {
                     articleMap.put(articleRankResponseDto.getActionType(), articleRankResponseDataResult.getArticleInfo());
-                    topArticles.add(articleMap);
                 }
             }
         }
-        return topArticles;
+        return articleMap;
     }
 
 
