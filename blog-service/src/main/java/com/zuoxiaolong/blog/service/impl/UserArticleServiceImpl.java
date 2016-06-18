@@ -55,7 +55,9 @@ public class UserArticleServiceImpl implements UserArticleService {
     public static final Integer DEFAULT_DAYS_BEFORE = 1;
     //没有查询到排名结果是往前推的天数
     public static final Integer DEFAULT_DAYS_BEFORE_PLUS = 3;
+
     public static final String QUERY_PARAMETER_TIME = "time";
+
     public static final String QUERY_PARAMETER_CATEGORY_ID = "categoryId";
     //推荐
     public static final String ACTION_TYPE_RECOMMEND = "mostRecommendArticle";
@@ -225,7 +227,7 @@ public class UserArticleServiceImpl implements UserArticleService {
         for (ArticleRankResponseDto articleRankResponseDto : articleRankResponseDtos) {
             for (ArticleRankResponseDataResult articleRankResponseDataResult : articleRankResponseDto.getDataResult()) {
                 String cacheCategoryName = articleRankResponseDataResult.getCategoryInfo().getCategoryName();
-                if (categoryName!=null && categoryName.equals(cacheCategoryName)) {
+                if (categoryName != null && categoryName.equals(cacheCategoryName)) {
                     articleMap.put(articleRankResponseDto.getActionType(), articleRankResponseDataResult.getArticleInfo());
                 }
             }
@@ -235,12 +237,12 @@ public class UserArticleServiceImpl implements UserArticleService {
 
 
     @Override
-    public List<HomeAtrticleDTO> getArticles(String offset,int size,Integer categoryId) {
+    public List<HomeAtrticleDTO> getArticles(String offset, int size, Integer categoryId) {
         //构建分页对象
         DropDownPage page = new DropDownPage();
         if (!ObjectUtils.isEmpty(offset)) {
             page.setOffset(DateUtils.parse(offset, "yyyy-MM-dd HH:mm:ss"));
-        }else {
+        } else {
             page.setOffset(new Date());
         }
         if (!ObjectUtils.isEmpty(size)) {
@@ -249,8 +251,8 @@ public class UserArticleServiceImpl implements UserArticleService {
         page.setOrderColumn("update_time");
 
         List<HomeAtrticleDTO> resultList = new ArrayList<HomeAtrticleDTO>();
-        List<UserArticle> list =  userArticleMapper.getArticlesByCategoryIdAndPage(page, categoryId);
-        for (UserArticle u:list){
+        List<UserArticle> list = userArticleMapper.getArticlesByCategoryIdAndPage(page, categoryId);
+        for (UserArticle u : list) {
             HomeAtrticleDTO homeAtrticleDTO = new HomeAtrticleDTO();
             homeAtrticleDTO.setUserArticle(u);
 
