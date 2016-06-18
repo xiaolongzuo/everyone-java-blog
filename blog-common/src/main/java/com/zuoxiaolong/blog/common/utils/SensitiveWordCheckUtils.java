@@ -37,6 +37,10 @@ public class SensitiveWordCheckUtils {
      */
     public static boolean isContainSensitiveWord(String sentence) {
         boolean flag = false;
+        if(StringUtils.isEmpty(sentence)) {
+            return false;
+        }
+
         for (int i = 0; i < sentence.length(); i++) {
             if (hasSensitiveWord(sentence, i)) {
                 return true;
