@@ -49,28 +49,24 @@ import java.util.*;
 @Service
 public class UserArticleServiceImpl implements UserArticleService {
 
-    @Autowired
-    private UserArticleMapper userArticleMapper;
-    @Autowired
-    private WebUserMapper webUserMapper;
     //默认1
     public static final Integer TOP_NUM = 1;
     //默认推前的天数
     public static final Integer DEFAULT_DAYS_BEFORE = 1;
     //没有查询到排名结果是往前推的天数
     public static final Integer DEFAULT_DAYS_BEFORE_PLUS = 3;
-
     public static final String QUERY_PARAMETER_TIME = "time";
-
     public static final String QUERY_PARAMETER_CATEGORY_ID = "categoryId";
-
     //推荐
-    public static final String ACTION_TYPE_RECOMMEND = "1";
+    public static final String ACTION_TYPE_RECOMMEND = "mostRecommendArticle";
     //阅读
-    public static final String ACTION_TYPE_READ = "2";
+    public static final String ACTION_TYPE_READ = "mostReadArticle";
     //评论
-    public static final String ACTION_TYPE_COMMEND = "3";
-
+    public static final String ACTION_TYPE_COMMENT = "mostCommentArticle";
+    @Autowired
+    private UserArticleMapper userArticleMapper;
+    @Autowired
+    private WebUserMapper webUserMapper;
     @Autowired
     private ArticleCategoryService articleCategoryServiceManager;
 
@@ -99,7 +95,7 @@ public class UserArticleServiceImpl implements UserArticleService {
      * @param map
      * @return
      */
-    private List<UserArticle> getTopReadArticlesByCategoryIdAndTime(Map<String, Object> map) {
+   private List<UserArticle> getTopReadArticlesByCategoryIdAndTime(Map<String, Object> map) {
         List<UserArticle> userArticles = userArticleMapper.getTopReadArticles(map);
         List<UserArticle> articles = userArticleMapper.getArticlesByCategoryId((Integer) map.get(QUERY_PARAMETER_CATEGORY_ID));
         if (CollectionUtils.isEmpty(userArticles) && !CollectionUtils.isEmpty(articles)) {
@@ -191,7 +187,7 @@ public class UserArticleServiceImpl implements UserArticleService {
 
         //评论排行
         ArticleRankResponseDto commendArticleRankResponseDto = new ArticleRankResponseDto();
-        commendArticleRankResponseDto.setActionType(ACTION_TYPE_COMMEND);
+        commendArticleRankResponseDto.setActionType(ACTION_TYPE_COMMENT);
 
         Map<String, Object> commendMap = new HashMap<>();
         List<UserArticle> commendUserArticles;
@@ -223,30 +219,28 @@ public class UserArticleServiceImpl implements UserArticleService {
      * @description:根据文章类别名称获取最多评论、最多推荐、最多阅读的三篇文章
      */
     @Override
-    public List<Map<String, UserArticle>> getTopThreeUserArticles(String categoryName) {
-        List<Map<String, UserArticle>> topArticles = new ArrayList<>();
+    public Map<String, UserArticle> getTopThreeUserArticles(String categoryName) {
         Map<String, UserArticle> articleMap = new HashMap<>();
         List<ArticleRankResponseDto> articleRankResponseDtos = (List<ArticleRankResponseDto>) SingletonCache.instance().get("ArticleRankResponseDto");
         for (ArticleRankResponseDto articleRankResponseDto : articleRankResponseDtos) {
             for (ArticleRankResponseDataResult articleRankResponseDataResult : articleRankResponseDto.getDataResult()) {
                 String cacheCategoryName = articleRankResponseDataResult.getCategoryInfo().getCategoryName();
-                if (categoryName!=null && categoryName.equals(cacheCategoryName)) {
+                if (categoryName != null && categoryName.equals(cacheCategoryName)) {
                     articleMap.put(articleRankResponseDto.getActionType(), articleRankResponseDataResult.getArticleInfo());
-                    topArticles.add(articleMap);
                 }
             }
         }
-        return topArticles;
+        return articleMap;
     }
 
 
     @Override
-    public List<HomeAtrticleDTO> getArticles(String offset,int size,Integer categoryId) {
+    public List<HomeAtrticleDTO> getArticles(String offset, int size, Integer categoryId) {
         //构建分页对象
         DropDownPage page = new DropDownPage();
         if (!ObjectUtils.isEmpty(offset)) {
             page.setOffset(DateUtils.parse(offset, "yyyy-MM-dd HH:mm:ss"));
-        }else {
+        } else {
             page.setOffset(new Date());
         }
         if (!ObjectUtils.isEmpty(size)) {
@@ -255,8 +249,8 @@ public class UserArticleServiceImpl implements UserArticleService {
         page.setOrderColumn("update_time");
 
         List<HomeAtrticleDTO> resultList = new ArrayList<HomeAtrticleDTO>();
-        List<UserArticle> list =  userArticleMapper.getArticlesByCategoryIdAndPage(page, categoryId);
-        for (UserArticle u:list){
+        List<UserArticle> list = userArticleMapper.getArticlesByCategoryIdAndPage(page, categoryId);
+        for (UserArticle u : list) {
             HomeAtrticleDTO homeAtrticleDTO = new HomeAtrticleDTO();
             homeAtrticleDTO.setUserArticle(u);
 

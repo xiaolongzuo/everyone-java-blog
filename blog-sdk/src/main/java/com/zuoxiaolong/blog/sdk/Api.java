@@ -50,7 +50,7 @@ public enum Api {
     WebBlog_Select_Config("POST", Integer.class),
     WebBlog_Update_Config("POST", BlogConfig.class),
     WebBlog_HomePage("POST",UserBlogInfo.class),
-    HomePage_TopThreeUserArticles("POST",new TypeToken<List<Map<String,UserArticle>>>(){}.getType()),
+    HomePage_TopThreeUserArticles("POST",new TypeToken<Map<String,UserArticle>>(){}.getType()),
     Article_GetArticleInfo("GET", ArticleInfoDTO.class),
     Article_GetCommentInfo("GET", new TypeToken<List<ArticleCommentAndReplyDTO>>(){}.getType()),
     Article_GetMoreReComment("GET", new TypeToken<List<ArticleCommentDTO>>(){}.getType()),
