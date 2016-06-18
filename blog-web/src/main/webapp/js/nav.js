@@ -30,22 +30,23 @@ function getDataAndParse(url, data) {
     $.ajax({
         url: url,
         dataType: "json",
-        data: JSON.stringify(data),
+        data: data,
         type: "POST",
         cache: false,
         success: function (result) {
-            var data = result.data;
-            var node = "";
-            var mostRecommendArticle, mostCommentArticle, mostReadArticle;
             $("#blog-rank ul li").remove();
-            if (1) {
-                node = "<li id='most-recommend-article'>[最多推荐]<a href='#'>" + "最多推荐" + "</a></li>";
+            var mostRecommendArticle = result.data.mostRecommendArticle;
+            var mostCommentArticle = result.data.mostCommentArticle;
+            var mostReadArticle = result.data.mostReadArticle;
+            var node = "";
+            if (mostRecommendArticle != undefined) {
+                node = "<li id='most-recommend-article'>[最多推荐]<a href='#'>" + mostRecommendArticle.title + "</a></li>";
             }
-            if (1) {
-                node += "<li id='most-commend-article'>[最多评论]<a href='#'>" + "最多评论" + "</a></li>";
+            if (mostCommentArticle != undefined) {
+                node += "<li id='most-commend-article'>[最多评论]<a href='#'>" + mostCommentArticle.title + "</a></li>";
             }
-            if (1) {
-                node += "<li id='most-read-article'>[最多阅读]<a href='#'>" + "最多阅读" + "</a></li>";
+            if (mostReadArticle != undefined) {
+                node += "<li id='most-read-article'>[最多阅读]<a href='#'>" + mostReadArticle.title + "</a></li>";
             }
             $("#blog-rank ul").append(node);
         },
