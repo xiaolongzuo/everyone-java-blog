@@ -48,8 +48,6 @@ public class HomePageController extends AbstractApiController {
     public List<HomeAtrticleDTO> getArticles(@RequestParam("categoryId") int categoryId,
                                          @RequestParam(required = false) String offset,
                                          @RequestParam(required = false) int size) {
-       ;
-
         DropDownPage page = new DropDownPage();
         if (!ObjectUtils.isEmpty(offset)) {
             page.setOffset(DateUtils.parse(offset, "yyyy-MM-dd HH:mm:ss"));
@@ -60,9 +58,7 @@ public class HomePageController extends AbstractApiController {
             page.setSize(size);
         }
         page.setOrderColumn("update_time");
-
-        List<HomeAtrticleDTO> s = userArticleService.getArticles(page,categoryId);
-        return s;
+        return userArticleService.getArticles(page,categoryId);
     }
 
     @RequestMapping(value = {"/TopThreeUserArticles"}, method = {RequestMethod.GET, RequestMethod.POST})

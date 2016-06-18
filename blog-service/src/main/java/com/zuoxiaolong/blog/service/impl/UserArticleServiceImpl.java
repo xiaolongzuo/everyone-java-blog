@@ -248,8 +248,9 @@ public class UserArticleServiceImpl implements UserArticleService {
             homeAtrticleDTO.setUserArticle(u);
 
             WebUser webUser = webUserMapper.selectByPrimaryKey(u.getWebUserId());
-            webUser.setNickname(webUser.getNickname()); //用户昵称
-            homeAtrticleDTO.setWebUser(webUser);
+            WebUser webUserDto = new WebUser();
+            webUserDto.setNickname(webUser.getNickname()); //用户昵称
+            homeAtrticleDTO.setWebUser(webUserDto);
 
             homeAtrticleDTO.setFriendlyTime(DateUtils.toFriendlyTime(u.getUpdateTime()));
 
