@@ -58,11 +58,11 @@ public class UserArticleServiceImpl implements UserArticleService {
     public static final String QUERY_PARAMETER_TIME = "time";
     public static final String QUERY_PARAMETER_CATEGORY_ID = "categoryId";
     //推荐
-    public static final String ACTION_TYPE_RECOMMEND = "1";
+    public static final String ACTION_TYPE_RECOMMEND = "mostRecommendArticle";
     //阅读
-    public static final String ACTION_TYPE_READ = "2";
+    public static final String ACTION_TYPE_READ = "mostReadArticle";
     //评论
-    public static final String ACTION_TYPE_COMMEND = "3";
+    public static final String ACTION_TYPE_COMMENT = "mostCommentArticle";
     @Autowired
     private UserArticleMapper userArticleMapper;
     @Autowired
@@ -76,7 +76,7 @@ public class UserArticleServiceImpl implements UserArticleService {
      * @param map
      * @return
      */
-    private List<UserArticle> getTopCommendArticles(Map<String, Object> map) {
+    public List<UserArticle> getTopCommendArticles(Map<String, Object> map) {
         List<UserArticle> userArticles = userArticleMapper.getTopCommendArticles(map);
         List<UserArticle> recommendUserArticle = userArticleMapper.getArticleCommentByCategoryId((Integer) map.get(QUERY_PARAMETER_CATEGORY_ID));
         if (CollectionUtils.isEmpty(userArticles) && !CollectionUtils.isEmpty(recommendUserArticle)) {
@@ -95,7 +95,7 @@ public class UserArticleServiceImpl implements UserArticleService {
      * @param map
      * @return
      */
-    private List<UserArticle> getTopReadArticlesByCategoryIdAndTime(Map<String, Object> map) {
+    public List<UserArticle> getTopReadArticlesByCategoryIdAndTime(Map<String, Object> map) {
         List<UserArticle> userArticles = userArticleMapper.getTopReadArticles(map);
         List<UserArticle> articles = userArticleMapper.getArticlesByCategoryId((Integer) map.get(QUERY_PARAMETER_CATEGORY_ID));
         if (CollectionUtils.isEmpty(userArticles) && !CollectionUtils.isEmpty(articles)) {
@@ -114,7 +114,7 @@ public class UserArticleServiceImpl implements UserArticleService {
      * @param map
      * @return
      */
-    private List<UserArticle> getTopRecommendArticlesByCategoryIdAndTime(Map<String, Object> map) {
+    public List<UserArticle> getTopRecommendArticlesByCategoryIdAndTime(Map<String, Object> map) {
         List<UserArticle> userArticles = userArticleMapper.getTopRecommendArticles(map);
         List<UserArticle> articles = userArticleMapper.getArticlesByCategoryId((Integer) map.get(QUERY_PARAMETER_CATEGORY_ID));
         if (CollectionUtils.isEmpty(userArticles) && !CollectionUtils.isEmpty(articles)) {
@@ -187,7 +187,7 @@ public class UserArticleServiceImpl implements UserArticleService {
 
         //评论排行
         ArticleRankResponseDto commendArticleRankResponseDto = new ArticleRankResponseDto();
-        commendArticleRankResponseDto.setActionType(ACTION_TYPE_COMMEND);
+        commendArticleRankResponseDto.setActionType(ACTION_TYPE_COMMENT);
 
         Map<String, Object> commendMap = new HashMap<>();
         List<UserArticle> commendUserArticles;
