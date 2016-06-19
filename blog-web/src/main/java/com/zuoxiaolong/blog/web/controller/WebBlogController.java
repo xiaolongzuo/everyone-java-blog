@@ -42,16 +42,29 @@ public class WebBlogController extends AbstractWebController {
      * @return
      */
     @RequestMapping("/HomePage")
-    public String personalBlogHomePage(String pageNo, String size) {
+    public String personalBlogHomePage(String offset, String size) {
         Map<String, String> params = new HashMap<>();
         params.put("username", getUsername());
-        params.put("pageNo", pageNo);
         JsonResponse response = invokeApi(Api.WebBlog_HomePage, params);
         if (response.getCode() == 200) {
             setModelAttribute("result", response);
             return "/blog/blog";
         }
         return "/user/login";
+    }
+
+    /**
+     * 获取我的文章，加载更多
+     * @param offset
+     * @param size
+     */
+    @RequestMapping("/getMyBlogArticle")
+    public void getMyBlogArticle(String offset, String size) {
+        Map<String, String> params = new HashMap<>();
+        params.put("username", getUsername());
+        params.put("offset", offset);
+        JsonResponse response = invokeApi(Api.WebBlog_HomePage, params);
+        renderJson(response);
     }
 
     /**

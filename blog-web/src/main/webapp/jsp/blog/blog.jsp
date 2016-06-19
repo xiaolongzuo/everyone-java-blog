@@ -35,30 +35,30 @@
     <%--<jsp:include page="../common/blog_header.jsp"/>--%>
     <div class="row">
         <div class="col-sm-8 blog-main">
-            <c:choose>
-                <c:when test="${result.data.userArticleList!=null && fn:length(result.data.userArticleList) > 0}">
-                    <c:forEach var="article" items="${result.data.userArticleList}" varStatus="index">
-                        <div class="blog-post">
-                            <h2 class="blog-post-title"><a href="#" class="blog-article">${article.title}</a></h2>
-                            <jsp:useBean id="now" class="java.util.Date" />
-                            <fmt:formatDate value="${now}" type="both" dateStyle="long" pattern="yyyy-MM-dd" var="today"/>
-                            <fmt:formatDate value="${article.createTime}" type="both" dateStyle="long" pattern="yyyy-MM-dd" var="date"/>
-                            <c:choose>
-                                <c:when test="${today == date}">
-                                    <p class="blog-post-meta">${result.data.webUser.nickname}发表于今天<fmt:formatDate value="${article.createTime}" type="both" pattern="HH:mm:ss" /></p>
-                                </c:when>
-                                <c:otherwise>
-                                    <p class="blog-post-meta">${result.data.webUser.nickname}发表于<fmt:formatDate value="${article.createTime}" type="both" pattern="yyyy-MM-dd" /></p>
-                                </c:otherwise>
-                            </c:choose>
-                            <p class="blog-post-meta">推荐(${article.thumbupTimes}) 评论(${article.commentTimes}) 阅读(${article.readTimes})</p>
-                        </div>
-                    </c:forEach>
-                </c:when>
-                <c:otherwise>
-                    你还没有发表文章
-                </c:otherwise>
-            </c:choose>
+            <%--<c:choose>--%>
+                <%--<c:when test="${result.data.userArticleList!=null && fn:length(result.data.userArticleList) > 0}">--%>
+                    <%--<c:forEach var="article" items="${result.data.userArticleList}" varStatus="index">--%>
+                        <%--<div class="blog-post">--%>
+                            <%--<h2 class="blog-post-title"><a href="#" class="blog-article">${article.title}</a></h2>--%>
+                            <%--<jsp:useBean id="now" class="java.util.Date" />--%>
+                            <%--<fmt:formatDate value="${now}" type="both" dateStyle="long" pattern="yyyy-MM-dd" var="today"/>--%>
+                            <%--<fmt:formatDate value="${article.createTime}" type="both" dateStyle="long" pattern="yyyy-MM-dd" var="date"/>--%>
+                            <%--<c:choose>--%>
+                                <%--<c:when test="${today == date}">--%>
+                                    <%--<p class="blog-post-meta">${result.data.webUser.nickname}发表于今天<fmt:formatDate value="${article.createTime}" type="both" pattern="HH:mm:ss" /></p>--%>
+                                <%--</c:when>--%>
+                                <%--<c:otherwise>--%>
+                                    <%--<p class="blog-post-meta">${result.data.webUser.nickname}发表于<fmt:formatDate value="${article.createTime}" type="both" pattern="yyyy-MM-dd" /></p>--%>
+                                <%--</c:otherwise>--%>
+                            <%--</c:choose>--%>
+                            <%--<p class="blog-post-meta">推荐(${article.thumbupTimes}) 评论(${article.commentTimes}) 阅读(${article.readTimes})</p>--%>
+                        <%--</div>--%>
+                    <%--</c:forEach>--%>
+                <%--</c:when>--%>
+                <%--<c:otherwise>--%>
+                    <%--你还没有发表文章--%>
+                <%--</c:otherwise>--%>
+            <%--</c:choose>--%>
 
 
             <%--<div class="blog-post">--%>
@@ -79,10 +79,10 @@
                 <%--<p class="blog-post-meta">推荐(10) 评论(10) 阅读(1000)</p>--%>
             <%--</div><!-- /.blog-post -->--%>
 
-            <nav>
+            <nav  id="myBlog">
                 <ul class="pager">
-                    <li><a href="javascript:goPrevious()">上一页</a></li>
-                    <li><a href="javascript:goNext()">下一页</a></li>
+                    <li><a href="javascript:loadMoreArticle()">加载更多</a></li>
+                    <%--<li><a href="javascript:goNext()">下一页</a></li>--%>
                 </ul>
             </nav>
 
@@ -96,22 +96,6 @@
 <%--<jsp:include page="../common/footer.jsp"/>--%>
 <%@include file="../common/bottom.jsp"%>
 <%--<jsp:include page="../common/bottom.jsp"/>--%>
-<script>
-    var currentPageNumber = parseInt("${result.data.userArticlePage.currentPageNumber}");
-    var totalPageNumber = parseInt("${result.data.userArticlePage.totalPageNumber}");
-    function goNext() {
-        var pageNo = currentPageNumber + 1;
-        if (pageNo <= totalPageNumber) {
-            window.location.href = "/WebBlog/HomePage?pageNo=" + pageNo;
-        }
-    }
-    function goPrevious() {
-        if (currentPageNumber != 1) {
-            var pageNo = currentPageNumber - 1;
-            window.location.href = "/WebBlog/HomePage?pageNo=" + pageNo;
-        }
-    }
-    
-</script>
+<script src="${pageContext.request.contextPath}/js/blog.js"></script>
 </body>
 </html>

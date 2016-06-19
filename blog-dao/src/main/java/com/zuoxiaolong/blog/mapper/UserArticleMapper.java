@@ -36,7 +36,7 @@ public interface UserArticleMapper {
      * @param page
      * @return
      */
-    List<UserArticle> getPageByWebUserId(@Param("webUserId") int webUserId, @Param("page") DigitalPage page);
+    List<UserArticle> getPageByWebUserId(@Param("webUserId") int webUserId, @Param("page") DropDownPage page);
 
     /**
      * 根据用户id，获取推荐的文章列表，按推荐次数倒序排序

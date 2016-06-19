@@ -70,10 +70,10 @@ public class WebBlogServiceImpl implements WebBlogService {
      *
      * @param username
      * @param pageSize
-     * @param pageNo
+     * @param offset
      * @return
      */
-    public UserBlogInfo selectUserBlogInfoByUsername(String username, String pageSize, String pageNo) {
+    public UserBlogInfo selectUserBlogInfoByUsername(String username, String pageSize, String offset) {
 
         // 根据用户名查询用户是否存在
         WebUser webUser = webUserMapper.selectByUsername(username);
@@ -89,12 +89,6 @@ public class WebBlogServiceImpl implements WebBlogService {
             throw new BusinessException(ExceptionType.DATA_NOT_FOUND);
         }
 
-        // 获取开始位置
-        int num = 1;
-        if (StringUtils.isNumeric(pageNo)) {
-            num = Integer.valueOf(pageNo);
-        }
-
         // 获取分页大小
         int size = DEFUALT_PAGE_SIZE;
         if (StringUtils.isNumeric(pageSize)) {
@@ -102,9 +96,10 @@ public class WebBlogServiceImpl implements WebBlogService {
         }
 
         //分页数据设置
-        DigitalPage userArticlePage = new DigitalPage();
-        userArticlePage.setCurrentPageNumber(num);
-        userArticlePage.setPageSize(size);
+        DropDownPage userArticlePage = new DropDownPage();
+        userArticlePage.setOffset(offset);
+        userArticlePage.setSize(size);
+        userArticlePage.setOrderType("ASC");
 
         List<UserArticle> userArticles = userArticleMapper.getPageByWebUserId(webUser.getId(), userArticlePage);
 
