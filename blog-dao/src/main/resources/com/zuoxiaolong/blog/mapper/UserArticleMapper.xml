@@ -228,7 +228,6 @@
         <include refid="Base_Column_List"/>
         from user_article
         where web_user_id = #{webUserId} and status = 1
-        order by create_time desc
     </select>
 
     <!-- 根据用户id，获取推荐的文章列表，按推荐次数倒序排序 -->

@@ -88,6 +88,7 @@ public class ExampleController extends AbstractApiController {
     @RequestMapping("/example7")
     @CheckLogin
     public void example7() throws Exception {
+        System.out.println(getUsername());
     }
 
 }

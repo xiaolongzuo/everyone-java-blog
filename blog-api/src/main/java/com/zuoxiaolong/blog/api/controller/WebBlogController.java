@@ -16,13 +16,13 @@
 
 package com.zuoxiaolong.blog.api.controller;
 
-import com.zuoxiaolong.blog.common.utils.SensitiveWordCheckUtils;
 import com.zuoxiaolong.blog.model.dto.UserBlogInfo;
 import com.zuoxiaolong.blog.model.persistent.BlogConfig;
 import com.zuoxiaolong.blog.service.WebBlogService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.annotation.Resource;
 
@@ -40,18 +40,20 @@ public class WebBlogController extends AbstractApiController {
     private WebBlogService webBlogService;
 
     /**
-     * 更新个人简介,地址等信息
-     *
+     * 更新个人简介,地址,博客名称等信息
      * @param blogConfig
      * @return
      */
-    @RequestMapping("/update/config")
-    public int updateBlogConfig(@RequestBody BlogConfig blogConfig) {
-        if (SensitiveWordCheckUtils.isContainSensitiveWord(blogConfig.getIntroduction())) {
-            return webBlogService.updateBlogConfig(blogConfig);
-        } else {
-            return -1;
-        }
+    @RequestMapping(value = "/Update/Config", method = RequestMethod.POST)
+    public Integer updateBlogConfig(@RequestBody BlogConfig blogConfig) {
+        return webBlogService.updateBlogConfig(blogConfig);
+    }
+
+
+
+    @RequestMapping(value = "/Select/Config" , method = RequestMethod.POST)
+    public BlogConfig selectUserBlogConfig(Integer webUserId) {
+        return webBlogService.selectBlogConfigByWebUserId(webUserId);
     }
 
 
