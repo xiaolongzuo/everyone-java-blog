@@ -97,9 +97,10 @@ public class WebBlogServiceImpl implements WebBlogService {
 
         //分页数据设置
         DropDownPage userArticlePage = new DropDownPage();
-        userArticlePage.setOffset(offset);
+        if(!ObjectUtils.isEmpty(offset)){
+            userArticlePage.setOffset(offset);
+        }
         userArticlePage.setSize(size);
-        userArticlePage.setOrderType("ASC");
 
         List<UserArticle> userArticles = userArticleMapper.getPageByWebUserId(webUser.getId(), userArticlePage);
 

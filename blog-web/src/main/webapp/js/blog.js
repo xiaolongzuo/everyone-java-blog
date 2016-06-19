@@ -4,7 +4,7 @@
  * @version 1.0
  */
 
-var offset = 0;
+var offset = "";
 $(function () {
     loadMoreArticle();
 })
