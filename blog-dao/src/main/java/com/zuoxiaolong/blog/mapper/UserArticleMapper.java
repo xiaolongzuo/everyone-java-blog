@@ -1,5 +1,6 @@
 package com.zuoxiaolong.blog.mapper;
 
+import com.zuoxiaolong.blog.common.orm.DigitalPage;
 import com.zuoxiaolong.blog.common.orm.DropDownPage;
 import com.zuoxiaolong.blog.model.persistent.UserArticle;
 import org.apache.ibatis.annotations.Param;
@@ -35,7 +36,7 @@ public interface UserArticleMapper {
      * @param page
      * @return
      */
-    List<UserArticle> getPageByWebUserId(@Param("webUserId") int webUserId, @Param("page") DropDownPage page);
+    List<UserArticle> getPageByWebUserId(@Param("webUserId") int webUserId, @Param("page") DigitalPage page);
 
     /**
      * 根据用户id，获取推荐的文章列表，按推荐次数倒序排序

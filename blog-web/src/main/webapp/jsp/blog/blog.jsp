@@ -81,8 +81,8 @@
 
             <nav>
                 <ul class="pager">
-                    <li><a href="#">上一页</a></li>
-                    <li><a href="#">下一页</a></li>
+                    <li><a href="javascript:goPrevious()">上一页</a></li>
+                    <li><a href="javascript:goNext()">下一页</a></li>
                 </ul>
             </nav>
 
@@ -96,5 +96,22 @@
 <%--<jsp:include page="../common/footer.jsp"/>--%>
 <%@include file="../common/bottom.jsp"%>
 <%--<jsp:include page="../common/bottom.jsp"/>--%>
+<script>
+    var currentPageNumber = parseInt("${result.data.userArticlePage.currentPageNumber}");
+    var totalPageNumber = parseInt("${result.data.userArticlePage.totalPageNumber}");
+    function goNext() {
+        var pageNo = currentPageNumber + 1;
+        if (pageNo <= totalPageNumber) {
+            window.location.href = "/WebBlog/HomePage?pageNo=" + pageNo;
+        }
+    }
+    function goPrevious() {
+        if (currentPageNumber != 1) {
+            var pageNo = currentPageNumber - 1;
+            window.location.href = "/WebBlog/HomePage?pageNo=" + pageNo;
+        }
+    }
+    
+</script>
 </body>
 </html>

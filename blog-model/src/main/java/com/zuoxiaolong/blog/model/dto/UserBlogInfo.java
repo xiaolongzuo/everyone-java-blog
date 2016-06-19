@@ -15,6 +15,7 @@
  */
 package com.zuoxiaolong.blog.model.dto;
 
+import com.zuoxiaolong.blog.common.orm.DigitalPage;
 import com.zuoxiaolong.blog.model.persistent.BlogConfig;
 import com.zuoxiaolong.blog.model.persistent.UserArticle;
 import com.zuoxiaolong.blog.model.persistent.WebUser;
@@ -41,5 +42,7 @@ public class UserBlogInfo {
     private List<UserArticle> userArticleList;// 用户文章列表
 
     private List<UserArticle> userHotestArticleList;// 用户最热文章列表
+
+    private DigitalPage userArticlePage;//用户文章分页
 
 }
