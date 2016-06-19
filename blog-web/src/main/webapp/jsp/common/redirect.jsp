@@ -23,7 +23,7 @@
 <%
     String url = request.getParameter("url");
     if (url == null) {
-        url = "/WebUser/Login";
+        url = "/jsp/index/index.jsp";
     }
     response.sendRedirect(url);
 %>

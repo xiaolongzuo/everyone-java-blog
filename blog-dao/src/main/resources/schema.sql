@@ -109,8 +109,8 @@ ALTER TABLE `java_blog`.`user_article` ADD COLUMN `comment_times` INT(11) NOT NU
 ALTER TABLE `java_blog`.`blog_config` ADD COLUMN `blog_title` VARCHAR(128) NOT NULL DEFAULT '' COMMENT '博客标题';
 ALTER TABLE `java_blog`.`blog_config` ADD COLUMN `blog_sub_title` VARCHAR(128) NOT NULL DEFAULT '' COMMENT '博客子标题';
 
-ALTER TABLE `java_blog`.`article_comment` ADD COLUMN `parents_comment_id` VARCHAR(128) NOT NULL DEFAULT '' COMMENT '父级评论路径';
-ALTER TABLE `java_blog`.`article_comment` MODIFY `reply_comment_id` INT NOT NULL COMMENT '父级评论';
+ALTER TABLE `java_blog`.`article_comment` ADD COLUMN `parents_comment_id` VARCHAR(128) NOT NULL DEFAULT '0,' COMMENT '父级评论路径';
+ALTER TABLE `java_blog`.`article_comment` MODIFY `reply_comment_id` INT(11) NOT NULL DEFAULT 0 COMMENT '父级评论';
 
 
 
