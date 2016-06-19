@@ -184,15 +184,6 @@
         t1.cnt DESC
     </select>
 
-    <select id="getArticlesByCategoryId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-        SELECT
-        <include refid="Base_Column_List"/>
-        FROM
-        user_article a
-        WHERE
-        a.category_id = #{categoryId,jdbcType=INTEGER}
-    </select>
-
     <select id="getArticleCommentByCategoryId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         SELECT
         	a.id,
@@ -205,13 +196,13 @@
             a.read_times,
             a.thumbup_times,
             a.is_main_page,
-            a.STATUS
+            a.STATUS,
             a.comment_times
         FROM
         user_article a
     </select>
 
-    <select id="getArticlesByCategoryIdAndPage" resultMap="BaseResultMap" parameterType="java.util.Map">
+    <select id="getArticlesByCategoryId" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM
@@ -220,9 +211,16 @@
         a.category_id = #{categoryId,jdbcType=INTEGER}
         ORDER BY
         a.update_time DESC
-        LIMIT #{startRow,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
     </select>
 
+    <select id="getArticlesByCategoryIdAndPage" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        user_article a
+        WHERE
+        a.category_id = #{categoryId,jdbcType=INTEGER}
+    </select>
     <!-- 获取文章分页列表，根据个人文章创建时间倒序排序 -->
     <!-- 因为在Mapper接口方法中使用了@Param注解了参数，所以无需在配置文件中指定参数类型，是希望让大家就知道有多种做法，如果后续需要统一编码规范，再改 -->
     <select id="getPageByWebUserId" resultMap="BaseResultMap">
@@ -230,7 +228,6 @@
         <include refid="Base_Column_List"/>
         from user_article
         where web_user_id = #{webUserId} and status = 1
-        order by create_time desc
     </select>
 
     <!-- 根据用户id，获取推荐的文章列表，按推荐次数倒序排序 -->

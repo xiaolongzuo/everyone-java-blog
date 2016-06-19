@@ -17,6 +17,9 @@ package com.zuoxiaolong.blog.service.impl;
 
 import com.zuoxiaolong.blog.common.bean.ExceptionType;
 import com.zuoxiaolong.blog.common.exception.BusinessException;
+import com.zuoxiaolong.blog.common.orm.DropDownPage;
+import com.zuoxiaolong.blog.common.utils.ObjectUtils;
+import com.zuoxiaolong.blog.common.utils.SensitiveWordCheckUtils;
 import com.zuoxiaolong.blog.common.utils.StringUtils;
 import com.zuoxiaolong.blog.mapper.BlogConfigMapper;
 import com.zuoxiaolong.blog.mapper.UserArticleMapper;
@@ -56,7 +59,7 @@ public class WebBlogServiceImpl implements WebBlogService {
     @Resource
     private UserArticleMapper userArticleMapper;
 
-    protected static final int DEFUALT_PAGE_SIZE = 20;
+    protected static final int DEFUALT_PAGE_SIZE = 10;
 
     protected static final int USER_HOTEST_ARTICLE_PAGE_SIZE = 10;
 
@@ -97,7 +100,18 @@ public class WebBlogServiceImpl implements WebBlogService {
             size = Integer.valueOf(pageSize);
         }
 
-        List<UserArticle> userArticles = userArticleMapper.getPageByWebUserId(webUser.getId(), (num - 1) * size, size);
+        //分页数据设置
+        DropDownPage page = new DropDownPage();
+        if(!ObjectUtils.isEmpty(num)){
+            page.setOffset(num);
+        }else{
+            page.setOffset(0);
+        }
+        if(!ObjectUtils.isEmpty(size)){
+            page.setSize(size);
+        }
+
+        List<UserArticle> userArticles = userArticleMapper.getPageByWebUserId(webUser.getId(), page);
 
         List<UserArticle> userHotestArticles = userArticleMapper.getTopThumbupArticlesByWebUserId(webUser.getId(), USER_HOTEST_ARTICLE_PAGE_SIZE);
 
@@ -125,6 +139,24 @@ public class WebBlogServiceImpl implements WebBlogService {
 
     @Override
     public int updateBlogConfig(BlogConfig blogConfig) {
+        if(blogConfig == null
+                || SensitiveWordCheckUtils.isContainSensitiveWord(blogConfig.getIntroduction())
+                || SensitiveWordCheckUtils.isContainSensitiveWord(blogConfig.getBlogTitle())
+                || SensitiveWordCheckUtils.isContainSensitiveWord(blogConfig.getBlogSubTitle())) {
+            logger.info("blogConfig param: {} is invalid", blogConfig);
+            throw new BusinessException(ExceptionType.PARAMETER_ILLEGAL);
+        }
+
         return blogConfigMapper.updateByWebUserId(blogConfig);
+    }
+
+    @Override
+    public BlogConfig selectBlogConfigByWebUserId(Integer webUserId) {
+        if(webUserId == null || webUserId < 0) {
+            logger.info("webUserId: {} invalid", webUserId);
+            throw new BusinessException(ExceptionType.PARAMETER_ILLEGAL);
+        }
+
+        return blogConfigMapper.selectByWebUserId(webUserId);
     }
 }

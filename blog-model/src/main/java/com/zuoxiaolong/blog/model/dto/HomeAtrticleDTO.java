@@ -13,26 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.zuoxiaolong.blog.service;
+package com.zuoxiaolong.blog.model.dto;
 
-import com.zuoxiaolong.blog.model.dto.UserBlogInfo;
-import com.zuoxiaolong.blog.model.persistent.BlogConfig;
+import com.zuoxiaolong.blog.model.persistent.UserArticle;
+import com.zuoxiaolong.blog.model.persistent.WebUser;
+import lombok.Data;
 
 /**
- * 用户博客个人主页业务接口
- *
- * @author linjiedeng
- * @author youboren
- * @date 16/5/14 下午7:49
+ * @author 郭松涛
+ * @date 2016/6/18 1:20
  * @since 1.0.0
  */
-
-public interface WebBlogService {
-
-    UserBlogInfo selectUserBlogInfoByUsername(String username, String pageSize, String pageNo);
-
-    int updateBlogConfig(BlogConfig blogConfig);
-
-    BlogConfig selectBlogConfigByWebUserId(Integer webUserId);
-
+@Data
+public class HomeAtrticleDTO {
+    private WebUser webUser; // 用户
+    private UserArticle userArticle; //文章基本信息
+    private String friendlyTime; //用户易于识别的时间
 }
