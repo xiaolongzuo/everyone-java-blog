@@ -1,5 +1,6 @@
 package com.zuoxiaolong.blog.mapper;
 
+import com.zuoxiaolong.blog.common.orm.DigitalPage;
 import com.zuoxiaolong.blog.common.orm.DropDownPage;
 import com.zuoxiaolong.blog.model.persistent.UserArticle;
 import org.apache.ibatis.annotations.Param;
