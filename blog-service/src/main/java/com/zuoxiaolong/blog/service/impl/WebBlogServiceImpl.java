@@ -17,6 +17,7 @@ package com.zuoxiaolong.blog.service.impl;
 
 import com.zuoxiaolong.blog.common.bean.ExceptionType;
 import com.zuoxiaolong.blog.common.exception.BusinessException;
+import com.zuoxiaolong.blog.common.orm.DigitalPage;
 import com.zuoxiaolong.blog.common.orm.DropDownPage;
 import com.zuoxiaolong.blog.common.utils.ObjectUtils;
 import com.zuoxiaolong.blog.common.utils.SensitiveWordCheckUtils;
@@ -69,10 +70,10 @@ public class WebBlogServiceImpl implements WebBlogService {
      *
      * @param username
      * @param pageSize
-     * @param pageNo
+     * @param offset
      * @return
      */
-    public UserBlogInfo selectUserBlogInfoByUsername(String username, String pageSize, String pageNo) {
+    public UserBlogInfo selectUserBlogInfoByUsername(String username, String pageSize, String offset) {
 
         // 根据用户名查询用户是否存在
         WebUser webUser = webUserMapper.selectByUsername(username);
@@ -88,12 +89,6 @@ public class WebBlogServiceImpl implements WebBlogService {
             throw new BusinessException(ExceptionType.DATA_NOT_FOUND);
         }
 
-        // 获取分页编号
-        int num = 1;
-        if (StringUtils.isNumeric(pageNo)) {
-            num = Integer.valueOf(pageNo);
-        }
-
         // 获取分页大小
         int size = DEFUALT_PAGE_SIZE;
         if (StringUtils.isNumeric(pageSize)) {
@@ -101,17 +96,13 @@ public class WebBlogServiceImpl implements WebBlogService {
         }
 
         //分页数据设置
-        DropDownPage page = new DropDownPage();
-        if(!ObjectUtils.isEmpty(num)){
-            page.setOffset(num);
-        }else{
-            page.setOffset(0);
+        DropDownPage userArticlePage = new DropDownPage();
+        if(!ObjectUtils.isEmpty(offset)){
+            userArticlePage.setOffset(offset);
         }
-        if(!ObjectUtils.isEmpty(size)){
-            page.setSize(size);
-        }
+        userArticlePage.setSize(size);
 
-        List<UserArticle> userArticles = userArticleMapper.getPageByWebUserId(webUser.getId(), page);
+        List<UserArticle> userArticles = userArticleMapper.getPageByWebUserId(webUser.getId(), userArticlePage);
 
         List<UserArticle> userHotestArticles = userArticleMapper.getTopThumbupArticlesByWebUserId(webUser.getId(), USER_HOTEST_ARTICLE_PAGE_SIZE);
 
@@ -132,6 +123,7 @@ public class WebBlogServiceImpl implements WebBlogService {
         userBlogInfo.setWebUser(dtoUser);
         userBlogInfo.setBlogConfig(dtoBlogConfig);
         userBlogInfo.setUserArticleList(userArticles);
+        userBlogInfo.setUserArticlePage(userArticlePage);
         userBlogInfo.setUserHotestArticleList(userHotestArticles);
 
         return userBlogInfo;
