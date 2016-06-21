@@ -16,7 +16,6 @@
 
 package com.zuoxiaolong.blog.api.controller;
 
-import com.zuoxiaolong.blog.common.authorization.CheckLogin;
 import com.zuoxiaolong.blog.model.dto.UserBlogInfo;
 import com.zuoxiaolong.blog.model.persistent.BlogConfig;
 import com.zuoxiaolong.blog.service.WebBlogService;
@@ -64,11 +63,11 @@ public class WebBlogController extends AbstractApiController {
      * 获取个人博客主页信息
      * @param username
      * @param pageSize
-     * @param pageNo
+     * @param offset
      * @return
      */
     @RequestMapping("/HomePage")
-    public UserBlogInfo personalBlogHomePage(String username, String pageSize, String pageNo) {
-        return webBlogService.selectUserBlogInfoByUsername(username, pageSize, pageNo);
+    public UserBlogInfo personalBlogHomePage(String username, String pageSize, String offset) {
+        return webBlogService.selectUserBlogInfoByUsername(username, pageSize, offset);
     }
 }
