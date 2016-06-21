@@ -35,11 +35,7 @@
             <c:if test="${sessionScope.token != null}">
                 <a class="pull-right blog-nav-item blog-nav-right-first-item" href="${pageContext.request.contextPath}/WebUser/Logout">注销</a>
                 <a class="pull-right blog-nav-item" href="#">短信箱</a>
-<<<<<<< HEAD
-                <a class="pull-right blog-nav-item" href="#">我的博客</a>
-=======
                 <a class="pull-right blog-nav-item" href="${pageContext.request.contextPath}/WebBlog/HomePage">我的博客</a>
->>>>>>> 35cbeabe2bc2432689515478501018f2eea56451
                 <a class="pull-right blog-nav-item" href="${pageContext.request.contextPath}/WebBlog/Select/Config">${sessionScope.username}</a>
             </c:if>
         </nav>
