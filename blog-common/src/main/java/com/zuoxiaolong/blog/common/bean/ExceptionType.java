@@ -28,6 +28,7 @@ public enum ExceptionType {
 
     AUTHORIZATION_ERROR(401, "请先登录"),
     DATA_NOT_FOUND(404, "数据未找到"),
+    PARAMETER_ILLEGAL(403, "参数无效"),
     USER_NOT_FOUND(602, "用户不存在"),
     USERNAME_PASSWORD_ERROR(601, "用户名或密码错误")
     ;

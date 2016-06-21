@@ -29,8 +29,10 @@ import com.zuoxiaolong.blog.model.persistent.BlogConfig;
 
 public interface WebBlogService {
 
-    UserBlogInfo selectUserBlogInfoByUsername(String username, String pageSize, String pageNo);
+    UserBlogInfo selectUserBlogInfoByUsername(String username, String pageSize, String offset);
 
     int updateBlogConfig(BlogConfig blogConfig);
+
+    BlogConfig selectBlogConfigByWebUserId(Integer webUserId);
 
 }

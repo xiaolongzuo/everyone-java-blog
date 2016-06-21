@@ -54,7 +54,7 @@ public class HomePageController extends AbstractWebController {
     }
 
     @RequestMapping(value = {"/TopThreeUserArticles"}, method = {RequestMethod.GET, RequestMethod.POST})
-    public void topThreeUserArticles(String categoryName) {
+    public void topThreeUserArticles(@RequestParam("categoryName") String categoryName) {
         JsonResponse jsonResponse = invokeApi(Api.HomePage_TopThreeUserArticles, CollectionUtils.newMap("categoryName", categoryName));
         renderJson(jsonResponse);
     }

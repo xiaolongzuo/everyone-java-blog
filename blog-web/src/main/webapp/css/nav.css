@@ -1,0 +1,13 @@
+ul,ol,li{
+    margin: 0;
+    padding: 0;
+}
+li{
+    list-style: none;
+}
+#blog-rank{
+    margin-bottom: 36px;
+}
+#blog-rank ul li{
+    margin-bottom: 8px;
+}

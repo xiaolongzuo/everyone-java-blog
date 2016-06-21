@@ -46,6 +46,12 @@
             <if test="address != null">
                 address,
             </if>
+            <if test="blogTitle != null">
+                blog_title,
+            </if>
+            <if test="blogSubTitle != null">
+                blog_sub_title,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -59,6 +65,12 @@
             </if>
             <if test="address != null">
                 #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="blogTitle != null">
+                #{blogTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="blogSubTitle != null">
+                #{blogSubTitle,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -86,6 +98,12 @@
             </if>
             <if test="address != null">
                 address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="blogTitle != null">
+                blog_title = #{blogTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="blogSubTitle != null">
+                blog_sub_title = #{blogSubTitle,jdbcType=VARCHAR},
             </if>
         </set>
         where web_user_id = #{webUserId,jdbcType=INTEGER}
