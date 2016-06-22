@@ -28,8 +28,8 @@
 <body>
 <form action="${pageContext.request.contextPath}/WebBlog/Update/Config" method="post">
     博客名称: <input name="blogTitle" value="${result.data.blogTitle}"/><br/>
-    博客子标题: <textarea name="blogSubTitle" cols="20" rows="10">${result.data.blogSubTitle}</textarea><br/>
-    个人简介: <textarea name="introduction" cols="30" rows="20">${result.data.introduction}</textarea><br/>
+    博客子标题: <textarea name="blogSubTitle" cols="40" rows="5">${result.data.blogSubTitle}</textarea><br/>
+    个人简介: <textarea name="introduction" cols="60" rows="20">${result.data.introduction}</textarea><br/>
     <input type="submit" value="修改"/>
 </form>
 </body>
