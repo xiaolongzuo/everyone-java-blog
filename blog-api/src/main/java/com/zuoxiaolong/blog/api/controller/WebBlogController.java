@@ -45,14 +45,16 @@ public class WebBlogController extends AbstractApiController {
      * @return
      */
     @RequestMapping(value = "/Update/Config", method = RequestMethod.POST)
-    public Integer updateBlogConfig(@RequestBody BlogConfig blogConfig) {
+    public Integer updateBlogConfig(BlogConfig blogConfig) {
+        Integer webUserId = getWebUserId();
+        blogConfig.setWebUserId(webUserId);
         return webBlogService.updateBlogConfig(blogConfig);
     }
 
 
-
-    @RequestMapping(value = "/Select/Config" , method = RequestMethod.POST)
-    public BlogConfig selectUserBlogConfig(Integer webUserId) {
+    @RequestMapping(value = "/Select/Config")
+    public BlogConfig selectUserBlogConfig() {
+        Integer webUserId = getWebUserId();
         return webBlogService.selectBlogConfigByWebUserId(webUserId);
     }
 
