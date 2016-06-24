@@ -17,13 +17,12 @@
 package com.zuoxiaolong.blog.web.controller;
 
 import com.zuoxiaolong.blog.common.bean.JsonResponse;
-import com.zuoxiaolong.blog.common.utils.CollectionUtils;
 import com.zuoxiaolong.blog.model.persistent.BlogConfig;
 import com.zuoxiaolong.blog.sdk.Api;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import java.util.HashMap;
 import java.util.Map;
 
