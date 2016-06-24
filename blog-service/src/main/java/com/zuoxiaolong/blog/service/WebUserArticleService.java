@@ -48,7 +48,7 @@ public interface WebUserArticleService {
      *
      * @param articleId 文章Id
      */
-    void deleteArticle(int articleId);
+    void deleteArticle(String articleId);
 
     /**
      * 更新文章

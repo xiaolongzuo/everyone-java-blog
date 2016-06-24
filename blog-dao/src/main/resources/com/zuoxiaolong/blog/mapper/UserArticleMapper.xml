@@ -141,8 +141,8 @@
             parameterType="com.zuoxiaolong.blog.model.persistent.UserArticle">
       update user_article
          SET status = #{status,jdbcType=TINYINT},
-             update_time = #{updateTime,jdbcType="TIMESTAMP"}
-       where articleId = #{id,jdbcType=INTEGER}
+             update_time = #{updateTime,jdbcType=TIMESTAMP}
+       where id = #{id,jdbcType=INTEGER}
 
     </update>
 
@@ -214,7 +214,7 @@
             a.read_times,
             a.thumbup_times,
             a.is_main_page,
-            a.STATUS
+            a.STATUS,
             a.comment_times
         FROM
         user_article a

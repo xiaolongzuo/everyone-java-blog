@@ -37,11 +37,13 @@ import java.util.Map;
  */
 public enum Api {
 
-    example1("GET", new TypeToken<List<ArticleCategory>>(){}.getType()),
+    example1("GET", new TypeToken<List<ArticleCategory>>() {
+    }.getType()),
     example2("GET", ArticleCategory.class),
     example4("GET"),
     example7("GET"),
-    HomePage_Articles("POST", new TypeToken<List<UserArticle>>(){}.getType()),
+    HomePage_Articles("POST", new TypeToken<List<UserArticle>>() {
+    }.getType()),
     WebUser_Register("POST", String.class),
     WebUser_CheckUsername("POST", boolean.class),
     WebUser_IsLogin("POST", boolean.class),
@@ -49,14 +51,21 @@ public enum Api {
     WebUser_LoginWithToken("POST", String.class),
     WebUser_ModifyPassword("POST"),
     WebUser_Logout("POST"),
-    WebBlog_HomePage("POST",UserBlogInfo.class),
-    HomePage_TopThreeUserArticles("POST",new TypeToken<List<Map<String,UserArticle>>>(){}.getType()),
+    WebBlog_HomePage("POST", UserBlogInfo.class),
+    HomePage_TopThreeUserArticles("POST", new TypeToken<List<Map<String, UserArticle>>>() {
+    }.getType()),
     Article_GetArticleInfo("GET", ArticleInfoDTO.class),
-    Article_GetCommentInfo("GET", new TypeToken<List<ArticleCommentAndReplyDTO>>(){}.getType()),
-    Article_GetMoreReComment("GET", new TypeToken<List<ArticleCommentDTO>>(){}.getType()),
+    Article_GetCommentInfo("GET", new TypeToken<List<ArticleCommentAndReplyDTO>>() {
+    }.getType()),
+    Article_GetMoreReComment("GET", new TypeToken<List<ArticleCommentDTO>>() {
+    }.getType()),
     Article_AddComment("POST", Integer.class),
-    Article_AddThumbupTimes("POST", boolean.class)
-    ;
+    Article_AddThumbupTimes("POST", boolean.class),
+    webUserArticle_index("GET", UserArticle.class),
+    webUserArticle_save("POST"),
+    webUserArticle_delete("GET"),
+    articleCategory_list("GET", new TypeToken<List<ArticleCategory>>() {
+    }.getType());
 
     private String url;
 
@@ -71,7 +80,7 @@ public enum Api {
     Api(String method, Type resultType) {
         String[] names = toString().split("_");
         StringBuffer url = new StringBuffer();
-        for (int i = 0; i < names.length ; i++) {
+        for (int i = 0; i < names.length; i++) {
             url.append("/").append(names[i]);
         }
         this.url = url.toString();

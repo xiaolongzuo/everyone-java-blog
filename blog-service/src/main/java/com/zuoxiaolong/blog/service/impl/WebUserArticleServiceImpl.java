@@ -20,8 +20,10 @@ import com.zuoxiaolong.blog.common.utils.StringUtils;
 import com.zuoxiaolong.blog.mapper.UserArticleMapper;
 import com.zuoxiaolong.blog.model.persistent.UserArticle;
 import com.zuoxiaolong.blog.service.WebUserArticleService;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.Date;
@@ -35,17 +37,20 @@ import java.util.List;
  * @since 1.0.0
  */
 @Service
+@Transactional(readOnly = true)
 public class WebUserArticleServiceImpl implements WebUserArticleService {
 
     @Autowired
     UserArticleMapper userArticleMapper;
 
+    private static final int DEFAULT_VALUE = 0;
+
     //草稿
-    public static final int DRAFT = 0;
-    //有效
-    public static final int VALID = 1;
+    private static final int DRAFT = 0;
+    //发布
+    private static final int VALID = 1;
     //删除
-    public static final int INVALID = 2;
+    private static final int INVALID = 2;
 
     /**
      * 添加文章
@@ -53,8 +58,11 @@ public class WebUserArticleServiceImpl implements WebUserArticleService {
      * @param userArticle 文章信息
      */
     @Override
+    @Transactional(readOnly = false)
     public void saveArticle(UserArticle userArticle) {
-        userArticle.setStatus(VALID);
+        userArticle.setCommentTimes(DEFAULT_VALUE);
+        userArticle.setReadTimes(DEFAULT_VALUE);
+        userArticle.setThumbupTimes(DEFAULT_VALUE);
         userArticleMapper.insertSelective(userArticle);
     }
 
@@ -64,8 +72,13 @@ public class WebUserArticleServiceImpl implements WebUserArticleService {
      * @param userArticle 文章信息
      */
     @Override
+    @Transactional(readOnly = false)
     public void saveOrUpdateArticle(UserArticle userArticle) {
-        if (StringUtils.isEmpty(userArticle.getId().toString())) {
+        if (!StringUtils.isEmpty(userArticle.getContent())) {
+            userArticle.setContent(StringEscapeUtils.unescapeHtml4(
+                    userArticle.getContent()));
+        }
+        if (userArticle.getId() == null) {
             saveArticle(userArticle);
         } else {
             updateArticle(userArticle);
@@ -79,9 +92,10 @@ public class WebUserArticleServiceImpl implements WebUserArticleService {
      * @param articleId 文章Id
      */
     @Override
-    public void deleteArticle(int articleId) {
+    @Transactional(readOnly = false)
+    public void deleteArticle(String articleId) {
         UserArticle record = new UserArticle();
-        record.setId(articleId);
+        record.setId(Integer.valueOf(articleId));
         record.setUpdateTime(new Date());
         record.setStatus(INVALID);  //只做逻辑删除
         userArticleMapper.updateArticleStatusByArticleId(record);
@@ -93,6 +107,7 @@ public class WebUserArticleServiceImpl implements WebUserArticleService {
      * @param userArticle 文章信息
      */
     @Override
+    @Transactional(readOnly = false)
     public void updateArticle(UserArticle userArticle) {
         if (userArticle.getUpdateTime() == null)
             userArticle.setUpdateTime(new Date());
