@@ -1,4 +1,3 @@
-
 <%--
 
     Copyright 2002-2016 the original author or authors.
@@ -14,39 +13,24 @@
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
-    
+
 --%>
 <%--
-  User: Xiaolong Zuo
-  Time: 16/6/4 16:26
+  User: linjiedeng
+  Time: 16/6/5 18:58
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <jsp:include page="../common/head.jsp"/>
-    <link rel="stylesheet" href="../../css/nav.css">
 </head>
-
 <body>
-    <jsp:include page="../common/top.jsp"/>
-    <div class="container">
-        <jsp:include page="../common/index_header.jsp"/>
-        <div class="row">
-            <div class="col-sm-8 blog-main">
-                <div id="blog-rank">
-                    <ul></ul>
-                </div>
-                <div id ="loadmore"><a>加载更多</a></div>
-            </div><!-- /.blog-main -->
-
-            <jsp:include page="../common/contributor.jsp"/>
-        </div><!-- /.row -->
-    </div><!-- /.container -->
-    <jsp:include page="../common/footer.jsp"/>
-    <jsp:include page="../common/bottom.jsp"/>
-    <script src="${pageContext.request.contextPath}/js/index.js"></script>
+<form action="${pageContext.request.contextPath}/WebBlog/Update/Config" method="post">
+    博客名称: <input name="blogTitle" value="${result.data.blogTitle}"/><br/>
+    博客子标题: <textarea name="blogSubTitle" cols="40" rows="5">${result.data.blogSubTitle}</textarea><br/>
+    个人简介: <textarea name="introduction" cols="60" rows="20">${result.data.introduction}</textarea><br/>
+    <input type="submit" value="修改"/>
+</form>
 </body>
 </html>
-
-

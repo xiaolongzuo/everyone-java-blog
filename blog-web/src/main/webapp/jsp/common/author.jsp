@@ -20,6 +20,7 @@
   Time: 16/6/5 17:21
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@include file="../common/taglib.jsp"%>
 <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
     <div class="sidebar-module sidebar-module-inset">
         <h4>个人介绍</h4>

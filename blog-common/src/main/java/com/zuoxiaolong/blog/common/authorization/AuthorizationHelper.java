@@ -31,7 +31,7 @@ public interface AuthorizationHelper {
 
     String DATE_FORMAT = "yyyyMMddHHmmss";
 
-    long EXPIRED_TIME = 1000 * 60  * 60 * 24 * 30;
+    long EXPIRED_TIME = 1000L * 60L  * 60L * 24L * 30L;
 
     static String encodePassword(String password, String passwordSalt) {
         return EncodeDecodeUtils.encodeByMd5(password + passwordSalt);

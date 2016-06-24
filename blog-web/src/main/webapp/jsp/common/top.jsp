@@ -25,9 +25,9 @@
 <div class="blog-masthead">
     <div class="container">
         <nav class="blog-nav">
-            <a class="pull-left blog-nav-item active" href="#">技术</a>
-            <a class="pull-left blog-nav-item" href="#">职场</a>
-            <a class="pull-left blog-nav-item" href="#">人生</a>
+            <a class="pull-left blog-nav-item active" id="technology">技术</a>
+            <a class="pull-left blog-nav-item" id="work">职场</a>
+            <a class="pull-left blog-nav-item" id="life">人生</a>
             <c:if test="${sessionScope.token == null}">
                 <a class="pull-right blog-nav-item blog-nav-right-first-item" href="${pageContext.request.contextPath}/WebUser/Register">注册</a>
                 <a class="pull-right blog-nav-item" href="${pageContext.request.contextPath}/WebUser/Login">登录</a>
@@ -35,8 +35,8 @@
             <c:if test="${sessionScope.token != null}">
                 <a class="pull-right blog-nav-item blog-nav-right-first-item" href="${pageContext.request.contextPath}/WebUser/Logout">注销</a>
                 <a class="pull-right blog-nav-item" href="#">短信箱</a>
-                <a class="pull-right blog-nav-item" href="#">我的博客</a>
-                <a class="pull-right blog-nav-item" href="#">${sessionScope.username}</a>
+                <a class="pull-right blog-nav-item" href="${pageContext.request.contextPath}/WebBlog/HomePage">我的博客</a>
+                <a class="pull-right blog-nav-item" href="${pageContext.request.contextPath}/WebBlog/Select/Config">${sessionScope.username}</a>
             </c:if>
         </nav>
     </div>

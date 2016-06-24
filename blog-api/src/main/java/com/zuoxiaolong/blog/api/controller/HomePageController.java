@@ -15,6 +15,10 @@
  */
 package com.zuoxiaolong.blog.api.controller;
 
+import com.zuoxiaolong.blog.common.orm.DropDownPage;
+import com.zuoxiaolong.blog.common.utils.DateUtils;
+import com.zuoxiaolong.blog.common.utils.ObjectUtils;
+import com.zuoxiaolong.blog.model.dto.HomeAtrticleDTO;
 import com.zuoxiaolong.blog.model.persistent.UserArticle;
 import com.zuoxiaolong.blog.service.UserArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,20 +45,15 @@ public class HomePageController extends AbstractApiController {
     private UserArticleService userArticleService;
 
     @RequestMapping(value = "/Articles", method = RequestMethod.POST)
-    public List<UserArticle> getArticles(@RequestParam("categoryId") int categoryId,
-                                         @RequestParam(required = false, defaultValue = "1") int pageNum,
-                                         @RequestParam(required = false, defaultValue = "20") int pageSize) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("categoryId",categoryId);
-        params.put("startRow",(pageNum-1)*pageSize);
-        params.put("pageSize",pageSize);
-        List<UserArticle> s =userArticleService.getArticles(params);
+    public List<HomeAtrticleDTO> getArticles(@RequestParam("categoryId") int categoryId,
+                                         @RequestParam(required = false) String offset,
+                                         @RequestParam(required = false) int size) {
 
-        return s;
+        return userArticleService.getArticles(offset,size,categoryId);
     }
 
     @RequestMapping(value = {"/TopThreeUserArticles"}, method = {RequestMethod.GET, RequestMethod.POST})
-    public List<Map<String, UserArticle>> topThreeUserArticles(String categoryName) {
+    public Map<String, UserArticle> topThreeUserArticles(String categoryName) {
         return userArticleService.getTopThreeUserArticles(categoryName);
     }
 

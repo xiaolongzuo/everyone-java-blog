@@ -73,7 +73,7 @@
             </div>
         </div><!-- /.blog-main -->
 
-       <jsp:include page="../common/author.jsp"/>
+       <%--<jsp:include page="../common/author.jsp"/>--%>
     </div><!-- /.row -->
 </div><!-- /.container -->
 <input id="articleid" type="hidden" value="${result.data.userArticle.id}"/>
