@@ -112,7 +112,7 @@ ALTER TABLE `java_blog`.`blog_config` ADD COLUMN `blog_sub_title` VARCHAR(128) N
 ALTER TABLE `java_blog`.`article_comment` ADD COLUMN `parents_comment_id` VARCHAR(128) NOT NULL DEFAULT '0,' COMMENT '父级评论路径';
 ALTER TABLE `java_blog`.`article_comment` MODIFY `reply_comment_id` INT(11) NOT NULL DEFAULT 0 COMMENT '父级评论';
 
-
+ALTER TABLE `java_blog`.`message_box` ADD COLUMN `type` TINYINT(2) DEFAULT 0 NOT NULL COMMENT '消息类型:状态{0:收件,1:发件}';
 
 
 
