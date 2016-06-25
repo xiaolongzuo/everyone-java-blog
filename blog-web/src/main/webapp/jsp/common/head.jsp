@@ -30,6 +30,9 @@
 
 <title>大家的Java博客</title>
 
+<!-- jquery -->
+<script src="${ctx}/lib/jquery/jquery.min.js" type="text/javascript"></script>
+
 <!-- Bootstrap core CSS -->
 <link href="${pageContext.request.contextPath}/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -41,4 +44,9 @@
 <script src="${pageContext.request.contextPath}/asset/html5shiv.min.js"></script>
 <script src="${pageContext.request.contextPath}/asset/respond.min.js"></script>
 <![endif]-->
+
+<!-- select2 -->
+<link href="${ctx}/lib/jquery-select2/4.0.3/dist/css/select2.min.css" rel="stylesheet"/>
+<script src="${ctx}/lib/jquery-select2/4.0.3/dist/js/select2.min.js" type="text/javascript"></script>
+
 

@@ -1,6 +1,5 @@
 package com.zuoxiaolong.blog.mapper;
 
-import com.zuoxiaolong.blog.common.orm.DigitalPage;
 import com.zuoxiaolong.blog.common.orm.DropDownPage;
 import com.zuoxiaolong.blog.model.persistent.UserArticle;
 import org.apache.ibatis.annotations.Param;
@@ -29,7 +28,12 @@ public interface UserArticleMapper {
 
     List<UserArticle> selectByWebUserId(Integer webUserId);
 
+    int updateArticleStatusByArticleId(UserArticle record);
+
+    List<UserArticle> getArticlesByCategoryIdAndPage(Map<String, Object> mapInfo);
+
     List<UserArticle> getArticlesByCategoryIdAndPage(@Param("page") DropDownPage page, @Param("categoryId") Integer categoryId);
+
     /**
      * 获取文章分页列表，根据个人文章创建时间倒序排序
      * @param webUserId

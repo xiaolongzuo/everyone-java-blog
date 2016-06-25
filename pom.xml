@@ -68,6 +68,7 @@
         <fastjson.version>1.1.40</fastjson.version>
         <guava.version>17.0</guava.version>
         <commons-lang3.version>3.3.2</commons-lang3.version>
+        <jsoup.version>1.9.2</jsoup.version>
     </properties>
 
     <dependencyManagement>
@@ -401,6 +402,12 @@
                 <version>${commons-lang3.version}</version>
             </dependency>
 
+            <!--jsoup -->
+            <dependency>
+                <groupId>org.jsoup</groupId>
+                <artifactId>jsoup</artifactId>
+                <version>${jsoup.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
