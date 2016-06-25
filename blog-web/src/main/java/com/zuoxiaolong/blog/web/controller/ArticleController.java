@@ -50,7 +50,7 @@ public class ArticleController extends AbstractWebController {
             setModelAttribute("result", response);
             return "article/article";
         }
-        return "article/article";
+        return "/index/index";
     }
 
     /**
