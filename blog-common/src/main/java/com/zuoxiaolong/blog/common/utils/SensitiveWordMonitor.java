@@ -48,7 +48,7 @@ public class SensitiveWordMonitor extends FileAlterationListenerAdaptor {
         String classPathHole = SensitiveWordMonitor.class.getResource("/").toString();
         String classPath = classPathHole.substring(5);
         File file = new File(classPath + SENSITIVE_WORD_FILE_NAME);
-        Set<String> badWordSet = badWordSet = loadBadWord(file);
+        Set<String> badWordSet = loadBadWord(file);
         sensitiveWordMap = addSensitiveWordToHashMap(badWordSet);
         SensitiveWordMonitor.getSensitiveWordMonitor().monitor(classPath, 10 * 60 * 1000);
     }
@@ -86,7 +86,7 @@ public class SensitiveWordMonitor extends FileAlterationListenerAdaptor {
 
     @Override
     public void onFileChange(File file) {
-        Set<String> badWordSet = badWordSet = loadBadWord(file);
+        Set<String> badWordSet = loadBadWord(file);
         sensitiveWordMap = addSensitiveWordToHashMap(badWordSet);
     }
 

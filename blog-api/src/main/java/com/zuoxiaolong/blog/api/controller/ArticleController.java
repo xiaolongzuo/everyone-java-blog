@@ -15,6 +15,7 @@
  */
 package com.zuoxiaolong.blog.api.controller;
 
+import com.zuoxiaolong.blog.common.authorization.CheckLogin;
 import com.zuoxiaolong.blog.model.dto.ArticleCommentAndReplyDTO;
 import com.zuoxiaolong.blog.model.dto.ArticleCommentDTO;
 import com.zuoxiaolong.blog.model.dto.ArticleInfoDTO;
@@ -79,6 +80,7 @@ public class ArticleController  extends AbstractApiController {
      *
      * @param articleComment
      */
+    @CheckLogin
     @RequestMapping(value = "/AddComment" , method = RequestMethod.POST)
     public Integer addComment(ArticleComment articleComment){
         return  articleService.insertArticleComment(articleComment,getWebUserId());
