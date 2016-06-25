@@ -15,8 +15,11 @@
  */
 package com.zuoxiaolong.blog.api.controller;
 
+import com.zuoxiaolong.blog.model.dto.MessageBoxDto;
 import com.zuoxiaolong.blog.model.persistent.MessageBox;
+import com.zuoxiaolong.blog.model.persistent.WebUser;
 import com.zuoxiaolong.blog.service.MessageBoxService;
+import org.aspectj.bridge.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,69 +29,71 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author voyagezhang
- * @date 2016/5/16
+ * @author iCodingStar
+ * @date 2016/6/25 13:20
  * @since 1.0.0
  */
-@RequestMapping("/message")
+@RequestMapping("/Message")
 @Controller
 public class MessageBoxController {
     @Autowired
     private MessageBoxService messageBoxService;
 
-    /**
+    /***
      * 查看信息箱消息内容
-     * @param
+     *
+     * @param model
+     * @param id
      * @return
      */
-    @RequestMapping(value = "/content",method = RequestMethod.GET)
-    public ModelAndView getMessageContent(Model model,@RequestParam("id") Integer id){
-        MessageBox messageBox=messageBoxService.selectByPrimaryKey(id);
-        ModelAndView modelAndView=new ModelAndView("/success");
-        String content=messageBox.getContent();
-        model.addAttribute("result",content);
-        return modelAndView;
+    @RequestMapping(value = "/Content", method = RequestMethod.GET)
+    public MessageBoxDto getMessageContent(Model model, @RequestParam("id") Integer id) {
+        return messageBoxService.getMessageContentById(id);
     }
 
-    /**
+    /***
      * 分页参看消息列表
-     * @param
+     *
+     * @param currentPageNumber
+     * @param pageSize
+     * @param messageBox
      * @return
      */
-    @RequestMapping(value = "/list",method = RequestMethod.GET)
-    public ModelAndView getMessageList(Model model,@RequestParam("offset") Integer offset,@RequestParam("limit") Integer limit){
-        List<MessageBox> messageBoxes=messageBoxService.selectMessageBoxList(offset, limit);
-        ModelAndView modelAndView=new ModelAndView("/success");
-        model.addAttribute("result",messageBoxes);
-        return modelAndView;
+    @RequestMapping(value = "/List", method = RequestMethod.GET)
+    public List<MessageBoxDto> getMessageList(@RequestParam(required = false) Integer currentPageNumber,
+                                              @RequestParam(required = false) Integer pageSize,
+                                              MessageBox messageBox) {
+        return messageBoxService.getMessagesByPage(currentPageNumber, pageSize, messageBox);
     }
 
-    /**
+    /***
      * 发送短消息
-     * @param
+     *
+     * @param messageBoxDto
      * @return
      */
-    @RequestMapping(value = "/send",method = RequestMethod.POST)
-    public ModelAndView sendMessage(Model model,@RequestBody MessageBox messageBox) {
-        int resultflag=messageBoxService.insertSelective(messageBox);
-        ModelAndView modelAndView=new ModelAndView("/success");
-        model.addAttribute("result",resultflag);
-        return modelAndView;
+    @RequestMapping(value = "/Send", method = RequestMethod.POST)
+    public Integer sendMessage(MessageBoxDto messageBoxDto) {
+        return messageBoxService.sendMessage(messageBoxDto);
     }
 
-    /**
-     * 删除短消息
-     * @param
+    /***
+     * 修改短消息状态
+     * 1:已读
+     * 2:未读
+     * 3:接收者已删除
+     * 4:发送者已删除
+     * 5:已删除
+     *
+     * @param messageBox
      * @return
      */
-    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
-    public ModelAndView deleteMessage(Model model,@RequestParam("id") Integer id) {
-        int resultflag = messageBoxService.deleteByPrimaryKey(id);
-        ModelAndView modelAndView=new ModelAndView("/success");
-        model.addAttribute("result",resultflag);
-        return modelAndView;
+    @RequestMapping(value = "/Update", method = RequestMethod.DELETE)
+    public Integer updateMessageStatus(MessageBox messageBox) {
+        return messageBoxService.updateMessageStatus(messageBox);
     }
 }

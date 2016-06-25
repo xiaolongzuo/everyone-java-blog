@@ -91,4 +91,22 @@
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
+    <!--查询消息列表的条件-->
+    <sql id="select_message_box_lists">
+        <if test="messageBox.type != null and messageBox.type != ''">
+            AND type = #{messageBox.type,jdbcType = TINYINT}
+        </if>
+        <if test="messageBox.status != null and messageBox.status != ''">
+            AND status = #{messageBox.status,jdbcType=TINYINT}
+        </if>
+        AND 1 = 1
+    </sql>
+    <!--根据复合条件分页查询消息列表-->
+    <select id="getMessagesByPage" resultMap="BaseResultMap">
+        SELECT *
+        FROM message_box
+        <where>
+            <include refid="select_message_box_lists"></include>
+        </where>
+    </select>
 </mapper>
