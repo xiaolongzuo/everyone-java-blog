@@ -10,9 +10,10 @@
         <result column="receiver" property="receiver" jdbcType="INTEGER"/>
         <result column="status" property="status" jdbcType="TINYINT"/>
         <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="TINYINT"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, create_time, update_time, content, sender, receiver, status, title
+    id, create_time, update_time, content, sender, receiver, status, title, type
   </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
@@ -23,7 +24,7 @@
     <select id="selectMessageBoxList" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM  message_box ORDER BY  id LIMIT #{offset},#{limit}
+        FROM message_box ORDER BY id LIMIT #{offset},#{limit}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from message_box
