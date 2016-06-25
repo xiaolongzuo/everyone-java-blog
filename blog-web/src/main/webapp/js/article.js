@@ -68,12 +68,22 @@ function getMoreReComment(aHtml){
 
 //主评论回复点击事件
 function replyComment(patent){
+    //判断用户是否登录
+    if(USER_NICKNAME == null || USER_NICKNAME ==''){
+        alert("请先登录");
+        return false
+    }
     var parentdiv = $(patent).parent().parent();//获取外层div
     addReCommentText(patent,parentdiv);
 };
 
 //回复回复的评论点击事件
 function replyReComment(patent){
+    //判断用户是否登录
+    if(USER_NICKNAME == null || USER_NICKNAME ==''){
+        alert("请先登录");
+        return false
+    }
     var parentdiv = $(patent).parent().parent().parent();//获取外层div
     addReCommentText(patent,parentdiv);
 };
@@ -108,7 +118,9 @@ function addReCommentText(parent,parentdiv){
         }else if(newComment.css('display') == 'none'){
             //设置父评论的id，用于传到后台
             newComment.find("input[type='hidden']").val($(parent).attr('comment-id'));
-            newComment.css('display', 'block')
+            //设置回复人
+            newComment.find("span[class='pull-left']").text($(parent).attr('user-name'));
+            newComment.css('display', 'block');
         }
     }
 }
@@ -128,7 +140,6 @@ function getComment(articleid,offset,size) {
         success: function (data) {
             var commentObject = data['data'];//对json数组each
             var len = commentObject.length; //记录本次评论加载的个数
-            COMMENT_NUM = COMMENT_NUM+len;
             $.each(commentObject,function(n,value) {
                 var webuser = value['webUser']; //评论用户信息
                 var mainComment = value['articleComment']; //主评论信息
@@ -137,7 +148,7 @@ function getComment(articleid,offset,size) {
                 //主评论列表
                 var commentHtml = "<div class='meta-top'>" +
                     "<a href='javascript:void(null)'>"+webuser['nickname']+"</a>" +
-                    "&nbsp;&nbsp;&nbsp;<span class='reply-time'> "+(n+1)+"楼 · 发表于"+date+"</span>" +
+                    "&nbsp;&nbsp;&nbsp;<span class='reply-time'> "+(COMMENT_NUM+n+1)+"楼 · 发表于"+date+"</span>" +
                     "<a class='reply-comment pull-right' href='javascript:void(null)' onclick='replyComment(this)'" +
                     " comment-id='"+mainComment['id']+"' user-name='"+webuser['nickname']+"'>回复</a>" +
                     "</div>" +
@@ -147,7 +158,6 @@ function getComment(articleid,offset,size) {
                 if(reComments!=null){
                     recommentHtmls = recommentHtmls+"<div class='child-comment-list'>";
                     recommentHtmls = recommentHtmls + editReComment(reComments); //获取三条回复
-                    //TODO
                     //回复数超过三条的情况
                     if(value['reCommentCount']>3){
                         recommentHtmls = recommentHtmls + "<div class='panel-body child-comment'>" +
@@ -159,6 +169,7 @@ function getComment(articleid,offset,size) {
                 }
                 $('#bottom-comment').before("<div class='panel comment-note'>"+commentHtml+recommentHtmls+"</div>");
             });
+            COMMENT_NUM = COMMENT_NUM+len;
             //判断是否加载'加载更多'按钮
             if(len < 10){
                 $('#bottom-comment').css('display', 'none');
@@ -203,6 +214,11 @@ function editReComment(reComments){
  * @description: 异步添加评论
  */
 function addComment(parent){
+    //判断用户是否登录
+    if(USER_NICKNAME == null || USER_NICKNAME ==''){
+        alert("请先登录");
+        return false
+    }
     var formElement = $(parent).parent().parent().parent();
     var commentText =  formElement.find('textarea').val();
     if(commentText == null || commentText ==""){
@@ -217,15 +233,14 @@ function addComment(parent){
         async: false,
         success: function(data) {
             if(data['code'] == 200) {
-                //TODO 回复username
                 var comment = "<div class='meta-top'>" +
-                    "<a href='javascript:void(null)'>" + "wo" + "</a>" +
+                    "<a href='javascript:void(null)'>" + USER_NICKNAME + "</a>" +
                     "&nbsp;&nbsp;&nbsp;<span class='reply-time'> " + (parseInt($('#commentCount').text()) + 1) + "楼 · 发表于" + new Date().Format("yyyy.MM.dd hh:mm:ss") + "</span>" +
                     "<a class='reply-comment pull-right' href='javascript:void(null)'  onclick='replyComment(this)'" +
-                    " comment-id='" + data['data'] + "' user-name='" + "wo" + "'>回复</a>" +
+                    " comment-id='" + data['data'] + "' user-name='" + USER_NICKNAME + "'>回复</a>" +
                     "</div>" +
                     "<p>" + commentText + "</p>";
-                $('#bottom-comment').before("<div class='panel comment-note'>" + comment + "</div>");
+                $('#bottom-comment').after("<div class='panel comment-note'>" + comment + "</div>");
 
                 //清空回复框的值
                 formElement.find('textarea').val("");
@@ -260,13 +275,12 @@ function addReComment(parent){
         async: false,
         success: function(data) {
             if(data['code'] == 200) {
-                //TODO 回复username
                 var recomment = "<div class='panel-body child-comment'>" +
-                    "<p><a class='blue-link' href='javascript:void(null)'>"+"wo"+"</a>" +
+                    "<p><a class='blue-link' href='javascript:void(null)'>"+USER_NICKNAME+"</a>" +
                     "：<a class='blue-link' href='javascript:void(null)'>"+$(parent).parent().find('span').text()+"</a>"+commentText+"</p> " +
                     "<span class='reply-time pull-left'>"+new Date().Format("yyyy.MM.dd hh:mm:ss")+"</span> " +
                     "<a class='reply-recomment pull-right' href='javascript:void(null)' onclick='replyReComment(this)'" +
-                    " comment-id='"+data['data']+"' user-name='"+"wo"+"'>回复</a> </div>";
+                    " comment-id='"+data['data']+"' user-name='"+USER_NICKNAME+"'>回复</a> </div>";
                 var parentdiv = formElement.parent();
 
                 if(parentdiv.find('.child-comment-list').length == 0){
