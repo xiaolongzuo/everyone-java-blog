@@ -16,24 +16,19 @@
 
 package com.zuoxiaolong.blog.web.controller;
 
-import com.zuoxiaolong.blog.common.bean.ExceptionType;
 import com.zuoxiaolong.blog.common.bean.JsonResponse;
-import com.zuoxiaolong.blog.common.exception.BusinessException;
 import com.zuoxiaolong.blog.common.utils.CollectionUtils;
 import com.zuoxiaolong.blog.model.persistent.BlogConfig;
 import com.zuoxiaolong.blog.sdk.Api;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
-@Controller
 @RequestMapping("/WebBlog")
+@Controller
 public class WebBlogController extends AbstractWebController {
 
     /**
@@ -73,21 +68,19 @@ public class WebBlogController extends AbstractWebController {
      * @return
      */
     @RequestMapping(value = "/Update/Config", method = RequestMethod.POST)
-    public String updateBlogConfig(@RequestBody BlogConfig blogConfig) {
+    public String updateBlogConfig(BlogConfig blogConfig) {
         JsonResponse response = invokeApi(Api.WebBlog_Update_Config, blogConfig);
         setModelAttribute("result", response);
         return "/blog/blog_result";
-
     }
 
     /**
      * 查询用户博客的配置信息
-     * @param webUserId
      * @return
      */
-    @RequestMapping(value = "/Select/Config" , method = RequestMethod.POST)
-    public String selectUserBlogConfig(Integer webUserId) {
-        JsonResponse response = invokeApi(Api.WebBlog_Select_Config, CollectionUtils.newMap("webUserId", webUserId.toString()));
+    @RequestMapping(value = "/Select/Config", method = RequestMethod.GET)
+    public String selectUserBlogConfig() {
+        JsonResponse response = invokeApi(Api.WebBlog_Select_Config);
         setModelAttribute("result", response);
         return "/blog/blog_config";
     }
