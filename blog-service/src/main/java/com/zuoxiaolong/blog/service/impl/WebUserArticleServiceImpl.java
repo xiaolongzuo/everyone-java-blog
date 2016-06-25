@@ -59,11 +59,12 @@ public class WebUserArticleServiceImpl implements WebUserArticleService {
      */
     @Override
     @Transactional(readOnly = false)
-    public void saveArticle(UserArticle userArticle) {
+    public int saveArticle(UserArticle userArticle) {
         userArticle.setCommentTimes(DEFAULT_VALUE);
         userArticle.setReadTimes(DEFAULT_VALUE);
         userArticle.setThumbupTimes(DEFAULT_VALUE);
         userArticleMapper.insertSelective(userArticle);
+        return userArticle.getId();
     }
 
     /**
@@ -73,15 +74,15 @@ public class WebUserArticleServiceImpl implements WebUserArticleService {
      */
     @Override
     @Transactional(readOnly = false)
-    public void saveOrUpdateArticle(UserArticle userArticle) {
+    public int saveOrUpdateArticle(UserArticle userArticle) {
         if (!StringUtils.isEmpty(userArticle.getContent())) {
             userArticle.setContent(StringEscapeUtils.unescapeHtml4(
                     userArticle.getContent()));
         }
         if (userArticle.getId() == null) {
-            saveArticle(userArticle);
+            return saveArticle(userArticle);
         } else {
-            updateArticle(userArticle);
+            return updateArticle(userArticle);
         }
 
     }
@@ -108,10 +109,11 @@ public class WebUserArticleServiceImpl implements WebUserArticleService {
      */
     @Override
     @Transactional(readOnly = false)
-    public void updateArticle(UserArticle userArticle) {
+    public int updateArticle(UserArticle userArticle) {
         if (userArticle.getUpdateTime() == null)
             userArticle.setUpdateTime(new Date());
         userArticleMapper.updateByPrimaryKeySelective(userArticle);
+        return userArticle.getId();
     }
 
     /**

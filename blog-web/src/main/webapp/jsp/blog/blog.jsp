@@ -96,6 +96,9 @@
 <%--<jsp:include page="../common/footer.jsp"/>--%>
 <%@include file="../common/bottom.jsp"%>
 <%--<jsp:include page="../common/bottom.jsp"/>--%>
+<script>
+    var ctx = "${ctx}";
+</script>
 <script src="${pageContext.request.contextPath}/js/blog.js"></script>
 </body>
 </html>

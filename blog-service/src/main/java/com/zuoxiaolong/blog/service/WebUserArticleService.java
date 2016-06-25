@@ -34,14 +34,14 @@ public interface WebUserArticleService {
      *
      * @param userArticle 文章信息
      */
-    void saveArticle(UserArticle userArticle);
+    int saveArticle(UserArticle userArticle);
 
     /**
      * 添加或者更新文章
      *
      * @param userArticle 文章信息
      */
-    void saveOrUpdateArticle(UserArticle userArticle);
+    int saveOrUpdateArticle(UserArticle userArticle);
 
     /**
      * 删除文章
@@ -55,7 +55,7 @@ public interface WebUserArticleService {
      *
      * @param userArticle 文章信息
      */
-    void updateArticle(UserArticle userArticle);
+    int updateArticle(UserArticle userArticle);
 
     /**
      * 获取当前用户的所有文章信息

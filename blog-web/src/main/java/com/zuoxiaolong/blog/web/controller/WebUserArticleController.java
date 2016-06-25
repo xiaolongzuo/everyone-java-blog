@@ -79,11 +79,13 @@ public class WebUserArticleController extends AbstractWebController {
      * @param userArticle 文章信息
      */
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public void addArticle(UserArticle userArticle) {
+    public String addArticle(UserArticle userArticle) {
         JsonResponse jsonResponse = invokeApi(Api.webUserArticle_save, userArticle);
-        if (!jsonResponse.success()) {
-
+        if (jsonResponse.success()) {
+            Integer articleId = (Integer) jsonResponse.getData();
+            return "redirect:/Article/" + articleId;
         }
+        return "error/500";
     }
 
     /**
@@ -94,8 +96,11 @@ public class WebUserArticleController extends AbstractWebController {
     @RequestMapping(value = "/delete")
     public String deleteArticle(@RequestParam String id) {
         JsonResponse jsonResponse = invokeApi(Api.webUserArticle_delete, CollectionUtils.newMap("id", id));
-        String userId = "1";
-        return "redirect:/webArticle/list?userId=" + userId;
+        if (jsonResponse.success()) {
+            return "redirect:/WebBlog/HomePage";
+        } else {
+            return "error/500";
+        }
     }
 
     /**

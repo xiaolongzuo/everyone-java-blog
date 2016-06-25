@@ -36,7 +36,8 @@
         delete from user_article
         where id = #{id,jdbcType=INTEGER}
     </delete>
-    <insert id="insertSelective" parameterType="com.zuoxiaolong.blog.model.persistent.UserArticle">
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id"
+            parameterType="com.zuoxiaolong.blog.model.persistent.UserArticle">
         insert into user_article
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">

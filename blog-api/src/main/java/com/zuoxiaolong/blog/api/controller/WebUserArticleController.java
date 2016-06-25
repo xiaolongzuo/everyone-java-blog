@@ -57,10 +57,10 @@ public class WebUserArticleController extends AbstractApiController {
      * @param userArticle 文章信息
      */
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public void addArticle(UserArticle userArticle) {
+    public Integer addArticle(UserArticle userArticle) {
         Integer userId = getWebUserId();
         userArticle.setWebUserId(userId);
-        webUserArticleService.saveOrUpdateArticle(userArticle);
+        return webUserArticleService.saveOrUpdateArticle(userArticle);
     }
 
     /**

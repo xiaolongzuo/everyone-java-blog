@@ -92,9 +92,9 @@
                 </div>
                 <div class="form-group">
                     <label for="status">状态:</label>
-                    <form:radiobutton path="status" htmlEscape="false" value="0" cssClass="radiobutton"/><span
-                        class="status">发布</span>
                     <form:radiobutton path="status" htmlEscape="false" value="1" cssClass="radiobutton"/><span
+                        class="status">发布</span>
+                    <form:radiobutton path="status" htmlEscape="false" value="0" cssClass="radiobutton"/><span
                         class="status">草稿</span>
                 </div>
                 <div class="form-group">
