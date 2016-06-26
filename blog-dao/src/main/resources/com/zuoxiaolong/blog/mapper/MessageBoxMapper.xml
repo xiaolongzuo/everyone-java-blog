@@ -10,10 +10,9 @@
         <result column="receiver" property="receiver" jdbcType="INTEGER"/>
         <result column="status" property="status" jdbcType="TINYINT"/>
         <result column="title" property="title" jdbcType="VARCHAR"/>
-        <result column="type" property="type" jdbcType="TINYINT"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, create_time, update_time, content, sender, receiver, status, title, type
+    id, create_time, update_time, content, sender, receiver, status, title
   </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
@@ -93,8 +92,11 @@
     </update>
     <!--查询消息列表的条件-->
     <sql id="select_message_box_lists">
-        <if test="messageBox.type != null and messageBox.type != ''">
-            AND type = #{messageBox.type,jdbcType = TINYINT}
+        <if test="messageBox.sender != null and messageBox.sender != ''">
+            AND sender = #{messageBox.sender,jdbcType = TINYINT}
+        </if>
+        <if test="messageBox.receiver != null and messageBox.receiver != ''">
+            AND receiver = #{messageBox.receiver,jdbcType = TINYINT}
         </if>
         <if test="messageBox.status != null and messageBox.status != ''">
             AND status = #{messageBox.status,jdbcType=TINYINT}

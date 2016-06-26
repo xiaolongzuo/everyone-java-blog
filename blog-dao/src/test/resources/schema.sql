@@ -109,10 +109,6 @@ ALTER TABLE `java_blog_test`.`user_article` ADD COLUMN `comment_times` INT(11) N
 ALTER TABLE `java_blog_test`.`blog_config` ADD COLUMN `blog_title` VARCHAR(128) NOT NULL DEFAULT '' COMMENT '博客标题';
 ALTER TABLE `java_blog_test`.`blog_config` ADD COLUMN `blog_sub_title` VARCHAR(128) NOT NULL DEFAULT '' COMMENT '博客子标题';
 
-ALTER TABLE `java_blog_test`.`message_box` ADD COLUMN `type` TINYINT(2) DEFAULT 0 NOT NULL COMMENT '消息类型:状态{0:收件,1:发件}';
-
-
-
 
 
 
