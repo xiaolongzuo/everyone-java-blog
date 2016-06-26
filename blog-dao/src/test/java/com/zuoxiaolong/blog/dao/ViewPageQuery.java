@@ -16,6 +16,7 @@
 
 package com.zuoxiaolong.blog.dao;
 
+import com.google.gson.Gson;
 import com.zuoxiaolong.blog.common.orm.DigitalPage;
 import com.zuoxiaolong.blog.common.orm.DropDownPage;
 import com.zuoxiaolong.blog.common.utils.JsonUtils;
@@ -68,5 +69,4 @@ public class ViewPageQuery extends AbstractSpringContextTest {
         System.out.println(JsonUtils.toJson(dropDownPage1));
         System.out.println(JsonUtils.toJson(dropDownPage2));
     }
-
 }

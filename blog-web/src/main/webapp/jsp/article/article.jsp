@@ -26,6 +26,10 @@
 <head>
     <%@include file="../common/head.jsp"%>
     <link href="${pageContext.request.contextPath}/css/article.css" rel="stylesheet">
+    <script type="text/javascript">
+        //TODO 用户昵称
+        var USER_NICKNAME = "${sessionScope.username}";
+    </script>
 </head>
 <body>
 <%@include file="../common/top.jsp"%>

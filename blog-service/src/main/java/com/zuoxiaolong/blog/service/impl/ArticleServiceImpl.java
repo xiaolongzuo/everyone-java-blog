@@ -44,10 +44,6 @@ public class ArticleServiceImpl implements ArticleService {
 
     protected Logger logger = LoggerFactory.getLogger(ArticleServiceImpl.class);
 
-    //默认父评论ID
-    public static final Integer COMMENT_ID = 0;
-    //默认父评论路径
-    public static final String COMMENT_PATH = "0,";
     //默认评论路径分隔符
     public static final String COMMENT_CUT = ",";
 
@@ -267,9 +263,7 @@ public class ArticleServiceImpl implements ArticleService {
         //添加评论的情况
         }else if(!ObjectUtils.isEmpty(articleComment.getArticleId())){
             //设置评论信息
-            articleCommentAdd.setReplyCommentId(COMMENT_ID);
             articleCommentAdd.setArticleId(articleComment.getArticleId());
-            articleCommentAdd.setParentsCommentId(COMMENT_PATH);
         }
 
         articleCommentAdd.setComment(articleComment.getComment());
@@ -279,7 +273,7 @@ public class ArticleServiceImpl implements ArticleService {
 
         //更新文章的评论条数(+1)
         if(record>0){
-            userArticleMapper.updateCommentTimes(articleComment.getArticleId());
+            userArticleMapper.updateCommentTimes(articleCommentAdd.getArticleId());
             return articleCommentAdd.getId();
         }else{
             throw new BusinessException(ExceptionType.DATA_NOT_FOUND);
