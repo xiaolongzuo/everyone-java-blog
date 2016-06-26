@@ -112,3 +112,6 @@ ALTER TABLE `java_blog_test`.`blog_config` ADD COLUMN `blog_sub_title` VARCHAR(1
 
 
 
+
+
+
