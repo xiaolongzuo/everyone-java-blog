@@ -117,3 +117,5 @@ ALTER TABLE `java_blog`.`article_comment` MODIFY `reply_comment_id` INT(11) NOT 
 
 
 
+
+
