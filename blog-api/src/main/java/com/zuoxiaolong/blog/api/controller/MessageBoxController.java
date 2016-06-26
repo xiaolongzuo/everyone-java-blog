@@ -72,7 +72,7 @@ public class MessageBoxController extends AbstractApiController {
      */
     @RequestMapping(value = "/Send", method = {RequestMethod.POST, RequestMethod.GET})
     public Integer sendMessage(MessageBoxDto messageBoxDto) {
-        return messageBoxService.sendMessage(messageBoxDto);
+        return messageBoxService.insertMessage(messageBoxDto);
     }
 
     /***

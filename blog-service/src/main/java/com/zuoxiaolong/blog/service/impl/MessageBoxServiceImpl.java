@@ -52,7 +52,7 @@ public class MessageBoxServiceImpl implements MessageBoxService {
      * @return
      */
     @Override
-    public Integer sendMessage(MessageBoxDto messageBoxDto) {
+    public Integer insertMessage(MessageBoxDto messageBoxDto) {
         WebUser receiver = messageBoxDto.getReceiver();
         MessageBox messageBox = messageBoxDto.getMessage();
         if (!ObjectUtils.isEmpty(receiver)) {
