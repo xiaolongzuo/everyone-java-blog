@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * @author iCodingStar
- * @date 2016/6/25 16:45
+ * @date 2016/6/24 16:45
  * @version 1.0
  */
 public interface MessageBoxService {
