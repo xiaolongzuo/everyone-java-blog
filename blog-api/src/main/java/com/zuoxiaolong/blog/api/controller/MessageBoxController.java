@@ -39,7 +39,7 @@ import java.util.List;
  */
 @RequestMapping("/Message")
 @Controller
-public class MessageBoxController {
+public class MessageBoxController extends AbstractApiController{
     @Autowired
     private MessageBoxService messageBoxService;
 
@@ -67,6 +67,7 @@ public class MessageBoxController {
     public List<MessageBoxDto> getMessageList(@RequestParam(required = false) Integer currentPageNumber,
                                               @RequestParam(required = false) Integer pageSize,
                                               MessageBox messageBox) {
+        messageBox.setSender(getWebUserId());
         return messageBoxService.getMessagesByPage(currentPageNumber, pageSize, messageBox);
     }
 
@@ -78,6 +79,7 @@ public class MessageBoxController {
      */
     @RequestMapping(value = "/Send", method = RequestMethod.POST)
     public Integer sendMessage(MessageBoxDto messageBoxDto) {
+
         return messageBoxService.sendMessage(messageBoxDto);
     }
 
