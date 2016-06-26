@@ -17,19 +17,13 @@ package com.zuoxiaolong.blog.api.controller;
 
 import com.zuoxiaolong.blog.model.dto.MessageBoxDto;
 import com.zuoxiaolong.blog.model.persistent.MessageBox;
-import com.zuoxiaolong.blog.model.persistent.WebUser;
 import com.zuoxiaolong.blog.service.MessageBoxService;
-import org.aspectj.bridge.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,19 +33,18 @@ import java.util.List;
  */
 @RequestMapping("/Message")
 @Controller
-public class MessageBoxController extends AbstractApiController{
+public class MessageBoxController extends AbstractApiController {
     @Autowired
     private MessageBoxService messageBoxService;
 
     /***
      * 查看信息箱消息内容
      *
-     * @param model
      * @param id
      * @return
      */
     @RequestMapping(value = "/Content", method = RequestMethod.GET)
-    public MessageBoxDto getMessageContent(Model model, @RequestParam("id") Integer id) {
+    public MessageBoxDto getMessageContent(@RequestParam("id") Integer id) {
         return messageBoxService.getMessageContentById(id);
     }
 
@@ -77,9 +70,8 @@ public class MessageBoxController extends AbstractApiController{
      * @param messageBoxDto
      * @return
      */
-    @RequestMapping(value = "/Send", method = RequestMethod.POST)
+    @RequestMapping(value = "/Send", method = {RequestMethod.POST, RequestMethod.GET})
     public Integer sendMessage(MessageBoxDto messageBoxDto) {
-
         return messageBoxService.sendMessage(messageBoxDto);
     }
 
@@ -94,7 +86,7 @@ public class MessageBoxController extends AbstractApiController{
      * @param messageBox
      * @return
      */
-    @RequestMapping(value = "/Update", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/Update", method = {RequestMethod.POST, RequestMethod.GET})
     public Integer updateMessageStatus(MessageBox messageBox) {
         return messageBoxService.updateMessageStatus(messageBox);
     }
