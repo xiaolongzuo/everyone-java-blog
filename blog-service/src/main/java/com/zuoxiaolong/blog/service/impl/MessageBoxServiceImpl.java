@@ -32,9 +32,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author voyagezhang
- * @date 2016/5/16
- * @since 1.0.0
+ * @author iCodingStar
+ * @version 1.0
+ * @date 2016/6/25 16:44
  */
 @Service
 public class MessageBoxServiceImpl implements MessageBoxService {
@@ -45,6 +45,12 @@ public class MessageBoxServiceImpl implements MessageBoxService {
     @Autowired
     private WebUserMapper webUserMapper;
 
+    /***
+     * 发送短消息
+     *
+     * @param messageBoxDto
+     * @return
+     */
     @Override
     public Integer sendMessage(MessageBoxDto messageBoxDto) {
         WebUser receiver = messageBoxDto.getReceiver();
@@ -98,19 +104,6 @@ public class MessageBoxServiceImpl implements MessageBoxService {
         return messageBoxDtos;
     }
 
-    /***
-     * 获取用户个人的基本信息
-     *
-     * @param webUser 用户
-     * @return 返回用户的非保密性基本信息
-     */
-    private WebUser getWebUserBasicInfo(WebUser webUser) {
-        WebUser webUserDto = new WebUser();
-        webUserDto.setNickname(webUser.getNickname());
-        webUserDto.setUsername(webUser.getUsername());
-        return webUserDto;
-    }
-
     @Override
     public Integer updateMessageStatus(MessageBox messageBox) {
         if (ObjectUtils.isEmpty(messageBox.getId())) {
@@ -139,5 +132,18 @@ public class MessageBoxServiceImpl implements MessageBoxService {
             }
         }
         return messageBoxDto;
+    }
+
+    /***
+     * 获取用户个人的基本信息
+     *
+     * @param webUser 用户
+     * @return 返回用户的非保密性基本信息
+     */
+    private WebUser getWebUserBasicInfo(WebUser webUser) {
+        WebUser webUserDto = new WebUser();
+        webUserDto.setNickname(webUser.getNickname());
+        webUserDto.setUsername(webUser.getUsername());
+        return webUserDto;
     }
 }

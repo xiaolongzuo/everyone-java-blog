@@ -23,9 +23,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * @author voyagezhang
- * @date 2016/5/16
- * @since 1.0.0
+ * @author iCodingStar
+ * @date 2016/6/25 16:45
+ * @version 1.0
  */
 public interface MessageBoxService {
 
