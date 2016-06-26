@@ -31,7 +31,7 @@ import java.util.List;
  * @date 2016/6/25 13:20
  * @since 1.0.0
  */
-@RequestMapping("/Message")
+@RequestMapping("/MessageBox")
 @Controller
 public class MessageBoxController extends AbstractApiController {
     @Autowired
