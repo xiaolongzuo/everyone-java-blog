@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -44,7 +45,7 @@ public class MessageBoxController extends AbstractWebController {
      */
     @RequestMapping(value = "/Content", method = RequestMethod.GET)
     public void getMessageContent(@RequestParam("id") Integer id) {
-        JsonResponse jsonResponse = invokeApi(Api.MessageBox_GetMessageContent, CollectionUtils.newMap("id", id));
+        JsonResponse jsonResponse = invokeApi(Api.MessageBox_Content, CollectionUtils.newMap("id", id+""));
         renderJson(jsonResponse);
     }
 
@@ -53,21 +54,28 @@ public class MessageBoxController extends AbstractWebController {
      *
      * @param currentPageNumber
      * @param pageSize
-     * @param messageBox
-     * @return
+     * @param type
+     * @param status
      */
     @RequestMapping(value = "/List", method = RequestMethod.GET)
     public void getMessageList(@RequestParam(required = false) Integer currentPageNumber,
                                @RequestParam(required = false) Integer pageSize,
-                               MessageBox messageBox) {
-        Map<String, String> params = ObjectUtils.objectToMap(messageBox);
-        if (!ObjectUtils.isEmpty(currentPageNumber)) {
-            params.put("currentPageNumber", String.valueOf(currentPageNumber));
+                               @RequestParam(required = false) Integer type,
+                               @RequestParam(required = false) Integer status) {
+        Map<String, String> params = new HashMap<>();
+        if (!ObjectUtils.isEmpty(currentPageNumber)){
+            params.put("currentPageNumber", currentPageNumber + "");
         }
-        if (!ObjectUtils.isEmpty(pageSize)) {
-            params.put("pageSize", String.valueOf(pageSize));
+        if (!ObjectUtils.isEmpty(pageSize)){
+            params.put("pageSize", pageSize + "");
         }
-        JsonResponse jsonResponse = invokeApi(Api.MessageBox_GetMessageList, params);
+        if (!ObjectUtils.isEmpty(type)){
+            params.put("type", type + "");
+        }
+        if (!ObjectUtils.isEmpty(status)){
+            params.put("status", status + "");
+        }
+        JsonResponse jsonResponse = invokeApi(Api.MessageBox_List, params);
         renderJson(jsonResponse);
     }
 
@@ -79,7 +87,7 @@ public class MessageBoxController extends AbstractWebController {
      */
     @RequestMapping(value = "/Send", method = {RequestMethod.POST, RequestMethod.GET})
     public void sendMessage(MessageBoxDto messageBoxDto) {
-        renderJson(invokeApi(Api.MessageBox_SendMessage, messageBoxDto));
+        renderJson(invokeApi(Api.MessageBox_Send, messageBoxDto));
     }
 
     /***
@@ -90,12 +98,12 @@ public class MessageBoxController extends AbstractWebController {
      * 4:发送者已删除
      * 5:已删除
      *
-     * @param messageBox
+     * @param messageBoxDto
      * @return
      */
     @RequestMapping(value = "/Update", method = {RequestMethod.POST, RequestMethod.GET})
-    public void updateMessageStatus(MessageBox messageBox) {
-        JsonResponse jsonResponse = (invokeApi(Api.MessageBox_UpdateMessageStatus, messageBox));
+    public void updateMessageStatus(MessageBoxDto messageBoxDto) {
+        JsonResponse jsonResponse = (invokeApi(Api.MessageBox_Update, messageBoxDto));
         renderJson(jsonResponse);
     }
 }

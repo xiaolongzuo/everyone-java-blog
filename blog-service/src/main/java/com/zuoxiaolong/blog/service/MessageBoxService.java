@@ -24,8 +24,8 @@ import java.util.List;
 
 /**
  * @author iCodingStar
- * @date 2016/6/24 16:45
  * @version 1.0
+ * @date 2016/6/24 16:45
  */
 public interface MessageBoxService {
 
@@ -33,7 +33,7 @@ public interface MessageBoxService {
 
     MessageBoxDto getMessageContentById(Integer id);
 
-    List<MessageBoxDto> getMessagesByPage(Integer currentPageNumber, Integer pageSize, MessageBox messageBox);
+    List<MessageBoxDto> getMessagesByPage(Integer currentPageNumber, Integer pageSize, Integer type, Integer webUserId, Integer status);
 
     Integer updateMessageStatus(MessageBox messageBox);
 }

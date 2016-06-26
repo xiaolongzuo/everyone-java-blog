@@ -53,15 +53,16 @@ public class MessageBoxController extends AbstractApiController {
      *
      * @param currentPageNumber
      * @param pageSize
-     * @param messageBox
+     * @param type
+     * @param status
      * @return
      */
     @RequestMapping(value = "/List", method = RequestMethod.GET)
     public List<MessageBoxDto> getMessageList(@RequestParam(required = false) Integer currentPageNumber,
                                               @RequestParam(required = false) Integer pageSize,
-                                              MessageBox messageBox) {
-        messageBox.setSender(getWebUserId());
-        return messageBoxService.getMessagesByPage(currentPageNumber, pageSize, messageBox);
+                                              @RequestParam(required = false) Integer type,
+                                              @RequestParam(required = false) Integer status) {
+        return messageBoxService.getMessagesByPage(currentPageNumber, pageSize, type, 1, status);
     }
 
     /***
@@ -72,6 +73,7 @@ public class MessageBoxController extends AbstractApiController {
      */
     @RequestMapping(value = "/Send", method = {RequestMethod.POST, RequestMethod.GET})
     public Integer sendMessage(MessageBoxDto messageBoxDto) {
+        messageBoxDto.getMessage().setSender(getWebUserId());
         return messageBoxService.insertMessage(messageBoxDto);
     }
 

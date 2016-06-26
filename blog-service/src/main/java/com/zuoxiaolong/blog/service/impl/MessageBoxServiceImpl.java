@@ -38,6 +38,8 @@ import java.util.List;
  */
 @Service
 public class MessageBoxServiceImpl implements MessageBoxService {
+    private static final int RECEIVE_MESSAGE = 0;//收信
+    private static final int SEND_MESSAGE = 1;///发信
 
     @Autowired
     private MessageBoxMapper messageBoxMapper;
@@ -72,21 +74,25 @@ public class MessageBoxServiceImpl implements MessageBoxService {
      */
     @Override
     public MessageBoxDto getMessageContentById(Integer id) {
-        MessageBox message = messageBoxMapper.selectByPrimaryKey(id);
+        MessageBox message = null;
+        if (!ObjectUtils.isEmpty(id)) {
+            message = messageBoxMapper.selectByPrimaryKey(id);
+        }
         return getMessageBoxDto(message);
     }
 
-    /**
-     * 根据综合条件分页查询消息
-     *
+    /***
      * @param currentPageNumber 当前页的页号
      * @param pageSize          页面大小
-     * @param messageBox        查询条件载体
+     * @param type              消息类型
+     * @param status            消息状态
+     * @param webUserId         用户id
      * @return 返回满足相应查询条件的消息列表
      */
     @Override
-    public List<MessageBoxDto> getMessagesByPage(Integer currentPageNumber, Integer pageSize, MessageBox messageBox) {
+    public List<MessageBoxDto> getMessagesByPage(Integer currentPageNumber, Integer pageSize, Integer type, Integer webUserId, Integer status) {
         DigitalPage page = new DigitalPage();
+        MessageBox messageBox = new MessageBox();
         if (!ObjectUtils.isEmpty(currentPageNumber)) {
             page.setCurrentPageNumber(currentPageNumber);
         }
@@ -94,6 +100,14 @@ public class MessageBoxServiceImpl implements MessageBoxService {
             page.setPageSize(pageSize);
         }
         page.setOrderColumn("create_time");
+        if (!ObjectUtils.isEmpty(type) && type == RECEIVE_MESSAGE) {
+            messageBox.setReceiver(webUserId);
+        } else if (!ObjectUtils.isEmpty(type) && type == RECEIVE_MESSAGE) {
+            messageBox.setSender(webUserId);
+        }
+        if (!ObjectUtils.isEmpty(status)) {
+            messageBox.setStatus(status);
+        }
         List<MessageBoxDto> messageBoxDtos = new ArrayList<>();
         List<MessageBox> messageBoxes = messageBoxMapper.getMessagesByPage(page, messageBox);
         if (ObjectUtils.isEmpty(messageBoxes))
