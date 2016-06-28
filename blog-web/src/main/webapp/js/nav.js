@@ -12,11 +12,10 @@ $(function () {
     $(".blog-nav").on("click", "a", function (event) {
         $(".blog-nav a").removeClass("active");
         $(this).addClass("active");
-        var content = $(this).text();
-        if (content == "OPEN-API文档") {
+        var id = $(this).attr("id");
+        if (id == "api") {
             window.location.href = "/html/api-index.html";
-        }
-        if (content == "技术" || content == "职场" || content == "人生") {
+        } else if (id == "technology" || id == "work" || id == "life") {
             categoryName = content;
             getDataAndParse(url, {categoryName: categoryName});
         }
