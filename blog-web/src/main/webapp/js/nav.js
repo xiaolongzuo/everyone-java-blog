@@ -13,6 +13,9 @@ $(function () {
         $(".blog-nav a").removeClass("active");
         $(this).addClass("active");
         var content = $(this).text();
+        if (content == "OPEN-API文档") {
+            window.location.href = "/html/api-index.html";
+        }
         if (content == "技术" || content == "职场" || content == "人生") {
             categoryName = content;
             getDataAndParse(url, {categoryName: categoryName});
