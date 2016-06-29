@@ -25,9 +25,10 @@
 <div class="blog-masthead">
     <div class="container">
         <nav class="blog-nav">
-            <a class="pull-left blog-nav-item active" id="technology">技术</a>
-            <a class="pull-left blog-nav-item" id="work">职场</a>
-            <a class="pull-left blog-nav-item" id="life">人生</a>
+            <a href="javascript:void(0);" class="pull-left blog-nav-item active" id="technology">技术</a>
+            <a href="javascript:void(0);" class="pull-left blog-nav-item" id="work">职场</a>
+            <a href="javascript:void(0);" class="pull-left blog-nav-item" id="life">人生</a>
+            <a href="javascript:void(0);" class="pull-left blog-nav-item" id="api">API文档</a>
             <c:if test="${sessionScope.token == null}">
                 <a class="pull-right blog-nav-item blog-nav-right-first-item" href="${pageContext.request.contextPath}/WebUser/Register">注册</a>
                 <a class="pull-right blog-nav-item" href="${pageContext.request.contextPath}/WebUser/Login">登录</a>
