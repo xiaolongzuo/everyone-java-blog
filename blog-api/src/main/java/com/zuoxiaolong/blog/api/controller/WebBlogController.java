@@ -18,13 +18,16 @@ package com.zuoxiaolong.blog.api.controller;
 
 import com.zuoxiaolong.blog.model.dto.UserBlogInfo;
 import com.zuoxiaolong.blog.model.persistent.BlogConfig;
+import com.zuoxiaolong.blog.model.persistent.UserArticle;
 import com.zuoxiaolong.blog.service.WebBlogService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 博客主页controller
@@ -69,5 +72,17 @@ public class WebBlogController extends AbstractApiController {
     @RequestMapping("/HomePage")
     public UserBlogInfo personalBlogHomePage(String username, String pageSize, String offset) {
         return webBlogService.selectUserBlogInfoByUsername(username, pageSize, offset);
+    }
+
+    /**
+     * 获取用户博客
+     * @param userId
+     * @param pageSize
+     * @param offset
+     * @return
+     */
+    @RequestMapping("/GetMyBlog")
+    public List<UserArticle> GetMyBlog(Integer userId, String pageSize, String offset) {
+        return webBlogService.getMyBlogByUserId(userId, pageSize, offset);
     }
 }
