@@ -17,6 +17,7 @@ package com.zuoxiaolong.blog.api.controller;
 
 import com.zuoxiaolong.blog.model.dto.MessageBoxDto;
 import com.zuoxiaolong.blog.model.persistent.MessageBox;
+import com.zuoxiaolong.blog.model.persistent.WebUser;
 import com.zuoxiaolong.blog.service.MessageBoxService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -62,19 +63,20 @@ public class MessageBoxController extends AbstractApiController {
                                               @RequestParam(required = false) Integer pageSize,
                                               @RequestParam(required = false) Integer type,
                                               @RequestParam(required = false) Integer status) {
-        return messageBoxService.getMessagesByPage(currentPageNumber, pageSize, type, 1, status);
+        return messageBoxService.getMessagesByPage(currentPageNumber, pageSize, type, getWebUserId(), status);
     }
 
     /***
      * 发送短消息
      *
-     * @param messageBoxDto
+     * @param sender
+     * @param messageBox
      * @return
      */
     @RequestMapping(value = "/Send", method = {RequestMethod.POST, RequestMethod.GET})
-    public Integer sendMessage(MessageBoxDto messageBoxDto) {
-        messageBoxDto.getMessage().setSender(getWebUserId());
-        return messageBoxService.insertMessage(messageBoxDto);
+    public Integer sendMessage(WebUser sender, MessageBox messageBox) {
+        messageBox.setSender(getWebUserId());
+        return messageBoxService.insertMessage(sender,messageBox);
     }
 
     /***

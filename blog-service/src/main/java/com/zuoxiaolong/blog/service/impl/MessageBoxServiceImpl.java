@@ -50,19 +50,19 @@ public class MessageBoxServiceImpl implements MessageBoxService {
     /***
      * 发送短消息
      *
-     * @param messageBoxDto
+     * @param receiver
+     * @param messageBox
      * @return
      */
     @Override
-    public Integer insertMessage(MessageBoxDto messageBoxDto) {
-        WebUser receiver = messageBoxDto.getReceiver();
-        MessageBox messageBox = messageBoxDto.getMessage();
+    public Integer insertMessage(WebUser receiver, MessageBox messageBox) {
         if (!ObjectUtils.isEmpty(receiver)) {
             WebUser receiverDto = webUserMapper.selectByWebUser(receiver);
             if (!ObjectUtils.isEmpty(receiverDto)) {
-                messageBox.setSender(receiverDto.getId());
+                messageBox.setReceiver(receiverDto.getId());
             }
         }
+        messageBox.setStatus(1);
         return messageBoxMapper.insertSelective(messageBox);
     }
 
@@ -74,8 +74,10 @@ public class MessageBoxServiceImpl implements MessageBoxService {
      */
     @Override
     public MessageBoxDto getMessageContentById(Integer id) {
-        MessageBox message = null;
+        MessageBox message = new MessageBox();
         if (!ObjectUtils.isEmpty(id)) {
+            message.setStatus(2);
+            updateMessageStatus(message);
             message = messageBoxMapper.selectByPrimaryKey(id);
         }
         return getMessageBoxDto(message);
@@ -102,7 +104,7 @@ public class MessageBoxServiceImpl implements MessageBoxService {
         page.setOrderColumn("create_time");
         if (!ObjectUtils.isEmpty(type) && type == RECEIVE_MESSAGE) {
             messageBox.setReceiver(webUserId);
-        } else if (!ObjectUtils.isEmpty(type) && type == RECEIVE_MESSAGE) {
+        } else if (!ObjectUtils.isEmpty(type) && type == SEND_MESSAGE) {
             messageBox.setSender(webUserId);
         }
         if (!ObjectUtils.isEmpty(status)) {

@@ -29,7 +29,7 @@ import java.util.List;
  */
 public interface MessageBoxService {
 
-    Integer insertMessage(MessageBoxDto messageBoxDto);
+    Integer insertMessage(WebUser sender, MessageBox messageBox);
 
     MessageBoxDto getMessageContentById(Integer id);
 

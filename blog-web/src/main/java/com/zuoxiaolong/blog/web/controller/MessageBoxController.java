@@ -18,6 +18,7 @@ package com.zuoxiaolong.blog.web.controller;
 import com.zuoxiaolong.blog.common.bean.JsonResponse;
 import com.zuoxiaolong.blog.common.utils.CollectionUtils;
 import com.zuoxiaolong.blog.common.utils.ObjectUtils;
+import com.zuoxiaolong.blog.common.utils.StringUtils;
 import com.zuoxiaolong.blog.model.dto.MessageBoxDto;
 import com.zuoxiaolong.blog.model.persistent.MessageBox;
 import com.zuoxiaolong.blog.sdk.Api;
@@ -45,7 +46,7 @@ public class MessageBoxController extends AbstractWebController {
      */
     @RequestMapping(value = "/Content", method = RequestMethod.GET)
     public void getMessageContent(@RequestParam("id") Integer id) {
-        JsonResponse jsonResponse = invokeApi(Api.MessageBox_Content, CollectionUtils.newMap("id", id+""));
+        JsonResponse jsonResponse = invokeApi(Api.MessageBox_Content, CollectionUtils.newMap("id", id + ""));
         renderJson(jsonResponse);
     }
 
@@ -63,16 +64,16 @@ public class MessageBoxController extends AbstractWebController {
                                @RequestParam(required = false) Integer type,
                                @RequestParam(required = false) Integer status) {
         Map<String, String> params = new HashMap<>();
-        if (!ObjectUtils.isEmpty(currentPageNumber)){
+        if (!ObjectUtils.isEmpty(currentPageNumber)) {
             params.put("currentPageNumber", currentPageNumber + "");
         }
-        if (!ObjectUtils.isEmpty(pageSize)){
+        if (!ObjectUtils.isEmpty(pageSize)) {
             params.put("pageSize", pageSize + "");
         }
-        if (!ObjectUtils.isEmpty(type)){
+        if (!ObjectUtils.isEmpty(type)) {
             params.put("type", type + "");
         }
-        if (!ObjectUtils.isEmpty(status)){
+        if (!ObjectUtils.isEmpty(status)) {
             params.put("status", status + "");
         }
         JsonResponse jsonResponse = invokeApi(Api.MessageBox_List, params);
@@ -82,12 +83,19 @@ public class MessageBoxController extends AbstractWebController {
     /***
      * 发送短消息
      *
-     * @param messageBoxDto
-     * @return
+     * @param username   收件人
+     * @param messageBox 短消息
      */
     @RequestMapping(value = "/Send", method = {RequestMethod.POST, RequestMethod.GET})
-    public void sendMessage(MessageBoxDto messageBoxDto) {
-        renderJson(invokeApi(Api.MessageBox_Send, messageBoxDto));
+    public void sendMessage(String username, MessageBox messageBox) {
+        Map<String, String> params = new HashMap<>();
+        params.put("username", username);
+        if (!ObjectUtils.isEmpty(messageBox.getReceiver()) && StringUtils.isNumeric(username)){
+            params.put("receiver", messageBox.getReceiver() + "");
+        }
+        params.put("title", messageBox.getTitle());
+        params.put("content", messageBox.getContent());
+        renderJson(invokeApi(Api.MessageBox_Send, params));
     }
 
     /***
@@ -96,14 +104,13 @@ public class MessageBoxController extends AbstractWebController {
      * 2:未读
      * 3:接收者已删除
      * 4:发送者已删除
-     * 5:已删除
      *
-     * @param messageBoxDto
-     * @return
+     * @param username
+     * @param messageBox
      */
     @RequestMapping(value = "/Update", method = {RequestMethod.POST, RequestMethod.GET})
-    public void updateMessageStatus(MessageBoxDto messageBoxDto) {
-        JsonResponse jsonResponse = (invokeApi(Api.MessageBox_Update, messageBoxDto));
+    public void updateMessageStatus(String username, MessageBox messageBox) {
+        JsonResponse jsonResponse = (invokeApi(Api.MessageBox_Update, messageBox));
         renderJson(jsonResponse);
     }
 }
