@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="大家的Java博客">
+    <meta name="author" content="EveryoneJavaBlog">
+    <link rel="icon" href="/favicon.ico">
+
+    <!-- Bootstrap core CSS -->
+    <link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/api.css" rel="stylesheet">
+    <link href="/lib/highlight/styles/darkula.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/asset/html5shiv.min.js"></script>
+    <script src="/asset/respond.min.js"></script>
+    <![endif]-->
+    <title>大家的Java博客API文档</title>
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top navbar-java">
+    <div class="container">
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="/">大家的Java博客首页</a></li>
+                <li><a href="/html/api-index.html">API通用规则</a></li>
+                <li><a href="/html/api-list.html">API列表</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+<div class="container">
+
+    <div class="row">
+
+        <h2>错误码说明</h2>
+
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>错误码</th>
+                <th>消息</th>
+                <th>描述</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>401</td>
+                <td>请先登录</td>
+                <td>该错误代表该API需要登录才可以调用，但未在header中取到有效的token</td>
+            </tr>
+            <tr>
+                <td>404</td>
+                <td>数据未找到</td>
+                <td>该错误代表数据未存在</td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="/asset/ie10-viewport-bug-workaround.js"></script>
+<script src="/lib/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>
