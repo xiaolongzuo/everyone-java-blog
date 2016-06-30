@@ -44,10 +44,14 @@
                 <fmt:formatDate value="${result.data.userArticle.createTime}" type="both" dateStyle="long" pattern="yyyy-MM-dd" var="date"/>
                 <c:choose>
                     <c:when test="${today == date}">
-                        <p class="blog-post-meta">${result.data.webUser.nickname}发表于今天<fmt:formatDate value="${result.data.userArticle.createTime}" type="both" pattern="HH:mm:ss" />&nbsp;&nbsp;&nbsp;&nbsp;推荐(${result.data.userArticle.thumbupTimes}) 评论(${result.data.userArticle.commentTimes}) 阅读(${result.data.userArticle.readTimes})</p>
+                        <p class="blog-post-meta">${result.data.webUser.nickname}发表于今天<fmt:formatDate value="${result.data.userArticle.createTime}" type="both" pattern="HH:mm:ss" />&nbsp;&nbsp;&nbsp;&nbsp;
+                            推荐(${result.data.userArticle.thumbupTimes}) 评论(${result.data.userArticle.commentTimes}) 阅读(${result.data.userArticle.readTimes})
+                            [<a href="${ctx}/webArticle/form?id=${result.data.userArticle.id}">编辑</a> |<a href="${ctx}/webArticle/delete?id=${result.data.userArticle.id}">删除</a>]</p>
                     </c:when>
                     <c:otherwise>
-                        <p class="blog-post-meta">${result.data.webUser.nickname}发表于<fmt:formatDate value="${result.data.userArticle.createTime}" type="both" pattern="yyyy.MM.dd HH:mm" />&nbsp;&nbsp;&nbsp;&nbsp;推荐(${result.data.userArticle.thumbupTimes}) 评论(${result.data.userArticle.commentTimes}) 阅读(${result.data.userArticle.readTimes})</p>
+                        <p class="blog-post-meta">${result.data.webUser.nickname}发表于<fmt:formatDate value="${result.data.userArticle.createTime}" type="both" pattern="yyyy.MM.dd HH:mm" />&nbsp;&nbsp;&nbsp;&nbsp;
+                            推荐(${result.data.userArticle.thumbupTimes}) 评论(${result.data.userArticle.commentTimes}) 阅读(${result.data.userArticle.readTimes})
+                            [<a href="${ctx}/webArticle/form?id=${result.data.userArticle.id}">编辑</a> |<a href="${ctx}/webArticle/delete?id=${result.data.userArticle.id}">删除</a>]</p>
                     </c:otherwise>
                 </c:choose>
                 <p>${result.data.userArticle.content}</p>

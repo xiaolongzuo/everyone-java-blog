@@ -20,11 +20,14 @@
   Time: 16/6/5 17:21
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="../common/taglib.jsp"%>
+<%@include file="../common/taglib.jsp" %>
 <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
     <div class="sidebar-module sidebar-module-inset">
         <h4>个人介绍</h4>
         <p>${result.data.blogConfig.introduction}</p>
+    </div>
+    <div class="blog-add" style="text-align: center">
+        <button type="button" class="btn btn-primary" onclick="location.href='${ctx}/webArticle/form'">发表博客</button>
     </div>
     <div class="sidebar-module">
         <h4>最热文章</h4>
@@ -41,4 +44,5 @@
             </c:choose>
         </ol>
     </div>
-</div><!-- /.blog-sidebar -->
+</div>
+<!-- /.blog-sidebar -->

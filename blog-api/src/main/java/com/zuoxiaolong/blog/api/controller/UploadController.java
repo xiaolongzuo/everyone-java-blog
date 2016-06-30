@@ -40,7 +40,7 @@ public class UploadController extends AbstractController {
     /**
      * 文件上传方法
      *
-     * @param uid 用户编号
+     * @param uid  用户编号
      * @param file 上传资源名称
      */
     @RequestMapping(value = "/upload", method = RequestMethod.POST)

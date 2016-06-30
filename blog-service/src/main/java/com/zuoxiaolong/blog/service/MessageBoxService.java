@@ -16,7 +16,6 @@
 package com.zuoxiaolong.blog.service;
 
 import com.zuoxiaolong.blog.model.persistent.MessageBox;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
