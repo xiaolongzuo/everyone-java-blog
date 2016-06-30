@@ -34,7 +34,7 @@ import java.util.List;
  * @since 1.0.0w
  */
 @Controller
-@RequestMapping("/webUserArticle")
+@RequestMapping("/WebUserArticle")
 public class WebUserArticleController extends AbstractApiController {
 
     @Autowired
@@ -46,7 +46,7 @@ public class WebUserArticleController extends AbstractApiController {
      * @param id 文章ID
      * @return 文章信息
      */
-    @RequestMapping("/index")
+    @RequestMapping("/Index")
     public UserArticle getArticle(@RequestParam String id) {
         return webUserArticleService.getArticleById(id);
     }
@@ -56,7 +56,7 @@ public class WebUserArticleController extends AbstractApiController {
      *
      * @param userArticle 文章信息
      */
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @RequestMapping(value = "/Save", method = RequestMethod.POST)
     public Integer addArticle(UserArticle userArticle) {
         Integer userId = getWebUserId();
         userArticle.setWebUserId(userId);
@@ -68,7 +68,7 @@ public class WebUserArticleController extends AbstractApiController {
      *
      * @param id 文章ID
      */
-    @RequestMapping(value = "/delete")
+    @RequestMapping(value = "/Delete")
     public void deleteArticle(@RequestParam String id) {
         webUserArticleService.deleteArticle(id);
     }
@@ -78,7 +78,7 @@ public class WebUserArticleController extends AbstractApiController {
      *
      * @return
      */
-    @RequestMapping(value = "/list")
+    @RequestMapping(value = "/List")
     public List<UserArticle> getArticles(@RequestParam String userId) {
         return webUserArticleService.getArticleByUserId(userId);
     }

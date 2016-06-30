@@ -32,13 +32,13 @@ import java.util.List;
  * @since 1.0.0
  */
 @Controller
-@RequestMapping("/articleCategory")
+@RequestMapping("/ArticleCategory")
 public class ArticleCategoryController extends AbstractApiController {
 
     @Autowired
     ArticleCategoryService articleCategoryService;
 
-    @RequestMapping("/list")
+    @RequestMapping("/List")
     public List<ArticleCategory> getAllCategory() {
         return articleCategoryService.getAllArticleCategory();
     }
