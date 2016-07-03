@@ -53,7 +53,7 @@
                 <p>${result.data.userArticle.content}</p>
             </div><!-- /.blog-post -->
             <div class="blog-thumbs-up center-block">
-                <a href="javascript:void(null)" class="btn btn-danger btn-lg btn-block" onclick="thumbsUp(this)">推荐</a>
+                <a href="javascript:void(0)" class="btn btn-danger btn-lg btn-block" onclick="thumbsUp(this)">推荐</a>
             </div>
             <div>
                 <div class="panel comment-head">
@@ -63,7 +63,7 @@
                     </div>
                 </div>
                 <div id="bottom-comment" class="panel load-more">
-                    <a class="btn " href="javascript:void(null)" onclick='getMoreComment()'>加载更多<span class="glyphicon glyphicon-arrow-down"></span></a>
+                    <a class="btn " href="javascript:void(0)" onclick='getMoreComment()'>加载更多<span class="glyphicon glyphicon-arrow-down"></span></a>
                 </div>
                 <form class='new-comment' style='display: block;'>
                     <div class='panel-body comment-text'>

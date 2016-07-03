@@ -1,0 +1,27 @@
+.navbar-java {
+    height: 60px;
+    margin: 0px;
+}
+.navbar-java div div ul li a {
+    padding: 0px 10px;
+    height: 20px;
+}
+body {
+    padding-top: 70px;
+}
+.container {
+    margin: 20px;
+}
+.table {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+h2 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+pre {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
