@@ -130,7 +130,7 @@ public class WebBlogServiceImpl implements WebBlogService {
 
     @Override
     public int updateBlogConfig(BlogConfig blogConfig) {
-        if(blogConfig == null
+        if(blogConfig == null || blogConfig.getWebUserId() == null || blogConfig.getWebUserId() < 0
                 || SensitiveWordCheckUtils.isContainSensitiveWord(blogConfig.getIntroduction())
                 || SensitiveWordCheckUtils.isContainSensitiveWord(blogConfig.getBlogTitle())
                 || SensitiveWordCheckUtils.isContainSensitiveWord(blogConfig.getBlogSubTitle())) {
