@@ -15,8 +15,6 @@ public interface MessageBoxMapper {
 
     int updateByPrimaryKeySelective(MessageBox record);
 
-    List<MessageBox> selectMessageBoxList(@Param("offset") Integer offset, @Param("limit") Integer limit);
-
     List<MessageBox> getMessagesByPage(@Param("page") DigitalPage page,
                                        @Param("messageBox") MessageBox messageBox);
 }

@@ -20,11 +20,6 @@
         from message_box
         where id = #{id,jdbcType=INTEGER}
     </select>
-    <select id="selectMessageBoxList" resultMap="BaseResultMap">
-        SELECT
-        <include refid="Base_Column_List"/>
-        FROM message_box ORDER BY id LIMIT #{offset},#{limit}
-    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from message_box
     where id = #{id,jdbcType=INTEGER}
