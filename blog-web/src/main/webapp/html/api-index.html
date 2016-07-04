@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="大家的Java博客">
+    <meta name="author" content="EveryoneJavaBlog">
+    <link rel="icon" href="/favicon.ico">
+
+    <!-- Bootstrap core CSS -->
+    <link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/api.css" rel="stylesheet">
+    <link href="/lib/highlight/styles/darkula.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/asset/html5shiv.min.js"></script>
+    <script src="/asset/respond.min.js"></script>
+    <![endif]-->
+    <title>大家的Java博客API文档</title>
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top navbar-java">
+    <div class="container">
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="/">大家的Java博客首页</a></li>
+                <li><a href="/html/api-index.html">API通用规则</a></li>
+                <li><a href="/html/api-list.html">API列表</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+<div class="container">
+
+    <div class="row">
+
+        <h2>API通用规则</h2>
+
+        <p><strong>地址格式：</strong></p>
+
+        <blockquote>
+            为了方便，本文档所有地址将省略 "schema://host:port/" 这一部分。例如原地址为：
+            <pre><code class="nohighlight">http://www.zuoxiaolong.com/example.html</code></pre>
+            那么在本文档中将会简写成如下形式：
+            <pre><code class="nohighlight">/example.html</code></pre>
+        </blockquote>
+
+        <p><strong>传参方式：</strong></p>
+
+        <blockquote>
+            如接口文档内无特殊说明，则统一采用URL传参，比如：
+            <pre><code class="nohighlight">username=zuoxiaolong&password=123456</code></pre>
+        </blockquote>
+
+        <p><strong>用户登录管理：</strong></p>
+
+        <blockquote>
+            <a href="/html/user-register.html">用户注册接口</a>和<a href="/html/user-login.html">用户登录接口</a>都会返回token，请将token进行管理。
+            <br/>
+            在调用任何API接口时，需要添加一个header名称为“token”，值为<a href="/html/user-register.html">用户注册接口</a>和<a href="/html/user-login.html">用户登录接口</a>返回的token值来保持登录。
+        </blockquote>
+
+        <p><strong>用户token更新：</strong></p>
+
+        <blockquote>
+            出于安全考虑，移动端在用户每次启动应用时，应调用<a href="/html/user-login-with-token.html">token登录接口</a>登录。
+            <br/>
+            该接口会更新token值，并且在返回值中返回token，移动端应当在此时更新本地token。若token长期未使用，最长30天将会失效。
+        </blockquote>
+
+        <p><strong>返回值统一格式：</strong></p>
+
+        <blockquote>
+            为保持API清晰，服务端采用统一的数据返回格式，形式为JSON。如下：
+            <pre><code class="JSON">{"code":200,"message":"操作成功","data":"该值根据接口返回值决定,如为空则该属性不存在"}</code></pre>
+            code为200代表调用成功，否则代表调用发生错误。错误码的具体说明请参考<a href="/html/error-code.html">错误码说明</a>。
+        </blockquote>
+
+    </div>
+</div>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="/asset/ie10-viewport-bug-workaround.js"></script>
+<script src="/lib/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>

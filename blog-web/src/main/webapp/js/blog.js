@@ -7,6 +7,18 @@
 var offset = "";
 $(function () {
     loadMoreArticle();
+
+    $(".active").removeClass("active");
+
+    $('#technology').on('click', function (e) {
+        window.location.href = '/HomePage/index?categoryId=1';
+    });
+    $('#work').on('click', function (e) {
+        window.location.href = '/HomePage/index?categoryId=2';
+    });
+    $('#life').on('click', function (e) {
+        window.location.href = '/HomePage/index?categoryId=3';
+    });
 })
 function loadMoreArticle() {
     $.get("/WebBlog/getMyBlogArticle", {offset:offset}, function (result) {
@@ -14,7 +26,7 @@ function loadMoreArticle() {
         for (var i = 0; i < len; i++) {
 
             $("#myBlog").before('<div class="blog-post">'
-                +'<h2 class="blog-post-title"><a href="#" class="blog-article">'+ result.data.userArticleList[i].title+'</a></h2>'
+                +'<h2 class="blog-post-title"><a href="javascript:goArticle('+result.data.userArticleList[i].id+')" class="blog-article">'+ result.data.userArticleList[i].title+'</a></h2>'
                 +'<p class="blog-post-meta">'+result.data.webUser.nickname+'发表于'+ result.data.userArticleList[i].createTime+'</p>'
                 +'<p class="blog-post-meta">推荐('+result.data.userArticleList[i].thumbupTimes+') 评论('+result.data.userArticleList[i].commentTimes+') 阅读('+result.data.userArticleList[i].readTimes+')</p></div>');
 
@@ -24,4 +36,8 @@ function loadMoreArticle() {
         }
 
     })
+}
+
+function goArticle(id) {
+    window.location.href = '/Article/' + id;
 }
