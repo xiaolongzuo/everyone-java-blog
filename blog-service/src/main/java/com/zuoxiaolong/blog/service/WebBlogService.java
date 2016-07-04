@@ -15,8 +15,12 @@
  */
 package com.zuoxiaolong.blog.service;
 
+import com.zuoxiaolong.blog.common.orm.DropDownPage;
 import com.zuoxiaolong.blog.model.dto.UserBlogInfo;
 import com.zuoxiaolong.blog.model.persistent.BlogConfig;
+import com.zuoxiaolong.blog.model.persistent.UserArticle;
+
+import java.util.List;
 
 /**
  * 用户博客个人主页业务接口
@@ -34,5 +38,12 @@ public interface WebBlogService {
     int updateBlogConfig(BlogConfig blogConfig);
 
     BlogConfig selectBlogConfigByWebUserId(Integer webUserId);
+
+    /**
+     * 获取我的个人博客
+     * @param userId
+     * @return
+     */
+    List<UserArticle> getMyBlogByUserId(Integer userId, String pageSize, String offset);
 
 }
