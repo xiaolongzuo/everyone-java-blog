@@ -27,9 +27,9 @@ import java.util.Date;
  */
 public interface DateUtils {
 
-    static long nd = 1000*24*60*60;//一天的毫秒数
-    static long nh = 1000*60*60;//一小时的毫秒数
-    static long nm = 1000*60;//一分钟的毫秒数
+    static long ONE_DAY = 1000*24*60*60L;//一天的毫秒数
+    static long ONE_HOUR = 1000*60*60L;//一小时的毫秒数
+    static long ONE_MINUTE = 1000*60L;//一分钟的毫秒数
 
     static String format(Date date) {
         return format(date, "yyyy-MM-dd HH:mm:ss");
@@ -49,9 +49,9 @@ public interface DateUtils {
 
     static String toFriendlyTime(Date date){
         long diff = Calendar.getInstance().getTime().getTime() - date.getTime();
-        long day = diff/nd;//计算差多少天
-        long hour = diff%nd/nh;//计算差多少小时
-        long min = diff%nd%nh/nm;//计算差多少分钟
+        long day = diff/ONE_DAY;//计算差多少天
+        long hour = diff%ONE_DAY/ONE_HOUR;//计算差多少小时
+        long min = diff%ONE_DAY%ONE_HOUR/ONE_MINUTE;//计算差多少分钟
         if(day>0){
             return "大约发表于"+day+"天前";
         }
