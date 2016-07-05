@@ -37,50 +37,66 @@
 
     <div class="row">
 
-        <h2>API列表</h2>
+        <h2>获取短消息内容接口</h2>
+
+        <p><strong>地址：</strong></p>
+        <blockquote>/MessageBox/Content</blockquote>
+
+        <p><strong>方法：</strong></p>
+        <blockquote>GET</blockquote>
+
+        <p><strong>是否需要登录：</strong></p>
+        <blockquote>是</blockquote>
+
+        <p><strong>参数说明：</strong></p>
 
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th width="250">接口名称</th>
-                <th>接口描述</th>
+                <th>参数名称</th>
+                <th>是否必选</th>
+                <th>参数类型</th>
+                <th>参数描述</th>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td><a href="/html/user-register.html">用户注册接口</a></td>
-                <td>注册一个用户</td>
-            </tr>
-            <tr>
-                <td><a href="/html/user-login.html">用户登录接口</a></td>
-                <td>用户登录</td>
-            </tr>
-            <tr>
-                <td><a href="/html/user-blog.html">获取用户博客接口</a></td>
-                <td>获取用户博客</td>
-            </tr>
-            <tr>
-                <td><a href="/html/article-rank.html">获取排行榜文章接口</a></td>
-                <td>获取评论最多、点赞最多、推荐最多的三篇文章</td>
-            </tr>
-            <tr>
-                <td><a href="/html/message-content.html">获取短消息内容接口</a></td>
-                <td>获取某一条短消息的内容</td>
-            </tr>
-            <tr>
-                <td><a href="/html/message-list.html">获取短消息列表接口</a></td>
-                <td>依据类别获取短消息列表</td>
-            </tr>
-            <tr>
-                <td><a href="/html/message-send.html">发送短消息接口</a></td>
-                <td>发送短消息</td>
-            </tr>
-            <tr>
-                <td><a href="/html/message-update.html">更新短消息接口</a></td>
-                <td>更改某一条短消息的状态</td>
+                <td>id</td>
+                <td>是</td>
+                <td>Integer</td>
+                <td>消息id</td>
             </tr>
             </tbody>
         </table>
+
+        <p><strong>请求示例：</strong></p>
+
+        <pre><code class="Bash">curl -d 'id=1' '/MessageBox/Content'</code></pre>
+
+        <p><strong>返回值说明：</strong></p>
+
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>参数名称</th>
+                <th>是否必选</th>
+                <th>参数类型</th>
+                <th>参数描述</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>messageContent</td>
+                <td>是</td>
+                <td>MessageBoxDto</td>
+                <td>短消息的详细内容</td>
+            </tr>
+            </tbody>
+        </table>
+        <p><strong>返回示例：</strong></p>
+
+        <pre><code class="JSON">{"code":200,"message":"请求成功","data":{"message":{"content":"消息8","sender":2,"receiver":1,"status":2,"title":"问候29","id":29,"createTime":"2016-06-25 20:56:50","updateTime":"2016-06-27 15:40:51"},"sender":{"username":"456@qq.com","nickname":"456@qq.com"},"receiver":{"username":"123@qq.com","nickname":"123@qq.com"}}}</code></pre>
+
     </div>
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
