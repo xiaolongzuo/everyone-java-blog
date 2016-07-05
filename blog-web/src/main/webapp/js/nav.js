@@ -13,6 +13,7 @@ $(function () {
         $(".blog-nav a").removeClass("active");
         $(this).addClass("active");
         var id = $(this).attr("id");
+        var content = $(this).text();
         if (id == "api") {
             window.location.href = "/html/api-index.html";
         } else if (id == "technology" || id == "work" || id == "life") {
