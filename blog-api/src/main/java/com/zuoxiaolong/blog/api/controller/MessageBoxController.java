@@ -69,14 +69,14 @@ public class MessageBoxController extends AbstractApiController {
     /***
      * 发送短消息
      *
-     * @param sender
+     * @param receiver
      * @param messageBox
      * @return
      */
     @RequestMapping(value = "/Send", method = {RequestMethod.POST, RequestMethod.GET})
-    public Integer sendMessage(WebUser sender, MessageBox messageBox) {
+    public Integer sendMessage(WebUser receiver, MessageBox messageBox) {
         messageBox.setSender(getWebUserId());
-        return messageBoxService.insertMessage(sender,messageBox);
+        return messageBoxService.insertMessage(receiver,messageBox);
     }
 
     /***
