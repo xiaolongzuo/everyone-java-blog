@@ -55,7 +55,11 @@ public enum Api {
     Article_GetCommentInfo("GET", new TypeToken<List<ArticleCommentAndReplyDTO>>(){}.getType()),
     Article_GetMoreReComment("GET", new TypeToken<List<ArticleCommentDTO>>(){}.getType()),
     Article_AddComment("POST", Integer.class),
-    Article_AddThumbupTimes("POST", boolean.class)
+    Article_AddThumbupTimes("POST", boolean.class),
+    MessageBox_Content("GET",MessageBoxDto.class),
+    MessageBox_List("GET",new TypeToken<List<MessageBoxDto>>(){}.getType()),
+    MessageBox_Send("POST",new TypeToken<Integer>(){}.getType()),
+    MessageBox_Update("POST",new TypeToken<Integer>(){}.getType())
     ;
 
     private String url;

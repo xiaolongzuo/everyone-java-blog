@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2016 the original author or authors.
+ * Copyright 2016-2016 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,27 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.zuoxiaolong.blog.service;
+package com.zuoxiaolong.blog.model.dto;
 
-import com.zuoxiaolong.blog.model.dto.MessageBoxDto;
 import com.zuoxiaolong.blog.model.persistent.MessageBox;
 import com.zuoxiaolong.blog.model.persistent.WebUser;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
+import lombok.Data;
 
 /**
- * @author iCodingStar
- * @version 1.0
- * @date 2016/6/24 16:45
+ * @autor iCodingStar
+ * @date 2016/6/25 21:09
+ * @since 1.0.0
  */
-public interface MessageBoxService {
+@Data
+public class MessageBoxDto {
 
-    Integer insertMessage(WebUser sender, MessageBox messageBox);
+    private MessageBox message;//短消息
 
-    MessageBoxDto getMessageContentById(Integer id);
+    private WebUser sender;//发送者
 
-    List<MessageBoxDto> getMessagesByPage(Integer currentPageNumber, Integer pageSize, Integer type, Integer webUserId, Integer status);
+    private WebUser receiver;//收件人
 
-    Integer updateMessageStatus(MessageBox messageBox);
 }
