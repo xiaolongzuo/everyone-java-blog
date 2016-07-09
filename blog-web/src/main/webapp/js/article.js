@@ -17,7 +17,7 @@ var COMMENT_NUM = 0;
 function thumbsUp(aHtml){
     var articleid = $('#articleid').val();
     $.ajax({
-        url: "/Article/AddThumbupTimes?articleid="+articleid,
+        url: contextPath + "/Article/AddThumbupTimes?articleid="+articleid,
         dataType: "json",
         type: "POST",
         cache: false,
@@ -43,7 +43,7 @@ function getMoreReComment(aHtml){
     var lastReCommentid=$(aHtml).parent().prev().children('.reply-recomment').attr('comment-id');
     //加载回复列表
     $.ajax({
-        url: "/Article/GetMoreReComment?commondid=" + commentid + "&offset=" + lastReCommentid + "&size=10",
+        url: contextPath + "/Article/GetMoreReComment?commondid=" + commentid + "&offset=" + lastReCommentid + "&size=10",
         dataType: "json",
         type: "GET",
         cache: false,

@@ -15,45 +15,149 @@
  */
 package com.zuoxiaolong.blog.service.impl;
 
+import com.zuoxiaolong.blog.common.orm.DigitalPage;
+import com.zuoxiaolong.blog.common.utils.ObjectUtils;
 import com.zuoxiaolong.blog.mapper.MessageBoxMapper;
+import com.zuoxiaolong.blog.mapper.WebUserMapper;
+import com.zuoxiaolong.blog.model.dto.MessageBoxDto;
 import com.zuoxiaolong.blog.model.persistent.MessageBox;
+import com.zuoxiaolong.blog.model.persistent.WebUser;
 import com.zuoxiaolong.blog.service.MessageBoxService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author voyagezhang
- * @date 2016/5/16
- * @since 1.0.0
+ * @author iCodingStar
+ * @version 1.0
+ * @date 2016/6/24 16:44
  */
 @Service
 public class MessageBoxServiceImpl implements MessageBoxService {
+    private static final int RECEIVE_MESSAGE = 0;//收信
+    private static final int SEND_MESSAGE = 1;///发信
 
     @Autowired
     private MessageBoxMapper messageBoxMapper;
+
+    @Autowired
+    private WebUserMapper webUserMapper;
+
+    /***
+     * 发送短消息
+     *
+     * @param receiver
+     * @param messageBox
+     * @return
+     */
     @Override
-    public MessageBox selectByPrimaryKey(Integer id) {
-        MessageBox messageBox=messageBoxMapper.selectByPrimaryKey(id);
-        return messageBox;
+    public Integer insertMessage(WebUser receiver, MessageBox messageBox) {
+        if (!ObjectUtils.isEmpty(receiver)) {
+            WebUser receiverDto = webUserMapper.selectByWebUser(receiver);
+            if (!ObjectUtils.isEmpty(receiverDto)) {
+                messageBox.setReceiver(receiverDto.getId());
+            }
+        }
+        messageBox.setStatus(1);
+        return messageBoxMapper.insertSelective(messageBox);
+    }
+
+    /***
+     * 根据id查短消息的详细信息
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public MessageBoxDto getMessageContentById(Integer id) {
+        MessageBox message = new MessageBox();
+        if (!ObjectUtils.isEmpty(id)) {
+            message.setStatus(2);
+            updateMessageStatus(message);
+            message = messageBoxMapper.selectByPrimaryKey(id);
+        }
+        return getMessageBoxDto(message);
+    }
+
+    /***
+     * @param currentPageNumber 当前页的页号
+     * @param pageSize          页面大小
+     * @param type              消息类型
+     * @param status            消息状态
+     * @param webUserId         用户id
+     * @return 返回满足相应查询条件的消息列表
+     */
+    @Override
+    public List<MessageBoxDto> getMessagesByPage(Integer currentPageNumber, Integer pageSize, Integer type, Integer webUserId, Integer status) {
+        DigitalPage page = new DigitalPage();
+        MessageBox messageBox = new MessageBox();
+        if (!ObjectUtils.isEmpty(currentPageNumber)) {
+            page.setCurrentPageNumber(currentPageNumber);
+        }
+        if (!ObjectUtils.isEmpty(pageSize)) {
+            page.setPageSize(pageSize);
+        }
+        page.setOrderColumn("create_time");
+        if (!ObjectUtils.isEmpty(type) && type == RECEIVE_MESSAGE) {
+            messageBox.setReceiver(webUserId);
+        } else if (!ObjectUtils.isEmpty(type) && type == SEND_MESSAGE) {
+            messageBox.setSender(webUserId);
+        }
+        if (!ObjectUtils.isEmpty(status)) {
+            messageBox.setStatus(status);
+        }
+        List<MessageBoxDto> messageBoxDtos = new ArrayList<>();
+        List<MessageBox> messageBoxes = messageBoxMapper.getMessagesByPage(page, messageBox);
+        if (ObjectUtils.isEmpty(messageBoxes))
+            return messageBoxDtos;
+        for (MessageBox message : messageBoxes) {
+            messageBoxDtos.add(getMessageBoxDto(message));
+        }
+        return messageBoxDtos;
     }
 
     @Override
-    public List<MessageBox> selectMessageBoxList(Integer offset,Integer limit) {
-        List<MessageBox> messageBoxes=messageBoxMapper.selectMessageBoxList(offset,limit);
-        return messageBoxes;
+    public Integer updateMessageStatus(MessageBox messageBox) {
+        if (ObjectUtils.isEmpty(messageBox.getId())) {
+            return -1;
+        }
+        return messageBoxMapper.updateByPrimaryKeySelective(messageBox);
     }
 
-    @Override
-    public int insertSelective(MessageBox record) {
-        int resultflag= messageBoxMapper.insertSelective(record);
-        return resultflag;
+    /***
+     * 获取短消息的包装信息
+     *
+     * @param messageBox 基本消息
+     * @return 返回消息的包装信息
+     */
+    private MessageBoxDto getMessageBoxDto(MessageBox messageBox) {
+        MessageBoxDto messageBoxDto = new MessageBoxDto();
+        if (!ObjectUtils.isEmpty(messageBox)) {
+            messageBoxDto.setMessage(messageBox);
+            WebUser sender = webUserMapper.selectByPrimaryKey(messageBox.getSender());
+            if (!ObjectUtils.isEmpty(sender)) {
+                messageBoxDto.setSender(getWebUserBasicInfo(sender));
+            }
+            WebUser receiver = webUserMapper.selectByPrimaryKey(messageBox.getReceiver());
+            if (!ObjectUtils.isEmpty(receiver)) {
+                messageBoxDto.setReceiver(getWebUserBasicInfo(receiver));
+            }
+        }
+        return messageBoxDto;
     }
 
-    @Override
-    public int deleteByPrimaryKey(Integer deleteByPrimaryKey) {
-        int resultflag=messageBoxMapper.deleteByPrimaryKey(deleteByPrimaryKey);
-        return resultflag;
+    /***
+     * 获取用户个人的基本信息
+     *
+     * @param webUser 用户
+     * @return 返回用户的非保密性基本信息
+     */
+    private WebUser getWebUserBasicInfo(WebUser webUser) {
+        WebUser webUserDto = new WebUser();
+        webUserDto.setNickname(webUser.getNickname());
+        webUserDto.setUsername(webUser.getUsername());
+        return webUserDto;
     }
 }

@@ -35,7 +35,6 @@
         <module>blog-api</module>
         <module>blog-dao</module>
         <module>blog-service</module>
-        <module>blog-admin</module>
         <module>blog-common</module>
         <module>blog-model</module>
         <module>blog-sdk</module>

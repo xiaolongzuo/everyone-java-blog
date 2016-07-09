@@ -20,11 +20,6 @@
         from message_box
         where id = #{id,jdbcType=INTEGER}
     </select>
-    <select id="selectMessageBoxList" resultMap="BaseResultMap">
-        SELECT
-        <include refid="Base_Column_List"/>
-        FROM  message_box ORDER BY  id LIMIT #{offset},#{limit}
-    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from message_box
     where id = #{id,jdbcType=INTEGER}
@@ -90,4 +85,25 @@
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
+    <!--查询消息列表的条件-->
+    <sql id="select_message_box_lists">
+        <if test="messageBox.sender != null and messageBox.sender != ''">
+            AND sender = #{messageBox.sender,jdbcType = TINYINT}
+        </if>
+        <if test="messageBox.receiver != null and messageBox.receiver != ''">
+            AND receiver = #{messageBox.receiver,jdbcType = TINYINT}
+        </if>
+        <if test="messageBox.status != null and messageBox.status != ''">
+            AND status = #{messageBox.status,jdbcType=TINYINT}
+        </if>
+        AND 1 = 1
+    </sql>
+    <!--根据复合条件分页查询消息列表-->
+    <select id="getMessagesByPage" resultMap="BaseResultMap">
+        SELECT *
+        FROM message_box
+        <where>
+            <include refid="select_message_box_lists"></include>
+        </where>
+    </select>
 </mapper>

@@ -37,10 +37,10 @@
 
     <div class="row">
 
-        <h2>获取用户博客接口</h2>
+        <h2>文章排名接口</h2>
 
         <p><strong>地址：</strong></p>
-        <blockquote>/WebBlog/GetUserBlog</blockquote>
+        <blockquote>/HomePage/TopThreeUserArticles</blockquote>
 
         <p><strong>方法：</strong></p>
         <blockquote>GET</blockquote>
@@ -61,33 +61,41 @@
             </thead>
             <tbody>
             <tr>
-                <td>userId</td>
+                <td>categoryName</td>
                 <td>是</td>
-                <td>Integer</td>
-                <td>用户id</td>
-            </tr>
-            <tr>
-                <td>pageSize</td>
-                <td>否</td>
                 <td>String</td>
-                <td>获取数量，不填是10</td>
-            </tr>
-            <tr>
-                <td>offset</td>
-                <td>否</td>
-                <td>String</td>
-                <td>起始位子，因为是按id倒序，第一次不填，后面请求传入最后一条的数据id</td>
+                <td>文章类别名称</td>
             </tr>
             </tbody>
         </table>
 
         <p><strong>请求示例：</strong></p>
 
-        <pre><code class="Bash">curl -d 'userId=1&pageSize=5&offset=6' '/WebBlog/GetUserBlog'</code></pre>
+        <pre><code class="Bash">curl -d 'categoryName=技术' '/HomePage/TopThreeUserArticles'</code></pre>
 
+        <p><strong>返回值说明：</strong></p>
+
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>参数名称</th>
+                <th>是否必选</th>
+                <th>参数类型</th>
+                <th>参数描述</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>topThreeUserArticles</td>
+                <td>是</td>
+                <td>Map&lt;String,UserArticle&gt;</td>
+                <td>排名最高的三篇用户文章</td>
+            </tr>
+            </tbody>
+        </table>
         <p><strong>返回示例：</strong></p>
 
-        <pre><code class="JSON">{"code":200,"message":"请求成功","data":[{"webUserId":1,"categoryId":1,"title":"第五篇","content":"阿水电费","readTimes":1,"thumbupTimes":1,"isMainPage":0,"status":1,"commentTimes":1,"id":5,"createTime":"2016-06-18 00:00:40","updateTime":"2016-06-18 00:00:40"},{"webUserId":1,"categoryId":1,"title":"第四篇","content":"阿水电费","readTimes":1,"thumbupTimes":1,"isMainPage":0,"status":1,"commentTimes":1,"id":4,"createTime":"2016-06-18 00:00:34","updateTime":"2016-06-18 00:00:34"}]}</code></pre>
+        <pre><code class="JSON">{"code":200,"message":"请求成功","data":{"mostRecommendArticle":{"webUserId":1,"categoryId":1,"title":"第二篇","content":"淘宝如何","readTimes":5,"thumbupTimes":1,"isMainPage":1,"status":1,"commentTimes":1,"id":2,"createTime":"2016-06-17 15:31:24","updateTime":"2016-06-17 15:45:33"},"mostCommentArticle":{"webUserId":1,"categoryId":1,"title":"第二篇","content":"淘宝如何","readTimes":5,"thumbupTimes":1,"isMainPage":1,"status":1,"commentTimes":1,"id":2,"createTime":"2016-06-17 15:31:24","updateTime":"2016-06-17 15:45:33"},"mostReadArticle":{"webUserId":1,"categoryId":1,"title":"第二篇","content":"淘宝如何","readTimes":5,"thumbupTimes":1,"isMainPage":1,"status":1,"commentTimes":1,"id":2,"createTime":"2016-06-17 15:31:24","updateTime":"2016-06-17 15:45:33"}}}</code></pre>
 
     </div>
 </div>

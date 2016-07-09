@@ -37,16 +37,16 @@
 
     <div class="row">
 
-        <h2>获取用户博客接口</h2>
+        <h2>发送短消息接口</h2>
 
         <p><strong>地址：</strong></p>
-        <blockquote>/WebBlog/GetUserBlog</blockquote>
+        <blockquote>/MessageBox/Send</blockquote>
 
         <p><strong>方法：</strong></p>
-        <blockquote>GET</blockquote>
+        <blockquote>POST</blockquote>
 
         <p><strong>是否需要登录：</strong></p>
-        <blockquote>否</blockquote>
+        <blockquote>是</blockquote>
 
         <p><strong>参数说明：</strong></p>
 
@@ -61,33 +61,23 @@
             </thead>
             <tbody>
             <tr>
-                <td>userId</td>
+                <td>receiver</td>
                 <td>是</td>
-                <td>Integer</td>
-                <td>用户id</td>
+                <td>WebUser</td>
+                <td>发送人信息</td>
             </tr>
             <tr>
-                <td>pageSize</td>
-                <td>否</td>
-                <td>String</td>
-                <td>获取数量，不填是10</td>
-            </tr>
-            <tr>
-                <td>offset</td>
-                <td>否</td>
-                <td>String</td>
-                <td>起始位子，因为是按id倒序，第一次不填，后面请求传入最后一条的数据id</td>
+                <td>messageBox</td>
+                <td>是</td>
+                <td>MessageBox</td>
+                <td>短消息</td>
             </tr>
             </tbody>
         </table>
 
         <p><strong>请求示例：</strong></p>
 
-        <pre><code class="Bash">curl -d 'userId=1&pageSize=5&offset=6' '/WebBlog/GetUserBlog'</code></pre>
-
-        <p><strong>返回示例：</strong></p>
-
-        <pre><code class="JSON">{"code":200,"message":"请求成功","data":[{"webUserId":1,"categoryId":1,"title":"第五篇","content":"阿水电费","readTimes":1,"thumbupTimes":1,"isMainPage":0,"status":1,"commentTimes":1,"id":5,"createTime":"2016-06-18 00:00:40","updateTime":"2016-06-18 00:00:40"},{"webUserId":1,"categoryId":1,"title":"第四篇","content":"阿水电费","readTimes":1,"thumbupTimes":1,"isMainPage":0,"status":1,"commentTimes":1,"id":4,"createTime":"2016-06-18 00:00:34","updateTime":"2016-06-18 00:00:34"}]}</code></pre>
+        <pre><code class="Bash">curl -d 'id=1' '/MessageBox/Send'</code></pre>
 
     </div>
 </div>

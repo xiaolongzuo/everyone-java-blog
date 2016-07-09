@@ -1,5 +1,6 @@
 package com.zuoxiaolong.blog.mapper;
 
+import com.zuoxiaolong.blog.common.orm.DigitalPage;
 import com.zuoxiaolong.blog.model.persistent.MessageBox;
 import org.apache.ibatis.annotations.Param;
 
@@ -14,5 +15,6 @@ public interface MessageBoxMapper {
 
     int updateByPrimaryKeySelective(MessageBox record);
 
-    List<MessageBox> selectMessageBoxList(@Param("offset")Integer offset,@Param("limit") Integer limit);
+    List<MessageBox> getMessagesByPage(@Param("page") DigitalPage page,
+                                       @Param("messageBox") MessageBox messageBox);
 }

@@ -10,7 +10,7 @@
     <context:annotation-config />
 
     <bean class="com.zuoxiaolong.blog.sdk.spring.BlogSdkFactoryBean">
-        <property name="serverUrl" value="http://localhost:8080"/>
+        <property name="serverUrl" value="http://localhost:8082/java-blog-api"/>
     </bean>
 
 </beans>
