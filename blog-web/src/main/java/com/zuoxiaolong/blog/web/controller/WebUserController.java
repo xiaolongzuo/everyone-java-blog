@@ -23,6 +23,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
 /**
  * 用户登录,注册等功能
  *
@@ -32,6 +35,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping("/WebUser")
 public class WebUserController extends AbstractWebController {
+
+    @RequestMapping(value = "/CheckUsername", method = RequestMethod.GET)
+    public void checkUsername(String username) throws IOException {
+        JsonResponse jsonResponse = invokeApi(Api.WebUser_CheckUsername, CollectionUtils.newMap("username", username));
+        if (jsonResponse.success()) {
+            renderJson("success");
+        } else {
+            getResponse().sendError(HttpServletResponse.SC_CONFLICT);
+        }
+    }
 
     @RequestMapping(value = "/Login", method = RequestMethod.GET)
     public String login() {

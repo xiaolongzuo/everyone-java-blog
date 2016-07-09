@@ -36,7 +36,7 @@ var  categoryId = 1;//类目id
 
 function getArticles(categoryId) {
     $.ajax({
-        url: "/HomePage/Articles",
+        url: contextPath + "/HomePage/Articles",
         dataType: "JSON",
         data: {
             categoryId:categoryId,

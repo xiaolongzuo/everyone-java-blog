@@ -5,7 +5,7 @@
  */
 $(function () {
     //打开网站时加载技术类文章并显示出来
-    var url = "/HomePage/TopThreeUserArticles";
+    var url = contextPath + "/HomePage/TopThreeUserArticles";
     var categoryName = "技术";
     getDataAndParse(url, {categoryName: categoryName});
     //根据用户对菜单的选择显示相应的最多评论、最多推荐、最多阅读的文章
@@ -15,7 +15,7 @@ $(function () {
         var id = $(this).attr("id");
         var content = $(this).text();
         if (id == "api") {
-            window.location.href = "/html/api-index.html";
+            window.location.href = contextPath + "/html/api-index.html";
         } else if (id == "technology" || id == "work" || id == "life") {
             categoryName = content;
             getDataAndParse(url, {categoryName: categoryName});

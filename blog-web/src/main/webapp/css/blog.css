@@ -29,6 +29,10 @@ h6, .h6 {
     }
 }
 
+.help-block {
+    font-size: 13px;
+}
+
 /*
  * Masthead for nav
  */

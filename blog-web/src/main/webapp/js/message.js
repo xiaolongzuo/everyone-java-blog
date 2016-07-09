@@ -12,7 +12,7 @@ $(function () {
     var pageSize = 5;
     var pageNumber = 0;
     var status = null;
-    getMessageDataAndParse("/MessageBox/List", {
+    getMessageDataAndParse(contextPath + "/MessageBox/List", {
         pageNumber: pageNumber,
         pageSize: pageSize,
         type: type,
@@ -25,7 +25,7 @@ $(function () {
         $("#message-content").css("display", "none");
         type = MESSAGE_RECEIVE;
         status = null;
-        getMessageDataAndParse("/MessageBox/List", {
+        getMessageDataAndParse(contextPath + "/MessageBox/List", {
             pageNumber: pageNumber,
             pageSize: pageSize,
             type: 0,
@@ -39,7 +39,7 @@ $(function () {
         $("#message-content").css("display", "none");
         type = MESSAGE_SEND;
         status = null;
-        getMessageDataAndParse("/MessageBox/List", {
+        getMessageDataAndParse(contextPath + "/MessageBox/List", {
             pageNumber: pageNumber,
             pageSize: pageSize,
             type: 1,
@@ -62,7 +62,7 @@ $(function () {
     });
 
     //获取短信数据并解析
-    getMessageDataAndParse("/MessageBox/List", {
+    getMessageDataAndParse(contextPath + "/MessageBox/List", {
         pageNumber: pageNumber,
         pageSize: pageSize,
         type: type,
@@ -82,7 +82,7 @@ $(function () {
         var title = $("#message-write #title").val();
         var content = $('#message-write #content').val();
 
-        postMessageDataAndParse("/MessageBox/Send", {
+        postMessageDataAndParse(contextPath + "/MessageBox/Send", {
             username: username,
             receiver: receiver,
             title: title,
@@ -167,7 +167,7 @@ $(function () {
  * @param id
  */
 function read_message_content(id) {
-    getMessageDataAndParse("/MessageBox/Content", {
+    getMessageDataAndParse(contextPath + "/MessageBox/Content", {
         id: id
     }, null, function (type, result) {
         var message = result.data.message;
@@ -191,7 +191,7 @@ function read_message_content(id) {
  * @param status
  */
 function update_message_status(id, status) {
-    getMessageDataAndParse("/MessageBox/Update", {
+    getMessageDataAndParse(contextPath + "/MessageBox/Update", {
         id: id,
         status: status
     }, null, function (type, result) {
