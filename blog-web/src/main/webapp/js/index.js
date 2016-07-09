@@ -51,7 +51,7 @@ function getArticles(categoryId) {
             $.each(articlesObject,function(n,value) {
                 console.table(value);
                 var articleHtml = '<div class="blog-post1">'+
-                    '<h2 class="blog-post-title"><a href="#" class="blog-article">'+value['userArticle']['title'] +'</a></h2>'+
+                    '<h2 class="blog-post-title"><a href="' + contextPath + '/Article/' + value['userArticle']['id'] + '" class="blog-article">'+value['userArticle']['title'] +'</a></h2>'+
                 '<p class="blog-post-meta">'+value['webUser']['nickname']+value['friendlyTime']+'</p>'+
                     '<p class="blog-post-meta">推荐('+value['userArticle']['thumbupTimes']+') 评论(' +
                     value['userArticle']['commentTimes']+') 阅读('+value['userArticle']['readTimes']+')</p>'+
