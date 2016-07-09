@@ -156,4 +156,13 @@ public class WebBlogServiceImpl implements WebBlogService {
         List<UserArticle> userArticles = userArticleMapper.getPageByWebUserId(userId, userArticlePage);
         return userArticles;
     }
+
+    @Override
+    public List<UserArticle> getUserHotBlog(Integer userId, Integer num) {
+        if (num == null || num <= 0) {
+            num = USER_HOTEST_ARTICLE_PAGE_SIZE;
+        }
+        List<UserArticle> userHotestArticles = userArticleMapper.getTopThumbupArticlesByWebUserId(userId, num);
+        return userHotestArticles;
+    }
 }

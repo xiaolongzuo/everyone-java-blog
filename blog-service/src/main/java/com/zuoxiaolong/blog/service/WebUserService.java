@@ -16,6 +16,7 @@
 
 package com.zuoxiaolong.blog.service;
 
+import com.zuoxiaolong.blog.model.dto.UserInfo;
 import com.zuoxiaolong.blog.model.persistent.WebUser;
 
 /**
@@ -36,4 +37,10 @@ public interface WebUserService {
 
     WebUser checkToken(String token);
 
+    /**
+     * 获取用户信息
+     * @param userId
+     * @return
+     */
+    UserInfo getUserInfoById(Integer userId);
 }

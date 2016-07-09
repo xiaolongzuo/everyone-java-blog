@@ -22,6 +22,7 @@ import com.zuoxiaolong.blog.common.utils.AssertUtils;
 import com.zuoxiaolong.blog.common.utils.ObjectUtils;
 import com.zuoxiaolong.blog.common.utils.StringUtils;
 import com.zuoxiaolong.blog.mapper.WebUserMapper;
+import com.zuoxiaolong.blog.model.dto.UserInfo;
 import com.zuoxiaolong.blog.model.persistent.WebUser;
 import com.zuoxiaolong.blog.service.WebUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -105,6 +106,22 @@ public class WebUserServiceImpl implements WebUserService {
         WebUser param = new WebUser();
         param.setToken(token);
         return webUserMapper.selectByWebUser(param);
+    }
+
+    @Override
+    public UserInfo getUserInfoById(Integer userId) {
+        WebUser webUser = webUserMapper.selectByPrimaryKey(userId);
+        UserInfo userInfo = new UserInfo();
+        if (webUser == null) {
+            return userInfo;
+        }
+        userInfo.setId(webUser.getId());
+        userInfo.setCreateTime(webUser.getCreateTime());
+        userInfo.setNickname(webUser.getNickname());
+        userInfo.setToken(webUser.getToken());
+        userInfo.setUpdateTime(webUser.getUpdateTime());
+        userInfo.setUsername(webUser.getUsername());
+        return userInfo;
     }
 
 }

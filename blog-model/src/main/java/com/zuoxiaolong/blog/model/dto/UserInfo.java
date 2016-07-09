@@ -15,10 +15,26 @@
  */
 package com.zuoxiaolong.blog.model.dto;
 
+import lombok.Data;
+
+import java.util.Date;
+
 /**
  * @Author flutterfire
  * @since 1.0.0
  */
+@Data
 public class UserInfo {
 
+    private Integer id;
+
+    private Date createTime;
+
+    private Date updateTime;
+
+    private String username;
+
+    private String nickname;
+
+    private String token;
 }
