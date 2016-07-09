@@ -24,7 +24,7 @@
     String contextPath = request.getContextPath();
     String url = request.getParameter("url");
     if (url == null) {
-        url = contextPath + "/jsp/index/index.jsp";
+        url = contextPath + "/HomePage/Index";
     } else {
         url = contextPath + url;
     }

@@ -17,16 +17,13 @@ package com.zuoxiaolong.blog.web.controller;
 
 import com.zuoxiaolong.blog.common.bean.JsonResponse;
 import com.zuoxiaolong.blog.common.utils.CollectionUtils;
-import com.zuoxiaolong.blog.model.persistent.UserArticle;
 import com.zuoxiaolong.blog.sdk.Api;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -43,7 +40,7 @@ public class HomePageController extends AbstractWebController {
      *
      * @return
      */
-    @RequestMapping("/index")
+    @RequestMapping("/Index")
     public String index() {
         Map<String, String> params = new HashMap<>();
         params.put("categoryId", "1");
