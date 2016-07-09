@@ -37,13 +37,13 @@
 
     <div class="row">
 
-        <h2>用户登录接口</h2>
+        <h2>文章排名接口</h2>
 
         <p><strong>地址：</strong></p>
-        <blockquote>/WebUser/Login</blockquote>
+        <blockquote>/HomePage/TopThreeUserArticles</blockquote>
 
         <p><strong>方法：</strong></p>
-        <blockquote>POST</blockquote>
+        <blockquote>GET</blockquote>
 
         <p><strong>是否需要登录：</strong></p>
         <blockquote>否</blockquote>
@@ -61,23 +61,17 @@
             </thead>
             <tbody>
             <tr>
-                <td>username</td>
+                <td>categoryName</td>
                 <td>是</td>
-                <td>string</td>
-                <td>用户名，最少6个字符，最多30个字符。必须由数字、字母和下划线组成</td>
-            </tr>
-            <tr>
-                <td>password</td>
-                <td>是</td>
-                <td>string</td>
-                <td>密码，最少6个字符，最多30个字符。必须由数字、字母和下划线组成</td>
+                <td>String</td>
+                <td>文章类别名称</td>
             </tr>
             </tbody>
         </table>
 
         <p><strong>请求示例：</strong></p>
 
-        <pre><code class="Bash">curl -d 'username=zuoxiaolong&password=123456' '/WebUser/Login'</code></pre>
+        <pre><code class="Bash">curl -d 'categoryName=技术' '/HomePage/TopThreeUserArticles'</code></pre>
 
         <p><strong>返回值说明：</strong></p>
 
@@ -92,16 +86,16 @@
             </thead>
             <tbody>
             <tr>
-                <td>token</td>
+                <td>topThreeUserArticles</td>
                 <td>是</td>
-                <td>string</td>
-                <td>用户的token</td>
+                <td>Map&lt;String,UserArticle&gt;</td>
+                <td>排名最高的三篇用户文章</td>
             </tr>
             </tbody>
         </table>
         <p><strong>返回示例：</strong></p>
 
-        <pre><code class="JSON">{"code":200,"message":"操作成功","data":"djjhhada2123sd/=="}</code></pre>
+        <pre><code class="JSON">{"code":200,"message":"请求成功","data":{"mostRecommendArticle":{"webUserId":1,"categoryId":1,"title":"第二篇","content":"淘宝如何","readTimes":5,"thumbupTimes":1,"isMainPage":1,"status":1,"commentTimes":1,"id":2,"createTime":"2016-06-17 15:31:24","updateTime":"2016-06-17 15:45:33"},"mostCommentArticle":{"webUserId":1,"categoryId":1,"title":"第二篇","content":"淘宝如何","readTimes":5,"thumbupTimes":1,"isMainPage":1,"status":1,"commentTimes":1,"id":2,"createTime":"2016-06-17 15:31:24","updateTime":"2016-06-17 15:45:33"},"mostReadArticle":{"webUserId":1,"categoryId":1,"title":"第二篇","content":"淘宝如何","readTimes":5,"thumbupTimes":1,"isMainPage":1,"status":1,"commentTimes":1,"id":2,"createTime":"2016-06-17 15:31:24","updateTime":"2016-06-17 15:45:33"}}}</code></pre>
 
     </div>
 </div>

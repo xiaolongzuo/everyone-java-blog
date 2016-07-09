@@ -5,7 +5,7 @@
  */
 $(function () {
     //打开网站时加载技术类文章并显示出来
-    var url = "/HomePage/TopThreeUserArticles";
+    var url = contextPath + "/HomePage/TopThreeUserArticles";
     var categoryName = "技术";
     getDataAndParse(url, {categoryName: categoryName});
     //根据用户对菜单的选择显示相应的最多评论、最多推荐、最多阅读的文章
@@ -13,8 +13,9 @@ $(function () {
         $(".blog-nav a").removeClass("active");
         $(this).addClass("active");
         var id = $(this).attr("id");
+        var content = $(this).text();
         if (id == "api") {
-            window.location.href = "/html/api-index.html";
+            window.location.href = contextPath + "/html/api-index.html";
         } else if (id == "technology" || id == "work" || id == "life") {
             categoryName = content;
             getDataAndParse(url, {categoryName: categoryName});
@@ -42,13 +43,13 @@ function getDataAndParse(url, data) {
             var mostReadArticle = result.data.mostReadArticle;
             var node = "";
             if (mostRecommendArticle != undefined) {
-                node = "<li id='most-recommend-article'>[最多推荐]<a href='#'>" + mostRecommendArticle.title + "</a></li>";
+                node = "<li id='most-recommend-article'>[最多推荐]<a href='/Article/"+ mostRecommendArticle.id + "'>" + mostRecommendArticle.title + "</a></li>";
             }
             if (mostCommentArticle != undefined) {
-                node += "<li id='most-commend-article'>[最多评论]<a href='#'>" + mostCommentArticle.title + "</a></li>";
+                node += "<li id='most-commend-article'>[最多评论]<a href='/Article/"+ mostCommentArticle.id + "'>" + mostCommentArticle.title + "</a></li>";
             }
             if (mostReadArticle != undefined) {
-                node += "<li id='most-read-article'>[最多阅读]<a href='#'>" + mostReadArticle.title + "</a></li>";
+                node += "<li id='most-read-article'>[最多阅读]<a href='/Article/"+ mostReadArticle.id + "'>" + mostReadArticle.title + "</a></li>";
             }
             $("#blog-rank ul").append(node);
         },

@@ -37,16 +37,16 @@
 
     <div class="row">
 
-        <h2>用户登录接口</h2>
+        <h2>获取短消息内容接口</h2>
 
         <p><strong>地址：</strong></p>
-        <blockquote>/WebUser/Login</blockquote>
+        <blockquote>/MessageBox/Update</blockquote>
 
         <p><strong>方法：</strong></p>
         <blockquote>POST</blockquote>
 
         <p><strong>是否需要登录：</strong></p>
-        <blockquote>否</blockquote>
+        <blockquote>是</blockquote>
 
         <p><strong>参数说明：</strong></p>
 
@@ -61,47 +61,17 @@
             </thead>
             <tbody>
             <tr>
-                <td>username</td>
+                <td>messageBox</td>
                 <td>是</td>
-                <td>string</td>
-                <td>用户名，最少6个字符，最多30个字符。必须由数字、字母和下划线组成</td>
-            </tr>
-            <tr>
-                <td>password</td>
-                <td>是</td>
-                <td>string</td>
-                <td>密码，最少6个字符，最多30个字符。必须由数字、字母和下划线组成</td>
+                <td>MessageBox</td>
+                <td>短消息</td>
             </tr>
             </tbody>
         </table>
 
         <p><strong>请求示例：</strong></p>
 
-        <pre><code class="Bash">curl -d 'username=zuoxiaolong&password=123456' '/WebUser/Login'</code></pre>
-
-        <p><strong>返回值说明：</strong></p>
-
-        <table class="table table-bordered">
-            <thead>
-            <tr>
-                <th>参数名称</th>
-                <th>是否必选</th>
-                <th>参数类型</th>
-                <th>参数描述</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>token</td>
-                <td>是</td>
-                <td>string</td>
-                <td>用户的token</td>
-            </tr>
-            </tbody>
-        </table>
-        <p><strong>返回示例：</strong></p>
-
-        <pre><code class="JSON">{"code":200,"message":"操作成功","data":"djjhhada2123sd/=="}</code></pre>
+        <pre><code class="Bash">curl -d 'id=1' '/MessageBox/Update'</code></pre>
 
     </div>
 </div>

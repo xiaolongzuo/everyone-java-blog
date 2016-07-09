@@ -88,20 +88,7 @@ public class WebBlogServiceImpl implements WebBlogService {
             throw new BusinessException(ExceptionType.DATA_NOT_FOUND);
         }
 
-        // 获取分页大小
-        int size = DEFUALT_PAGE_SIZE;
-        if (StringUtils.isNumeric(pageSize)) {
-            size = Integer.valueOf(pageSize);
-        }
-
-        //分页数据设置
-        DropDownPage userArticlePage = new DropDownPage();
-        if(!ObjectUtils.isEmpty(offset)){
-            userArticlePage.setOffset(offset);
-        }
-        userArticlePage.setSize(size);
-
-        List<UserArticle> userArticles = userArticleMapper.getPageByWebUserId(webUser.getId(), userArticlePage);
+        List<UserArticle> userArticles = getMyBlogByUserId(webUser.getId(), pageSize, offset);
 
         List<UserArticle> userHotestArticles = userArticleMapper.getTopThumbupArticlesByWebUserId(webUser.getId(), USER_HOTEST_ARTICLE_PAGE_SIZE);
 
@@ -122,7 +109,6 @@ public class WebBlogServiceImpl implements WebBlogService {
         userBlogInfo.setWebUser(dtoUser);
         userBlogInfo.setBlogConfig(dtoBlogConfig);
         userBlogInfo.setUserArticleList(userArticles);
-        userBlogInfo.setUserArticlePage(userArticlePage);
         userBlogInfo.setUserHotestArticleList(userHotestArticles);
 
         return userBlogInfo;
@@ -149,5 +135,25 @@ public class WebBlogServiceImpl implements WebBlogService {
         }
 
         return blogConfigMapper.selectByWebUserId(webUserId);
+    }
+
+    @Override
+    public List<UserArticle> getMyBlogByUserId(Integer userId, String pageSize, String offset) {
+
+        // 获取分页大小
+        int size = DEFUALT_PAGE_SIZE;
+        if (StringUtils.isNumeric(pageSize)) {
+            size = Integer.valueOf(pageSize);
+        }
+
+        //分页数据设置
+        DropDownPage userArticlePage = new DropDownPage();
+        if(!ObjectUtils.isEmpty(offset)){
+            userArticlePage.setOffset(offset);
+        }
+        userArticlePage.setSize(size);
+
+        List<UserArticle> userArticles = userArticleMapper.getPageByWebUserId(userId, userArticlePage);
+        return userArticles;
     }
 }

@@ -37,16 +37,16 @@
 
     <div class="row">
 
-        <h2>用户登录接口</h2>
+        <h2>获取短消息内容接口</h2>
 
         <p><strong>地址：</strong></p>
-        <blockquote>/WebUser/Login</blockquote>
+        <blockquote>/MessageBox/Content</blockquote>
 
         <p><strong>方法：</strong></p>
-        <blockquote>POST</blockquote>
+        <blockquote>GET</blockquote>
 
         <p><strong>是否需要登录：</strong></p>
-        <blockquote>否</blockquote>
+        <blockquote>是</blockquote>
 
         <p><strong>参数说明：</strong></p>
 
@@ -61,23 +61,17 @@
             </thead>
             <tbody>
             <tr>
-                <td>username</td>
+                <td>id</td>
                 <td>是</td>
-                <td>string</td>
-                <td>用户名，最少6个字符，最多30个字符。必须由数字、字母和下划线组成</td>
-            </tr>
-            <tr>
-                <td>password</td>
-                <td>是</td>
-                <td>string</td>
-                <td>密码，最少6个字符，最多30个字符。必须由数字、字母和下划线组成</td>
+                <td>Integer</td>
+                <td>消息id</td>
             </tr>
             </tbody>
         </table>
 
         <p><strong>请求示例：</strong></p>
 
-        <pre><code class="Bash">curl -d 'username=zuoxiaolong&password=123456' '/WebUser/Login'</code></pre>
+        <pre><code class="Bash">curl -d 'id=1' '/MessageBox/Content'</code></pre>
 
         <p><strong>返回值说明：</strong></p>
 
@@ -92,16 +86,16 @@
             </thead>
             <tbody>
             <tr>
-                <td>token</td>
+                <td>messageContent</td>
                 <td>是</td>
-                <td>string</td>
-                <td>用户的token</td>
+                <td>MessageBoxDto</td>
+                <td>短消息的详细内容</td>
             </tr>
             </tbody>
         </table>
         <p><strong>返回示例：</strong></p>
 
-        <pre><code class="JSON">{"code":200,"message":"操作成功","data":"djjhhada2123sd/=="}</code></pre>
+        <pre><code class="JSON">{"code":200,"message":"请求成功","data":{"message":{"content":"消息8","sender":2,"receiver":1,"status":2,"title":"问候29","id":29,"createTime":"2016-06-25 20:56:50","updateTime":"2016-06-27 15:40:51"},"sender":{"username":"456@qq.com","nickname":"456@qq.com"},"receiver":{"username":"123@qq.com","nickname":"123@qq.com"}}}</code></pre>
 
     </div>
 </div>
