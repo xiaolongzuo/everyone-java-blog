@@ -44,8 +44,8 @@ public class HomePageController extends AbstractWebController {
     public String index() {
         Map<String, String> params = new HashMap<>();
         params.put("categoryId", "1");
-        params.put("startRow", "0");
-        params.put("pageSize", "20");
+        params.put("offset", "0");
+        params.put("size", "20");
         setModelAttribute("result", invokeApi(Api.HomePage_Articles, params));
         return "/index/index";
     }
