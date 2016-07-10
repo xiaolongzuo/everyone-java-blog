@@ -37,7 +37,7 @@
                 <div id="blog-rank">
                     <ul></ul>
                 </div>
-                <div id ="loadmore"><a>加载更多</a></div>
+                <div id ="loadmore"><a href="javascript:void(0)">加载更多</a></div>
             </div><!-- /.blog-main -->
 
             <jsp:include page="../common/contributor.jsp"/>

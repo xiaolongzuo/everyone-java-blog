@@ -39,7 +39,7 @@ public class WebUserController extends AbstractWebController {
     @RequestMapping(value = "/CheckUsername", method = RequestMethod.GET)
     public void checkUsername(String username) throws IOException {
         JsonResponse jsonResponse = invokeApi(Api.WebUser_CheckUsername, CollectionUtils.newMap("username", username));
-        if (jsonResponse.success()) {
+        if (jsonResponse.success() && (boolean)jsonResponse.getData()) {
             renderJson("success");
         } else {
             getResponse().sendError(HttpServletResponse.SC_CONFLICT);
