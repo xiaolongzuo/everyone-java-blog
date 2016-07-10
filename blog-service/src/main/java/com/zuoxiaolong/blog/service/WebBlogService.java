@@ -46,4 +46,11 @@ public interface WebBlogService {
      */
     List<UserArticle> getMyBlogByUserId(Integer userId, String pageSize, String offset);
 
+    /**
+     * 获取用户热门文章
+     * @param userId
+     * @param num
+     * @return
+     */
+    List<UserArticle> getUserHotBlog(Integer userId, Integer num);
 }

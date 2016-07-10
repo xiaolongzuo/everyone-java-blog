@@ -40,7 +40,7 @@
     </dependencies>
 
     <build>
-        <finalName>blog-web</finalName>
+        <finalName>java-blog-web</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
