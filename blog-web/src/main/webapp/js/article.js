@@ -132,7 +132,7 @@ function addReCommentText(parent,parentdiv){
  */
 function getComment(articleid,offset,size) {
     $.ajax({
-        url: "/Article/GetCommentInfo?articleid="+articleid+"&offset="+offset+"&size="+size+"",
+        url: contextPath + "/Article/GetCommentInfo?articleid="+articleid+"&offset="+offset+"&size="+size+"",
         dataType: "json",
         type: "GET",
         cache: false,
@@ -228,7 +228,7 @@ function addComment(parent){
     $.ajax({
         cache: true,
         type: "POST",
-        url:'/Article/AddComment',
+        url:contextPath + '/Article/AddComment',
         data:formElement.serialize(),//form
         async: false,
         success: function(data) {
@@ -270,7 +270,7 @@ function addReComment(parent){
     $.ajax({
         cache: true,
         type: "POST",
-        url:'/Article/AddComment',
+        url:contextPath + '/Article/AddComment',
         data:formElement.serialize(),//form
         async: false,
         success: function(data) {
