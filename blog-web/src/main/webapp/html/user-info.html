@@ -37,62 +37,46 @@
 
     <div class="row">
 
-        <h2>API列表</h2>
+        <h2>获取用户信息</h2>
+
+        <p><strong>地址：</strong></p>
+        <blockquote>WebUser/GetUserInfo</blockquote>
+
+        <p><strong>方法：</strong></p>
+        <blockquote>GET</blockquote>
+
+        <p><strong>是否需要登录：</strong></p>
+        <blockquote>否</blockquote>
+
+        <p><strong>参数说明：</strong></p>
 
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th width="250">接口名称</th>
-                <th>接口描述</th>
+                <th>参数名称</th>
+                <th>是否必选</th>
+                <th>参数类型</th>
+                <th>参数描述</th>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td><a href="user-register.html">用户注册接口</a></td>
-                <td>注册一个用户</td>
-            </tr>
-            <tr>
-                <td><a href="user-login.html">用户登录接口</a></td>
-                <td>用户登录</td>
-            </tr>
-            <tr>
-                <td><a href="user-blog.html">获取用户博客接口</a></td>
-                <td>获取用户博客</td>
-            </tr>
-            <tr>
-                <td><a href="article-rank.html">获取排行榜文章接口</a></td>
-                <td>获取评论最多、点赞最多、推荐最多的三篇文章</td>
-            </tr>
-            <tr>
-                <td><a href="message-content.html">获取短消息内容接口</a></td>
-                <td>获取某一条短消息的内容</td>
-            </tr>
-            <tr>
-                <td><a href="message-list.html">获取短消息列表接口</a></td>
-                <td>依据类别获取短消息列表</td>
-            </tr>
-            <tr>
-                <td><a href="message-send.html">发送短消息接口</a></td>
-                <td>发送短消息</td>
-            </tr>
-            <tr>
-                <td><a href="message-update.html">更新短消息接口</a></td>
-                <td>更改某一条短消息的状态</td>
-            </tr>
-            <tr>
-                <td><a href="homepage-blog.html">获取首页博客列表接口</a></td>
-                <td>获取首页博客列表</td>
-            </tr>
-            <tr>
-                <td><a href="user-info.html">获取用户信息接口</a></td>
-                <td>获取用户信息</td>
-            </tr>
-            <tr>
-                <td><a href="user-hot-blog.html">获取用户热门博客接口</a></td>
-                <td>获取用户热门博客</td>
+                <td>userId</td>
+                <td>是</td>
+                <td>Integer</td>
+                <td>用户id</td>
             </tr>
             </tbody>
         </table>
+
+        <p><strong>请求示例：</strong></p>
+
+        <pre><code class="Bash">curl -d 'userId=1' '/WebUser/GetUserInfo'</code></pre>
+
+        <p><strong>返回示例：</strong></p>
+
+        <pre><code class="JSON">{"code":200,"message":"请求成功","data":{"id":1,"createTime":"2016-06-18 23:40:08","updateTime":"2016-06-29 19:24:30","username":"83986976@qq.com","nickname":"83986976@qq.com","token":"beb25d1e3e39d570a81a343c4b384a9cc9744af2cd53f499235a35fd511a67fd"}}</code></pre>
+
     </div>
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

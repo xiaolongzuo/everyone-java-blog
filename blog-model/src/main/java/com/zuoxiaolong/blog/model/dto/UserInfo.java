@@ -13,34 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.zuoxiaolong.blog.model.dto;
 
-package com.zuoxiaolong.blog.service;
+import lombok.Data;
 
-import com.zuoxiaolong.blog.model.dto.UserInfo;
-import com.zuoxiaolong.blog.model.persistent.WebUser;
+import java.util.Date;
 
 /**
- * @author Xiaolong Zuo
+ * @Author flutterfire
  * @since 1.0.0
  */
-public interface WebUserService {
+@Data
+public class UserInfo {
 
-    WebUser register(WebUser webUser);
+    private Integer id;
 
-    WebUser login(String username, String password);
+    private Date createTime;
 
-    WebUser loginWithToken(String token);
+    private Date updateTime;
 
-    void modifyPassword(String username, String oldPassword, String newPassword);
+    private String username;
 
-    boolean checkUsername(String username);
+    private String nickname;
 
-    WebUser checkToken(String token);
-
-    /**
-     * 获取用户信息
-     * @param userId
-     * @return
-     */
-    UserInfo getUserInfoById(Integer userId);
+    private String token;
 }
