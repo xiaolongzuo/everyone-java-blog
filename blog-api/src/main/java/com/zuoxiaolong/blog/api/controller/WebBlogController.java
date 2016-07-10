@@ -85,4 +85,9 @@ public class WebBlogController extends AbstractApiController {
     public List<UserArticle> GetUserBlog(Integer userId, String pageSize, String offset) {
         return webBlogService.getMyBlogByUserId(userId, pageSize, offset);
     }
+
+    @RequestMapping("/GetUserHotBlog")
+    public List<UserArticle> GetUserHotBlog(Integer userId, Integer num) {
+        return webBlogService.getUserHotBlog(userId, num);
+    }
 }

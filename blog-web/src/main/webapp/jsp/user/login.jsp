@@ -31,15 +31,15 @@
 <div class="container">
     <%@include file="../common/blog_header.jsp"%>
     <div class="row">
-        <div class="col-sm-8 blog-main">
+        <div class="col-sm-8 blog-main auto-validate">
             <form action="${pageContext.request.contextPath}/WebUser/Login" method="post">
                 <div class="form-group">
                     <label for="username">用户名</label>
-                    <input type="email" class="form-control" name="username" id="username" placeholder="">
+                    <input type="text" class="form-control" name="username" id="username" placeholder="" required>
                 </div>
                 <div class="form-group">
                     <label for="password">密码</label>
-                    <input type="password" class="form-control" name="password" id="password" placeholder="">
+                    <input type="password" class="form-control" name="password" id="password" placeholder="" required>
                 </div>
                 <div class="form-group">
                     <p style="color: red; font-size: 14px;">&nbsp;${error}</p>
