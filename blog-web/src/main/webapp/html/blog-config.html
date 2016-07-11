@@ -37,16 +37,64 @@
 
     <div class="row">
 
-        <h2>获取用户博客接口</h2>
+        <h2>查询用户个人博客配置信息接口</h2>
 
         <p><strong>地址：</strong></p>
-        <blockquote>/WebBlog/GetUserBlog</blockquote>
+        <blockquote>/Select/Config</blockquote>
 
         <p><strong>方法：</strong></p>
         <blockquote>GET</blockquote>
 
         <p><strong>是否需要登录：</strong></p>
-        <blockquote>否</blockquote>
+        <blockquote>是</blockquote>
+
+        <p><strong>参数说明：</strong></p>
+        <blockquote>无</blockquote>
+
+
+        <p><strong>请求示例：</strong></p>
+
+        <pre><code class="Bash">curl '/Select/Config'</code></pre>
+
+        <p><strong>返回值说明：</strong></p>
+
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>参数名称</th>
+                <th>是否必选</th>
+                <th>参数类型</th>
+                <th>参数描述</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>blogConfig</td>
+                <td>是</td>
+                <td>BlogConfig</td>
+                <td>用户博客配置信息</td>
+            </tr>
+            </tbody>
+        </table>
+        <p><strong>返回示例：</strong></p>
+
+        <pre><code class="JSON">{"code"=200, "message"="请求成功", "data"={"webUserId"=3, "introduction"="这是我的个人介绍", "address"="这是我的博客地址", "blogTitle"="阿杰的博客标题", "blogSubTitle"="阿杰的博客子标题"}</code></pre>
+
+    </div>
+    <br/><br/>
+
+    <div class="row">
+
+        <h2>修改个人博客配置接口</h2>
+
+        <p><strong>地址：</strong></p>
+        <blockquote>/Update/Config</blockquote>
+
+        <p><strong>方法：</strong></p>
+        <blockquote>POST</blockquote>
+
+        <p><strong>是否需要登录：</strong></p>
+        <blockquote>是</blockquote>
 
         <p><strong>参数说明：</strong></p>
 
@@ -61,35 +109,33 @@
             </thead>
             <tbody>
             <tr>
-                <td>userId</td>
+                <td>introduction</td>
                 <td>是</td>
-                <td>Integer</td>
-                <td>用户id</td>
+                <td>string</td>
+                <td>个人简介</td>
             </tr>
             <tr>
-                <td>pageSize</td>
-                <td>否</td>
-                <td>String</td>
-                <td>获取数量，不填是10</td>
+                <td>blogTitle</td>
+                <td>是</td>
+                <td>string</td>
+                <td>博客标题</td>
             </tr>
             <tr>
-                <td>offset</td>
-                <td>否</td>
-                <td>String</td>
-                <td>起始位子，因为是按id倒序，第一次不填，后面请求传入最后一条的数据id</td>
+                <td>blogSubTitle</td>
+                <td>是</td>
+                <td>string</td>
+                <td>博客子标题</td>
             </tr>
             </tbody>
         </table>
 
         <p><strong>请求示例：</strong></p>
 
-        <pre><code class="Bash">curl -d 'userId=1&pageSize=5&offset=6' '/WebBlog/GetUserBlog'</code></pre>
-
-        <p><strong>返回示例：</strong></p>
-
-        <pre><code class="JSON">{"code":200,"message":"请求成功","data":[{"webUserId":1,"categoryId":1,"title":"第五篇","content":"阿水电费","readTimes":1,"thumbupTimes":1,"isMainPage":0,"status":1,"commentTimes":1,"id":5,"createTime":"2016-06-18 00:00:40","updateTime":"2016-06-18 00:00:40"},{"webUserId":1,"categoryId":1,"title":"第四篇","content":"阿水电费","readTimes":1,"thumbupTimes":1,"isMainPage":0,"status":1,"commentTimes":1,"id":4,"createTime":"2016-06-18 00:00:34","updateTime":"2016-06-18 00:00:34"}]}</code></pre>
-
+        <pre><code class="Bash">curl -d 'introduction=我是个程序员&blogTitle=阿杰的博客标题&blogSubTitle=阿杰的博客子标题' '/Update/Config'</code></pre>
     </div>
+
+
+
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="../lib/jquery/jquery.min.js"></script>

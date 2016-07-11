@@ -17,7 +17,7 @@ var COMMENT_NUM = 0;
 function thumbsUp(aHtml){
     var articleid = $('#articleid').val();
     $.ajax({
-        url: "/Article/AddThumbupTimes?articleid="+articleid,
+        url: contextPath + "/Article/AddThumbupTimes?articleid="+articleid,
         dataType: "json",
         type: "POST",
         cache: false,
@@ -43,7 +43,7 @@ function getMoreReComment(aHtml){
     var lastReCommentid=$(aHtml).parent().prev().children('.reply-recomment').attr('comment-id');
     //加载回复列表
     $.ajax({
-        url: "/Article/GetMoreReComment?commondid=" + commentid + "&offset=" + lastReCommentid + "&size=10",
+        url: contextPath + "/Article/GetMoreReComment?commondid=" + commentid + "&offset=" + lastReCommentid + "&size=10",
         dataType: "json",
         type: "GET",
         cache: false,
@@ -132,7 +132,7 @@ function addReCommentText(parent,parentdiv){
  */
 function getComment(articleid,offset,size) {
     $.ajax({
-        url: "/Article/GetCommentInfo?articleid="+articleid+"&offset="+offset+"&size="+size+"",
+        url: contextPath + "/Article/GetCommentInfo?articleid="+articleid+"&offset="+offset+"&size="+size+"",
         dataType: "json",
         type: "GET",
         cache: false,
@@ -228,7 +228,7 @@ function addComment(parent){
     $.ajax({
         cache: true,
         type: "POST",
-        url:'/Article/AddComment',
+        url:contextPath + '/Article/AddComment',
         data:formElement.serialize(),//form
         async: false,
         success: function(data) {
@@ -270,7 +270,7 @@ function addReComment(parent){
     $.ajax({
         cache: true,
         type: "POST",
-        url:'/Article/AddComment',
+        url:contextPath + '/Article/AddComment',
         data:formElement.serialize(),//form
         async: false,
         success: function(data) {

@@ -116,7 +116,7 @@ public class WebBlogServiceImpl implements WebBlogService {
 
     @Override
     public int updateBlogConfig(BlogConfig blogConfig) {
-        if(blogConfig == null
+        if(blogConfig == null || blogConfig.getWebUserId() == null || blogConfig.getWebUserId() < 0
                 || SensitiveWordCheckUtils.isContainSensitiveWord(blogConfig.getIntroduction())
                 || SensitiveWordCheckUtils.isContainSensitiveWord(blogConfig.getBlogTitle())
                 || SensitiveWordCheckUtils.isContainSensitiveWord(blogConfig.getBlogSubTitle())) {
@@ -155,5 +155,14 @@ public class WebBlogServiceImpl implements WebBlogService {
 
         List<UserArticle> userArticles = userArticleMapper.getPageByWebUserId(userId, userArticlePage);
         return userArticles;
+    }
+
+    @Override
+    public List<UserArticle> getUserHotBlog(Integer userId, Integer num) {
+        if (num == null || num <= 0) {
+            num = USER_HOTEST_ARTICLE_PAGE_SIZE;
+        }
+        List<UserArticle> userHotestArticles = userArticleMapper.getTopThumbupArticlesByWebUserId(userId, num);
+        return userHotestArticles;
     }
 }

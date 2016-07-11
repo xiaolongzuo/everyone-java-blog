@@ -11,17 +11,17 @@ $(function () {
     $(".active").removeClass("active");
 
     $('#technology').on('click', function (e) {
-        window.location.href = '/HomePage/index?categoryId=1';
+        window.location.href = contextPath + '/HomePage/Index?categoryId=1';
     });
     $('#work').on('click', function (e) {
-        window.location.href = '/HomePage/index?categoryId=2';
+        window.location.href = contextPath + '/HomePage/Index?categoryId=2';
     });
     $('#life').on('click', function (e) {
-        window.location.href = '/HomePage/index?categoryId=3';
+        window.location.href = contextPath + '/HomePage/Index?categoryId=3';
     });
 })
 function loadMoreArticle() {
-    $.get("/WebBlog/getMyBlogArticle", {offset:offset}, function (result) {
+    $.get(contextPath + "/WebBlog/getMyBlogArticle", {offset:offset}, function (result) {
         var len = result.data.userArticleList.length;
         for (var i = 0; i < len; i++) {
 
@@ -39,5 +39,5 @@ function loadMoreArticle() {
 }
 
 function goArticle(id) {
-    window.location.href = '/Article/' + id;
+    window.location.href = contextPath + '/Article/' + id;
 }
