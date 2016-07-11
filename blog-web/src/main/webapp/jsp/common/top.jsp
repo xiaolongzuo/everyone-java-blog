@@ -26,7 +26,7 @@
     <div class="container">
         <nav class="blog-nav">
             <c:if test="${homeArticleDTO == null}">
-                <a href="${pageContext.request.contextPath}/HomePage/Index?categoryId=1" class="pull-left blog-nav-item active">技术</a>
+                <a href="${pageContext.request.contextPath}/HomePage/Index?categoryId=1" class="pull-left blog-nav-item">技术</a>
                 <a href="${pageContext.request.contextPath}/HomePage/Index?categoryId=2" class="pull-left blog-nav-item">职场</a>
                 <a href="${pageContext.request.contextPath}/HomePage/Index?categoryId=3" class="pull-left blog-nav-item">人生</a>
             </c:if>
