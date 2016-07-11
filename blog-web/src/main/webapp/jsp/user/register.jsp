@@ -31,19 +31,22 @@
 <div class="container">
     <%@include file="../common/blog_header.jsp"%>
     <div class="row">
-        <div class="col-sm-8 blog-main">
+        <div class="col-sm-8 blog-main auto-validate">
             <form action="${pageContext.request.contextPath}/WebUser/Register" method="post">
                 <div class="form-group">
                     <label for="username">用户名</label>
-                    <input type="email" class="form-control" name="username" id="username" placeholder="">
+                    <input pattern="^[_A-z0-9]{6,36}$" type="text" data-remote="${pageContext.request.contextPath}/WebUser/CheckUsername" data-error="用户名为空或格式不正确或已存在" class="form-control" name="username" id="username" placeholder="只能输入6-36位的数字,字母,下划线" required>
+                    <div class="help-block with-errors"></div>
                 </div>
                 <div class="form-group">
                     <label for="password">密码</label>
-                    <input type="password" class="form-control" name="password" id="password" placeholder="">
+                    <input pattern="^[_A-z0-9]{6,36}$" type="password" data-error="密码为空或格式不正确" class="form-control" name="password" id="password" placeholder="只能输入6-36位的数字,字母,下划线" required>
+                    <div class="help-block with-errors"></div>
                 </div>
                 <div class="form-group">
                     <label for="repeatPassword">确认密码</label>
-                    <input type="password" class="form-control" name="repeatPassword" id="repeatPassword" placeholder="">
+                    <input data-match="#password" data-match-error="输入的密码不一致" type="password" class="form-control" name="repeatPassword" id="repeatPassword" placeholder="请再次输入密码" required>
+                    <div class="help-block with-errors"></div>
                 </div>
                 <div class="form-group">
                     <p style="color: red; font-size: 14px;">&nbsp;${error}</p>

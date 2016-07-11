@@ -11,13 +11,13 @@ $(function () {
     $(".active").removeClass("active");
 
     $('#technology').on('click', function (e) {
-        window.location.href = contextPath + '/HomePage/index?categoryId=1';
+        window.location.href = contextPath + '/HomePage/Index?categoryId=1';
     });
     $('#work').on('click', function (e) {
-        window.location.href = contextPath + '/HomePage/index?categoryId=2';
+        window.location.href = contextPath + '/HomePage/Index?categoryId=2';
     });
     $('#life').on('click', function (e) {
-        window.location.href = contextPath + '/HomePage/index?categoryId=3';
+        window.location.href = contextPath + '/HomePage/Index?categoryId=3';
     });
 })
 function loadMoreArticle() {

@@ -18,9 +18,9 @@ package com.zuoxiaolong.blog.service.impl;
 
 import com.zuoxiaolong.blog.common.bean.ExceptionType;
 import com.zuoxiaolong.blog.common.exception.BusinessException;
-import com.zuoxiaolong.blog.common.utils.AssertUtils;
 import com.zuoxiaolong.blog.common.utils.ObjectUtils;
 import com.zuoxiaolong.blog.common.utils.StringUtils;
+import com.zuoxiaolong.blog.common.utils.ValidateUtils;
 import com.zuoxiaolong.blog.mapper.WebUserMapper;
 import com.zuoxiaolong.blog.model.dto.UserInfo;
 import com.zuoxiaolong.blog.model.persistent.WebUser;
@@ -41,9 +41,12 @@ public class WebUserServiceImpl implements WebUserService {
 
     @Override
     public WebUser register(WebUser webUser) {
-        AssertUtils.isEmpty(webUser);
-        AssertUtils.isEmpty(webUser.getUsername());
-        AssertUtils.isEmpty(webUser.getPassword());
+        ValidateUtils.required(webUser.getUsername());
+        ValidateUtils.required(webUser.getPassword());
+        ValidateUtils.text(webUser.getUsername());
+        ValidateUtils.text(webUser.getPassword());
+        ValidateUtils.check(checkUsername(webUser.getUsername()));
+
         WebUser originWebUser = new WebUser();
         originWebUser.setUsername(webUser.getUsername());
         originWebUser.setPassword(webUser.getPassword());
@@ -61,6 +64,11 @@ public class WebUserServiceImpl implements WebUserService {
 
     @Override
     public WebUser login(String username, String password) {
+        ValidateUtils.required(username);
+        ValidateUtils.required(password);
+        ValidateUtils.text(username);
+        ValidateUtils.text(password);
+
         WebUser webUser = webUserMapper.selectByUsername(username);
         if (ObjectUtils.isEmpty(webUser)) {
             throw new BusinessException(ExceptionType.USER_NOT_FOUND);
@@ -75,6 +83,8 @@ public class WebUserServiceImpl implements WebUserService {
 
     @Override
     public WebUser loginWithToken(String token) {
+        ValidateUtils.required(token);
+
         WebUser param = new WebUser();
         param.setToken(token);
         WebUser webUser = webUserMapper.selectByWebUser(param);
@@ -89,6 +99,8 @@ public class WebUserServiceImpl implements WebUserService {
     @Override
     public void modifyPassword(String username, String oldPassword, String newPassword) {
         login(username, oldPassword);
+        ValidateUtils.required(newPassword);
+        ValidateUtils.text(newPassword);
         WebUser webUser = webUserMapper.selectByUsername(username);
         webUser.setPassword(newPassword);
         webUser.encodePassword();
