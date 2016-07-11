@@ -74,7 +74,7 @@ public class MessageBoxServiceImpl implements MessageBoxService {
     public MessageBoxDto getMessageContentById(Integer id) {
         MessageBox message = new MessageBox();
         if (!ObjectUtils.isEmpty(id)) {
-            message.setStatus(2);
+            message.setStatus(0);
             updateMessageStatus(message);
             message = messageBoxMapper.selectByPrimaryKey(id);
         }
