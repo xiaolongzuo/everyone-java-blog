@@ -15,10 +15,7 @@
  */
 package com.zuoxiaolong.blog.api.controller;
 
-import com.zuoxiaolong.blog.common.orm.DropDownPage;
-import com.zuoxiaolong.blog.common.utils.DateUtils;
-import com.zuoxiaolong.blog.common.utils.ObjectUtils;
-import com.zuoxiaolong.blog.model.dto.HomeAtrticleDTO;
+import com.zuoxiaolong.blog.model.dto.HomeArticleDTO;
 import com.zuoxiaolong.blog.model.persistent.UserArticle;
 import com.zuoxiaolong.blog.service.UserArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +24,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -45,16 +39,13 @@ public class HomePageController extends AbstractApiController {
     private UserArticleService userArticleService;
 
     @RequestMapping(value = "/Articles", method = RequestMethod.POST)
-    public List<HomeAtrticleDTO> getArticles(@RequestParam("categoryId") int categoryId,
-                                         @RequestParam(required = false) String offset,
-                                         @RequestParam(required = false) int size) {
-
-        return userArticleService.getArticles(offset,size,categoryId);
+    public HomeArticleDTO getArticles(@RequestParam(defaultValue = "1") Integer categoryId, @RequestParam(required = false) String offset, @RequestParam(required = false) Integer size) {
+        return userArticleService.getArticles(offset, size, categoryId);
     }
 
-    @RequestMapping(value = {"/TopThreeUserArticles"}, method = {RequestMethod.GET, RequestMethod.POST})
-    public Map<String, UserArticle> topThreeUserArticles(String categoryName) {
-        return userArticleService.getTopThreeUserArticles(categoryName);
+    @RequestMapping(value = "/TopThreeUserArticles", method = {RequestMethod.GET, RequestMethod.POST})
+    public Map<String, UserArticle> topThreeUserArticles(Integer categoryId) {
+        return userArticleService.getTopThreeUserArticles(categoryId);
     }
 
 }
