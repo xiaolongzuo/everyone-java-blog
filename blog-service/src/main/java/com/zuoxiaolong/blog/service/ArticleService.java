@@ -20,6 +20,7 @@ import com.zuoxiaolong.blog.model.dto.ArticleCommentAndReplyDTO;
 import com.zuoxiaolong.blog.model.dto.ArticleCommentDTO;
 import com.zuoxiaolong.blog.model.dto.ArticleInfoDTO;
 import com.zuoxiaolong.blog.model.persistent.ArticleComment;
+import com.zuoxiaolong.blog.model.persistent.UserArticle;
 
 import java.util.List;
 
@@ -75,4 +76,25 @@ public interface ArticleService {
      * @return
      */
     boolean updateThumbupTimes(Integer articleid);
+
+    /**
+     * 添加一篇文章
+     * @param userArticle
+     * @return
+     */
+    void insertUserArticle(UserArticle userArticle);
+
+    /**
+     * 修改文章信息，包括文章标题、内容、状态(发布、草稿、删除)
+     * @param userArticle
+     * @return
+     */
+    void updateUserArticle(UserArticle userArticle);
+
+    /**
+     * 根据作者获取对应的文章
+     * @param userId
+     * @return
+     */
+    List<UserArticle> getUserArticle(Integer userId);
 }

@@ -83,7 +83,7 @@ public class ArticleController  extends AbstractApiController {
     @CheckLogin
     @RequestMapping(value = "/AddComment" , method = RequestMethod.POST)
     public Integer addComment(ArticleComment articleComment){
-        return  articleService.insertArticleComment(articleComment,getWebUserId());
+        return  articleService.insertArticleComment(articleComment, getWebUserId());
     }
 
     /**
@@ -94,5 +94,34 @@ public class ArticleController  extends AbstractApiController {
     @RequestMapping(value = "/AddThumbupTimes" , method = RequestMethod.POST)
     public boolean addThumbupTimes(int articleid){
         return  articleService.updateThumbupTimes(articleid);
+    }
+
+    /**
+     * 增加一篇博文
+     * @param userArticle
+     */
+    @CheckLogin
+    @RequestMapping(value = "/AddUserArticle" , method = RequestMethod.POST)
+    public void addUserArticle(UserArticle userArticle){
+//        userArticle.setWebUserId(getWebUserId());
+        articleService.insertUserArticle(userArticle);
+    }
+
+    /**
+     *修改博文信息（标题、内容、状态）
+     */
+    @CheckLogin
+    @RequestMapping(value = "/UpdUserArticle" , method = RequestMethod.POST)
+    public void updUserArticle(UserArticle userArticle){
+        articleService.updateUserArticle(userArticle);
+    }
+
+    /**
+     *获取当前用户对应的文章
+     */
+    @CheckLogin
+    @RequestMapping(value = "/GetUserArticle" , method = RequestMethod.GET)
+    public List<UserArticle> getUserArticle(){
+        return articleService.getUserArticle(getWebUserId());
     }
 }

@@ -292,4 +292,19 @@ public class ArticleServiceImpl implements ArticleService {
         return record>0?true:false;
     }
 
+    @Override
+    public void insertUserArticle(UserArticle userArticle) {
+        userArticleMapper.insertSelective(userArticle);
+    }
+
+    @Override
+    public void updateUserArticle(UserArticle userArticle) {
+        userArticleMapper.updateByPrimaryKeySelective(userArticle);
+    }
+
+    @Override
+    public List<UserArticle> getUserArticle(Integer userId) {
+        return userArticleMapper.selectByWebUserId(userId);
+    }
+
 }
