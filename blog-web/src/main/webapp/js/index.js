@@ -10,14 +10,9 @@ $(document).ready(function () {
         var offset = $('#load-more').attr("offset");
         var size = $('#load-more').attr("size");
         $.ajax({
-            url: contextPath + "/HomePage/Articles",
+            url: contextPath + "/HomePage/Articles?categoryId=" + categoryId + "&offset=" + offset + "&size=" + size,
             dataType: "JSON",
-            data: {
-                categoryId: categoryId,
-                offset: offset,
-                size: size
-            },
-            type: "POST",
+            type: "GET",
             cache: false,
             success: function (result) {
                 if (result == "error") {

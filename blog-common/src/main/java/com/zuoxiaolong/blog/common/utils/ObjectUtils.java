@@ -44,32 +44,40 @@ public interface ObjectUtils {
      */
     static Map<String, String> objectToMap(Object o) {
         AssertUtils.isNull(o);
-        Class<?> clazz = o.getClass();
-        Field[] fields = ReflectUtils.getAllFields(clazz);
-        Map<String, String> map = new HashMap<>();
-        if (CollectionUtils.isEmpty(fields)) {
+        if (o instanceof Map) {
+            Map<String, String> map = new HashMap<>();
+            for (Object key : ((Map) o).keySet()) {
+                map.put(key.toString(), ((Map) o).get(key).toString());
+            }
+            return map;
+        } else {
+            Class<?> clazz = o.getClass();
+            Field[] fields = ReflectUtils.getAllFields(clazz);
+            Map<String, String> map = new HashMap<>();
+            if (CollectionUtils.isEmpty(fields)) {
+                return map;
+            }
+            for (Field field : fields) {
+                int modifiers = field.getModifiers();
+                if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || !Modifier.isPrivate(modifiers)) {
+                    continue;
+                }
+                Object value = ReflectUtils.getFieldValueWithGetterMethod(o, clazz, field);
+                if (isNull(value)) {
+                    continue;
+                }
+                Class<?> fieldClass = value.getClass();
+                if (!ClassUtils.isPrimitive(fieldClass)) {
+                    continue;
+                }
+                if (fieldClass == Date.class) {
+                    map.put(field.getName(), DateUtils.format((Date) value));
+                } else {
+                    map.put(field.getName(), value.toString());
+                }
+            }
             return map;
         }
-        for (Field field : fields) {
-            int modifiers = field.getModifiers();
-            if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || !Modifier.isPrivate(modifiers)) {
-                continue;
-            }
-            Object value = ReflectUtils.getFieldValueWithGetterMethod(o, clazz, field);
-            if (isNull(value)) {
-                continue;
-            }
-            Class<?> fieldClass = value.getClass();
-            if (!ClassUtils.isPrimitive(fieldClass)) {
-                continue;
-            }
-            if (fieldClass == Date.class) {
-                map.put(field.getName(), DateUtils.format((Date) value));
-            } else {
-                map.put(field.getName(), value.toString());
-            }
-        }
-        return map;
     }
 
 }

@@ -37,8 +37,8 @@
                 <div id="blog-rank">
                     <ul>
                         <li id='most-recommend-article'>[最多推荐]<a href='${pageContext.request.contextPath}/Article/${topThreeUserArticles.mostRecommendArticle.id}'>${topThreeUserArticles.mostRecommendArticle.title}</a></li>
-                        <li id='most-commend-article'>[最多推荐]<a href='${pageContext.request.contextPath}/Article/${topThreeUserArticles.mostCommentArticle.id}'>${topThreeUserArticles.mostCommentArticle.title}</a></li>
-                        <li id='most-read-article'>[最多推荐]<a href='${pageContext.request.contextPath}/Article/${topThreeUserArticles.mostReadArticle.id}'>${topThreeUserArticles.mostReadArticle.title}</a></li>
+                        <li id='most-commend-article'>[最多评论]<a href='${pageContext.request.contextPath}/Article/${topThreeUserArticles.mostCommentArticle.id}'>${topThreeUserArticles.mostCommentArticle.title}</a></li>
+                        <li id='most-read-article'>[最多阅读]<a href='${pageContext.request.contextPath}/Article/${topThreeUserArticles.mostReadArticle.id}'>${topThreeUserArticles.mostReadArticle.title}</a></li>
                     </ul>
                 </div>
                 <c:forEach items="${homeArticleDTO.articles}" var="articleDTO">
