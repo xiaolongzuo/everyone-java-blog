@@ -35,11 +35,13 @@
             <form action="${pageContext.request.contextPath}/WebUser/Login" method="post">
                 <div class="form-group">
                     <label for="username">用户名</label>
-                    <input type="text" class="form-control" name="username" id="username" placeholder="" required>
+                    <input pattern="^[_A-z0-9]{6,36}$" data-error="用户名为空或格式不正确" type="text" class="form-control" name="username" id="username" placeholder="" required>
+                    <div class="help-block with-errors"></div>
                 </div>
                 <div class="form-group">
                     <label for="password">密码</label>
-                    <input type="password" class="form-control" name="password" id="password" placeholder="" required>
+                    <input pattern="^[_A-z0-9]{6,36}$" data-error="密码为空或格式不正确" type="password" class="form-control" name="password" id="password" placeholder="" required>
+                    <div class="help-block with-errors"></div>
                 </div>
                 <div class="form-group">
                     <p style="color: red; font-size: 14px;">&nbsp;${error}</p>

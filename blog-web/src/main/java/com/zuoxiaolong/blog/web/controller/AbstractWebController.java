@@ -103,10 +103,13 @@ public abstract class AbstractWebController extends AbstractController {
      *
      * @param token
      */
-    protected void loginSuccess(WebUserDTO loginWebUser, String token) {
+    protected void loginSuccess(String token) {
+        setSessionAttribute(TOKEN_ATTRIBUTE_NAME, token);
+    }
+
+    protected void afterLoginSuccess(WebUserDTO loginWebUser) {
         setSessionAttribute(USERNAME_ATTRIBUTE_NAME, loginWebUser.getUsername());
         setSessionAttribute(NICKNAME_ATTRIBUTE_NAME, loginWebUser.getNickname());
-        setSessionAttribute(TOKEN_ATTRIBUTE_NAME, token);
     }
 
     /**
@@ -114,6 +117,7 @@ public abstract class AbstractWebController extends AbstractController {
      */
     protected void logoutSuccess() {
         setSessionAttribute(USERNAME_ATTRIBUTE_NAME, null);
+        setSessionAttribute(NICKNAME_ATTRIBUTE_NAME, null);
         setSessionAttribute(TOKEN_ATTRIBUTE_NAME, null);
     }
 

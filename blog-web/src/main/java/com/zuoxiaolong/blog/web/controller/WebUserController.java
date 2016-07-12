@@ -55,17 +55,17 @@ public class WebUserController extends AbstractWebController {
     @RequestMapping(value = "/Login", method = RequestMethod.POST)
     public String login(String username, String password) {
         JsonResponse token = invokeApi(Api.WebUser_Login, CollectionUtils.newMap(new String[]{"username", "password"}, username, password));
-        if (token.success()) {
-            JsonResponse loginWebUser = invokeApi(Api.WebUser_LoginWebUser);
-            if (loginWebUser.success()) {
-                loginSuccess((WebUserDTO) loginWebUser.getData(), (String) token.getData());
-                return "redirect:/HomePage/Index";
-            } else {
-                setRequestAttribute("error", loginWebUser.getMessage());
-                return "/user/login";
-            }
-        } else {
+        if (!token.success()) {
             setRequestAttribute("error", token.getMessage());
+            return "/user/login";
+        }
+        loginSuccess((String) token.getData());
+        JsonResponse loginWebUser = invokeApi(Api.WebUser_LoginWebUser);
+        if (loginWebUser.success()) {
+            afterLoginSuccess((WebUserDTO) loginWebUser.getData());
+            return "redirect:/HomePage/Index";
+        } else {
+            setRequestAttribute("error", loginWebUser.getMessage());
             return "/user/login";
         }
     }
@@ -84,17 +84,17 @@ public class WebUserController extends AbstractWebController {
     @RequestMapping(value = "/Register", method = RequestMethod.POST)
     public String register(String username, String password) {
         JsonResponse token = invokeApi(Api.WebUser_Register, CollectionUtils.newMap(new String[]{"username", "password"}, username, password));
-        if (token.success()) {
-            JsonResponse loginWebUser = invokeApi(Api.WebUser_LoginWebUser);
-            if (loginWebUser.success()) {
-                loginSuccess((WebUserDTO) loginWebUser.getData(), (String) token.getData());
-                return "redirect:/HomePage/Index";
-            } else {
-                setRequestAttribute("error", loginWebUser.getMessage());
-                return "/user/login";
-            }
-        } else {
+        if (!token.success()) {
             setRequestAttribute("error", token.getMessage());
+            return "/user/register";
+        }
+        loginSuccess((String) token.getData());
+        JsonResponse loginWebUser = invokeApi(Api.WebUser_LoginWebUser);
+        if (loginWebUser.success()) {
+            afterLoginSuccess((WebUserDTO) loginWebUser.getData());
+            return "redirect:/HomePage/Index";
+        } else {
+            setRequestAttribute("error", loginWebUser.getMessage());
             return "/user/register";
         }
     }
