@@ -21,6 +21,7 @@ import com.zuoxiaolong.blog.common.bean.JsonResponse;
 import com.zuoxiaolong.blog.common.utils.JsonUtils;
 import com.zuoxiaolong.blog.common.utils.ObjectUtils;
 import com.zuoxiaolong.blog.common.web.AbstractController;
+import com.zuoxiaolong.blog.model.dto.WebUserDTO;
 import com.zuoxiaolong.blog.sdk.Api;
 import com.zuoxiaolong.blog.sdk.BlogSdk;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,8 @@ public abstract class AbstractWebController extends AbstractController {
     protected static final String TOKEN_ATTRIBUTE_NAME = "token";
 
     protected static final String USERNAME_ATTRIBUTE_NAME = "username";
+
+    protected static final String NICKNAME_ATTRIBUTE_NAME = "nickname";
 
     @Autowired
     private BlogSdk blogSdk;
@@ -100,8 +103,9 @@ public abstract class AbstractWebController extends AbstractController {
      *
      * @param token
      */
-    protected void loginSuccess(String username, String token) {
-        setSessionAttribute(USERNAME_ATTRIBUTE_NAME, username);
+    protected void loginSuccess(WebUserDTO loginWebUser, String token) {
+        setSessionAttribute(USERNAME_ATTRIBUTE_NAME, loginWebUser.getUsername());
+        setSessionAttribute(NICKNAME_ATTRIBUTE_NAME, loginWebUser.getNickname());
         setSessionAttribute(TOKEN_ATTRIBUTE_NAME, token);
     }
 

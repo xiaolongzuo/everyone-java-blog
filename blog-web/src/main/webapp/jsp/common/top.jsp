@@ -44,7 +44,7 @@
                 <a class="pull-right blog-nav-item blog-nav-right-first-item" href="${pageContext.request.contextPath}/WebUser/Logout">注销</a>
                 <a class="pull-right blog-nav-item" href="${pageContext.request.contextPath}/jsp/message/message_list.jsp">短信箱</a>
                 <a class="pull-right blog-nav-item" href="${pageContext.request.contextPath}/WebBlog/HomePage">我的博客</a>
-                <a class="pull-right blog-nav-item" href="${pageContext.request.contextPath}/WebBlog/Select/Config">${sessionScope.username}</a>
+                <a class="pull-right blog-nav-item" href="${pageContext.request.contextPath}/WebBlog/Select/Config">${sessionScope.nickname}</a>
             </c:if>
         </nav>
     </div>

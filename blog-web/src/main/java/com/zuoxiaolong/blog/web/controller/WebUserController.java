@@ -18,6 +18,7 @@ package com.zuoxiaolong.blog.web.controller;
 
 import com.zuoxiaolong.blog.common.bean.JsonResponse;
 import com.zuoxiaolong.blog.common.utils.CollectionUtils;
+import com.zuoxiaolong.blog.model.dto.WebUserDTO;
 import com.zuoxiaolong.blog.sdk.Api;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,12 +54,18 @@ public class WebUserController extends AbstractWebController {
 
     @RequestMapping(value = "/Login", method = RequestMethod.POST)
     public String login(String username, String password) {
-        JsonResponse jsonResponse = invokeApi(Api.WebUser_Login, CollectionUtils.newMap(new String[]{"username", "password"}, username, password));
-        if (jsonResponse.success()) {
-            loginSuccess(username, (String) jsonResponse.getData());
-            return "/index/index";
+        JsonResponse token = invokeApi(Api.WebUser_Login, CollectionUtils.newMap(new String[]{"username", "password"}, username, password));
+        if (token.success()) {
+            JsonResponse loginWebUser = invokeApi(Api.WebUser_LoginWebUser);
+            if (loginWebUser.success()) {
+                loginSuccess((WebUserDTO) loginWebUser.getData(), (String) token.getData());
+                return "redirect:/HomePage/Index";
+            } else {
+                setRequestAttribute("error", loginWebUser.getMessage());
+                return "/user/login";
+            }
         } else {
-            setRequestAttribute("error", jsonResponse.getMessage());
+            setRequestAttribute("error", token.getMessage());
             return "/user/login";
         }
     }
@@ -66,7 +73,7 @@ public class WebUserController extends AbstractWebController {
     @RequestMapping(value = "/Logout", method = RequestMethod.GET)
     public String logout() {
         logoutSuccess();
-        return "/index/index";
+        return "redirect:/HomePage/Index";
     }
 
     @RequestMapping(value = "/Register", method = RequestMethod.GET)
@@ -76,12 +83,18 @@ public class WebUserController extends AbstractWebController {
 
     @RequestMapping(value = "/Register", method = RequestMethod.POST)
     public String register(String username, String password) {
-        JsonResponse jsonResponse = invokeApi(Api.WebUser_Register, CollectionUtils.newMap(new String[]{"username", "password"}, username, password));
-        if (jsonResponse.success()) {
-            loginSuccess(username, (String) jsonResponse.getData());
-            return "/index/index";
+        JsonResponse token = invokeApi(Api.WebUser_Register, CollectionUtils.newMap(new String[]{"username", "password"}, username, password));
+        if (token.success()) {
+            JsonResponse loginWebUser = invokeApi(Api.WebUser_LoginWebUser);
+            if (loginWebUser.success()) {
+                loginSuccess((WebUserDTO) loginWebUser.getData(), (String) token.getData());
+                return "redirect:/HomePage/Index";
+            } else {
+                setRequestAttribute("error", loginWebUser.getMessage());
+                return "/user/login";
+            }
         } else {
-            setRequestAttribute("error", jsonResponse.getMessage());
+            setRequestAttribute("error", token.getMessage());
             return "/user/register";
         }
     }
