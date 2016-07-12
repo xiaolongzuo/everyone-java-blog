@@ -32,6 +32,4 @@
 </script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="${pageContext.request.contextPath}/asset/ie10-viewport-bug-workaround.js"></script>
-<!--导航栏选项卡-->
-<script src="${pageContext.request.contextPath}/js/nav.js"></script>
 

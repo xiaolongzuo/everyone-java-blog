@@ -39,7 +39,8 @@ public enum Api {
     example2("GET", ArticleCategory.class),
     example4("GET"),
     example7("GET"),
-    HomePage_Articles("POST", new TypeToken<List<HomeAtrticleDTO>>(){}.getType()),
+
+    HomePage_Articles("GET", HomeArticleDTO.class),
     WebUser_Register("POST", String.class),
     WebUser_CheckUsername("POST", boolean.class),
     WebUser_IsLogin("POST", boolean.class),
@@ -50,7 +51,7 @@ public enum Api {
     WebBlog_Select_Config("GET", new TypeToken<BlogConfig>(){}.getType()),
     WebBlog_Update_Config("POST", new TypeToken<Integer>(){}.getType()),
     WebBlog_HomePage("POST",UserBlogInfo.class),
-    HomePage_TopThreeUserArticles("POST",new TypeToken<Map<String,UserArticle>>(){}.getType()),
+    HomePage_TopThreeUserArticles("GET",new TypeToken<Map<String,UserArticle>>(){}.getType()),
     Article_GetArticleInfo("GET", ArticleInfoDTO.class),
     Article_GetCommentInfo("GET", new TypeToken<List<ArticleCommentAndReplyDTO>>(){}.getType()),
     Article_GetMoreReComment("GET", new TypeToken<List<ArticleCommentDTO>>(){}.getType()),

@@ -14,27 +14,25 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.service;
+package com.zuoxiaolong.blog.model.dto;
 
-import com.zuoxiaolong.blog.model.dto.HomeArticleDTO;
-import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDto;
-import com.zuoxiaolong.blog.model.persistent.UserArticle;
+import lombok.Data;
 
 import java.util.List;
-import java.util.Map;
 
 /**
- * 用户文章接口类
- *
- * @author goozi
- * @create 2016-05-15 16:39
+ * @author Xiaolong Zuo
  * @since 1.0.0
  */
-public interface UserArticleService {
+@Data
+public class HomeArticleDTO {
 
-    List<ArticleRankResponseDto> getArticlesRank();
+    private Integer categoryId;
 
-    HomeArticleDTO getArticles(String offset,Integer size,Integer categoryId);
+    private String offset;
 
-    Map<String, UserArticle> getTopThreeUserArticles(Integer categoryId);
+    private Integer size;
+
+    private List<ArticleDTO> articles;
+
 }
