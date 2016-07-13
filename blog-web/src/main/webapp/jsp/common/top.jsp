@@ -25,10 +25,17 @@
 <div class="blog-masthead">
     <div class="container">
         <nav class="blog-nav">
-            <a href="javascript:void(0);" class="pull-left blog-nav-item active" id="technology">技术</a>
-            <a href="javascript:void(0);" class="pull-left blog-nav-item" id="work">职场</a>
-            <a href="javascript:void(0);" class="pull-left blog-nav-item" id="life">人生</a>
-            <a href="javascript:void(0);" class="pull-left blog-nav-item" id="api">API文档</a>
+            <c:if test="${homeArticleDTO == null}">
+                <a href="${pageContext.request.contextPath}/HomePage/Index?categoryId=1" class="pull-left blog-nav-item">技术</a>
+                <a href="${pageContext.request.contextPath}/HomePage/Index?categoryId=2" class="pull-left blog-nav-item">职场</a>
+                <a href="${pageContext.request.contextPath}/HomePage/Index?categoryId=3" class="pull-left blog-nav-item">人生</a>
+            </c:if>
+            <c:if test="${homeArticleDTO != null}">
+                <a href="${pageContext.request.contextPath}/HomePage/Index?categoryId=1" class="pull-left blog-nav-item <c:if test='${homeArticleDTO.categoryId == 1}'>active</c:if>">技术</a>
+                <a href="${pageContext.request.contextPath}/HomePage/Index?categoryId=2" class="pull-left blog-nav-item <c:if test='${homeArticleDTO.categoryId == 2}'>active</c:if>">职场</a>
+                <a href="${pageContext.request.contextPath}/HomePage/Index?categoryId=3" class="pull-left blog-nav-item <c:if test='${homeArticleDTO.categoryId == 3}'>active</c:if>">人生</a>
+            </c:if>
+            <a href="${pageContext.request.contextPath}/html/api-index.html" class="pull-left blog-nav-item">API文档</a>
             <c:if test="${sessionScope.token == null}">
                 <a class="pull-right blog-nav-item blog-nav-right-first-item" href="${pageContext.request.contextPath}/WebUser/Register">注册</a>
                 <a class="pull-right blog-nav-item" href="${pageContext.request.contextPath}/WebUser/Login">登录</a>
@@ -38,7 +45,7 @@
                 <a class="pull-right blog-nav-item" href="${pageContext.request.contextPath}/jsp/message/message_list.jsp">短信箱</a>
                 <a class="pull-right blog-nav-item" href="${pageContext.request.contextPath}/Article/Write">写文章</a>
                 <a class="pull-right blog-nav-item" href="${pageContext.request.contextPath}/WebBlog/HomePage">我的博客</a>
-                <a class="pull-right blog-nav-item" href="${pageContext.request.contextPath}/WebBlog/Select/Config">${sessionScope.username}</a>
+                <a class="pull-right blog-nav-item" href="${pageContext.request.contextPath}/WebBlog/Select/Config">${sessionScope.nickname}</a>
             </c:if>
         </nav>
     </div>

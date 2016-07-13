@@ -20,11 +20,7 @@ import com.zuoxiaolong.blog.common.utils.CollectionUtils;
 import com.zuoxiaolong.blog.sdk.Api;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author 郭松涛
@@ -41,34 +37,26 @@ public class HomePageController extends AbstractWebController {
      * @return
      */
     @RequestMapping("/Index")
-    public String index() {
-        Map<String, String> params = new HashMap<>();
-        params.put("categoryId", "1");
-        params.put("offset", "");
-        params.put("size", "20");
-        setModelAttribute("result", invokeApi(Api.HomePage_Articles, params));
+    public String index(@RequestParam(required = false) Integer categoryId) {
+        JsonResponse homeArticleDTO = invokeApi(Api.HomePage_Articles, CollectionUtils.newMap("categoryId", categoryId));
+        JsonResponse topThreeUserArticles = invokeApi(Api.HomePage_TopThreeUserArticles, CollectionUtils.newMap("categoryId", categoryId));
+        if (homeArticleDTO.success()) {
+            setModelAttribute("homeArticleDTO", homeArticleDTO.getData());
+        }
+        if (topThreeUserArticles.success()) {
+            setModelAttribute("topThreeUserArticles", topThreeUserArticles.getData());
+        }
         return "/index/index";
     }
 
-    @RequestMapping(value = {"/TopThreeUserArticles"}, method = {RequestMethod.GET, RequestMethod.POST})
-    public void topThreeUserArticles(@RequestParam("categoryName") String categoryName) {
-        JsonResponse jsonResponse = invokeApi(Api.HomePage_TopThreeUserArticles, CollectionUtils.newMap("categoryName", categoryName));
-        renderJson(jsonResponse);
-    }
-
-
     @RequestMapping("/Articles")
-    public void getArticles(@RequestParam("categoryId") int categoryId,
-                                         @RequestParam(required = false) String offset,
-                                         @RequestParam(required = false) int size) {
-        Map<String, String> params = new HashMap<>();
-        params.put("categoryId", categoryId + "");
-        if(offset!=null){
-            params.put("offset", offset);
+    public void getArticles(Integer categoryId, String offset, Integer size) {
+        JsonResponse jsonResponse = invokeApi(Api.HomePage_Articles, CollectionUtils.newMap(new String[]{"categoryId", "offset", "size"}, categoryId, offset, size));
+        if (jsonResponse.success()) {
+            renderJson(jsonResponse.getData());
+        } else {
+            renderJson("error");
         }
-        params.put("size", size+"");
-        JsonResponse jsonResponse = invokeApi(Api.HomePage_Articles, params);
-        renderJson(jsonResponse);
     }
 
 }

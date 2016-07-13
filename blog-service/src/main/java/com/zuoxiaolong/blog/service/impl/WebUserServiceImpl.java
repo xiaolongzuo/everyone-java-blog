@@ -22,7 +22,7 @@ import com.zuoxiaolong.blog.common.utils.ObjectUtils;
 import com.zuoxiaolong.blog.common.utils.StringUtils;
 import com.zuoxiaolong.blog.common.utils.ValidateUtils;
 import com.zuoxiaolong.blog.mapper.WebUserMapper;
-import com.zuoxiaolong.blog.model.dto.UserInfo;
+import com.zuoxiaolong.blog.model.dto.WebUserDTO;
 import com.zuoxiaolong.blog.model.persistent.WebUser;
 import com.zuoxiaolong.blog.service.WebUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -121,19 +121,18 @@ public class WebUserServiceImpl implements WebUserService {
     }
 
     @Override
-    public UserInfo getUserInfoById(Integer userId) {
+    public WebUserDTO getLoginWebUser(Integer userId) {
         WebUser webUser = webUserMapper.selectByPrimaryKey(userId);
-        UserInfo userInfo = new UserInfo();
+        WebUserDTO webUserDTO = new WebUserDTO();
         if (webUser == null) {
-            return userInfo;
+            throw new BusinessException(ExceptionType.USER_NOT_FOUND);
         }
-        userInfo.setId(webUser.getId());
-        userInfo.setCreateTime(webUser.getCreateTime());
-        userInfo.setNickname(webUser.getNickname());
-        userInfo.setToken(webUser.getToken());
-        userInfo.setUpdateTime(webUser.getUpdateTime());
-        userInfo.setUsername(webUser.getUsername());
-        return userInfo;
+        webUserDTO.setId(webUser.getId());
+        webUserDTO.setCreateTime(webUser.getCreateTime());
+        webUserDTO.setNickname(webUser.getNickname());
+        webUserDTO.setUpdateTime(webUser.getUpdateTime());
+        webUserDTO.setUsername(webUser.getUsername());
+        return webUserDTO;
     }
 
 }

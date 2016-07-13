@@ -25,8 +25,12 @@ import lombok.Data;
  * @since 1.0.0
  */
 @Data
-public class HomeAtrticleDTO {
+public class ArticleDTO {
+
     private WebUser webUser; // 用户
+
     private UserArticle userArticle; //文章基本信息
+
     private String friendlyTime; //用户易于识别的时间
+
 }

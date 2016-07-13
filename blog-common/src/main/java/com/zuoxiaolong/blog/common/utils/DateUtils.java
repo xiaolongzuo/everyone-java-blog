@@ -27,9 +27,9 @@ import java.util.Date;
  */
 public interface DateUtils {
 
-    static long ONE_DAY = 1000*24*60*60L;//一天的毫秒数
-    static long ONE_HOUR = 1000*60*60L;//一小时的毫秒数
-    static long ONE_MINUTE = 1000*60L;//一分钟的毫秒数
+    long ONE_DAY = 1000*24*60*60L;//一天的毫秒数
+    long ONE_HOUR = 1000*60*60L;//一小时的毫秒数
+    long ONE_MINUTE = 1000*60L;//一分钟的毫秒数
 
     static String format(Date date) {
         return format(date, "yyyy-MM-dd HH:mm:ss");
@@ -37,6 +37,18 @@ public interface DateUtils {
 
     static String format(Date date, String format) {
         return new SimpleDateFormat(format).format(date);
+    }
+
+    static Date parse(String source, Date defaultValue) {
+        try {
+            return parse(source, "yyyy-MM-dd HH:mm:ss");
+        } catch (Exception e) {
+            return defaultValue;
+        }
+    }
+
+    static Date parse(String source) {
+        return parse(source, "yyyy-MM-dd HH:mm:ss");
     }
 
     static Date parse(String source, String format) {
