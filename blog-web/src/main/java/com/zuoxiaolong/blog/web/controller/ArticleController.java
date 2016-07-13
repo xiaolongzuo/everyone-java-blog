@@ -54,6 +54,10 @@ public class ArticleController extends AbstractWebController {
         return "/index/index";
     }
 
+    @RequestMapping(value = "/Write")
+    public String writeIndex(){
+        return "/write/index";
+    }
     /**
      * 查看评论和每条评论前三条回复列表
      *
