@@ -19,10 +19,10 @@ package com.zuoxiaolong.blog.service.impl;
 import com.zuoxiaolong.blog.common.cache.SingletonCache;
 import com.zuoxiaolong.blog.common.orm.DropDownPage;
 import com.zuoxiaolong.blog.common.utils.DateUtils;
-import com.zuoxiaolong.blog.common.utils.ObjectUtils;
 import com.zuoxiaolong.blog.mapper.UserArticleMapper;
 import com.zuoxiaolong.blog.mapper.WebUserMapper;
-import com.zuoxiaolong.blog.model.dto.HomeAtrticleDTO;
+import com.zuoxiaolong.blog.model.dto.ArticleDTO;
+import com.zuoxiaolong.blog.model.dto.HomeArticleDTO;
 import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDataResult;
 import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDto;
 import com.zuoxiaolong.blog.model.persistent.ArticleCategory;
@@ -219,13 +219,16 @@ public class UserArticleServiceImpl implements UserArticleService {
      * @description:根据文章类别名称获取最多评论、最多推荐、最多阅读的三篇文章
      */
     @Override
-    public Map<String, UserArticle> getTopThreeUserArticles(String categoryName) {
+    public Map<String, UserArticle> getTopThreeUserArticles(Integer categoryId) {
+        if (categoryId == null) {
+            categoryId = 1;
+        }
         Map<String, UserArticle> articleMap = new HashMap<>();
         List<ArticleRankResponseDto> articleRankResponseDtos = (List<ArticleRankResponseDto>) SingletonCache.instance().get("ArticleRankResponseDto");
         for (ArticleRankResponseDto articleRankResponseDto : articleRankResponseDtos) {
             for (ArticleRankResponseDataResult articleRankResponseDataResult : articleRankResponseDto.getDataResult()) {
-                String cacheCategoryName = articleRankResponseDataResult.getCategoryInfo().getCategoryName();
-                if (categoryName != null && categoryName.equals(cacheCategoryName)) {
+                Integer cacheCategoryId = articleRankResponseDataResult.getCategoryInfo().getId();
+                if (categoryId.intValue() == cacheCategoryId) {
                     articleMap.put(articleRankResponseDto.getActionType(), articleRankResponseDataResult.getArticleInfo());
                 }
             }
@@ -235,35 +238,32 @@ public class UserArticleServiceImpl implements UserArticleService {
 
 
     @Override
-    public List<HomeAtrticleDTO> getArticles(String offset, int size, Integer categoryId) {
+    public HomeArticleDTO getArticles(String offset, Integer size, Integer categoryId) {
         //构建分页对象
         DropDownPage page = new DropDownPage();
-        if (!ObjectUtils.isEmpty(offset)) {
-            page.setOffset(DateUtils.parse(offset, "yyyy-MM-dd HH:mm:ss"));
-        } else {
-            page.setOffset(new Date());
-        }
-        if (!ObjectUtils.isEmpty(size)) {
-            page.setSize(size);
-        }
+        page.setOffset(DateUtils.parse(offset, new Date()));
+        page.setSize(size);
         page.setOrderColumn("update_time");
-
-        List<HomeAtrticleDTO> resultList = new ArrayList<HomeAtrticleDTO>();
         List<UserArticle> list = userArticleMapper.getArticlesByCategoryIdAndPage(page, categoryId);
-        for (UserArticle u : list) {
-            HomeAtrticleDTO homeAtrticleDTO = new HomeAtrticleDTO();
-            homeAtrticleDTO.setUserArticle(u);
 
-            WebUser webUser = webUserMapper.selectByPrimaryKey(u.getWebUserId());
+        List<ArticleDTO> resultList = new ArrayList<ArticleDTO>();
+        for (UserArticle userArticle : list) {
+            ArticleDTO articleDTO = new ArticleDTO();
+            articleDTO.setUserArticle(userArticle);
+            WebUser webUser = webUserMapper.selectByPrimaryKey(userArticle.getWebUserId());
             WebUser webUserDto = new WebUser();
             webUserDto.setNickname(webUser.getNickname()); //用户昵称
-            homeAtrticleDTO.setWebUser(webUserDto);
-
-            homeAtrticleDTO.setFriendlyTime(DateUtils.toFriendlyTime(u.getUpdateTime()));
-
-            resultList.add(homeAtrticleDTO);
+            articleDTO.setWebUser(webUserDto);
+            articleDTO.setFriendlyTime(DateUtils.toFriendlyTime(userArticle.getUpdateTime()));
+            resultList.add(articleDTO);
         }
-        return resultList;
+
+        HomeArticleDTO homeArticleDTO = new HomeArticleDTO();
+        homeArticleDTO.setSize(page.getSize());
+        homeArticleDTO.setOffset(DateUtils.format((Date) page.getOffset()));
+        homeArticleDTO.setCategoryId(categoryId);
+        homeArticleDTO.setArticles(resultList);
+        return homeArticleDTO;
     }
 
 
