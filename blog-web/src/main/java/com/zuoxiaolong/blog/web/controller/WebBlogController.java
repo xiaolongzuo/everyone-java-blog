@@ -21,6 +21,7 @@ import com.zuoxiaolong.blog.common.utils.CollectionUtils;
 import com.zuoxiaolong.blog.model.persistent.BlogConfig;
 import com.zuoxiaolong.blog.sdk.Api;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,10 +37,10 @@ public class WebBlogController extends AbstractWebController {
      *
      * @return
      */
-    @RequestMapping("/HomePage")
-    public String personalBlogHomePage(String offset, String size) {
+    @RequestMapping("/HomePage/{username}")
+    public String personalBlogHomePage(String offset, String size, @PathVariable String username) {
         Map<String, String> params = new HashMap<>();
-        params.put("username", getUsername());
+        params.put("username", username);
         JsonResponse response = invokeApi(Api.WebBlog_HomePage, params);
         if (response.getCode() == 200) {
             setModelAttribute("result", response);
@@ -54,9 +55,9 @@ public class WebBlogController extends AbstractWebController {
      * @param size
      */
     @RequestMapping("/getMyBlogArticle")
-    public void getMyBlogArticle(String offset, String size) {
+    public void getMyBlogArticle(String offset, String size, String username) {
         Map<String, String> params = new HashMap<>();
-        params.put("username", getUsername());
+        params.put("username", username);
         params.put("offset", offset);
         JsonResponse response = invokeApi(Api.WebBlog_HomePage, params);
         renderJson(response);

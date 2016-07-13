@@ -5,7 +5,9 @@
  */
 
 var offset = "";
+var username = "";
 $(function () {
+    username = $("#username").val();
     loadMoreArticle();
 
     $(".active").removeClass("active");
@@ -21,7 +23,7 @@ $(function () {
     });
 })
 function loadMoreArticle() {
-    $.get(contextPath + "/WebBlog/getMyBlogArticle", {offset:offset}, function (result) {
+    $.get(contextPath + "/WebBlog/getMyBlogArticle", {offset:offset, username:username}, function (result) {
         var len = result.data.userArticleList.length;
         for (var i = 0; i < len; i++) {
 

@@ -85,7 +85,7 @@
                     <%--<li><a href="javascript:goNext()">下一页</a></li>--%>
                 </ul>
             </nav>
-
+            <input type="hidden" value="${username}" id="username">
         </div><!-- /.blog-main -->
         <%@include file="../common/author.jsp"%>
         <%--<jsp:include page="../common/author.jsp"/>--%>
