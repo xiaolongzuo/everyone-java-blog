@@ -16,7 +16,7 @@
 
 package com.zuoxiaolong.blog.service;
 
-import com.zuoxiaolong.blog.model.dto.UserInfo;
+import com.zuoxiaolong.blog.model.dto.WebUserDTO;
 import com.zuoxiaolong.blog.model.persistent.WebUser;
 
 /**
@@ -42,5 +42,5 @@ public interface WebUserService {
      * @param userId
      * @return
      */
-    UserInfo getUserInfoById(Integer userId);
+    WebUserDTO getLoginWebUser(Integer userId);
 }
