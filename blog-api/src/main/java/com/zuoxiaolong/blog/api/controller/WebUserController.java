@@ -15,8 +15,9 @@
  */
 package com.zuoxiaolong.blog.api.controller;
 
+import com.zuoxiaolong.blog.common.authorization.CheckLogin;
 import com.zuoxiaolong.blog.common.utils.ObjectUtils;
-import com.zuoxiaolong.blog.model.dto.UserInfo;
+import com.zuoxiaolong.blog.model.dto.WebUserDTO;
 import com.zuoxiaolong.blog.model.persistent.WebUser;
 import com.zuoxiaolong.blog.service.WebUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,9 +77,10 @@ public class WebUserController extends AbstractApiController {
     }
 
 
-    @RequestMapping(value = "/GetUserInfo", method = RequestMethod.GET)
-    public UserInfo GetUserInfo(Integer userId) {
-        UserInfo userInfo = webUserService.getUserInfoById(userId);
-        return userInfo;
+    @RequestMapping(value = "/LoginWebUser", method = RequestMethod.GET)
+    @CheckLogin
+    public WebUserDTO getLoginWebUser() {
+        WebUserDTO webUserDTO = webUserService.getLoginWebUser(getWebUserId());
+        return webUserDTO;
     }
 }

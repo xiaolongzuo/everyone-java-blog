@@ -24,7 +24,7 @@ import java.util.Date;
  * @since 1.0.0
  */
 @Data
-public class UserInfo {
+public class WebUserDTO {
 
     private Integer id;
 
@@ -36,5 +36,4 @@ public class UserInfo {
 
     private String nickname;
 
-    private String token;
 }

@@ -19,7 +19,7 @@ import com.zuoxiaolong.blog.common.authorization.CheckLogin;
 import com.zuoxiaolong.blog.model.dto.ArticleCommentAndReplyDTO;
 import com.zuoxiaolong.blog.model.dto.ArticleCommentDTO;
 import com.zuoxiaolong.blog.model.dto.ArticleInfoDTO;
-import com.zuoxiaolong.blog.model.persistent.*;
+import com.zuoxiaolong.blog.model.persistent.ArticleComment;
 import com.zuoxiaolong.blog.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

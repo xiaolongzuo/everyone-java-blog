@@ -14,33 +14,25 @@
  * limitations under the License.
  */
 
-package com.zuoxiaolong.blog.service;
+package com.zuoxiaolong.blog.model.dto;
 
-import com.zuoxiaolong.blog.model.dto.WebUserDTO;
-import com.zuoxiaolong.blog.model.persistent.WebUser;
+import lombok.Data;
+
+import java.util.List;
 
 /**
  * @author Xiaolong Zuo
  * @since 1.0.0
  */
-public interface WebUserService {
+@Data
+public class HomeArticleDTO {
 
-    WebUser register(WebUser webUser);
+    private Integer categoryId;
 
-    WebUser login(String username, String password);
+    private String offset;
 
-    WebUser loginWithToken(String token);
+    private Integer size;
 
-    void modifyPassword(String username, String oldPassword, String newPassword);
+    private List<ArticleDTO> articles;
 
-    boolean checkUsername(String username);
-
-    WebUser checkToken(String token);
-
-    /**
-     * 获取用户信息
-     * @param userId
-     * @return
-     */
-    WebUserDTO getLoginWebUser(Integer userId);
 }
