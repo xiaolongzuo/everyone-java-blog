@@ -110,6 +110,8 @@ function addReCommentText(parent,parentdiv){
             "</div>" +
             "</form>"
         parentdiv.append(newcomment);
+        //设置焦点
+        $(newcomment).find("textarea").focus();
     }else if(newComment.length == 1){
         //隐藏评论框
         if(newComment.css('display') == 'block'){
@@ -119,8 +121,10 @@ function addReCommentText(parent,parentdiv){
             //设置父评论的id，用于传到后台
             newComment.find("input[type='hidden']").val($(parent).attr('comment-id'));
             //设置回复人
-            newComment.find("span[class='pull-left']").text($(parent).attr('user-name'));
+            newComment.find("span[class='pull-left']").text("@"+$(parent).attr('user-name'));
             newComment.css('display', 'block');
+            //设置焦点
+            newComment.find("textarea").focus();
         }
     }
 }
@@ -147,7 +151,7 @@ function getComment(articleid,offset,size) {
                 var date = new Date(mainComment['createTime']).Format("yyyy.MM.dd hh:mm:ss");
                 //主评论列表
                 var commentHtml = "<div class='meta-top'>" +
-                    "<a href='javascript:void(null)'>"+webuser['nickname']+"</a>" +
+                    "<a href='"+contextPath+"/WebBlog/HomePage/"+webuser['username']+"' target='_blank'>"+webuser['nickname']+"</a>" +
                     "&nbsp;&nbsp;&nbsp;<span class='reply-time'> "+(COMMENT_NUM+n+1)+"楼 · 发表于"+date+"</span>" +
                     "<a class='reply-comment pull-right' href='javascript:void(null)' onclick='replyComment(this)'" +
                     " comment-id='"+mainComment['id']+"' user-name='"+webuser['nickname']+"'>回复</a>" +
@@ -197,8 +201,8 @@ function editReComment(reComments){
         var reMainComment = value['articleComment'];
         var date = new Date(reMainComment['createTime']).Format("yyyy.MM.dd hh:mm:ss");
         var recommentHtml = "<div class='panel-body child-comment'>" +
-            "<p><a class='blue-link' href='javascript:void(null)'>"+reWebuser['nickname']+"</a>" +
-            "：<a class='blue-link' href='javascript:void(null)'>@"+reParentUser['nickname']+"</a>"+reMainComment['comment']+"</p> " +
+            "<p><a class='blue-link' href='"+contextPath+"/WebBlog/HomePage/"+reWebuser['username']+"' target='_blank'>"+reWebuser['nickname']+"</a>" +
+            "：<a class='blue-link' href='"+contextPath+"/WebBlog/HomePage/"+reParentUser['username']+"' target='_blank'>@"+reParentUser['nickname']+"</a>"+reMainComment['comment']+"</p> " +
             "<span class='reply-time pull-left'>"+date+"</span> " +
             "<a class='reply-recomment pull-right' href='javascript:void(null)' onclick='replyReComment(this)'" +
             " comment-id='"+reMainComment['id']+"' user-name='"+reWebuser['nickname']+"'>回复</a> </div>";
