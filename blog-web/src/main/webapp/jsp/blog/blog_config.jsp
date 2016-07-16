@@ -35,7 +35,7 @@
         </div>
         <div class="form-group">
             <label>博客子标题:</label><br/>
-            <textarea name="blogSubTitle" cols="20" rows="5" style="width: 30%">${result.data.blogSubTitle}</textarea><br/>
+            <textarea name="blogSubTitle" cols="20" rows="2" style="width: 30%">${result.data.blogSubTitle}</textarea><br/>
         </div>
         <div class="form-group">
             <label>个人简介:</label><br/>
