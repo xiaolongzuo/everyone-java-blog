@@ -19,8 +19,8 @@ package com.zuoxiaolong.blog.service.impl;
 import com.zuoxiaolong.blog.common.bean.ExceptionType;
 import com.zuoxiaolong.blog.common.exception.BusinessException;
 import com.zuoxiaolong.blog.common.orm.DropDownPage;
-import com.zuoxiaolong.blog.common.utils.AssertUtils;
 import com.zuoxiaolong.blog.common.utils.ObjectUtils;
+import com.zuoxiaolong.blog.common.utils.ValidateUtils;
 import com.zuoxiaolong.blog.mapper.*;
 import com.zuoxiaolong.blog.model.dto.ArticleCommentAndReplyDTO;
 import com.zuoxiaolong.blog.model.dto.ArticleCommentDTO;
@@ -70,6 +70,8 @@ public class ArticleServiceImpl implements ArticleService {
      */
     @Override
     public ArticleInfoDTO getArticleInfo(Integer articleid) {
+        ValidateUtils.required(articleid);
+
         //根据文章id获取文章的基本信息
         UserArticle userArticle = userArticleMapper.selectByPrimaryKey(articleid);
         if(ObjectUtils.isEmpty(userArticle)){
@@ -128,6 +130,7 @@ public class ArticleServiceImpl implements ArticleService {
      */
     @Override
     public List<ArticleCommentAndReplyDTO> getCommentInfo(Integer articleid,Integer offset, Integer size) {
+        ValidateUtils.required(articleid);
 
         //分页数据设置
         DropDownPage page = new DropDownPage();
@@ -186,6 +189,7 @@ public class ArticleServiceImpl implements ArticleService {
      */
     @Override
     public List<ArticleCommentDTO> getReCommentInfo(Integer commentId,Integer offset, Integer size) {
+        ValidateUtils.required(commentId);
 
         //分页数据设置
         DropDownPage page = new DropDownPage();
@@ -244,9 +248,9 @@ public class ArticleServiceImpl implements ArticleService {
      * @return
      */@Override
     public Integer insertArticleComment(ArticleComment articleComment,Integer webUserId) {
-        AssertUtils.isEmpty(articleComment);
-        AssertUtils.isEmpty(webUserId);
-        AssertUtils.isEmpty(articleComment.getComment());
+        ValidateUtils.required(articleComment);
+        ValidateUtils.required(webUserId);
+        ValidateUtils.required(articleComment.getComment());
 
         //脏词判断
         //TODO 脏词
@@ -264,6 +268,8 @@ public class ArticleServiceImpl implements ArticleService {
         }else if(!ObjectUtils.isEmpty(articleComment.getArticleId())){
             //设置评论信息
             articleCommentAdd.setArticleId(articleComment.getArticleId());
+        }else{
+            throw new BusinessException(ExceptionType.PARAMETER_ILLEGAL);
         }
 
         articleCommentAdd.setComment(articleComment.getComment());
@@ -288,6 +294,8 @@ public class ArticleServiceImpl implements ArticleService {
      */
     @Override
     public boolean updateThumbupTimes(Integer articleid) {
+        ValidateUtils.required(articleid);
+
         int record = userArticleMapper.updateThumbupTimes(articleid);
         return record>0?true:false;
     }
