@@ -23,6 +23,7 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -68,13 +69,7 @@ public interface HttpUtils {
      * @return
      */
     static String sendHttpRequest(String method, String url , Map<String, String> params) {
-        StringBuffer paramsString = new StringBuffer();
-        if (!CollectionUtils.isEmpty(params)) {
-            for (String key : params.keySet()) {
-                paramsString.append(key).append("=").append(params.get(key)).append("&");
-            }
-        }
-        return sendHttpRequest(method, url, paramsString.length() == 0 ? paramsString.toString() : paramsString.substring(0, paramsString.length() - 1));
+        return sendHttpRequest(method, new HashMap<>(), url, params);
     }
 
     /**
@@ -149,8 +144,20 @@ public interface HttpUtils {
      */
     static byte[] sendHttpRequestAndGetBytes(String method , Map<String, String> headerMap, String url, String params) {
         try {
-            if (method.equals("GET") && params != null) {
-                url = url + "?" + params;
+            if (method.equals("GET") && !StringUtils.isEmpty(params)) {
+                String[] paramPairs = params.split("&");
+                StringBuffer stringBuffer = new StringBuffer();
+                for (String paramPair : paramPairs) {
+                    if (StringUtils.isEmpty(paramPair) || !paramPair.contains("=")) {
+                        continue;
+                    }
+                    String paramName = paramPair.split("=")[0];
+                    String paramValue = paramPair.split("=")[1];
+                    stringBuffer.append(paramName).append("=").append(URLEncoder.encode(paramValue, DEFAULT_CHARSET)).append("&");
+                }
+                if (stringBuffer.length() > 0) {
+                    url = url + "?" + stringBuffer.substring(0, stringBuffer.length() - 1);
+                }
             }
             HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
             connection.setDoOutput(true);

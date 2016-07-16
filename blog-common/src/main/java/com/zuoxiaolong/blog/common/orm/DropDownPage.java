@@ -33,7 +33,7 @@ public class DropDownPage {
 
     private Object offset;
 
-    private int size = 10;
+    private Integer size = 10;
 
     private String orderColumn = "id";
 
@@ -51,7 +51,10 @@ public class DropDownPage {
         this.offset = offset;
     }
 
-    public void setSize(int size) {
+    public void setSize(Integer size) {
+        if (ObjectUtils.isEmpty(size)) {
+            return;
+        }
         if (size < 1) {
             size = 1;
         }
