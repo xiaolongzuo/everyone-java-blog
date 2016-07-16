@@ -21,6 +21,7 @@ import com.zuoxiaolong.blog.common.orm.DropDownPage;
 import com.zuoxiaolong.blog.common.utils.ObjectUtils;
 import com.zuoxiaolong.blog.common.utils.SensitiveWordCheckUtils;
 import com.zuoxiaolong.blog.common.utils.StringUtils;
+import com.zuoxiaolong.blog.common.utils.ValidateUtils;
 import com.zuoxiaolong.blog.mapper.BlogConfigMapper;
 import com.zuoxiaolong.blog.mapper.UserArticleMapper;
 import com.zuoxiaolong.blog.mapper.WebUserMapper;
@@ -116,15 +117,31 @@ public class WebBlogServiceImpl implements WebBlogService {
 
     @Override
     public int updateBlogConfig(BlogConfig blogConfig) {
-        if(blogConfig == null || blogConfig.getWebUserId() == null || blogConfig.getWebUserId() < 0
-                || SensitiveWordCheckUtils.isContainSensitiveWord(blogConfig.getIntroduction())
+        ValidateUtils.required(blogConfig);
+        ValidateUtils.required(blogConfig.getWebUserId());
+        ValidateUtils.numberMin(blogConfig.getWebUserId(), 0);
+
+        //用户输入为空的情况下,设置默认值
+        if(StringUtils.isEmpty(blogConfig.getBlogTitle())) {
+            blogConfig.setBlogTitle(blogConfig.getUsername() + "的个人博客");
+        }
+
+        if(StringUtils.isEmpty(blogConfig.getBlogSubTitle())) {
+            blogConfig.setBlogSubTitle("暂无");
+        }
+
+        if(StringUtils.isEmpty(blogConfig.getIntroduction())) {
+            blogConfig.setIntroduction("暂无");
+        }
+
+        if(SensitiveWordCheckUtils.isContainSensitiveWord(blogConfig.getIntroduction())
                 || SensitiveWordCheckUtils.isContainSensitiveWord(blogConfig.getBlogTitle())
                 || SensitiveWordCheckUtils.isContainSensitiveWord(blogConfig.getBlogSubTitle())) {
             logger.info("blogConfig param: {} is invalid", blogConfig);
             throw new BusinessException(ExceptionType.PARAMETER_ILLEGAL);
         }
 
-        return blogConfigMapper.updateByWebUserId(blogConfig);
+        return blogConfigMapper.insertSelective(blogConfig);
     }
 
     @Override

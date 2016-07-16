@@ -7,6 +7,8 @@ public class BlogConfig extends BaseModel {
 
     private Integer webUserId;
 
+    private String username;
+
     private String introduction;
 
     private String address;
