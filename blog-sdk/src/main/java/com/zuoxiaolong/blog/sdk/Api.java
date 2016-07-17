@@ -17,6 +17,7 @@
 package com.zuoxiaolong.blog.sdk;
 
 import com.google.gson.reflect.TypeToken;
+import com.zuoxiaolong.blog.common.orm.DigitalPage;
 import com.zuoxiaolong.blog.model.dto.*;
 import com.zuoxiaolong.blog.model.persistent.ArticleCategory;
 import com.zuoxiaolong.blog.model.persistent.BlogConfig;
@@ -59,7 +60,7 @@ public enum Api {
     Article_AddComment("POST", Integer.class),
     Article_AddThumbupTimes("POST", boolean.class),
     MessageBox_Content("GET",MessageBoxDto.class),
-    MessageBox_List("GET",new TypeToken<List<MessageBoxDto>>(){}.getType()),
+    MessageBox_List("GET", DigitalPage.class),
     MessageBox_Send("POST",new TypeToken<Integer>(){}.getType()),
     MessageBox_Update("POST",new TypeToken<Integer>(){}.getType())
     ;
