@@ -1,0 +1,16 @@
+
+#blankrow{
+    margin: 30px 0px 0px 0px;
+}
+
+.selected{
+    font-weight: bold;
+}
+
+#opration{
+    float: right;
+}
+
+#oprationlabel{
+    visibility: hidden;
+}

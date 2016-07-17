@@ -32,7 +32,7 @@
             <c:choose>
                 <c:when test="${result.data.userHotestArticleList!=null && fn:length(result.data.userHotestArticleList) > 0}">
                     <c:forEach var="article" items="${result.data.userHotestArticleList}" varStatus="index">
-                        <li><a href="#">${article.title}</a></li>
+                        <li><a href="javascript:goArticle(${article.id})">${article.title}</a></li>
                     </c:forEach>
                 </c:when>
                 <c:otherwise>
