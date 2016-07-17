@@ -27,8 +27,7 @@
     <%@include file="../common/head.jsp"%>
     <link href="${pageContext.request.contextPath}/css/article.css" rel="stylesheet">
     <script type="text/javascript">
-        //TODO 用户昵称
-        var USER_NICKNAME = "${sessionScope.username}";
+        var USER_NICKNAME = "${sessionScope.nickname}";
     </script>
 </head>
 <body>
@@ -38,7 +37,7 @@
     <div class="row">
         <div class="col-sm-8 blog-main">
             <div class="blog-post">
-                <h2 class="blog-post-title"><a href="#" class="blog-article">${result.data.userArticle.title}</a></h2>
+                <h2 class="blog-post-title"><a href="javascript:void(0)" class="blog-article">${result.data.userArticle.title}</a></h2>
                 <jsp:useBean id="now" class="java.util.Date" />
                 <fmt:formatDate value="${now}" type="both" dateStyle="long" pattern="yyyy-MM-dd" var="today"/>
                 <fmt:formatDate value="${result.data.userArticle.createTime}" type="both" dateStyle="long" pattern="yyyy-MM-dd" var="date"/>
@@ -59,7 +58,7 @@
                 <div class="panel comment-head">
                     <div class="panel-body">
                         <span id = 'commentCount'>${result.data.userArticle.commentTimes}</span>条评论
-                        <a href="#comment-textarea" class="btn pull-right"><span class="glyphicon glyphicon-pencil"> 添加新评论</span></a>
+                        <a href="javascript:void(0)" class="btn pull-right" onclick="$('#comment-textarea').focus();"><span class="glyphicon glyphicon-pencil"> 添加新评论</span></a>
                     </div>
                 </div>
                 <div id="bottom-comment" class="panel load-more">
