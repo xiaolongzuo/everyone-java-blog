@@ -25,9 +25,9 @@
 <html lang="zh-CN">
 <head>
     <jsp:include page="../common/head.jsp"/>
-    <link rel="stylesheet" href="../../css/write.css">
-    <link rel="stylesheet" href="../../css/richtext.css">
-    <link rel="stylesheet" href="../../css/smartMenu.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/write.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/richtext.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/smartMenu.css">
 </head>
 <body>
 <jsp:include page="../common/top.jsp"/>
