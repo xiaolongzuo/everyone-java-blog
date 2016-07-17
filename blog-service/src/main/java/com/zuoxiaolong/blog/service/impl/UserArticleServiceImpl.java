@@ -19,6 +19,7 @@ package com.zuoxiaolong.blog.service.impl;
 import com.zuoxiaolong.blog.common.cache.SingletonCache;
 import com.zuoxiaolong.blog.common.orm.DropDownPage;
 import com.zuoxiaolong.blog.common.utils.DateUtils;
+import com.zuoxiaolong.blog.common.utils.ObjectUtils;
 import com.zuoxiaolong.blog.mapper.UserArticleMapper;
 import com.zuoxiaolong.blog.mapper.WebUserMapper;
 import com.zuoxiaolong.blog.model.dto.ArticleDTO;
@@ -225,6 +226,9 @@ public class UserArticleServiceImpl implements UserArticleService {
         }
         Map<String, UserArticle> articleMap = new HashMap<>();
         List<ArticleRankResponseDto> articleRankResponseDtos = (List<ArticleRankResponseDto>) SingletonCache.instance().get("ArticleRankResponseDto");
+        if (ObjectUtils.isNull(articleRankResponseDtos)) {
+            return articleMap;
+        }
         for (ArticleRankResponseDto articleRankResponseDto : articleRankResponseDtos) {
             for (ArticleRankResponseDataResult articleRankResponseDataResult : articleRankResponseDto.getDataResult()) {
                 Integer cacheCategoryId = articleRankResponseDataResult.getCategoryInfo().getId();
