@@ -1,3 +1,4 @@
+
 @import url(http://weloveiconfonts.com/api/?family=fontawesome);
 
 [class*="fontawesome-"]:before {
@@ -115,29 +116,33 @@ div .sidebar{
 
 div .content{
     margin-left:0px;
-
     padding-top:0px;
     padding-left:0px;
     padding-right:0px;
 }
 
-.content h1{
+.content h3{
     font-size:40px;
     color: rgba(150,150,150, 0.8);
     text-shadow: 0px 0px 6px #def, 0 0 0 #000, 0px 0px 6px #def;
     padding:5px;
     outline: none;
     transition:.2s;
+    background:white;
+    border-radius:5px;
+    box-shadow:inset 0px 0px 5px 0px grey;
+    /*text-shadow: none;*/
+    color:#444;
 }
 
-h1:focus{
+h3:focus{
     background:white;
     border-radius:5px;
     box-shadow:inset 0px 0px 5px 0px grey;
     text-shadow: none;
     color:#444;
 }
-h1:hover{
+h3:hover{
     background:white;
     border-radius:5px;
     box-shadow:inset 0px 0px 5px 0px grey;
@@ -153,7 +158,7 @@ h1:hover{
 .content #contentText{
     width:100%;
     border:none;
-    min-height:200px;
+    min-height:600px;
 
     border-radius:10px;
 
@@ -163,11 +168,12 @@ h1:hover{
 
     font-family: Arial, Helvetica, sans-serif;
     font-size:16px;
-
-    line-height:180%;
-    margin-bottom:30px;
-    margin-top:30px;
-    transition:.2s;
+    background:white;
+    box-shadow: inset 0px 0px 4px -1px black;
+    /*line-height:180%;*/
+    /*margin-bottom:30px;*/
+    /*margin-top:30px;*/
+    /*transition:.2s;*/
 }
 
 .content #contentText:focus{

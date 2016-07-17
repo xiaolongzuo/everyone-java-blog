@@ -82,7 +82,7 @@ public interface ArticleService {
      * @param userArticle
      * @return
      */
-    void insertUserArticle(UserArticle userArticle);
+    int insertUserArticle(UserArticle userArticle);
 
     /**
      * 修改文章信息，包括文章标题、内容、状态(发布、草稿、删除)

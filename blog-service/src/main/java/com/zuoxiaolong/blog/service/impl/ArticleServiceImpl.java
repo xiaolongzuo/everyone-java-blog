@@ -301,8 +301,9 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public void insertUserArticle(UserArticle userArticle) {
+    public int insertUserArticle(UserArticle userArticle) {
         userArticleMapper.insertSelective(userArticle);
+        return userArticle.getId();
     }
 
     @Override

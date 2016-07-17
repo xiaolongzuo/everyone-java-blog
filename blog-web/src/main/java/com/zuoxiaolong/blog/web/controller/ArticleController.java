@@ -56,6 +56,22 @@ public class ArticleController extends AbstractWebController {
 
     @RequestMapping(value = "/Write")
     public String writeIndex(){
+        JsonResponse articleList = invokeApi(Api.Article_GetUserArticle);
+        if(articleList.success()){
+            setModelAttribute("UserArticles",articleList.getData());
+        }
+        return "/write/index";
+    }
+    @RequestMapping(value = "/Write/{articleid}")
+    public String getArticleById(@PathVariable int articleid) {
+        JsonResponse response = invokeApi(Api.Article_GetArticleInfo, CollectionUtils.newMap("articleid", articleid + ""));
+        JsonResponse articleList = invokeApi(Api.Article_GetUserArticle);
+        if(articleList.success()){
+            setModelAttribute("UserArticles",articleList.getData());
+        }
+        if(response.success()){
+            setModelAttribute("ArticleInfoDTO", response.getData());
+        }
         return "/write/index";
     }
     /**
@@ -119,7 +135,7 @@ public class ArticleController extends AbstractWebController {
      * 增加一篇博文
      * @param userArticle
      */
-    @RequestMapping(value = "/AddUserArticle" , method = RequestMethod.POST)
+    @RequestMapping(value = "/Add/UserArticle" , method = RequestMethod.POST)
     public void addUserArticle(UserArticle userArticle){
         JsonResponse response = invokeApi(Api.Article_AddUserArticle,userArticle);
         renderJson(response);

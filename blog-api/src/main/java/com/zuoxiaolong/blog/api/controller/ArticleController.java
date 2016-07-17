@@ -103,9 +103,9 @@ public class ArticleController  extends AbstractApiController {
      */
     @CheckLogin
     @RequestMapping(value = "/AddUserArticle" , method = RequestMethod.POST)
-    public void addUserArticle(UserArticle userArticle){
-//        userArticle.setWebUserId(getWebUserId());
-        articleService.insertUserArticle(userArticle);
+    public int addUserArticle(UserArticle userArticle){
+        userArticle.setWebUserId(getWebUserId());
+        return articleService.insertUserArticle(userArticle);
     }
 
     /**

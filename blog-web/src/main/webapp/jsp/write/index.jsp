@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
 
     Copyright 2002-2016 the original author or authors.
@@ -24,31 +25,46 @@
 <html lang="zh-CN">
 <head>
     <jsp:include page="../common/head.jsp"/>
-    <link rel="stylesheet" href="../../css/nav.css">
+    <link rel="stylesheet" href="../../css/write.css">
     <link rel="stylesheet" href="../../css/richtext.css">
-
+    <link rel="stylesheet" href="../../css/smartMenu.css">
 </head>
-@import url(http://weloveiconfonts.com/api/?family=fontawesome);
 <body>
 <jsp:include page="../common/top.jsp"/>
 <div class="container">
-    <jsp:include page="../common/index_header.jsp"/>
+    <%--<jsp:include page="../common/index_header.jsp"/>--%>
     <div class="row">
-        <div id="new-note">
-            <a href="javascript:void(0)">新建文章 </a>
+        <div id = "blankrow">
+
         </div>
         <div class="col-sm-3 article-list">
-            <ul class="list-group">
-                <li class="list-group-item">一篇文章（草稿）</li>
-                <li class="list-group-item">第二篇(发布的)</li>
-                <li class="list-group-item">第三篇</li>
-                <li class="list-group-item">第四篇</li>
-                <li class="list-group-item">第五篇</li>
-            </ul>
+            <div id="new-note">
+                <a href="javascript:void(0)">新建文章 </a>
+            </div>
+            <c:forEach items="${UserArticles}" var="article">
+                <li class="list-group-item">
+                    <c:if test="${article.id eq ArticleInfoDTO.userArticle.id}">
+                        <a class="selected" href="${pageContext.request.contextPath}/Article/Write/${article.id}"
+                           currentId = "${article.id}">
+                                ${article.title}
+                        </a>
+                        <apan id ="opration">
+                            操作
+                        </apan>
+                    </c:if>
+                    <c:if test="${!(article.id eq ArticleInfoDTO.userArticle.id)}">
+                        <a href="${pageContext.request.contextPath}/Article/Write/${article.id}">
+                                ${article.title}
+                        </a>
+                    </c:if>
+                </li>
+            </c:forEach>
         </div>
         <div class="col-sm-9 article-content">
             <div class="content">
-                <h4 contenteditable="true">标题</h4>
+                <h3 id = "title" contenteditable="true">
+                        ${not empty ArticleInfoDTO ? ArticleInfoDTO.userArticle.title : "无标题文章"}
+                </h3>
                 <div class="textEditing">
                     <input type="checkbox" id="bold"><label for="bold"><span class="fontawesome-bold"></span></label></input>
                     <input type="checkbox" id="italic"><label for="italic"><span class="fontawesome-italic"></span></label></input>
@@ -58,11 +74,10 @@
                     <input type="radio" name="textStyle" id="right"><label for="right"><span class="fontawesome-align-right"></span></label></input>
                     <input type="radio" name="textStyle" id="justify"><label for="justify"><span class="fontawesome-align-justify"></span></label></input>
                     <input type="file" id="image"><label for="image"><span class="fontawesome-picture"></span></label></input>
-                    <input type="checkbox" id="attachment"><label for="attachment"><span class="fontawesome-link"></span></label></input>
-                    <input type="" id="link"><label for="link" id="linkLable"><span id=""></span></label></input>
-                    <input type="checkbox" id="code"><label for="code"><span class="fontawesome-quote-right"></span></label></input>
                 </div>
-                <p id="contentText" contenteditable="true">Enter text here</p>
+                <p id="contentText" contenteditable="true">
+                    ${not empty ArticleInfoDTO ? ArticleInfoDTO.userArticle.content : "每一个不曾起舞的日子，都是对生命的辜负"}
+                </p>
             </div>
         </div>
     </div><!-- /.row -->
@@ -72,6 +87,9 @@
 <script src="${pageContext.request.contextPath}/js/message.js"></script>
 <script src="${pageContext.request.contextPath}/lib/richtext/prefixfree.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/richtext.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery-smartMenu.js"></script>
+<script src="${pageContext.request.contextPath}/js/write.js"></script>
+
 </body>
 </html>
 
