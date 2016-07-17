@@ -51,7 +51,6 @@ public class WebBlogController extends AbstractApiController {
     public Integer updateBlogConfig(BlogConfig blogConfig) {
         Integer webUserId = getWebUserId();
         blogConfig.setAddress("/" + getUsername()); //address地址目前用这个默认值
-        blogConfig.setUsername(getUsername());
         blogConfig.setWebUserId(webUserId);
         return webBlogService.updateBlogConfig(blogConfig);
     }

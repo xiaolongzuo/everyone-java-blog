@@ -123,7 +123,7 @@ public class WebBlogServiceImpl implements WebBlogService {
 
         //用户输入为空的情况下,设置默认值
         if(StringUtils.isEmpty(blogConfig.getBlogTitle())) {
-            blogConfig.setBlogTitle(blogConfig.getUsername() + "的个人博客");
+            blogConfig.setBlogTitle("我的个人博客");
         }
 
         if(StringUtils.isEmpty(blogConfig.getBlogSubTitle())) {
