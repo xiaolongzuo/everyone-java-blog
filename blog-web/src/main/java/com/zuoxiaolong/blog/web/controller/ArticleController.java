@@ -18,6 +18,7 @@ package com.zuoxiaolong.blog.web.controller;
 import com.zuoxiaolong.blog.common.bean.JsonResponse;
 import com.zuoxiaolong.blog.common.utils.CollectionUtils;
 import com.zuoxiaolong.blog.model.persistent.ArticleComment;
+import com.zuoxiaolong.blog.model.persistent.UserArticle;
 import com.zuoxiaolong.blog.sdk.Api;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -53,6 +54,26 @@ public class ArticleController extends AbstractWebController {
         return "/index/index";
     }
 
+    @RequestMapping(value = "/Write")
+    public String writeIndex(){
+        JsonResponse articleList = invokeApi(Api.Article_GetUserArticle);
+        if(articleList.success()){
+            setModelAttribute("UserArticles",articleList.getData());
+        }
+        return "/write/index";
+    }
+    @RequestMapping(value = "/Write/{articleid}")
+    public String getArticleById(@PathVariable int articleid) {
+        JsonResponse response = invokeApi(Api.Article_GetArticleInfo, CollectionUtils.newMap("articleid", articleid + ""));
+        JsonResponse articleList = invokeApi(Api.Article_GetUserArticle);
+        if(articleList.success()){
+            setModelAttribute("UserArticles",articleList.getData());
+        }
+        if(response.success()){
+            setModelAttribute("ArticleInfoDTO", response.getData());
+        }
+        return "/write/index";
+    }
     /**
      * 查看评论和每条评论前三条回复列表
      *
@@ -107,6 +128,34 @@ public class ArticleController extends AbstractWebController {
     @RequestMapping(value = "/AddThumbupTimes" , method = RequestMethod.POST)
     public void addThumbupTimes(int articleid){
         JsonResponse response = invokeApi(Api.Article_AddThumbupTimes, CollectionUtils.newMap("articleid", articleid + ""));
+        renderJson(response);
+    }
+
+    /**
+     * 增加一篇博文
+     * @param userArticle
+     */
+    @RequestMapping(value = "/Add/UserArticle" , method = RequestMethod.POST)
+    public void addUserArticle(UserArticle userArticle){
+        JsonResponse response = invokeApi(Api.Article_AddUserArticle,userArticle);
+        renderJson(response);
+    }
+
+    /**
+     *修改博文信息（标题、内容、状态）
+     */
+    @RequestMapping(value = "/UpdUserArticle" , method = RequestMethod.POST)
+    public void updUserArticle(UserArticle userArticle){
+        JsonResponse response = invokeApi(Api.Article_UpdUserArticle,userArticle);
+        renderJson(response);
+    }
+
+    /**
+     *获取当前用户对应的文章
+     */
+    @RequestMapping(value = "/GetUserArticle" , method = RequestMethod.GET)
+    public void getUserArticle(){
+        JsonResponse response = invokeApi(Api.Article_GetUserArticle);
         renderJson(response);
     }
 }
