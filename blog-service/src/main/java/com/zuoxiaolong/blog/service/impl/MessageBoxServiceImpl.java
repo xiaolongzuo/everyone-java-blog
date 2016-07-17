@@ -37,7 +37,10 @@ import java.util.List;
 @Service
 public class MessageBoxServiceImpl implements MessageBoxService {
     private static final int RECEIVE_MESSAGE = 0;//收信
-    private static final int SEND_MESSAGE = 1;///发信
+    private static final int SEND_MESSAGE = 1;//发信
+    private static final int MESSAGE_STATUS_READ = 0;//已读
+    private static final int MESSAGE_STATUS_UNREAD = 1;//未读
+    private static final int MESSAGE_STATUS_DELETE = 0;//已删除
 
     @Autowired
     private MessageBoxMapper messageBoxMapper;
@@ -74,7 +77,8 @@ public class MessageBoxServiceImpl implements MessageBoxService {
     public MessageBoxDto getMessageContentById(Integer id) {
         MessageBox message = new MessageBox();
         if (!ObjectUtils.isEmpty(id)) {
-            message.setStatus(2);
+            message.setId(id);
+            message.setStatus(MESSAGE_STATUS_READ);
             updateMessageStatus(message);
             message = messageBoxMapper.selectByPrimaryKey(id);
         }
@@ -90,7 +94,7 @@ public class MessageBoxServiceImpl implements MessageBoxService {
      * @return 返回满足相应查询条件的消息列表
      */
     @Override
-    public List<MessageBoxDto> getMessagesByPage(Integer currentPageNumber, Integer pageSize, Integer type, Integer webUserId, Integer status) {
+    public DigitalPage getMessagesByPage(Integer currentPageNumber, Integer pageSize, Integer type, Integer webUserId, Integer status) {
         DigitalPage page = new DigitalPage();
         MessageBox messageBox = new MessageBox();
         if (!ObjectUtils.isEmpty(currentPageNumber)) {
@@ -111,11 +115,12 @@ public class MessageBoxServiceImpl implements MessageBoxService {
         List<MessageBoxDto> messageBoxDtos = new ArrayList<>();
         List<MessageBox> messageBoxes = messageBoxMapper.getMessagesByPage(page, messageBox);
         if (ObjectUtils.isEmpty(messageBoxes))
-            return messageBoxDtos;
+            return page;
         for (MessageBox message : messageBoxes) {
             messageBoxDtos.add(getMessageBoxDto(message));
         }
-        return messageBoxDtos;
+        page.setData(messageBoxDtos);
+        return page;
     }
 
     @Override

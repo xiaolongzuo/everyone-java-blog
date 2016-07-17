@@ -3,71 +3,41 @@
  * @date 2016/6/27 10:14
  * @version 1.0
  */
+var MESSAGE_RECEIVE = 0;
+var MESSAGE_SEND = 1;
+var MESSAGE_UNREAD = 2;
+var MESSAGE_STATUS_READ = 0;
+var MESSAGE_STATUS_UNREAD = 1;
+var MESSAGE_STATUS_DELETE = 2;
+var MESSAGE_STATUS = ['已读', '未读', '已删除'];
+
 $(function () {
-    var MESSAGE_RECEIVE = 0;
-    var MESSAGE_SEND = 1;
-    var MESSAGE_UNREAD = 2;
-    var type = MESSAGE_RECEIVE;
-
-    var pageSize = 5;
+    var pageSize = 10;
     var pageNumber = 0;
-    var status = null;
-    getMessageDataAndParse(contextPath + "/MessageBox/List", {
-        pageNumber: pageNumber,
-        pageSize: pageSize,
-        type: type,
-        status: status
-    }, type, parseMessages);
 
-    //收件箱
+    //获取收件箱中的消息
+    parseReceiveMessages(pageNumber, pageSize, MESSAGE_RECEIVE, null);
+
+    //获取收件箱中的消息
     $(".message-receive").on('click', function () {
         $(".message-content").css("display", "none");
         $("#message-content").css("display", "none");
-        type = MESSAGE_RECEIVE;
-        status = null;
-        getMessageDataAndParse(contextPath + "/MessageBox/List", {
-            pageNumber: pageNumber,
-            pageSize: pageSize,
-            type: 0,
-            status: status
-        }, type, parseMessages);
+        parseReceiveMessages(pageNumber, pageSize, MESSAGE_RECEIVE, null);
     });
 
-    //发件箱
+    //获取发件箱中的短消息
     $(".message-send").on('click', function () {
         $(".message-content").css("display", "none");
         $("#message-content").css("display", "none");
-        type = MESSAGE_SEND;
-        status = null;
-        getMessageDataAndParse(contextPath + "/MessageBox/List", {
-            pageNumber: pageNumber,
-            pageSize: pageSize,
-            type: 1,
-            status: status
-        }, type, parseMessages);
+        parseSendMessages(pageNumber, pageSize, MESSAGE_SEND, null);
     });
 
-    //未读消息
+    //获取收件箱中的未读消息
     $(".message-unread").on('click', function () {
         $(".message-content").css("display", "none");
         $("#message-content").css("display", "none");
-        type = MESSAGE_UNREAD;
-        status = 1;
-        getMessageDataAndParse("/MessageBox/List", {
-            pageNumber: pageNumber,
-            pageSize: pageSize,
-            type: 0,
-            status: status
-        }, type, parseMessages);
+        parseUnreadMessages(pageNumber, pageSize, MESSAGE_RECEIVE, MESSAGE_STATUS_UNREAD);
     });
-
-    //获取短信数据并解析
-    getMessageDataAndParse(contextPath + "/MessageBox/List", {
-        pageNumber: pageNumber,
-        pageSize: pageSize,
-        type: type,
-        status: status
-    }, type, parseMessages);
 
     //发消息
     $("#send-message").on('click', function () {
@@ -94,71 +64,6 @@ $(function () {
         });
     });
 
-    //解析短信数据
-    function parseMessages(type, result) {
-        switch (type) {
-            case MESSAGE_RECEIVE:
-                $("#message-receive .table tr:not(:first)").remove();
-                break;
-            case MESSAGE_SEND:
-                $("#message-send .table tr:not(:first)").remove();
-                break;
-            case MESSAGE_UNREAD:
-                $("#message-unread .table tr:not(:first)").remove();
-                break;
-            default:
-                result;
-        }
-        if (result == null) {
-            return;
-        }
-        var node = "";
-        /***
-         * 修改短消息状态
-         * 0:已读
-         * 1:未读
-         * 2:接收者已删除
-         * 3:发送者已删除
-         * 4:已删除
-         *
-         * @param messageBoxDto
-         * @return
-         */
-        var MESSAGE_STATUS = ['已读', '未读', '接收者已删除', '发送者已删除', '已删除'];
-
-        $.each(result.data, function (index, item) {
-            var webUserName = null;
-            var webUserId = null;
-            if (type == MESSAGE_RECEIVE || type == MESSAGE_UNREAD) {
-                webUserName = item.sender.username;
-                webUserId = item.sender.username;
-            } else if (type == MESSAGE_SEND) {
-                webUserName = item.receiver.username;
-                webUserId = item.receiver.username;
-            }
-            node += "<tr><td>" + MESSAGE_STATUS[item.message.status] + "</td>"
-                + "<td> <a href='#author' >" + webUserName + "</a></td>"
-                + "<td> <a href='#message-content' onclick='read_message_content(" + item.message.id + ")'>" + item.message.title + "</a></td>"
-                + "<td>" + item.message.createTime + "</td>";
-            var params = item.message.id + "," + (type + 2);
-            node += "<td>" + "<a href='#' onclick='update_message_status(" + params + ")'>" + "删除" + "</a>" + "<td>";
-        });
-
-        switch (type) {
-            case MESSAGE_RECEIVE:
-                $("#message-receive .table").append(node);
-                break;
-            case MESSAGE_SEND:
-                $("#message-send .table").append(node);
-                break;
-            case MESSAGE_UNREAD:
-                $("#message-unread .table").append(node);
-                break;
-            default:
-                result;
-        }
-    }
-
 });
 
 /***
@@ -169,7 +74,7 @@ $(function () {
 function read_message_content(id) {
     getMessageDataAndParse(contextPath + "/MessageBox/Content", {
         id: id
-    }, null, function (type, result) {
+    }, function (result) {
         var message = result.data.message;
         var sender = result.data.sender;
         var receiver = result.data.receiver;
@@ -194,9 +99,8 @@ function update_message_status(id, status) {
     getMessageDataAndParse(contextPath + "/MessageBox/Update", {
         id: id,
         status: status
-    }, null, function (type, result) {
+    }, function (result) {
         console.log("更新成功");
-
     });
 }
 
@@ -206,7 +110,7 @@ function update_message_status(id, status) {
  * @param url
  * @param data
  */
-function getMessageDataAndParse(url, data, type, callback) {
+function getMessageDataAndParse(url, data, callback) {
     $.ajax({
         url: url,
         dataType: "json",
@@ -214,7 +118,7 @@ function getMessageDataAndParse(url, data, type, callback) {
         type: "GET",
         cache: false,
         success: function (result) {
-            callback(type, result);
+            callback(result);
         },
         error: function () {
             console.log("获取消息失败！");
@@ -241,6 +145,215 @@ function postMessageDataAndParse(url, data, callback) {
         },
         error: function () {
             console.log("获取消息失败！");
+        }
+    });
+}
+
+
+//解析收件箱短信数据
+function parseReceiveMessages(currentPageNumber, pageSize, type, status) {
+    //从服务器端获取数据并解析
+    getMessageDataAndParse(contextPath + "/MessageBox/List", {
+        currentPageNumber: currentPageNumber,
+        pageSize: pageSize,
+        type: type,
+        status: status
+    }, function (result) {
+        $("#message-receive .table tr:not(:first)").remove();
+        if (result == null) {
+            return;
+        }
+        var node = "";
+        /***
+         * 修改短消息状态
+         * 0:已读
+         * 1:未读
+         * 2:已删除
+         *
+         * @param messageBoxDto
+         * @return
+         */
+
+        $.each(result.data.data, function (index, item) {
+            var webUserName = item.sender.username;
+            var webUserId = item.sender.id;
+            node += "<tr><td>" + MESSAGE_STATUS[item.message.status] + "</td>"
+                + "<td> <a href='#author' >" + webUserName + "</a></td>"
+                + "<td> <a href='#message-content' onclick='read_message_content(" + item.message.id + ")'>" + item.message.title + "</a></td>"
+                + "<td>" + item.message.createTime + "</td>";
+            var params = item.message.id + "," + MESSAGE_STATUS_DELETE;
+            node += "<td>" + "<a href='#' onclick='update_message_status(" + params + ")'>" + "删除" + "</a>" + "<td>";
+        });
+        $("#message-receive .table").append(node);
+
+        //分页
+        $("#message-receive .page-nav .pagination li").remove();
+        var page = result.data;
+        var message = page.data;
+        var paramStr = "";
+        if (page.totalPageNumber > 1) {
+            if (page.currentPageNumber > 1) {
+                paramStr += page.currentPageNumber - 1 + "," + page.pageSize + "," + MESSAGE_RECEIVE + "," + null;
+                var prevPage = "<li><span aria-hidden='true' onclick=parseReceiveMessages(" + paramStr + ")>上一页</span></li>";
+                $("#message-receive .page-nav .pagination").append(prevPage);
+                paramStr = "";
+            }
+            for (var i = 1; i <= page.totalPageNumber; i++) {
+                paramStr += i + "," + page.pageSize + "," + MESSAGE_RECEIVE + "," + null;
+                var pageNav = "";
+                if (page.currentPageNumber == i){
+                    pageNav = "<li class='active'><span aria-hidden='true' onclick=parseReceiveMessages(" + paramStr + ")>" + i + "</span></li>"
+                }else {
+                    pageNav = "<li><span aria-hidden='true' onclick=parseReceiveMessages(" + paramStr + ")>" + i + "</span></li>";
+                }
+                $("#message-receive .page-nav .pagination").append(pageNav);
+                paramStr = ""
+            }
+            if (page.currentPageNumber < page.totalPageNumber) {
+                paramStr += page.currentPageNumber + 1 + "," + page.pageSize + "," + MESSAGE_RECEIVE + "," + null;
+                var nextPage = "<li><span aria-hidden='true' onclick='parseReceiveMessages(" + paramStr + ")'>下一页</span></li>";
+                $("#message-receive .page-nav .pagination").append(nextPage);
+                paramStr = "";
+            }
+        }
+    });
+}
+
+//解析发件箱短信数据
+function parseSendMessages(currentPageNumber, pageSize, type, status) {
+    //从服务器端获取数据并解析
+    getMessageDataAndParse(contextPath + "/MessageBox/List", {
+        currentPageNumber: currentPageNumber,
+        pageSize: pageSize,
+        type: type,
+        status: status
+    }, function (result) {
+        $("#message-send .table tr:not(:first)").remove();
+        if (result == null) {
+            return;
+        }
+        var node = "";
+        /***
+         * 修改短消息状态
+         * 0:已读
+         * 1:未读
+         * 2:已删除
+         *
+         * @param messageBoxDto
+         * @return
+         */
+
+        $.each(result.data.data, function (index, item) {
+            var webUserName = item.receiver.username;
+            var webUserId = item.receiver.id;
+            node += "<tr><td>" + MESSAGE_STATUS[item.message.status] + "</td>"
+                + "<td> <a href='#author' >" + webUserName + "</a></td>"
+                + "<td> <a href='#message-content' onclick='read_message_content(" + item.message.id + ")'>" + item.message.title + "</a></td>"
+                + "<td>" + item.message.createTime + "</td>";
+            var params = item.message.id + "," + MESSAGE_STATUS_DELETE;
+            node += "<td>" + "<a href='#' onclick='update_message_status(" + params + ")'>" + "删除" + "</a>" + "<td>";
+        });
+
+        $("#message-send .table").append(node);
+
+        //分页
+        $("#message-send  .page-nav .pagination li").remove();
+        var page = result.data;
+        var message = page.data;
+        var paramStr = "";
+        if (page.totalPageNumber > 1) {
+            if (page.currentPageNumber > 1) {
+                paramStr += page.currentPageNumber - 1 + "," + page.pageSize + "," + MESSAGE_SEND + "," + null;
+                var prevPage = "<li><span aria-hidden='true' onclick=parseSendMessages(" + paramStr + ")>上一页</span></li>";
+                $("#message-send .page-nav .pagination").append(prevPage);
+                paramStr = "";
+            }
+            for (var i = 1; i <= page.totalPageNumber; i++) {
+                paramStr += i + "," + page.pageSize + "," + MESSAGE_SEND + "," + null;
+                var pageNav = "";
+                if (page.currentPageNumber == i){
+                    pageNav = "<li class='active'><span aria-hidden='true' onclick=parseReceiveMessages(" + paramStr + ")>" + i + "</span></li>"
+                }else {
+                    pageNav = "<li><span aria-hidden='true' onclick=parseSendMessages(" + paramStr + ")>" + i + "</span></li>";
+                }
+                $("#message-send .page-nav .pagination").append(pageNav);
+                paramStr = ""
+            }
+            if (page.currentPageNumber < page.totalPageNumber) {
+                paramStr += page.currentPageNumber + 1 + "," + page.pageSize + "," + MESSAGE_SEND + "," + null;
+                var nextPage = "<li><span aria-hidden='true' onclick='parseSendMessages(" + paramStr + ")'>下一页</span></li>";
+                $("#message-send .page-nav .pagination").append(nextPage);
+                paramStr = "";
+            }
+        }
+    });
+}
+
+//解析未读短信数据
+function parseUnreadMessages(currentPageNumber, pageSize, type, status) {
+    //从服务器端获取数据并解析
+    getMessageDataAndParse(contextPath + "/MessageBox/List", {
+        currentPageNumber: currentPageNumber,
+        pageSize: pageSize,
+        type: type,
+        status: status
+    }, function (result) {
+        $("#message-unread .table tr:not(:first)").remove();
+        if (result == null) {
+            return;
+        }
+        var node = "";
+        /***
+         * 修改短消息状态
+         * 0:已读
+         * 1:未读
+         * 2:已删除
+         *
+         * @param messageBoxDto
+         * @return
+         */
+
+        $.each(result.data.data, function (index, item) {
+            var webUserName = item.sender.username;
+            var webUserId = item.sender.id;
+            node += "<tr><td>" + MESSAGE_STATUS[item.message.status] + "</td>"
+                + "<td> <a href='#author' >" + webUserName + "</a></td>"
+                + "<td> <a href='#message-content' onclick='read_message_content(" + item.message.id + ")'>" + item.message.title + "</a></td>"
+                + "<td>" + item.message.createTime + "</td>";
+            var params = item.message.id + "," + MESSAGE_STATUS_DELETE;
+            node += "<td>" + "<a href='#' onclick='update_message_status(" + params + ")'>" + "删除" + "</a>" + "<td>";
+        });
+
+        $("#message-unread .table").append(node);
+
+        $("#message-unread  .page-nav .pagination li").remove();
+        var page = result.data;
+        var message = page.data;
+        var paramStr = "";
+        if (page.totalPageNumber > 1) {
+            if (page.currentPageNumber > 1) {
+                paramStr += page.currentPageNumber - 1 + "," + page.pageSize + "," + MESSAGE_RECEIVE + "," + null;
+                var prevPage = "<li><span aria-hidden='true' onclick=parseUnreadMessages(" + paramStr + ")>上一页</span></li>";
+                $("#message-unread .page-nav .pagination").append(prevPage);
+                paramStr = "";
+            }
+            for (var i = 1; i <= page.totalPageNumber; i++) {
+                paramStr += i + "," + page.pageSize + "," + MESSAGE_RECEIVE + "," + null;
+                var pageNav = "";
+                if (page.currentPageNumber == i){
+                    pageNav = "<li class='active'><span aria-hidden='true' onclick=parseUnreadMessages(" + paramStr + ")>" + i + "</span></li>"
+                }else {
+                    pageNav = "<li><span aria-hidden='true' onclick=parseUnreadMessages(" + paramStr + ")>" + i + "</span></li>";
+                }
+                $("#message-unread .page-nav .pagination").append(pageNav);
+                paramStr = ""
+            }
+            if (page.currentPageNumber < page.totalPageNumber) {
+                paramStr += page.currentPageNumber + 1 + "," + page.pageSize + "," + MESSAGE_RECEIVE + "," + null;
+                var nextPage = "<li><span aria-hidden='true' onclick='parseUnreadMessages(" + paramStr + ")'>下一页</span></li>";
+                $("#message-unread .page-nav .pagination").append(nextPage);
+                paramStr = "";
+            }
         }
     });
 }
