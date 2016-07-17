@@ -72,7 +72,7 @@ public class WebBlogController extends AbstractWebController {
     public String updateBlogConfig(BlogConfig blogConfig) {
         JsonResponse response = invokeApi(Api.WebBlog_Update_Config, blogConfig);
         setModelAttribute("result", response);
-        return "/blog/blog_result";
+        return "redirect:/WebBlog/HomePage/" + getUsername();
     }
 
     /**
