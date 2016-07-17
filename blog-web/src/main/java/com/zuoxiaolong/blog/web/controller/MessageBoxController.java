@@ -100,10 +100,9 @@ public class MessageBoxController extends AbstractWebController {
 
     /***
      * 修改短消息状态
-     * 1:已读
-     * 2:未读
-     * 3:接收者已删除
-     * 4:发送者已删除
+     * 0:已读
+     * 1:未读
+     * 2:已删除
      *
      * @param username
      * @param messageBox

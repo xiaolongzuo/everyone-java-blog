@@ -15,12 +15,10 @@
  */
 package com.zuoxiaolong.blog.service;
 
+import com.zuoxiaolong.blog.common.orm.DigitalPage;
 import com.zuoxiaolong.blog.model.dto.MessageBoxDto;
 import com.zuoxiaolong.blog.model.persistent.MessageBox;
 import com.zuoxiaolong.blog.model.persistent.WebUser;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * @author iCodingStar
@@ -33,7 +31,7 @@ public interface MessageBoxService {
 
     MessageBoxDto getMessageContentById(Integer id);
 
-    List<MessageBoxDto> getMessagesByPage(Integer currentPageNumber, Integer pageSize, Integer type, Integer webUserId, Integer status);
+    DigitalPage getMessagesByPage(Integer currentPageNumber, Integer pageSize, Integer type, Integer webUserId, Integer status);
 
     Integer updateMessageStatus(MessageBox messageBox);
 }
