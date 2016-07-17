@@ -15,6 +15,7 @@
  */
 package com.zuoxiaolong.blog.api.controller;
 
+import com.zuoxiaolong.blog.common.orm.DigitalPage;
 import com.zuoxiaolong.blog.model.dto.MessageBoxDto;
 import com.zuoxiaolong.blog.model.persistent.MessageBox;
 import com.zuoxiaolong.blog.model.persistent.WebUser;
@@ -59,10 +60,10 @@ public class MessageBoxController extends AbstractApiController {
      * @return
      */
     @RequestMapping(value = "/List", method = RequestMethod.GET)
-    public List<MessageBoxDto> getMessageList(@RequestParam(required = false) Integer currentPageNumber,
-                                              @RequestParam(required = false) Integer pageSize,
-                                              @RequestParam(required = false) Integer type,
-                                              @RequestParam(required = false) Integer status) {
+    public DigitalPage getMessageList(@RequestParam(required = false) Integer currentPageNumber,
+                                      @RequestParam(required = false) Integer pageSize,
+                                      @RequestParam(required = false) Integer type,
+                                      @RequestParam(required = false) Integer status) {
         return messageBoxService.getMessagesByPage(currentPageNumber, pageSize, type, getWebUserId(), status);
     }
 
@@ -83,9 +84,7 @@ public class MessageBoxController extends AbstractApiController {
      * 修改短消息状态
      * 0:已读
      * 1:未读
-     * 2:接收者已删除
-     * 3:发送者已删除
-     * 4:已删除
+     * 2:已删除
      *
      * @param messageBox
      * @return

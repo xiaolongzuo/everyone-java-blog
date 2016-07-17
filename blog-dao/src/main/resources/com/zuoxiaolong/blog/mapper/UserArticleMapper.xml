@@ -29,14 +29,15 @@
         select
         <include refid="Base_Column_List"/>
         from user_article
-        where web_user_id = #{webUserId,jdbcType=INTEGER}
+        where web_user_id = #{webUserId,jdbcType=INTEGER} and status != 2
+        order by id DESC
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete from user_article
         where id = #{id,jdbcType=INTEGER}
     </delete>
-    <insert id="insertSelective" parameterType="com.zuoxiaolong.blog.model.persistent.UserArticle">
+    <insert id="insertSelective" parameterType="com.zuoxiaolong.blog.model.persistent.UserArticle" useGeneratedKeys="true" keyProperty="id" >
         insert into user_article
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -102,6 +103,9 @@
                 #{commentTimes,jdbcType=INTEGER},
             </if>
         </trim>
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.zuoxiaolong.blog.model.persistent.UserArticle">
         update user_article

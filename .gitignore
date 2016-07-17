@@ -2,6 +2,7 @@
 .mtj.tmp/
 .idea/
 target/
+test/
 
 # Package Files #
 *.jar
