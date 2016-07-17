@@ -26,19 +26,20 @@
     <jsp:include page="../common/head.jsp"/>
 </head>
 <body>
-<div class="text-left">
+<%@include file="../common/top.jsp"%>
+<div style="margin-left: 50px">
     <form action="${pageContext.request.contextPath}/WebBlog/Update/Config" method="post">
         <div class="form-group">
             <label>博客名称:</label><br/>
-            <input name="blogTitle" value="${result.data.blogTitle}" style="width: 50%"/><br/>
+            <input name="blogTitle" value="${result.data.blogTitle}" style="width: 30%"/><br/>
         </div>
         <div class="form-group">
             <label>博客子标题:</label><br/>
-            <textarea name="blogSubTitle" cols="40" rows="5" style="width: 50%">${result.data.blogSubTitle}</textarea><br/>
+            <textarea name="blogSubTitle" cols="20" rows="2" style="width: 30%">${result.data.blogSubTitle}</textarea><br/>
         </div>
         <div class="form-group">
             <label>个人简介:</label><br/>
-            <textarea name="introduction" cols="60" rows="10" style="width: 50%">${result.data.introduction}</textarea><br/>
+            <textarea name="introduction" cols="60" rows="10" style="width: 30%">${result.data.introduction}</textarea><br/>
         </div>
         <input type="submit" class="btn btn-success" value="修改"/>
     </form>
