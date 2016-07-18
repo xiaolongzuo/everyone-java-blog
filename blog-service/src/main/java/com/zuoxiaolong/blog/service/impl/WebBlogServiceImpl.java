@@ -85,11 +85,7 @@ public class WebBlogServiceImpl implements WebBlogService {
         BlogConfig blogConfig = blogConfigMapper.selectByWebUserId(webUser.getId());
         if (blogConfig == null) {
             blogConfig = new BlogConfig();
-            blogConfig.setBlogSubTitle("暂无");
-            blogConfig.setIntroduction("暂无");
-            blogConfig.setAddress("/" + webUser.getUsername());
-            blogConfig.setBlogTitle("我的个人博客");
-            blogConfig.setWebUserId(webUser.getId());
+            blogConfig.init(webUser);
             blogConfigMapper.insertSelective(blogConfig);
         }
 
