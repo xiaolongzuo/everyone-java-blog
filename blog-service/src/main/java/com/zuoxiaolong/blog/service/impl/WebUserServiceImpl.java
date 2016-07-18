@@ -21,8 +21,10 @@ import com.zuoxiaolong.blog.common.exception.BusinessException;
 import com.zuoxiaolong.blog.common.utils.ObjectUtils;
 import com.zuoxiaolong.blog.common.utils.StringUtils;
 import com.zuoxiaolong.blog.common.utils.ValidateUtils;
+import com.zuoxiaolong.blog.mapper.BlogConfigMapper;
 import com.zuoxiaolong.blog.mapper.WebUserMapper;
 import com.zuoxiaolong.blog.model.dto.WebUserDTO;
+import com.zuoxiaolong.blog.model.persistent.BlogConfig;
 import com.zuoxiaolong.blog.model.persistent.WebUser;
 import com.zuoxiaolong.blog.service.WebUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,9 @@ public class WebUserServiceImpl implements WebUserService {
 
     @Autowired
     private WebUserMapper webUserMapper;
+
+    @Autowired
+    private BlogConfigMapper blogConfigMapper;
 
     @Override
     public WebUser register(WebUser webUser) {
@@ -59,6 +64,10 @@ public class WebUserServiceImpl implements WebUserService {
         webUser.encodePassword();
         webUser.setEnable(true);
         webUserMapper.insertSelective(webUser);
+
+        BlogConfig blogConfig = new BlogConfig();
+        blogConfig.init(webUser);
+        blogConfigMapper.insertSelective(blogConfig);
         return originWebUser;
     }
 
