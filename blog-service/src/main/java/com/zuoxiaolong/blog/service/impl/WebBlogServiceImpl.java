@@ -84,9 +84,8 @@ public class WebBlogServiceImpl implements WebBlogService {
         // 根据用户id查询博客是否开通
         BlogConfig blogConfig = blogConfigMapper.selectByWebUserId(webUser.getId());
         if (blogConfig == null) {
-            blogConfig = new BlogConfig();
-            blogConfig.init(webUser);
-            blogConfigMapper.insertSelective(blogConfig);
+            logger.error("{} 的博客未开通！", username);
+            throw new BusinessException(ExceptionType.DATA_NOT_FOUND);
         }
 
         List<UserArticle> userArticles = getMyBlogByUserId(webUser.getId(), pageSize, offset);
