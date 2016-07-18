@@ -114,6 +114,14 @@ ALTER TABLE `java_blog`.`article_comment` MODIFY `reply_comment_id` INT(11) NOT 
 
 
 
+ALTER TABLE `java_blog`.`user_article` MODIFY `category_id` int(11) NOT NULL DEFAULT 1 COMMENT '分类id';
+ALTER TABLE `java_blog`.`user_article` MODIFY `title` varchar(128) NOT NULL DEFAULT '无标题文章' COMMENT '文章标题';
+ALTER TABLE `java_blog`.`user_article` MODIFY `read_times` int(11) NOT NULL DEFAULT 0 COMMENT '阅读次数';
+ALTER TABLE `java_blog`.`user_article` MODIFY `thumbup_times` int(11) NOT NULL DEFAULT 0 COMMENT '点赞次数';
+ALTER TABLE `java_blog`.`user_article` MODIFY `comment_times` int(11) NOT NULL DEFAULT 0 COMMENT '评论次数';
+ALTER TABLE `java_blog`.`user_article` MODIFY  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '状态:0,草稿 1,发布 2,删除';
+
+
 
 
 

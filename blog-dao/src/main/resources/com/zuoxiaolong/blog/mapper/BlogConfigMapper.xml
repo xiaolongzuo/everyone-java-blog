@@ -73,19 +73,6 @@
                 #{blogSubTitle,jdbcType=VARCHAR},
             </if>
         </trim>
-        ON DUPLICATE KEY UPDATE
-        <if test="introduction != null">
-            introduction = #{introduction,jdbcType=VARCHAR},
-        </if>
-        <if test="address != null">
-            address = #{address,jdbcType=VARCHAR},
-        </if>
-        <if test="blogTitle != null">
-            blog_title = #{blogTitle,jdbcType=VARCHAR},
-        </if>
-        <if test="blogSubTitle != null">
-            blog_sub_title = #{blogSubTitle,jdbcType=VARCHAR}
-        </if>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.zuoxiaolong.blog.model.persistent.BlogConfig">
         update blog_config

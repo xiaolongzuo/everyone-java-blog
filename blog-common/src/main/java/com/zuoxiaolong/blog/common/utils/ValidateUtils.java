@@ -27,6 +27,12 @@ import java.math.BigDecimal;
  */
 public interface ValidateUtils {
 
+    static void sensitiveWord(String parameter) {
+        if (SensitiveWordCheckUtils.isContainSensitiveWord(parameter)) {
+            throw new BusinessException(ExceptionType.PARAMETER_ILLEGAL);
+        }
+    }
+
     static void check(boolean result) {
         if (!result) {
             throw new BusinessException(ExceptionType.PARAMETER_ILLEGAL);
