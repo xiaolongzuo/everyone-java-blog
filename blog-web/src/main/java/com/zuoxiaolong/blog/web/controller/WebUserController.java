@@ -99,4 +99,16 @@ public class WebUserController extends AbstractWebController {
         }
     }
 
+    @RequestMapping(value = "/ModifyPassword", method = RequestMethod.POST)
+    public String modifyPassword(String oldPassword, String newPassword) {
+        JsonResponse response = invokeApi(Api.WebUser_ModifyPassword, CollectionUtils.newMap(new String[]{"oldPassword", "newPassword"}, oldPassword, newPassword));
+        if(!response.success()){
+            setRequestAttribute("error", "原密码不正确");
+        }else{
+            setRequestAttribute("error", "修改成功");
+        }
+        setRequestAttribute("active","change-password");
+        return "/blog/blog_config";
+    }
+
 }
