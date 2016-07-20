@@ -285,6 +285,9 @@ function parseReceiveMessages(currentPageNumber, pageSize, type, status) {
                 $("#message-receive .page-nav .pagination").append(nextPage);
                 paramStr = "";
             }
+        }else {
+            var info = "<li><span>暂无消息</span></li>";
+            $("#message-receive .page-nav .pagination").append(info);
         }
     });
 }
@@ -355,6 +358,9 @@ function parseSendMessages(currentPageNumber, pageSize, type, status) {
                 $("#message-send .page-nav .pagination").append(nextPage);
                 paramStr = "";
             }
+        }else {
+            var info = "<li><span>暂无消息</span></li>";
+            $("#message-send .page-nav .pagination").append(info);
         }
     });
 }
@@ -424,6 +430,9 @@ function parseUnreadMessages(currentPageNumber, pageSize, type, status) {
                 $("#message-unread .page-nav .pagination").append(nextPage);
                 paramStr = "";
             }
+        }else {
+            var info = "<li><span>暂无消息</span></li>";
+            $("#message-unread .page-nav .pagination").append(info);
         }
     });
 }
