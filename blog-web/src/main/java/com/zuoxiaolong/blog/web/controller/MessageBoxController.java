@@ -21,6 +21,7 @@ import com.zuoxiaolong.blog.common.utils.ObjectUtils;
 import com.zuoxiaolong.blog.common.utils.StringUtils;
 import com.zuoxiaolong.blog.model.dto.MessageBoxDto;
 import com.zuoxiaolong.blog.model.persistent.MessageBox;
+import com.zuoxiaolong.blog.model.persistent.WebUser;
 import com.zuoxiaolong.blog.sdk.Api;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,6 +39,12 @@ import java.util.Map;
 @Controller
 @RequestMapping("/MessageBox")
 public class MessageBoxController extends AbstractWebController {
+
+    @RequestMapping("/HomePage")
+    public String homePage() {
+        return "message/message_list";
+    }
+
     /***
      * 查看信息箱消息内容
      *
@@ -81,6 +88,25 @@ public class MessageBoxController extends AbstractWebController {
     }
 
     /***
+     * 根据用户名或者用户id核查用户是否存在
+     *
+     * @param username 用户名
+     * @param receiver 用户id
+     * @return
+     */
+    @RequestMapping(value = "/CheckUser" ,method = RequestMethod.GET)
+    public void checkUserExist(@RequestParam(value = "username",required = false) String username,
+                                  @RequestParam(value = "receiver",required = false) Integer receiver) {
+        Map<String, String> params = new HashMap<>();
+        if (!StringUtils.isEmpty(username))
+            params.put("username", username);
+        if (!ObjectUtils.isEmpty(receiver))
+            params.put("receiver", receiver.toString());
+        JsonResponse jsonResponse = invokeApi(Api.MessageBox_CheckUser, params);
+        renderJson(jsonResponse);
+    }
+
+    /***
      * 发送短消息
      *
      * @param username   收件人
@@ -90,9 +116,7 @@ public class MessageBoxController extends AbstractWebController {
     public void sendMessage(String username, MessageBox messageBox) {
         Map<String, String> params = new HashMap<>();
         params.put("username", username);
-        if (!ObjectUtils.isEmpty(messageBox.getReceiver()) && StringUtils.isNumeric(username)){
-            params.put("receiver", messageBox.getReceiver() + "");
-        }
+        params.put("receiver", messageBox.getReceiver() + "");
         params.put("title", messageBox.getTitle());
         params.put("content", messageBox.getContent());
         renderJson(invokeApi(Api.MessageBox_Send, params));

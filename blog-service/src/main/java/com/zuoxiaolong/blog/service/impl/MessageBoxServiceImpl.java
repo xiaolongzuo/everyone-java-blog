@@ -17,6 +17,7 @@ package com.zuoxiaolong.blog.service.impl;
 
 import com.zuoxiaolong.blog.common.orm.DigitalPage;
 import com.zuoxiaolong.blog.common.utils.ObjectUtils;
+import com.zuoxiaolong.blog.common.utils.StringUtils;
 import com.zuoxiaolong.blog.mapper.MessageBoxMapper;
 import com.zuoxiaolong.blog.mapper.WebUserMapper;
 import com.zuoxiaolong.blog.model.dto.MessageBoxDto;
@@ -57,7 +58,11 @@ public class MessageBoxServiceImpl implements MessageBoxService {
      */
     @Override
     public Integer insertMessage(WebUser receiver, MessageBox messageBox) {
-        if (!ObjectUtils.isEmpty(receiver)) {
+        //收件人未指定
+        if (ObjectUtils.isEmpty(receiver.getUsername()) && ObjectUtils.isEmpty(messageBox.getReceiver())) {
+            return 0;
+        }
+        if (!ObjectUtils.isEmpty(receiver.getUsername())) {
             WebUser receiverDto = webUserMapper.selectByWebUser(receiver);
             if (!ObjectUtils.isEmpty(receiverDto)) {
                 messageBox.setReceiver(receiverDto.getId());
@@ -164,5 +169,22 @@ public class MessageBoxServiceImpl implements MessageBoxService {
         webUserDto.setNickname(webUser.getNickname());
         webUserDto.setUsername(webUser.getUsername());
         return webUserDto;
+    }
+
+    /***
+     * 核查收件人是否存在
+     *
+     * @param receiver
+     * @return {0:不存在，1:存在}
+     */
+    @Override
+    public Integer checkReceiverExist(WebUser receiver) {
+        if (StringUtils.isEmpty(receiver.getUsername()) && ObjectUtils.isEmpty(receiver.getId()))
+            return 0;
+        WebUser user = webUserMapper.selectByWebUser(receiver);
+        if (user != null) {
+            return 1;
+        }
+        return 0;
     }
 }

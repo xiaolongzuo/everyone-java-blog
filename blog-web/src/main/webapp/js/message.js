@@ -15,6 +15,8 @@ $(function () {
     var pageSize = 10;
     var pageNumber = 0;
 
+    $("#send-message").attr('disabled', true);//禁用发送按钮
+
     //获取收件箱中的消息
     parseReceiveMessages(pageNumber, pageSize, MESSAGE_RECEIVE, null);
 
@@ -48,6 +50,7 @@ $(function () {
             receiver = null;
         } else {
             receiver = username;
+            username = null;
         }
         var title = $("#message-write #title").val();
         var content = $('#message-write #content').val();
@@ -59,10 +62,14 @@ $(function () {
             content: content,
             status: 0
         }, function (result) {
-            alert("发送成功！")
-            $(".message-send a").trigger("click");
+            if (result.data == 1) {
+                console.table(result);
+                alert("发送成功");
+                $(".message-send a").trigger("click");
+            }
         });
     });
+
 
 });
 
@@ -88,7 +95,6 @@ function read_message_content(id) {
     });
 }
 
-
 /***
  * 更新短消息状态
  *
@@ -102,6 +108,69 @@ function update_message_status(id, status) {
     }, function (result) {
         console.log("更新成功");
     });
+}
+/***
+ * 检查内容是否合法
+ */
+function check_content_input(event) {
+    $("#send-message").attr('disabled', false);//解禁发送按钮
+    var content_value = $('#content').val();
+    if (content_value.length < 6){
+        $('#content_tips').text("短信息内容不少于6个字!");
+        $("#send-message").attr('disabled', true);//禁用发送按钮
+    }else if (content_value.length > 512){
+        $('#content_tips').text("短信息内容不超过512个字！");
+        $("#send-message").attr('disabled', true);//禁用发送按钮
+    }
+}
+/***
+ *检查标题是否合法
+ */
+function check_title_input(event) {
+    $("#send-message").attr('disabled', false);//解禁发送按钮
+    var title_value = $('#title').val();
+    if (title_value.length < 2){
+        $('#title_tips').text("短信息标题不少于2个字!");
+        $("#send-message").attr('disabled', true);//禁用发送按钮
+    }else if (title_value.length > 32){
+        $('#title_tips').text("短信息标题不超过32个字！");
+        $("#send-message").attr('disabled', true);//禁用发送按钮
+    }
+}
+/***
+ * 检查收件人是否合法
+ */
+function check_receiver_input(event) {
+    var username = $("#message-write #receiver").val();
+    if (isNaN(username)) {
+        receiver = null;
+    } else {
+        receiver = username;
+        username = null;
+    }
+    checkUser(username, receiver);
+}
+
+/***
+ * 判断收件人是否存在
+ * @param username
+ * @param receiver
+ * @returns {boolean}
+ */
+function checkUser(username, receiver) {
+    getMessageDataAndParse("/MessageBox/CheckUser",
+        {
+            username: username,
+            receiver: receiver
+        }, function (result) {
+            if (result.data == "1") {
+                $('#receiver_tips').text(" ");//提示文本置空
+                $("#send-message").attr('disabled', false);//解禁发送按钮
+            } else {
+                $('#receiver_tips').text("用户不存在！");
+                $("#send-message").attr('disabled', true);//禁用发送按钮
+            }
+        });
 }
 
 /***
@@ -125,6 +194,7 @@ function getMessageDataAndParse(url, data, callback) {
         }
     });
 }
+
 
 /***
  * 向服务器发送数据并显示反馈信息
@@ -201,9 +271,9 @@ function parseReceiveMessages(currentPageNumber, pageSize, type, status) {
             for (var i = 1; i <= page.totalPageNumber; i++) {
                 paramStr += i + "," + page.pageSize + "," + MESSAGE_RECEIVE + "," + null;
                 var pageNav = "";
-                if (page.currentPageNumber == i){
+                if (page.currentPageNumber == i) {
                     pageNav = "<li class='active'><span aria-hidden='true' onclick=parseReceiveMessages(" + paramStr + ")>" + i + "</span></li>"
-                }else {
+                } else {
                     pageNav = "<li><span aria-hidden='true' onclick=parseReceiveMessages(" + paramStr + ")>" + i + "</span></li>";
                 }
                 $("#message-receive .page-nav .pagination").append(pageNav);
@@ -271,9 +341,9 @@ function parseSendMessages(currentPageNumber, pageSize, type, status) {
             for (var i = 1; i <= page.totalPageNumber; i++) {
                 paramStr += i + "," + page.pageSize + "," + MESSAGE_SEND + "," + null;
                 var pageNav = "";
-                if (page.currentPageNumber == i){
+                if (page.currentPageNumber == i) {
                     pageNav = "<li class='active'><span aria-hidden='true' onclick=parseReceiveMessages(" + paramStr + ")>" + i + "</span></li>"
-                }else {
+                } else {
                     pageNav = "<li><span aria-hidden='true' onclick=parseSendMessages(" + paramStr + ")>" + i + "</span></li>";
                 }
                 $("#message-send .page-nav .pagination").append(pageNav);
@@ -340,9 +410,9 @@ function parseUnreadMessages(currentPageNumber, pageSize, type, status) {
             for (var i = 1; i <= page.totalPageNumber; i++) {
                 paramStr += i + "," + page.pageSize + "," + MESSAGE_RECEIVE + "," + null;
                 var pageNav = "";
-                if (page.currentPageNumber == i){
+                if (page.currentPageNumber == i) {
                     pageNav = "<li class='active'><span aria-hidden='true' onclick=parseUnreadMessages(" + paramStr + ")>" + i + "</span></li>"
-                }else {
+                } else {
                     pageNav = "<li><span aria-hidden='true' onclick=parseUnreadMessages(" + paramStr + ")>" + i + "</span></li>";
                 }
                 $("#message-unread .page-nav .pagination").append(pageNav);

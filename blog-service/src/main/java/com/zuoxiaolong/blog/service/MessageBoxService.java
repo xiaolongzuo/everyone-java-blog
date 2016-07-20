@@ -34,4 +34,6 @@ public interface MessageBoxService {
     DigitalPage getMessagesByPage(Integer currentPageNumber, Integer pageSize, Integer type, Integer webUserId, Integer status);
 
     Integer updateMessageStatus(MessageBox messageBox);
+
+    Integer checkReceiverExist(WebUser receiver);
 }

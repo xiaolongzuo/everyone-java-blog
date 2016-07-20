@@ -44,7 +44,7 @@ public class HomePageController extends AbstractApiController {
     }
 
     @RequestMapping(value = "/TopThreeUserArticles", method = RequestMethod.GET)
-    public Map<String, UserArticle> topThreeUserArticles(Integer categoryId) {
+    public Map<String, UserArticle> topThreeUserArticles(@RequestParam(defaultValue = "1")Integer categoryId) {
         return userArticleService.getTopThreeUserArticles(categoryId);
     }
 

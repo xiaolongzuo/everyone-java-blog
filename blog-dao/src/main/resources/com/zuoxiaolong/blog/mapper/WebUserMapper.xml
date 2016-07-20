@@ -112,17 +112,20 @@
         <include refid="Base_Column_List"/>
         from web_user
         <where>
+            <if test="id != null">
+                AND id = #{id,jdbcType=INTEGER}
+            </if>
             <if test="username != null">
-                username = #{username,jdbcType=VARCHAR}
+                AND username = #{username,jdbcType=VARCHAR}
             </if>
             <if test="password != null">
-                password = #{password,jdbcType=VARCHAR}
+                AND password = #{password,jdbcType=VARCHAR}
             </if>
             <if test="nickname != null">
-                nickname = #{nickname,jdbcType=VARCHAR}
+                AND nickname = #{nickname,jdbcType=VARCHAR}
             </if>
             <if test="token != null">
-                token = #{token,jdbcType=VARCHAR}
+                AND token = #{token,jdbcType=VARCHAR}
             </if>
         </where>
     </select>

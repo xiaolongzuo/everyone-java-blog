@@ -15,11 +15,15 @@
  */
 package com.zuoxiaolong.blog.api.controller;
 
+import com.zuoxiaolong.blog.common.authorization.CheckLogin;
 import com.zuoxiaolong.blog.common.orm.DigitalPage;
+import com.zuoxiaolong.blog.common.utils.ObjectUtils;
+import com.zuoxiaolong.blog.common.utils.StringUtils;
 import com.zuoxiaolong.blog.model.dto.MessageBoxDto;
 import com.zuoxiaolong.blog.model.persistent.MessageBox;
 import com.zuoxiaolong.blog.model.persistent.WebUser;
 import com.zuoxiaolong.blog.service.MessageBoxService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,6 +50,7 @@ public class MessageBoxController extends AbstractApiController {
      * @return
      */
     @RequestMapping(value = "/Content", method = RequestMethod.GET)
+    @CheckLogin
     public MessageBoxDto getMessageContent(@RequestParam("id") Integer id) {
         return messageBoxService.getMessageContentById(id);
     }
@@ -60,11 +65,31 @@ public class MessageBoxController extends AbstractApiController {
      * @return
      */
     @RequestMapping(value = "/List", method = RequestMethod.GET)
+    @CheckLogin
     public DigitalPage getMessageList(@RequestParam(required = false) Integer currentPageNumber,
                                       @RequestParam(required = false) Integer pageSize,
                                       @RequestParam(required = false) Integer type,
                                       @RequestParam(required = false) Integer status) {
         return messageBoxService.getMessagesByPage(currentPageNumber, pageSize, type, getWebUserId(), status);
+    }
+
+    /***
+     * 根据用户名或者用户id核查用户是否存在
+     *
+     * @param username
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/CheckUser" ,method = RequestMethod.GET)
+    @CheckLogin
+    public Integer checkUserExist(@RequestParam(value = "username",required = false) String username,
+                                  @RequestParam(value = "receiver",required = false) Integer id) {
+        WebUser receiver = new WebUser();
+        if (!StringUtils.isEmpty(username))
+            receiver.setUsername(username);
+        if (!ObjectUtils.isEmpty(id))
+            receiver.setId(id);
+        return messageBoxService.checkReceiverExist(receiver);
     }
 
     /***
@@ -75,9 +100,10 @@ public class MessageBoxController extends AbstractApiController {
      * @return
      */
     @RequestMapping(value = "/Send", method = {RequestMethod.POST, RequestMethod.GET})
+
     public Integer sendMessage(WebUser receiver, MessageBox messageBox) {
         messageBox.setSender(getWebUserId());
-        return messageBoxService.insertMessage(receiver,messageBox);
+        return messageBoxService.insertMessage(receiver, messageBox);
     }
 
     /***
