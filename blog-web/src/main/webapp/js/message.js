@@ -116,10 +116,10 @@ function check_content_input(event) {
     $("#send-message").attr('disabled', false);//解禁发送按钮
     var content_value = $('#content').val();
     if (content_value.length < 6){
-        $('#content_tips').text("短信息内容不少于6个字!");
+        $('#content_tips').text("短信息内容不少于6个字符!");
         $("#send-message").attr('disabled', true);//禁用发送按钮
-    }else if (content_value.length > 512){
-        $('#content_tips').text("短信息内容不超过512个字！");
+    }else if (content_value.length > 2000){
+        $('#content_tips').text("短信息内容不超过512个字符！");
         $("#send-message").attr('disabled', true);//禁用发送按钮
     }
 }
@@ -130,10 +130,10 @@ function check_title_input(event) {
     $("#send-message").attr('disabled', false);//解禁发送按钮
     var title_value = $('#title').val();
     if (title_value.length < 2){
-        $('#title_tips').text("短信息标题不少于2个字!");
+        $('#title_tips').text("短信息标题不少于2个字符!");
         $("#send-message").attr('disabled', true);//禁用发送按钮
-    }else if (title_value.length > 32){
-        $('#title_tips').text("短信息标题不超过32个字！");
+    }else if (title_value.length > 128){
+        $('#title_tips').text("短信息标题不超过128个字符！");
         $("#send-message").attr('disabled', true);//禁用发送按钮
     }
 }
