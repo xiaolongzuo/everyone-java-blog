@@ -37,6 +37,10 @@ function loadMoreArticle() {
             }
         }
 
+        if (len < 10) {
+            $("#myBlog").hide();
+        }
+
     })
 }
 
