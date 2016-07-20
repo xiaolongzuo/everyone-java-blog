@@ -52,20 +52,18 @@ public class MessageBoxServiceImpl implements MessageBoxService {
     /***
      * 发送短消息
      *
-     * @param receiver
+     * @param username
      * @param messageBox
      * @return
      */
     @Override
-    public Integer insertMessage(WebUser receiver, MessageBox messageBox) {
-        //收件人未指定
-        if (ObjectUtils.isEmpty(receiver.getUsername()) && ObjectUtils.isEmpty(messageBox.getReceiver())) {
-            return 0;
-        }
-        if (!ObjectUtils.isEmpty(receiver.getUsername())) {
-            WebUser receiverDto = webUserMapper.selectByWebUser(receiver);
-            if (!ObjectUtils.isEmpty(receiverDto)) {
-                messageBox.setReceiver(receiverDto.getId());
+    public Integer insertMessage(String username, MessageBox messageBox) {
+        if (!StringUtils.isEmpty(username)) {
+            WebUser receiver = webUserMapper.selectByUsername(username);
+            if (!ObjectUtils.isEmpty(receiver)) {
+                messageBox.setReceiver(receiver.getId());
+            }else{
+                return 0;
             }
         }
         messageBox.setStatus(1);
@@ -174,14 +172,12 @@ public class MessageBoxServiceImpl implements MessageBoxService {
     /***
      * 核查收件人是否存在
      *
-     * @param receiver
+     * @param username
      * @return {0:不存在，1:存在}
      */
     @Override
-    public Integer checkReceiverExist(WebUser receiver) {
-        if (StringUtils.isEmpty(receiver.getUsername()) && ObjectUtils.isEmpty(receiver.getId()))
-            return 0;
-        WebUser user = webUserMapper.selectByWebUser(receiver);
+    public Integer checkReceiverExist(String username) {
+        WebUser user = webUserMapper.selectByUsername(username);
         if (user != null) {
             return 1;
         }

@@ -27,7 +27,7 @@ import com.zuoxiaolong.blog.model.persistent.WebUser;
  */
 public interface MessageBoxService {
 
-    Integer insertMessage(WebUser sender, MessageBox messageBox);
+    Integer insertMessage(String username, MessageBox messageBox);
 
     MessageBoxDto getMessageContentById(Integer id);
 
@@ -35,5 +35,5 @@ public interface MessageBoxService {
 
     Integer updateMessageStatus(MessageBox messageBox);
 
-    Integer checkReceiverExist(WebUser receiver);
+    Integer checkReceiverExist(String username);
 }

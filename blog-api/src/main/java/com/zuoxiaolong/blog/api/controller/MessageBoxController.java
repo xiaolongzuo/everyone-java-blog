@@ -23,6 +23,7 @@ import com.zuoxiaolong.blog.model.dto.MessageBoxDto;
 import com.zuoxiaolong.blog.model.persistent.MessageBox;
 import com.zuoxiaolong.blog.model.persistent.WebUser;
 import com.zuoxiaolong.blog.service.MessageBoxService;
+import com.zuoxiaolong.blog.service.WebUserService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,6 +43,9 @@ import java.util.List;
 public class MessageBoxController extends AbstractApiController {
     @Autowired
     private MessageBoxService messageBoxService;
+
+    @Autowired
+    private WebUserService webUserService;
 
     /***
      * 查看信息箱消息内容
@@ -74,36 +78,29 @@ public class MessageBoxController extends AbstractApiController {
     }
 
     /***
-     * 根据用户名或者用户id核查用户是否存在
+     * 根据用户名查用户是否存在
      *
      * @param username
-     * @param id
      * @return
      */
     @RequestMapping(value = "/CheckUser" ,method = RequestMethod.GET)
     @CheckLogin
-    public Integer checkUserExist(@RequestParam(value = "username",required = false) String username,
-                                  @RequestParam(value = "receiver",required = false) Integer id) {
-        WebUser receiver = new WebUser();
-        if (!StringUtils.isEmpty(username))
-            receiver.setUsername(username);
-        if (!ObjectUtils.isEmpty(id))
-            receiver.setId(id);
-        return messageBoxService.checkReceiverExist(receiver);
+    public Integer checkUserExist(@RequestParam(value = "username",required = false) String username) {
+        return messageBoxService.checkReceiverExist(username);
     }
 
     /***
      * 发送短消息
      *
-     * @param receiver
+     * @param username
      * @param messageBox
      * @return
      */
     @RequestMapping(value = "/Send", method = {RequestMethod.POST, RequestMethod.GET})
-
-    public Integer sendMessage(WebUser receiver, MessageBox messageBox) {
+    @CheckLogin
+    public Integer sendMessage(String username, MessageBox messageBox) {
         messageBox.setSender(getWebUserId());
-        return messageBoxService.insertMessage(receiver, messageBox);
+        return messageBoxService.insertMessage(username, messageBox);
     }
 
     /***

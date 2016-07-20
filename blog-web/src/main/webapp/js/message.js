@@ -46,31 +46,23 @@ $(function () {
         $(".message-content").css("display", "none");
         $("#message-content").css("display", "none");
         var username = $("#message-write #receiver").val();
-        if (isNaN(username)) {
-            receiver = null;
-        } else {
-            receiver = username;
-            username = null;
-        }
         var title = $("#message-write #title").val();
         var content = $('#message-write #content').val();
 
         postMessageDataAndParse(contextPath + "/MessageBox/Send", {
             username: username,
-            receiver: receiver,
             title: title,
             content: content,
             status: 0
         }, function (result) {
             if (result.data == 1) {
                 console.table(result);
-                alert("发送成功");
                 $(".message-send a").trigger("click");
+            }else {
+                console.log("发送失败！");
             }
         });
     });
-
-
 });
 
 /***
@@ -142,13 +134,7 @@ function check_title_input(event) {
  */
 function check_receiver_input(event) {
     var username = $("#message-write #receiver").val();
-    if (isNaN(username)) {
-        receiver = null;
-    } else {
-        receiver = username;
-        username = null;
-    }
-    checkUser(username, receiver);
+    checkUser(username);
 }
 
 /***
@@ -157,11 +143,10 @@ function check_receiver_input(event) {
  * @param receiver
  * @returns {boolean}
  */
-function checkUser(username, receiver) {
+function checkUser(username) {
     getMessageDataAndParse("/MessageBox/CheckUser",
         {
             username: username,
-            receiver: receiver
         }, function (result) {
             if (result.data == "1") {
                 $('#receiver_tips').text(" ");//提示文本置空

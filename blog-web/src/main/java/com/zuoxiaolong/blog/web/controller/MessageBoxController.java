@@ -116,7 +116,6 @@ public class MessageBoxController extends AbstractWebController {
     public void sendMessage(String username, MessageBox messageBox) {
         Map<String, String> params = new HashMap<>();
         params.put("username", username);
-        params.put("receiver", messageBox.getReceiver() + "");
         params.put("title", messageBox.getTitle());
         params.put("content", messageBox.getContent());
         renderJson(invokeApi(Api.MessageBox_Send, params));
