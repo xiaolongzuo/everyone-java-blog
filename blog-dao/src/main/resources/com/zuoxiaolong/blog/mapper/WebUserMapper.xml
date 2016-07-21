@@ -116,16 +116,16 @@
                 AND id = #{id,jdbcType=INTEGER}
             </if>
             <if test="username != null">
-                AND username = #{username,jdbcType=VARCHAR}
+                 username = #{username,jdbcType=VARCHAR}
             </if>
             <if test="password != null">
-                AND password = #{password,jdbcType=VARCHAR}
+                 password = #{password,jdbcType=VARCHAR}
             </if>
             <if test="nickname != null">
-                AND nickname = #{nickname,jdbcType=VARCHAR}
+                 nickname = #{nickname,jdbcType=VARCHAR}
             </if>
             <if test="token != null">
-                AND token = #{token,jdbcType=VARCHAR}
+                 token = #{token,jdbcType=VARCHAR}
             </if>
         </where>
     </select>
