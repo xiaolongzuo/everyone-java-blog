@@ -113,19 +113,19 @@
         from web_user
         <where>
             <if test="id != null">
-                AND id = #{id,jdbcType=INTEGER}
+                id = #{id,jdbcType=INTEGER}
             </if>
             <if test="username != null">
-                 username = #{username,jdbcType=VARCHAR}
+                username = #{username,jdbcType=VARCHAR}
             </if>
             <if test="password != null">
-                 password = #{password,jdbcType=VARCHAR}
+                password = #{password,jdbcType=VARCHAR}
             </if>
             <if test="nickname != null">
-                 nickname = #{nickname,jdbcType=VARCHAR}
+                nickname = #{nickname,jdbcType=VARCHAR}
             </if>
             <if test="token != null">
-                 token = #{token,jdbcType=VARCHAR}
+                token = #{token,jdbcType=VARCHAR}
             </if>
         </where>
     </select>
