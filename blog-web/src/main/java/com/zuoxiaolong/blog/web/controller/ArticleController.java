@@ -64,7 +64,7 @@ public class ArticleController extends AbstractWebController {
     }
     @RequestMapping(value = "/Write/{articleId}")
     public void getArticleById(@PathVariable int articleId) {
-        JsonResponse response = invokeApi(Api.Article_GetArticleInfo, CollectionUtils.newMap("articleid", articleId));
+        JsonResponse response = invokeApi(Api.Article_GetArticleInfo, CollectionUtils.newMap("articleId", articleId));
         if(response.success()) {
             renderJson(response.getData());
         }
@@ -130,18 +130,18 @@ public class ArticleController extends AbstractWebController {
      * 增加一篇博文
      * @param userArticle
      */
-    @RequestMapping(value = "/Add/UserArticle" , method = RequestMethod.POST)
+    @RequestMapping(value = "/Create" , method = RequestMethod.POST)
     public void addUserArticle(UserArticle userArticle){
-        JsonResponse response = invokeApi(Api.Article_AddUserArticle,userArticle);
+        JsonResponse response = invokeApi(Api.Article_Create,userArticle);
         renderJson(response);
     }
 
     /**
      *修改博文信息（标题、内容、状态）
      */
-    @RequestMapping(value = "/UpdUserArticle" , method = RequestMethod.POST)
-    public void updUserArticle(UserArticle userArticle){
-        JsonResponse response = invokeApi(Api.Article_UpdUserArticle,userArticle);
+    @RequestMapping(value = "/Update", method = RequestMethod.POST)
+    public void updateUserArticle(UserArticle userArticle){
+        JsonResponse response = invokeApi(Api.Article_Update,userArticle);
         renderJson(response);
     }
 

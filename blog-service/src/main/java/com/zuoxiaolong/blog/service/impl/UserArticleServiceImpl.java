@@ -247,7 +247,7 @@ public class UserArticleServiceImpl implements UserArticleService {
         DropDownPage page = new DropDownPage();
         page.setOffset(DateUtils.parse(offset, new Date()));
         page.setSize(size);
-        page.setOrderColumn("update_time");
+        page.setOrderColumn("publish_time");
         List<UserArticle> list = userArticleMapper.getArticlesByCategoryIdAndPage(page, categoryId);
 
         List<ArticleDTO> resultList = new ArrayList<ArticleDTO>();
@@ -258,7 +258,7 @@ public class UserArticleServiceImpl implements UserArticleService {
             WebUser webUserDto = new WebUser();
             webUserDto.setNickname(webUser.getNickname()); //用户昵称
             articleDTO.setWebUser(webUserDto);
-            articleDTO.setFriendlyTime(DateUtils.toFriendlyTime(userArticle.getUpdateTime()));
+            articleDTO.setFriendlyTime(DateUtils.toFriendlyTime(userArticle.getPublishTime()));
             resultList.add(articleDTO);
         }
 

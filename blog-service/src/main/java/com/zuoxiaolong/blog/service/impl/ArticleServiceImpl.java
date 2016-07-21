@@ -32,7 +32,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author DeserveL
@@ -317,12 +319,23 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public int insertUserArticle(UserArticle userArticle) {
+        ValidateUtils.required(userArticle.getWebUserId());
+        ValidateUtils.required(userArticle.getCategoryId());
+        ValidateUtils.required(userArticle.getTitle());
+        ValidateUtils.required(userArticle.getIsMainPage());
         userArticleMapper.insertSelective(userArticle);
         return userArticle.getId();
     }
 
     @Override
     public void updateUserArticle(UserArticle userArticle) {
+        ValidateUtils.required(userArticle.getId());
+        if (userArticle.getPublishTime() != null) {
+            throw new BusinessException(ExceptionType.PARAMETER_ILLEGAL);
+        }
+        if (!ObjectUtils.isEmpty(userArticle.getStatus()) && userArticle.getStatus() == UserArticle.STATUS_PUBLISH) {
+            userArticle.setPublishTime(new Date());
+        }
         userArticleMapper.updateByPrimaryKeySelective(userArticle);
     }
 

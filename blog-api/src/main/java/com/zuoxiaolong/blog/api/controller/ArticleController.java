@@ -39,7 +39,7 @@ import java.util.List;
 public class ArticleController  extends AbstractApiController {
 
     @Autowired
-    ArticleService articleService;
+    private ArticleService articleService;
 
     /**
      * 查看文章详细
@@ -102,7 +102,7 @@ public class ArticleController  extends AbstractApiController {
      * @param userArticle
      */
     @CheckLogin
-    @RequestMapping(value = "/AddUserArticle" , method = RequestMethod.POST)
+    @RequestMapping(value = "/Create" , method = RequestMethod.POST)
     public int addUserArticle(UserArticle userArticle){
         userArticle.setWebUserId(getWebUserId());
         return articleService.insertUserArticle(userArticle);
@@ -112,8 +112,8 @@ public class ArticleController  extends AbstractApiController {
      *修改博文信息（标题、内容、状态）
      */
     @CheckLogin
-    @RequestMapping(value = "/UpdUserArticle" , method = RequestMethod.POST)
-    public void updUserArticle(UserArticle userArticle){
+    @RequestMapping(value = "/Update" , method = RequestMethod.POST)
+    public void updateUserArticle(UserArticle userArticle){
         articleService.updateUserArticle(userArticle);
     }
 

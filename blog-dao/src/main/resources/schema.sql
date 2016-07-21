@@ -112,10 +112,6 @@ ALTER TABLE `java_blog`.`blog_config` ADD COLUMN `blog_sub_title` VARCHAR(128) N
 ALTER TABLE `java_blog`.`article_comment` ADD COLUMN `parents_comment_id` VARCHAR(128) NOT NULL DEFAULT '0,' COMMENT '父级评论路径';
 ALTER TABLE `java_blog`.`article_comment` MODIFY `reply_comment_id` INT(11) NOT NULL DEFAULT 0 COMMENT '父级评论';
 
-
-
-ALTER TABLE `java_blog`.`user_article` MODIFY `category_id` int(11) NOT NULL DEFAULT 1 COMMENT '分类id';
-ALTER TABLE `java_blog`.`user_article` MODIFY `title` varchar(128) NOT NULL DEFAULT '无标题文章' COMMENT '文章标题';
 ALTER TABLE `java_blog`.`user_article` MODIFY `read_times` int(11) NOT NULL DEFAULT 0 COMMENT '阅读次数';
 ALTER TABLE `java_blog`.`user_article` MODIFY `thumbup_times` int(11) NOT NULL DEFAULT 0 COMMENT '点赞次数';
 ALTER TABLE `java_blog`.`user_article` MODIFY `comment_times` int(11) NOT NULL DEFAULT 0 COMMENT '评论次数';
@@ -130,7 +126,7 @@ CREATE TABLE `java_blog`.`article_thumbup` (
   PRIMARY KEY (`id`)
 )  ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='文章点赞表';
 
-
+ALTER TABLE `java_blog`.`user_article` ADD COLUMN `publish_time` DATETIME COMMENT '发布时间';
 
 
 

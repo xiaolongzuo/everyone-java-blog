@@ -83,23 +83,21 @@
 <jsp:include page="../common/footer.jsp"/>
 <jsp:include page="../common/bottom.jsp"/>
 <script type="application/javascript">
-    var draftArray = new Array();
+    var tinymceSettings = {width:800,height:400,content:''};
+    var newNoteHtml = '<li class="list-group-item selected" article-category="1" is-main-page="1" ><span class="article-status">[草稿]</span><a href="#" class="selected">无标题文章</a></li>';
+    var newNoteTitle = '无标题文章';
+    var newNoteContent = '';
 
     $(document).ready(function() {
         $("#new-note a").click(function() {
             $(".list-group-item.selected").removeClass("selected");
             $(".list-group-item a.selected").removeClass("selected");
-            $("#new-note").after(
-                    '<li class="list-group-item selected" article-category="1" is-main-page="1" draft-article-id="'
-                    + draftArray.length + '"><span class="article-status">[草稿]</span>' +
-                    '<a href="#" class="selected">无标题文章</a></li>'
-            );
-            $("#title").val('无标题文章');
-            tinymce.activeEditor.setContent('');
-            var draftArticle = {};
-            draftArticle.title = '无标题文章';
-            draftArticle.content = '';
-            draftArray.push(draftArticle);
+
+            $("#new-note").after(newNoteHtml);
+            $("#title").val(newNoteTitle);
+            tinymce.activeEditor.setContent(newNoteContent);
+
+            createOrUpdateArticle('create');
         });
         $("#title").keyup(function() {
             $(".list-group-item.selected a.selected").text($(this).val());
@@ -107,12 +105,6 @@
         $(".col-sm-3.article-list").on("click", ".list-group-item", function() {
             if ($(this).hasClass("selected")) {
                 return;
-            }
-            if (!$(".list-group-item.selected").attr("article-id")) {
-                var draftArticle = {};
-                draftArticle.title = $("#title").val();
-                draftArticle.content = tinymce.activeEditor.getContent();
-                draftArray[$(".list-group-item.selected").attr("draft-article-id")] = draftArticle;
             }
             $(".list-group-item.selected").removeClass("selected");
             $(".list-group-item a.selected").removeClass("selected");
@@ -124,12 +116,8 @@
     });
 
     function loadArticle($item, isInit) {
-        if (!$item) {
-            return;
-        }
-        if ($item.attr("draft-article-id")) {
-            $("#title").val(draftArray[$item.attr("draft-article-id")].title);
-            tinymce.activeEditor.setContent(draftArray[$item.attr("draft-article-id")].content);
+        if (!$item || $item.length == 0) {
+            tinymceInit(tinymceSettings);
             return;
         }
         $.ajax({
@@ -149,6 +137,133 @@
                 }
             }
         });
+    }
+
+    function tinymceInit(settings) {
+        $(document).ready(function() {
+            var defaultSettings = {width:600,height:400,content:'',skin:'lightgray'};
+            $.extend(defaultSettings,settings);
+            tinymce.init({
+                selector: "textarea.html_editor",
+                language: "zh_CN",
+                menubar : false,
+                skin: defaultSettings.skin,
+                width: defaultSettings.width,
+                height: defaultSettings.height,
+                content_css: contextPath + '/css/content.css',
+                toolbar_items_size:'medium',
+                setup: function(editor) {
+                    editor.addButton('upload',
+                            {
+                                icon: 'print',
+                                title: '上传本地图片',
+                                onclick: function() {
+                                    openTinymceWindow(editor, "上传本地图片", "/jsp/article/upload-image.jsp", 400, 150);
+                                }
+                            });
+                    editor.addButton('insertcode',
+                            {
+                                icon: 'paste',
+                                title: '插入代码',
+                                onclick: function() {
+                                    openTinymceWindow(editor, "插入代码", "/jsp/article/insert-code.jsp", 800, 400);
+                                }
+                            });
+                    editor.addButton('settings',
+                            {
+                                text: '文章设置',
+                                title: '文章设置',
+                                onclick: function() {
+                                    openTinymceWindow(editor, "文章设置", "/jsp/article/article-settings.jsp", 800, 200);
+                                }
+                            });
+                    editor.addButton('save',
+                            {
+                                text: '保存文章',
+                                title: '保存文章',
+                                onclick: function() {
+                                    createOrUpdateArticle('update');
+                                }
+                            });
+                    editor.addButton('publish',
+                            {
+                                title: '发布文章',
+                                text: '发布文章',
+                                onclick: function() {
+                                    createOrUpdateArticle('update', '1');
+                                }
+                            });
+                    editor.on('init', function(e) {
+                        if (defaultSettings.content) {
+                            editor.setContent(defaultSettings.content);
+                        }
+                    });
+                },
+                plugins: [
+                    "advlist autolink lists link image charmap print preview anchor textcolor",
+                    "searchreplace visualblocks code fullscreen",
+                    "insertdatetime media table contextmenu paste emoticons"
+                ],
+                toolbar: ["undo redo | styleselect bold italic forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | code preview fullscreen ",
+                    "link upload image insertcode table blockquote media emoticons | settings | save | publish"]
+            });
+        });
+    }
+
+    function openTinymceWindow(editor, title, url, width, height) {
+        editor.windowManager.open({
+            title: title,
+            url: contextPath + url,
+            width: width,
+            height: height
+        });
+    }
+
+    function createOrUpdateArticle(action, status) {
+        var param = {
+            "categoryId":$(".list-group-item.selected").attr("article-category"),
+            "isMainPage":$(".list-group-item.selected").attr("is-main-page"),
+            "title":$("#title").val(),
+            "content":tinymce.activeEditor.getContent()
+        };
+        if (action == 'create') {
+            $.ajax({
+                url: contextPath + "/Article/Create",
+                type: "post",
+                data: param,
+                dataType: "json",
+                success: function(result) {
+                    if (result.code == 200) {
+                        $(".list-group-item.selected").attr("article-id", result.data);
+                    } else {
+                        alert(result.message);
+                    }
+                }
+            });
+        } else if (action == 'update') {
+            param.id = $(".list-group-item.selected").attr("article-id");
+            var message = "保存成功!";
+            if (status) {
+                param.status = status;
+                message = "发表成功!";
+            }
+            $.ajax({
+                url: contextPath + "/Article/Update",
+                type: "post",
+                data: param,
+                dataType: "json",
+                success: function(data) {
+                    if (data.code == 200) {
+                        if (status) {
+                            $(".list-group-item.selected span.article-status").text("[已发布]");
+                        }
+                        alert(message);
+                    } else {
+                        alert(data.message);
+                    }
+                }
+            });
+        }
     }
 </script>
 </body>

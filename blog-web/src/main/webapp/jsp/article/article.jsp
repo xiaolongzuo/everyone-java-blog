@@ -37,13 +37,13 @@
                 <h2 class="blog-post-title"><a href="javascript:void(0)" class="blog-article">${result.data.userArticle.title}</a></h2>
                 <jsp:useBean id="now" class="java.util.Date" />
                 <fmt:formatDate value="${now}" type="both" dateStyle="long" pattern="yyyy-MM-dd" var="today"/>
-                <fmt:formatDate value="${result.data.userArticle.createTime}" type="both" dateStyle="long" pattern="yyyy-MM-dd" var="date"/>
+                <fmt:formatDate value="${result.data.userArticle.publishTime}" type="both" dateStyle="long" pattern="yyyy-MM-dd" var="date"/>
                 <c:choose>
                     <c:when test="${today == date}">
-                        <p class="blog-post-meta">${result.data.webUser.nickname}发表于今天<fmt:formatDate value="${result.data.userArticle.createTime}" type="both" pattern="HH:mm:ss" />&nbsp;&nbsp;&nbsp;&nbsp;推荐(${result.data.userArticle.thumbupTimes}) 评论(${result.data.userArticle.commentTimes}) 阅读(${result.data.userArticle.readTimes})</p>
+                        <p class="blog-post-meta">${result.data.webUser.nickname}发表于今天<fmt:formatDate value="${result.data.userArticle.publishTime}" type="both" pattern="HH:mm:ss" />&nbsp;&nbsp;&nbsp;&nbsp;推荐(${result.data.userArticle.thumbupTimes}) 评论(${result.data.userArticle.commentTimes}) 阅读(${result.data.userArticle.readTimes})</p>
                     </c:when>
                     <c:otherwise>
-                        <p class="blog-post-meta">${result.data.webUser.nickname}发表于<fmt:formatDate value="${result.data.userArticle.createTime}" type="both" pattern="yyyy.MM.dd HH:mm" />&nbsp;&nbsp;&nbsp;&nbsp;推荐(${result.data.userArticle.thumbupTimes}) 评论(${result.data.userArticle.commentTimes}) 阅读(${result.data.userArticle.readTimes})</p>
+                        <p class="blog-post-meta">${result.data.webUser.nickname}发表于<fmt:formatDate value="${result.data.userArticle.publishTime}" type="both" pattern="yyyy.MM.dd HH:mm" />&nbsp;&nbsp;&nbsp;&nbsp;推荐(${result.data.userArticle.thumbupTimes}) 评论(${result.data.userArticle.commentTimes}) 阅读(${result.data.userArticle.readTimes})</p>
                     </c:otherwise>
                 </c:choose>
                 <p>${result.data.userArticle.content}</p>

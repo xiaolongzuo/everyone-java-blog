@@ -59,10 +59,8 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/lib/shbrush/js/shBrushVb.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/lib/shbrush/js/shBrushXml.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/lib/tinymce/tinymce.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/tinymce.init.js"></script>
 <!-- init script -->
 <script type="application/javascript">
-    var tinymceSettings = {width:800,height:400,content:''};
     SyntaxHighlighter.all();
     $(document).ready(function() {
         $(".auto-validate").validator();
