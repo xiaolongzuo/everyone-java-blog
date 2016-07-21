@@ -119,7 +119,7 @@ public class WebUserServiceImpl implements WebUserService {
 
     @Override
     public boolean checkUsername(String username) {
-        return ObjectUtils.isEmpty(webUserMapper.selectByUsername(username));
+        return !ObjectUtils.isEmpty(webUserMapper.selectByUsername(username));
     }
 
     @Override
