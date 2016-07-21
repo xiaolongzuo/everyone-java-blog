@@ -123,6 +123,6 @@ public class ArticleController  extends AbstractApiController {
     @CheckLogin
     @RequestMapping(value = "/GetUserArticle" , method = RequestMethod.GET)
     public List<UserArticle> getUserArticle(){
-        return articleService.getUserArticle(getWebUserId());
+        return articleService.getArticlesByWebUserId(getWebUserId());
     }
 }

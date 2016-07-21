@@ -340,8 +340,8 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<UserArticle> getUserArticle(Integer userId) {
-        return userArticleMapper.selectByWebUserId(userId);
+    public List<UserArticle> getArticlesByWebUserId(Integer userId) {
+        return userArticleMapper.getArticlesByWebUserId(userId);
     }
 
 }

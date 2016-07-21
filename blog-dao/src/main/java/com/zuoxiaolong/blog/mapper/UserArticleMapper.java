@@ -1,6 +1,5 @@
 package com.zuoxiaolong.blog.mapper;
 
-import com.zuoxiaolong.blog.common.orm.DigitalPage;
 import com.zuoxiaolong.blog.common.orm.DropDownPage;
 import com.zuoxiaolong.blog.model.persistent.UserArticle;
 import org.apache.ibatis.annotations.Param;
@@ -9,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface UserArticleMapper {
+    /*    base method    */
     int deleteByPrimaryKey(Integer id);
 
     int insertSelective(UserArticle record);
@@ -16,6 +16,8 @@ public interface UserArticleMapper {
     UserArticle selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(UserArticle record);
+
+    /*    top three method   */
 
     List<UserArticle> getTopRecommendArticles(Map<String, Object> mapInfo);
 
@@ -27,9 +29,7 @@ public interface UserArticleMapper {
 
     List<UserArticle> getArticleCommentByCategoryId(Integer categoryId);
 
-    List<UserArticle> selectByWebUserId(Integer webUserId);
-
-    List<UserArticle> getArticlesByCategoryIdAndPage(@Param("page") DropDownPage page, @Param("categoryId") Integer categoryId);
+    /*      user blog method    */
     /**
      * 获取文章分页列表，根据个人文章创建时间倒序排序
      * @param webUserId
@@ -46,6 +46,23 @@ public interface UserArticleMapper {
      */
     List<UserArticle> getTopThumbupArticlesByWebUserId(@Param("webUserId") int webUserId, @Param("pageSize") int pageSize);
 
+    /*        common method    */
+    /**
+     * 获取用户文章
+     * @param webUserId
+     * @return
+     */
+    List<UserArticle> getArticlesByWebUserId(Integer webUserId);
+
+    /**
+     * 获取主页下拉分页文章
+     * @param page
+     * @param categoryId
+     * @return
+     */
+    List<UserArticle> getMainPageArticles(@Param("page") DropDownPage page, @Param("categoryId") Integer categoryId);
+
+    /*     add times method     */
     /**
      * 增加一个阅读次数
      *

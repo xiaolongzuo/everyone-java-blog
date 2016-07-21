@@ -97,5 +97,5 @@ public interface ArticleService {
      * @param userId
      * @return
      */
-    List<UserArticle> getUserArticle(Integer userId);
+    List<UserArticle> getArticlesByWebUserId(Integer userId);
 }
