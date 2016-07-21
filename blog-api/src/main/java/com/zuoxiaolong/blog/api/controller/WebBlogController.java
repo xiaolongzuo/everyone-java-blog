@@ -16,6 +16,7 @@
 
 package com.zuoxiaolong.blog.api.controller;
 
+import com.zuoxiaolong.blog.common.authorization.CheckLogin;
 import com.zuoxiaolong.blog.model.dto.UserBlogInfo;
 import com.zuoxiaolong.blog.model.persistent.BlogConfig;
 import com.zuoxiaolong.blog.model.persistent.UserArticle;
@@ -56,6 +57,7 @@ public class WebBlogController extends AbstractApiController {
     }
 
 
+    @CheckLogin
     @RequestMapping(value = "/Select/Config")
     public BlogConfig selectUserBlogConfig() {
         Integer webUserId = getWebUserId();
