@@ -34,6 +34,9 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        if (!(handler instanceof HandlerMethod)) {
+            return true;
+        }
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         CheckLogin checkLogin = handlerMethod.getMethodAnnotation(CheckLogin.class);
         if (checkLogin != null) {

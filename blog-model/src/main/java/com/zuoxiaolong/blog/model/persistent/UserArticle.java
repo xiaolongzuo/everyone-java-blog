@@ -15,6 +15,10 @@ public class UserArticle extends BaseModel {
 
     private Integer categoryId;
 
+    private Integer isMainPage;
+
+    private Integer status;
+
     private String title;
 
     private String content;
@@ -22,10 +26,6 @@ public class UserArticle extends BaseModel {
     private Integer readTimes;
 
     private Integer thumbupTimes;
-
-    private Integer isMainPage;
-
-    private Integer status;
 
     private Integer commentTimes;// 评论次数
 

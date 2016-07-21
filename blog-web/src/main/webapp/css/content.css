@@ -1,0 +1,11 @@
+pre {
+    border: 1px solid #aaa;
+    padding: 5px;
+    line-height: 15px;
+    background-color: #f5e79e;
+}
+
+blockquote {
+    border: 1px solid #aaa;
+    padding: 0px;
+}

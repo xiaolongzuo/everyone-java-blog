@@ -65,7 +65,8 @@ public enum Api {
     MessageBox_Content("GET",MessageBoxDto.class),
     MessageBox_List("GET", DigitalPage.class),
     MessageBox_Send("POST",new TypeToken<Integer>(){}.getType()),
-    MessageBox_Update("POST",new TypeToken<Integer>(){}.getType())
+    MessageBox_Update("POST",new TypeToken<Integer>(){}.getType()),
+    File_Upload("POST", String.class)
     ;
 
     private String url;

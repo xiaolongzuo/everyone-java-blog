@@ -46,7 +46,7 @@ public class ArticleController extends AbstractWebController {
      */
     @RequestMapping(value = "/{articleid}")
     public String getArticleInfo(@PathVariable int articleid) {
-        JsonResponse response = invokeApi(Api.Article_GetArticleInfo, CollectionUtils.newMap("articleid", articleid + ""));
+        JsonResponse response = invokeApi(Api.Article_GetArticleInfo, CollectionUtils.newMap("articleid", articleid));
         if(response.getCode() == 200){
             setModelAttribute("result", response);
             return "article/article";
@@ -55,24 +55,19 @@ public class ArticleController extends AbstractWebController {
     }
 
     @RequestMapping(value = "/Write")
-    public String writeIndex(){
+    public String writeIndex() {
         JsonResponse articleList = invokeApi(Api.Article_GetUserArticle);
         if(articleList.success()){
-            setModelAttribute("UserArticles",articleList.getData());
+            setModelAttribute("userArticles",articleList.getData());
         }
-        return "/write/index";
+        return "/article/write";
     }
-    @RequestMapping(value = "/Write/{articleid}")
-    public String getArticleById(@PathVariable int articleid) {
-        JsonResponse response = invokeApi(Api.Article_GetArticleInfo, CollectionUtils.newMap("articleid", articleid + ""));
-        JsonResponse articleList = invokeApi(Api.Article_GetUserArticle);
-        if(articleList.success()){
-            setModelAttribute("UserArticles",articleList.getData());
+    @RequestMapping(value = "/Write/{articleId}")
+    public void getArticleById(@PathVariable int articleId) {
+        JsonResponse response = invokeApi(Api.Article_GetArticleInfo, CollectionUtils.newMap("articleid", articleId));
+        if(response.success()) {
+            renderJson(response.getData());
         }
-        if(response.success()){
-            setModelAttribute("ArticleInfoDTO", response.getData());
-        }
-        return "/write/index";
     }
     /**
      * 查看评论和每条评论前三条回复列表

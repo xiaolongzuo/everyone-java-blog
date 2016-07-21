@@ -9,8 +9,13 @@
     <!-- Annotation Config -->
     <context:annotation-config />
 
+    <bean class="com.zuoxiaolong.blog.common.web.HeldPropertyPlaceholderConfigurer">
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="location" value="classpath:blog-web.properties"/>
+    </bean>
+
     <bean class="com.zuoxiaolong.blog.sdk.spring.BlogSdkFactoryBean">
-        <property name="serverUrl" value="http://localhost:8082/java-blog-api"/>
+        <property name="serverUrl" value="${api.url}"/>
     </bean>
 
 </beans>

@@ -21,15 +21,57 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="${pageContext.request.contextPath}/lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/lib/jquery/jquery.form.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="${pageContext.request.contextPath}/lib/bootstrap/js/bootstrap.min.js"></script>
-<script src="${pageContext.request.contextPath}/lib/bootstrap-validator/validator.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/lib/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/lib/bootstrap-validator/validator.min.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/asset/ie10-viewport-bug-workaround.js"></script>
+<!-- forbidden backspace -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/forbidden.backspace.js"></script>
+<!-- tinymce -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/lib/shbrush/js/shCore.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/lib/shbrush/js/shBrushAppleScript.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/lib/shbrush/js/shBrushAS3.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/lib/shbrush/js/shBrushBash.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/lib/shbrush/js/shBrushColdFusion.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/lib/shbrush/js/shBrushCpp.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/lib/shbrush/js/shBrushCSharp.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/lib/shbrush/js/shBrushCss.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/lib/shbrush/js/shBrushDelphi.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/lib/shbrush/js/shBrushDiff.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/lib/shbrush/js/shBrushErlang.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/lib/shbrush/js/shBrushGroovy.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/lib/shbrush/js/shBrushJava.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/lib/shbrush/js/shBrushJScript.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/lib/shbrush/js/shBrushJavaFX.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/lib/shbrush/js/shBrushPerl.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/lib/shbrush/js/shBrushPhp.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/lib/shbrush/js/shBrushPlain.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/lib/shbrush/js/shBrushJava.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/lib/shbrush/js/shBrushPowerShell.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/lib/shbrush/js/shBrushPython.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/lib/shbrush/js/shBrushRuby.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/lib/shbrush/js/shBrushSass.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/lib/shbrush/js/shBrushScala.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/lib/shbrush/js/shBrushSql.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/lib/shbrush/js/shBrushVb.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/lib/shbrush/js/shBrushXml.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/lib/tinymce/tinymce.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/tinymce.init.js"></script>
+<!-- init script -->
 <script type="application/javascript">
+    var tinymceSettings = {width:800,height:400,content:''};
+    SyntaxHighlighter.all();
     $(document).ready(function() {
         $(".auto-validate").validator();
     });
+    /*
+    $(document).on('focusin', function(e) {
+        if ($(e.target).closest(".mce-window").length) {
+            e.stopImmediatePropagation();
+        }
+    });
+    */
 </script>
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="${pageContext.request.contextPath}/asset/ie10-viewport-bug-workaround.js"></script>
-

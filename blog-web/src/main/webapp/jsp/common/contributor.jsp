@@ -22,11 +22,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
     <div class="sidebar-module">
-        <h4>贡献者列表</h4>
+        <h4>贡献者列表[排名不分先后]</h4>
         <ol class="list-unstyled">
-            <li><a href="#">左潇龙</a></li>
             <li><a href="#">松</a></li>
-            <li><a href="#">喝彩</a></li>
+            <li><a href="#">石星</a></li>
             <li><a href="#">草帽</a></li>
             <li><a href="#">火柴</a></li>
         </ol>

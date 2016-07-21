@@ -32,8 +32,8 @@
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from web_user
     where id = #{id,jdbcType=INTEGER}
-  </delete>
-    <insert id="insertSelective" parameterType="com.zuoxiaolong.blog.model.persistent.WebUser">
+    </delete>
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.zuoxiaolong.blog.model.persistent.WebUser">
         insert into web_user
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">

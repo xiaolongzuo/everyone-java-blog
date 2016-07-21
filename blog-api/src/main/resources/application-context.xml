@@ -15,4 +15,9 @@
 
     <context:component-scan base-package="com.zuoxiaolong.blog.api.component"/>
 
+    <bean class="com.zuoxiaolong.blog.common.web.HeldPropertyPlaceholderConfigurer">
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="location" value="classpath:blog-api.properties"/>
+    </bean>
+
 </beans>

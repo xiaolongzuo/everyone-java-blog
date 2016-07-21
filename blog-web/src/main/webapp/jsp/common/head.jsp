@@ -31,10 +31,16 @@
 <title>大家的Java博客</title>
 
 <!-- Bootstrap core CSS -->
-<link href="${pageContext.request.contextPath}/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link type="text/css" href="${pageContext.request.contextPath}/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Custom styles for this template -->
-<link href="${pageContext.request.contextPath}/css/blog.css" rel="stylesheet">
+<link type="text/css" href="${pageContext.request.contextPath}/css/blog.css" rel="stylesheet">
+<!-- content css -->
+<link type="text/css" href="${pageContext.request.contextPath}/css/content.css" rel="stylesheet">
+
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/lib/shbrush/css/shCore.css"/>
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/lib/shbrush/css/shThemeDefault.css"/>
+
 <script type="application/javascript">
     var contextPath = "${pageContext.request.contextPath}";
 </script>

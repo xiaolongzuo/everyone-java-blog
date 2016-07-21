@@ -1,16 +1,66 @@
-
-#blankrow{
-    margin: 30px 0px 0px 0px;
+#new-note{
+    margin-top: 5px;
+}
+#new-note a {
+    text-decoration: none;font-size: 12px;font-style: italic;
 }
 
-.selected{
-    font-weight: bold;
+#new-note span.glyphicon-pencil{
+    margin-left:8px;
 }
 
-#opration{
+.list-group-item {
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid #d9d9d9;
+}
+
+.list-group-item span.article-status{
+    margin-top:10px;margin-bottom: 0px;font-style: italic;
+}
+
+.list-group-item p.article-operation{
+    margin-top: 5px;margin-bottom: 0px
+}
+
+.list-group-item.selected {
+    background-color: #6f5499;
+    color: #eeeeee;
+}
+
+.list-group-item a {
+    color: black;
+    text-decoration: none;
+}
+
+.list-group-item a.selected {
+    color: #eeeeee;
+}
+
+.list-group-item a:hover {
+    text-decoration: none;
+}
+
+.col-sm-3.article-list {
+    float: left;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0px 0px 20px;
+}
+
+.col-sm-9.article-content {
     float: right;
+    border-left: 1px solid #d9d9d9;
+    padding: 0px 0px 20px;
 }
 
-#oprationlabel{
-    visibility: hidden;
+.col-sm-9.article-content div.content {
+    margin-top: 5px;
+}
+
+.col-sm-9.article-content div.content .form-group input#title {
+    width: 800px;
+    height: 40px;
+    font-size: 20px;
+    font-weight: bolder;
 }
