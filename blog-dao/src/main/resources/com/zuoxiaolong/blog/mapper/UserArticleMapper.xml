@@ -223,7 +223,7 @@
         FROM
         user_article a
         WHERE
-        a.category_id = #{categoryId,jdbcType=INTEGER}
+        a.category_id = #{categoryId,jdbcType=INTEGER} and status = 1
     </select>
     <!-- 获取文章分页列表，根据个人文章创建时间倒序排序 -->
     <!-- 因为在Mapper接口方法中使用了@Param注解了参数，所以无需在配置文件中指定参数类型，是希望让大家就知道有多种做法，如果后续需要统一编码规范，再改 -->
