@@ -44,36 +44,36 @@ public class ArticleController  extends AbstractApiController {
     /**
      * 查看文章详细
      *
-     * @param articleid 文章id
+     * @param articleId 文章id
      * @return
      */
     @RequestMapping(value = "/GetArticleInfo" , method = RequestMethod.GET)
-    public ArticleInfoDTO getArticleInfo(int articleid) {
-        return articleService.getArticleInfo(articleid);
+    public ArticleInfoDTO getArticleInfo(int articleId) {
+        return articleService.getArticleInfo(articleId);
     }
 
     /**
      * 查看评论和每条评论前三条回复列表
      *
-     * @param articleid 文章id
+     * @param articleId 文章id
      * @param offset 分页开始头评论id
      * @param size 每次加载数
      */
     @RequestMapping(value = "/GetCommentInfo" , method = RequestMethod.GET)
-    public List<ArticleCommentAndReplyDTO> getCommentInfo(int articleid,int offset, int size) {
-        return  articleService.getCommentInfo(articleid, offset, size);
+    public List<ArticleCommentAndReplyDTO> getCommentInfo(int articleId,int offset, int size) {
+        return  articleService.getCommentInfo(articleId, offset, size);
     }
 
     /**
      *加载该条评论的更多回复
      *
-     * @param commondid 评论id
+     * @param commentId 评论id
      * @param offset 分页开始头评论id
      * @param size 每次加载数
      */
     @RequestMapping(value = "/GetMoreReComment" , method = RequestMethod.GET)
-    public List<ArticleCommentDTO> getMoreReComment(int commondid,int offset, int size){
-        return articleService.getReCommentInfo(commondid, offset, size);
+    public List<ArticleCommentDTO> getMoreReComment(int commentId,int offset, int size){
+        return articleService.getReCommentInfo(commentId, offset, size);
     }
 
     /**
@@ -90,11 +90,11 @@ public class ArticleController  extends AbstractApiController {
     /**
      * 添加一次点赞
      *
-     * @param articleid
+     * @param articleId
      */
     @RequestMapping(value = "/AddThumbupTimes" , method = RequestMethod.POST)
-    public boolean addThumbupTimes(int articleid){
-        return  articleService.updateThumbupTimes(articleid);
+    public boolean addThumbupTimes(int articleId){
+        return  articleService.updateThumbupTimes(articleId,getIpAddr());
     }
 
     /**
