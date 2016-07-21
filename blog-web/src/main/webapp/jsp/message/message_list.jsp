@@ -336,14 +336,14 @@
             type: "GET",
             cache: false,
             success: function (result) {
-                $('#receiver_tips').text(" ");//提示文本置空
-                $("#send-message").attr('disabled', false);//解禁发送按钮
-                console.log("用户存在！");
-            },
-            error: function (result) {
                 $('#receiver_tips').text("用户不存在！");
                 $("#send-message").attr('disabled', true);//禁用发送按钮
                 console.log("用户不存在！");
+            },
+            error: function (result) {
+                $('#receiver_tips').text(" ");//提示文本置空
+                $("#send-message").attr('disabled', false);//解禁发送按钮
+                console.log("用户存在！");
             }
         });
     }
