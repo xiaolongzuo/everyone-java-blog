@@ -90,7 +90,7 @@ public class WebBlogServiceImpl implements WebBlogService {
 
         List<UserArticle> userArticles = getMyBlogByUserId(webUser.getId(), pageSize, offset);
 
-        List<UserArticle> userHotestArticles = userArticleMapper.getTopThumbupArticlesByWebUserId(webUser.getId(), USER_HOTEST_ARTICLE_PAGE_SIZE);
+        List<UserArticle> userHotestArticles = userArticleMapper.getHotArticlesByWebUserId(webUser.getId(), USER_HOTEST_ARTICLE_PAGE_SIZE);
 
         UserBlogInfo userBlogInfo = new UserBlogInfo();
 
@@ -140,20 +140,14 @@ public class WebBlogServiceImpl implements WebBlogService {
 
     @Override
     public List<UserArticle> getMyBlogByUserId(Integer userId, String pageSize, String offset) {
-
-        // 获取分页大小
-        int size = DEFUALT_PAGE_SIZE;
-        if (StringUtils.isNumeric(pageSize)) {
-            size = Integer.valueOf(pageSize);
-        }
-
-        //分页数据设置
         DropDownPage userArticlePage = new DropDownPage();
         if(!ObjectUtils.isEmpty(offset)){
             userArticlePage.setOffset(offset);
         }
-        userArticlePage.setSize(size);
-
+        if (StringUtils.isNumeric(pageSize)) {
+            userArticlePage.setSize(Integer.valueOf(pageSize));
+        }
+        userArticlePage.setOrderColumn("publish_time");
         List<UserArticle> userArticles = userArticleMapper.getPageByWebUserId(userId, userArticlePage);
         return userArticles;
     }
@@ -163,7 +157,7 @@ public class WebBlogServiceImpl implements WebBlogService {
         if (num == null || num <= 0) {
             num = USER_HOTEST_ARTICLE_PAGE_SIZE;
         }
-        List<UserArticle> userHotestArticles = userArticleMapper.getTopThumbupArticlesByWebUserId(userId, num);
+        List<UserArticle> userHotestArticles = userArticleMapper.getHotArticlesByWebUserId(userId, num);
         return userHotestArticles;
     }
 }

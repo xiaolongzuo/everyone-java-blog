@@ -41,10 +41,10 @@ public interface UserArticleMapper {
     /**
      * 根据用户id，获取推荐的文章列表，按推荐次数倒序排序
      * @param webUserId
-     * @param pageSize
+     * @param size
      * @return
      */
-    List<UserArticle> getTopThumbupArticlesByWebUserId(@Param("webUserId") int webUserId, @Param("pageSize") int pageSize);
+    List<UserArticle> getHotArticlesByWebUserId(@Param("webUserId") int webUserId, @Param("size") int size);
 
     /*        common method    */
     /**

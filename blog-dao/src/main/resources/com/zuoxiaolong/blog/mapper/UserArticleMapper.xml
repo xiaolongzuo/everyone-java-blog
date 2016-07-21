@@ -150,7 +150,7 @@
         user_article a
         WHERE
         a.category_id = #{categoryId,jdbcType=INTEGER}
-        AND a.create_time &gt;= #{time,jdbcType=TIMESTAMP}
+        AND a.publish_time &gt;= #{time,jdbcType=TIMESTAMP}
         ORDER BY
         a.thumbup_times DESC
     </select>
@@ -162,7 +162,7 @@
         user_article a
         WHERE
         a.category_id = #{categoryId,jdbcType=INTEGER}
-        AND a.create_time &gt;= #{time,jdbcType=TIMESTAMP}
+        AND a.publish_time &gt;= #{time,jdbcType=TIMESTAMP}
         ORDER BY
         a.read_times DESC
     </select>
@@ -178,7 +178,7 @@
         FROM
         article_comment a
         WHERE
-        a.create_time &gt;= #{time,jdbcType=TIMESTAMP}
+        a.publish_time &gt;= #{time,jdbcType=TIMESTAMP}
         GROUP BY
         a.article_id
         ) t1,
@@ -203,7 +203,8 @@
             a.thumbup_times,
             a.is_main_page,
             a.STATUS,
-            a.comment_times
+            a.comment_times,
+            a.publish_time
         FROM
         user_article a
     </select>
@@ -219,24 +220,19 @@
         a.publish_time DESC
     </select>
 
-    <!-- 获取文章分页列表，根据个人文章创建时间倒序排序 -->
-    <!-- 因为在Mapper接口方法中使用了@Param注解了参数，所以无需在配置文件中指定参数类型，是希望让大家就知道有多种做法，如果后续需要统一编码规范，再改 -->
     <select id="getPageByWebUserId" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from user_article
         where web_user_id = #{webUserId} and status = 1
     </select>
-
-    <!-- 根据用户id，获取推荐的文章列表，按推荐次数倒序排序 -->
-    <!-- 因为在Mapper接口方法中使用了@Param注解了参数，所以无需在配置文件中指定参数类型，是希望让大家就知道有多种做法，如果后续需要统一编码规范，再改 -->
-    <select id="getTopThumbupArticlesByWebUserId" resultMap="BaseResultMap">
+    <select id="getHotArticlesByWebUserId" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from user_article
         where web_user_id = #{webUserId} and status = 1
-        order by thumbup_times desc
-        limit #{pageSize}
+        order by thumbup_times,read_times,comment_times desc
+        limit #{size}
     </select>
 
     <select id="getArticlesByWebUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
@@ -246,6 +242,7 @@
         where web_user_id = #{webUserId,jdbcType=INTEGER} and status != 2
         order by id DESC
     </select>
+
     <select id="getMainPageArticles" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
@@ -254,6 +251,7 @@
         WHERE
         a.category_id = #{categoryId,jdbcType=INTEGER} and status = 1
     </select>
+
     <update id="updateReadTimes" parameterType="java.lang.Integer">
         update user_article
         <set>
