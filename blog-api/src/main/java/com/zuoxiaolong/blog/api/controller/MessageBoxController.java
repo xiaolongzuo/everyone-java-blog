@@ -78,18 +78,6 @@ public class MessageBoxController extends AbstractApiController {
     }
 
     /***
-     * 根据用户名查用户是否存在
-     *
-     * @param username
-     * @return
-     */
-    @RequestMapping(value = "/CheckUser" ,method = RequestMethod.GET)
-    @CheckLogin
-    public Integer checkUserExist(@RequestParam(value = "username",required = false) String username) {
-        return messageBoxService.checkReceiverExist(username);
-    }
-
-    /***
      * 发送短消息
      *
      * @param username

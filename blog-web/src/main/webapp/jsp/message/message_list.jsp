@@ -329,18 +329,23 @@
      * @returns {boolean}
      */
     function checkUser(username) {
-        getMessageDataAndParse("/MessageBox/CheckUser",
-                {
-                    username: username,
-                }, function (result) {
-                    if (result.data == "1") {
-                        $('#receiver_tips').text(" ");//提示文本置空
-                        $("#send-message").attr('disabled', false);//解禁发送按钮
-                    } else {
-                        $('#receiver_tips').text("用户不存在！");
-                        $("#send-message").attr('disabled', true);//禁用发送按钮
-                    }
-                });
+        $.ajax({
+            url: "/WebUser/CheckUsername",
+            dataType: "json",
+            data: {username:username},
+            type: "GET",
+            cache: false,
+            success: function (result) {
+                $('#receiver_tips').text(" ");//提示文本置空
+                $("#send-message").attr('disabled', false);//解禁发送按钮
+                console.log("用户存在！");
+            },
+            error: function (result) {
+                $('#receiver_tips').text("用户不存在！");
+                $("#send-message").attr('disabled', true);//禁用发送按钮
+                console.log("用户不存在！");
+            }
+        });
     }
 
     /***

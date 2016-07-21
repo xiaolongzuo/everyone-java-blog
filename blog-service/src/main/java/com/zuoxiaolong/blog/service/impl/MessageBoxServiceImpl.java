@@ -169,18 +169,4 @@ public class MessageBoxServiceImpl implements MessageBoxService {
         return webUserDto;
     }
 
-    /***
-     * 核查收件人是否存在
-     *
-     * @param username
-     * @return {0:不存在，1:存在}
-     */
-    @Override
-    public Integer checkReceiverExist(String username) {
-        WebUser user = webUserMapper.selectByUsername(username);
-        if (user != null) {
-            return 1;
-        }
-        return 0;
-    }
 }

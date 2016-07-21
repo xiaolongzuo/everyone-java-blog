@@ -35,5 +35,4 @@ public interface MessageBoxService {
 
     Integer updateMessageStatus(MessageBox messageBox);
 
-    Integer checkReceiverExist(String username);
 }

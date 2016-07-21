@@ -88,21 +88,6 @@ public class MessageBoxController extends AbstractWebController {
     }
 
     /***
-     * 根据用户名是否存在
-     *
-     * @param username 用户名
-     * @return
-     */
-    @RequestMapping(value = "/CheckUser" ,method = RequestMethod.GET)
-    public void checkUserExist(@RequestParam(value = "username") String username) {
-        Map<String, String> params = new HashMap<>();
-        if (!StringUtils.isEmpty(username))
-            params.put("username", username);
-        JsonResponse jsonResponse = invokeApi(Api.MessageBox_CheckUser, params);
-        renderJson(jsonResponse);
-    }
-
-    /***
      * 发送短消息
      *
      * @param username   收件人
