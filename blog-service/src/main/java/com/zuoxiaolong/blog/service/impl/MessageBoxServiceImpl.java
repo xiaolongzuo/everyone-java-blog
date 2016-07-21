@@ -17,6 +17,7 @@ package com.zuoxiaolong.blog.service.impl;
 
 import com.zuoxiaolong.blog.common.orm.DigitalPage;
 import com.zuoxiaolong.blog.common.utils.ObjectUtils;
+import com.zuoxiaolong.blog.common.utils.StringUtils;
 import com.zuoxiaolong.blog.mapper.MessageBoxMapper;
 import com.zuoxiaolong.blog.mapper.WebUserMapper;
 import com.zuoxiaolong.blog.model.dto.MessageBoxDto;
@@ -51,16 +52,18 @@ public class MessageBoxServiceImpl implements MessageBoxService {
     /***
      * 发送短消息
      *
-     * @param receiver
+     * @param username
      * @param messageBox
      * @return
      */
     @Override
-    public Integer insertMessage(WebUser receiver, MessageBox messageBox) {
-        if (!ObjectUtils.isEmpty(receiver)) {
-            WebUser receiverDto = webUserMapper.selectByWebUser(receiver);
-            if (!ObjectUtils.isEmpty(receiverDto)) {
-                messageBox.setReceiver(receiverDto.getId());
+    public Integer insertMessage(String username, MessageBox messageBox) {
+        if (!StringUtils.isEmpty(username)) {
+            WebUser receiver = webUserMapper.selectByUsername(username);
+            if (!ObjectUtils.isEmpty(receiver)) {
+                messageBox.setReceiver(receiver.getId());
+            }else{
+                return 0;
             }
         }
         messageBox.setStatus(1);
@@ -165,4 +168,5 @@ public class MessageBoxServiceImpl implements MessageBoxService {
         webUserDto.setUsername(webUser.getUsername());
         return webUserDto;
     }
+
 }
