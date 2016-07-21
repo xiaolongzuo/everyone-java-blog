@@ -41,12 +41,12 @@ public class ArticleController extends AbstractWebController {
     /**
      * 查看文章详细
      *
-     * @param articleid 文章id
+     * @param articleId 文章id
      * @return
      */
-    @RequestMapping(value = "/{articleid}")
-    public String getArticleInfo(@PathVariable int articleid) {
-        JsonResponse response = invokeApi(Api.Article_GetArticleInfo, CollectionUtils.newMap("articleid", articleid));
+    @RequestMapping(value = "/{articleId}")
+    public String getArticleInfo(@PathVariable int articleId) {
+        JsonResponse response = invokeApi(Api.Article_GetArticleInfo, CollectionUtils.newMap("articleId", articleId + ""));
         if(response.getCode() == 200){
             setModelAttribute("result", response);
             return "article/article";
@@ -72,14 +72,14 @@ public class ArticleController extends AbstractWebController {
     /**
      * 查看评论和每条评论前三条回复列表
      *
-     * @param articleid 文章id
+     * @param articleId 文章id
      * @param offset 分页开始头评论id
      * @param size 每次加载数
      */
     @RequestMapping(value = "/GetCommentInfo" , method = RequestMethod.GET)
-    public void getCommentInfo(int articleid,int offset, int size) {
+    public void getCommentInfo(int articleId,int offset, int size) {
         Map<String, String> params = new HashMap<>();
-        params.put("articleid", articleid + "");
+        params.put("articleId", articleId + "");
         params.put("offset", offset + "");
         params.put("size", size + "");
         JsonResponse response = invokeApi(Api.Article_GetCommentInfo,params);
@@ -90,14 +90,14 @@ public class ArticleController extends AbstractWebController {
     /**
      *加载该条评论的更多回复
      *
-     * @param commondid 评论id
+     * @param commentId 评论id
      * @param offset 分页开始头评论id
      * @param size 每次加载数
      */
     @RequestMapping(value = "/GetMoreReComment" , method = RequestMethod.GET)
-    public void getMoreReComment(int commondid,int offset, int size){
+    public void getMoreReComment(int commentId,int offset, int size){
         Map<String, String> params = new HashMap<>();
-        params.put("commondid", commondid + "");
+        params.put("commentId", commentId + "");
         params.put("offset", offset + "");
         params.put("size", size + "");
         JsonResponse response = invokeApi(Api.Article_GetMoreReComment, params);
@@ -118,11 +118,11 @@ public class ArticleController extends AbstractWebController {
     /**
      * 添加一次点赞
      *
-     * @param articleid
+     * @param articleId
      */
     @RequestMapping(value = "/AddThumbupTimes" , method = RequestMethod.POST)
-    public void addThumbupTimes(int articleid){
-        JsonResponse response = invokeApi(Api.Article_AddThumbupTimes, CollectionUtils.newMap("articleid", articleid + ""));
+    public void addThumbupTimes(int articleId){
+        JsonResponse response = invokeApi(Api.Article_AddThumbupTimes, CollectionUtils.newMap("articleId", articleId + ""));
         renderJson(response);
     }
 

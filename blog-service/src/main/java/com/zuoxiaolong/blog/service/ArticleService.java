@@ -35,20 +35,20 @@ public interface ArticleService {
     /**
      * 查询文章详细信息
      *
-     * @param articleid 文章id
+     * @param articleId 文章id
      * @return
      */
-    ArticleInfoDTO getArticleInfo(Integer articleid);
+    ArticleInfoDTO getArticleInfo(Integer articleId);
 
     /**
      * 查看评论和每条评论前三条回复列表
      *
-     * @param articleid 文章id
+     * @param articleId 文章id
      * @param offset 分页开始头评论id
      * @param size 每次加载数
      * @return
      */
-    List<ArticleCommentAndReplyDTO> getCommentInfo(Integer articleid,Integer offset, Integer size);
+    List<ArticleCommentAndReplyDTO> getCommentInfo(Integer articleId,Integer offset, Integer size);
 
     /**
      * 查询评论的回复
@@ -72,10 +72,11 @@ public interface ArticleService {
     /**
      * 添加一次点赞
      *
-     * @param articleid
+     * @param articleId
+     * @param ipAddress
      * @return
      */
-    boolean updateThumbupTimes(Integer articleid);
+    boolean updateThumbupTimes(Integer articleId,String ipAddress);
 
     /**
      * 添加一篇文章

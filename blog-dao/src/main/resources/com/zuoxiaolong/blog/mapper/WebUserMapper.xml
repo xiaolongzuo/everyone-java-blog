@@ -112,6 +112,9 @@
         <include refid="Base_Column_List"/>
         from web_user
         <where>
+            <if test="id != null">
+                id = #{id,jdbcType=INTEGER}
+            </if>
             <if test="username != null">
                 username = #{username,jdbcType=VARCHAR}
             </if>

@@ -15,11 +15,16 @@
  */
 package com.zuoxiaolong.blog.api.controller;
 
+import com.zuoxiaolong.blog.common.authorization.CheckLogin;
 import com.zuoxiaolong.blog.common.orm.DigitalPage;
+import com.zuoxiaolong.blog.common.utils.ObjectUtils;
+import com.zuoxiaolong.blog.common.utils.StringUtils;
 import com.zuoxiaolong.blog.model.dto.MessageBoxDto;
 import com.zuoxiaolong.blog.model.persistent.MessageBox;
 import com.zuoxiaolong.blog.model.persistent.WebUser;
 import com.zuoxiaolong.blog.service.MessageBoxService;
+import com.zuoxiaolong.blog.service.WebUserService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,6 +44,9 @@ public class MessageBoxController extends AbstractApiController {
     @Autowired
     private MessageBoxService messageBoxService;
 
+    @Autowired
+    private WebUserService webUserService;
+
     /***
      * 查看信息箱消息内容
      *
@@ -46,6 +54,7 @@ public class MessageBoxController extends AbstractApiController {
      * @return
      */
     @RequestMapping(value = "/Content", method = RequestMethod.GET)
+    @CheckLogin
     public MessageBoxDto getMessageContent(@RequestParam("id") Integer id) {
         return messageBoxService.getMessageContentById(id);
     }
@@ -60,6 +69,7 @@ public class MessageBoxController extends AbstractApiController {
      * @return
      */
     @RequestMapping(value = "/List", method = RequestMethod.GET)
+    @CheckLogin
     public DigitalPage getMessageList(@RequestParam(required = false) Integer currentPageNumber,
                                       @RequestParam(required = false) Integer pageSize,
                                       @RequestParam(required = false) Integer type,
@@ -70,14 +80,15 @@ public class MessageBoxController extends AbstractApiController {
     /***
      * 发送短消息
      *
-     * @param receiver
+     * @param username
      * @param messageBox
      * @return
      */
     @RequestMapping(value = "/Send", method = {RequestMethod.POST, RequestMethod.GET})
-    public Integer sendMessage(WebUser receiver, MessageBox messageBox) {
+    @CheckLogin
+    public Integer sendMessage(String username, MessageBox messageBox) {
         messageBox.setSender(getWebUserId());
-        return messageBoxService.insertMessage(receiver,messageBox);
+        return messageBoxService.insertMessage(username, messageBox);
     }
 
     /***

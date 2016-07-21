@@ -121,7 +121,14 @@ ALTER TABLE `java_blog`.`user_article` MODIFY `thumbup_times` int(11) NOT NULL D
 ALTER TABLE `java_blog`.`user_article` MODIFY `comment_times` int(11) NOT NULL DEFAULT 0 COMMENT '评论次数';
 ALTER TABLE `java_blog`.`user_article` MODIFY  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '状态:0,草稿 1,发布 2,删除';
 
-
+CREATE TABLE `java_blog`.`article_thumbup` (
+  `id` INT NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `article_id` INT NOT NULL COMMENT '文章ID',
+  `ip_address` VARCHAR(100) NOT NULL COMMENT 'ip地址',
+  PRIMARY KEY (`id`)
+)  ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='文章点赞表';
 
 
 

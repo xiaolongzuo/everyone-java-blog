@@ -82,6 +82,7 @@ public class WebBlogController extends AbstractWebController {
     public String selectUserBlogConfig() {
         JsonResponse response = invokeApi(Api.WebBlog_Select_Config);
         setModelAttribute("result", response);
+        setModelAttribute("active", "self-config");
         return "/blog/blog_config";
     }
 
