@@ -55,7 +55,7 @@
                         <p class="blog-post-meta">推荐(${articleDTO.userArticle.thumbupTimes}) 评论(${articleDTO.userArticle.commentTimes}) 阅读(${articleDTO.userArticle.readTimes})</p>
                     </div>
                 </c:forEach>
-                <c:if test="${homeArticleDTO.articles == null || fn:length(homeArticleDTO.articles) = homeArticleDTO.size}">
+                <c:if test="${homeArticleDTO.articles != null && fn:length(homeArticleDTO.articles) == homeArticleDTO.size}">
                     <div id="load-more" category-id="${homeArticleDTO.categoryId}" offset="${homeArticleDTO.offset}" size="${homeArticleDTO.size}"><a href="javascript:void(0)">加载更多</a></div>
                 </c:if>
             </div><!-- /.blog-main -->
