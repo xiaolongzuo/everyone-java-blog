@@ -178,7 +178,7 @@
         FROM
         article_comment a
         WHERE
-        a.publish_time &gt;= #{time,jdbcType=TIMESTAMP}
+        a.create_time &gt;= #{time,jdbcType=TIMESTAMP}
         GROUP BY
         a.article_id
         ) t1,
