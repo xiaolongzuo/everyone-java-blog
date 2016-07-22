@@ -20,6 +20,12 @@
         id, create_time, update_time, web_user_id, category_id, title, content, read_times, thumbup_times, is_main_page,
         status, comment_times, publish_time
     </sql>
+
+    <sql id="Small_Column_List">
+        id, create_time, update_time, web_user_id, category_id, title, read_times, thumbup_times, is_main_page,
+        status, comment_times, publish_time
+    </sql>
+
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
@@ -142,93 +148,59 @@
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
-
-    <select id="getTopRecommendArticles" resultMap="BaseResultMap" parameterType="java.util.Map">
+    
+    <select id="getThumbupCharts" resultMap="BaseResultMap">
         SELECT
-        <include refid="Base_Column_List"/>
+        <include refid="Small_Column_List"/>
         FROM
-        user_article a
+        user_article
         WHERE
-        a.category_id = #{categoryId,jdbcType=INTEGER}
-        AND a.publish_time &gt;= #{time,jdbcType=TIMESTAMP}
-        ORDER BY
-        a.thumbup_times DESC
+        category_id = #{categoryId,jdbcType=INTEGER}
+        AND
+        <![CDATA[
+          publish_time >= #{publishTime,jdbcType=TIMESTAMP}
+        ]]>
+        ORDER BY thumbup_times,id DESC LIMIT 3
     </select>
 
-    <select id="getTopReadArticles" resultMap="BaseResultMap" parameterType="java.util.Map">
+    <select id="getReadCharts" resultMap="BaseResultMap">
         SELECT
-        <include refid="Base_Column_List"/>
+        <include refid="Small_Column_List"/>
         FROM
-        user_article a
+        user_article
         WHERE
-        a.category_id = #{categoryId,jdbcType=INTEGER}
-        AND a.publish_time &gt;= #{time,jdbcType=TIMESTAMP}
-        ORDER BY
-        a.read_times DESC
+        category_id = #{categoryId,jdbcType=INTEGER}
+        AND
+        <![CDATA[
+          publish_time >= #{publishTime,jdbcType=TIMESTAMP}
+        ]]>
+        ORDER BY read_times,id DESC LIMIT 3
     </select>
 
-    <select id="getTopCommendArticles" resultMap="BaseResultMap" parameterType="java.util.Map">
+    <select id="getCommentCharts" resultMap="BaseResultMap">
         SELECT
-        <include refid="Base_Column_List"/>
+        <include refid="Small_Column_List"/>
         FROM
-        (
-        SELECT
-        a.article_id,
-        count(*) cnt
-        FROM
-        article_comment a
+        user_article
         WHERE
-        a.create_time &gt;= #{time,jdbcType=TIMESTAMP}
-        GROUP BY
-        a.article_id
-        ) t1,
-        user_article t2
-        WHERE
-        t1.article_id = t2.id
-        AND t2.category_id = #{categoryId,jdbcType=INTEGER}
-        ORDER BY
-        t1.cnt DESC
-    </select>
-
-    <select id="getArticleCommentByCategoryId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-        SELECT
-        	a.id,
-	        a.create_time,
-	        a.update_time,
-            a.web_user_id,
-            a.category_id,
-            a.title,
-            a.content,
-            a.read_times,
-            a.thumbup_times,
-            a.is_main_page,
-            a.STATUS,
-            a.comment_times,
-            a.publish_time
-        FROM
-        user_article a
-    </select>
-
-    <select id="getArticlesByCategoryId" resultMap="BaseResultMap">
-        SELECT
-        <include refid="Base_Column_List"/>
-        FROM
-        user_article a
-        WHERE
-        a.category_id = #{categoryId,jdbcType=INTEGER}
-        ORDER BY
-        a.publish_time DESC
+        category_id = #{categoryId,jdbcType=INTEGER}
+        AND
+        <![CDATA[
+          publish_time >= #{publishTime,jdbcType=TIMESTAMP}
+        ]]>
+        ORDER BY comment_times,id DESC LIMIT 3
     </select>
 
     <select id="getPageByWebUserId" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List"/>
+        <include refid="Small_Column_List"/>
         from user_article
         where web_user_id = #{webUserId} and status = 1
     </select>
+
     <select id="getHotArticlesByWebUserId" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List"/>
+        <include refid="Small_Column_List"/>
         from user_article
         where web_user_id = #{webUserId} and status = 1
         order by thumbup_times,read_times,comment_times desc
@@ -237,7 +209,7 @@
 
     <select id="getArticlesByWebUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
-        <include refid="Base_Column_List"/>
+        <include refid="Small_Column_List"/>
         from user_article
         where web_user_id = #{webUserId,jdbcType=INTEGER} and status != 2
         order by id DESC
@@ -245,7 +217,7 @@
 
     <select id="getMainPageArticles" resultMap="BaseResultMap">
         SELECT
-        <include refid="Base_Column_List"/>
+        <include refid="Small_Column_List"/>
         FROM
         user_article a
         WHERE

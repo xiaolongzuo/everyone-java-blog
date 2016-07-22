@@ -42,7 +42,7 @@ public enum Api {
     example7("GET"),
 
     HomePage_Articles("GET", HomeArticleDTO.class),
-    HomePage_TopThreeUserArticles("GET",new TypeToken<Map<String,UserArticle>>(){}.getType()),
+    HomePage_GetArticleCharts("GET",new TypeToken<Map<String,UserArticle>>(){}.getType()),
     WebUser_Register("POST", String.class),
     WebUser_CheckUsername("POST", boolean.class),
     WebUser_IsLogin("POST", boolean.class),

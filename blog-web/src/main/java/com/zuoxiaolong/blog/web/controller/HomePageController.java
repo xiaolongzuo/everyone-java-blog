@@ -39,12 +39,12 @@ public class HomePageController extends AbstractWebController {
     @RequestMapping("/Index")
     public String index(@RequestParam(required = false) Integer categoryId) {
         JsonResponse homeArticleDTO = invokeApi(Api.HomePage_Articles, CollectionUtils.newMap("categoryId", categoryId));
-        JsonResponse topThreeUserArticles = invokeApi(Api.HomePage_TopThreeUserArticles, CollectionUtils.newMap("categoryId", categoryId));
+        JsonResponse articleCharts = invokeApi(Api.HomePage_GetArticleCharts, CollectionUtils.newMap("categoryId", categoryId));
         if (homeArticleDTO.success()) {
             setModelAttribute("homeArticleDTO", homeArticleDTO.getData());
         }
-        if (topThreeUserArticles.success()) {
-            setModelAttribute("topThreeUserArticles", topThreeUserArticles.getData());
+        if (articleCharts.success()) {
+            setModelAttribute("articleCharts", articleCharts.getData());
         }
         return "/index/index";
     }

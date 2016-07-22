@@ -17,10 +17,9 @@
 package com.zuoxiaolong.blog.service;
 
 import com.zuoxiaolong.blog.model.dto.HomeArticleDTO;
-import com.zuoxiaolong.blog.model.dto.cache.ArticleRankResponseDto;
 import com.zuoxiaolong.blog.model.persistent.UserArticle;
 
-import java.util.List;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -32,9 +31,8 @@ import java.util.Map;
  */
 public interface UserArticleService {
 
-    List<ArticleRankResponseDto> getArticlesRank();
-
     HomeArticleDTO getMainPageArticles(String offset, Integer size, Integer categoryId);
 
-    Map<String, UserArticle> getTopThreeUserArticles(Integer categoryId);
+    Map<String, UserArticle> getArticleCharts(Integer categoryId, Date beginPublishTime);
+
 }

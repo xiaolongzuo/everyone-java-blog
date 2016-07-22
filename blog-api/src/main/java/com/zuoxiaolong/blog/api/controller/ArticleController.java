@@ -49,7 +49,7 @@ public class ArticleController  extends AbstractApiController {
      */
     @RequestMapping(value = "/GetArticleInfo" , method = RequestMethod.GET)
     public ArticleInfoDTO getArticleInfo(int articleId) {
-        return articleService.getArticleInfo(articleId);
+        return articleService.updateThumbupTimesAndGetArticleInfo(articleId);
     }
 
     /**
@@ -94,7 +94,7 @@ public class ArticleController  extends AbstractApiController {
      */
     @RequestMapping(value = "/AddThumbupTimes" , method = RequestMethod.POST)
     public boolean addThumbupTimes(int articleId){
-        return  articleService.updateThumbupTimes(articleId,getIpAddr());
+        return  articleService.updateThumbupTimes(articleId, getRemoteIp());
     }
 
     /**

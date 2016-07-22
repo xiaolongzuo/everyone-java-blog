@@ -53,31 +53,31 @@ public abstract class AbstractWebController extends AbstractController {
     private BlogSdk blogSdk;
 
     protected JsonResponse invokeApi(Api api) {
-        JsonResponse jsonResponse = blogSdk.invokeApi(getToken(), api);
+        JsonResponse jsonResponse = blogSdk.invokeApi(getToken(), getRemoteIp(), api);
         checkJsonResponse(jsonResponse);
         return jsonResponse;
     }
 
     protected JsonResponse invokeApi(Api api, Object params) {
-        JsonResponse jsonResponse = blogSdk.invokeApi(getToken(), api, ObjectUtils.objectToMap(params));
+        JsonResponse jsonResponse = blogSdk.invokeApi(getToken(), getRemoteIp(), api, ObjectUtils.objectToMap(params));
         checkJsonResponse(jsonResponse);
         return jsonResponse;
     }
 
     protected JsonResponse invokeApi(Api api, Map<String, String> params) {
-        JsonResponse jsonResponse = blogSdk.invokeApi(getToken(), api, params);
+        JsonResponse jsonResponse = blogSdk.invokeApi(getToken(), getRemoteIp(), api, params);
         checkJsonResponse(jsonResponse);
         return jsonResponse;
     }
 
     protected JsonResponse invokeApi(Api api, String attachmentKey, Attachment[] attachments) {
-        JsonResponse jsonResponse = blogSdk.invokeApi(getToken(), api, attachmentKey, attachments);
+        JsonResponse jsonResponse = blogSdk.invokeApi(getToken(), getRemoteIp(), api, attachmentKey, attachments);
         checkJsonResponse(jsonResponse);
         return jsonResponse;
     }
 
     protected JsonResponse invokeApi(Api api, Map<String, String> params, String attachmentKey, Attachment[] attachments) {
-        JsonResponse jsonResponse = blogSdk.invokeApi(getToken(), api, params, attachmentKey, attachments);
+        JsonResponse jsonResponse = blogSdk.invokeApi(getToken(), getRemoteIp(), api, params, attachmentKey, attachments);
         checkJsonResponse(jsonResponse);
         return jsonResponse;
     }

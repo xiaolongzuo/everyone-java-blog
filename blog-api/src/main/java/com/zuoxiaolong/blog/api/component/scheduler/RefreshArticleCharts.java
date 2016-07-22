@@ -16,6 +16,10 @@
 
 package com.zuoxiaolong.blog.api.component.scheduler;
 
+import com.zuoxiaolong.blog.common.cache.SingletonCache;
+import com.zuoxiaolong.blog.common.utils.DateUtils;
+import com.zuoxiaolong.blog.model.persistent.ArticleCategory;
+import com.zuoxiaolong.blog.service.ArticleCategoryService;
 import com.zuoxiaolong.blog.service.UserArticleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +27,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * 定时任务
@@ -33,21 +40,28 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @EnableScheduling
-public class RefreshTopArticles {
+public class RefreshArticleCharts {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private UserArticleService userArticleService;
 
+    @Autowired
+    private ArticleCategoryService articleCategoryService;
+
     /**
      * 文章排名JOB，每30秒执行一次
      */
     @Scheduled(cron = "0/30 * * * * *")
-    public void articleTopRecommend() {
-//        logger.info("Starting cron job get article rank!");
-//        List<ArticleRankResponseDto> articles = userArticleService.getArticlesRank();
-//        SingletonCache.instance().put("ArticleRankResponseDto", articles);
+    public void refreshArticleCharts() {
+        logger.info("-------------start refresh article charts!");
+        List<ArticleCategory> articleCategoryList = articleCategoryService.getAllArticleCategory();
+        Date beginPublishTime = new Date(System.currentTimeMillis() - DateUtils.ONE_DAY);
+        for (ArticleCategory articleCategory : articleCategoryList) {
+            SingletonCache.instance().put("charts-category-" + articleCategory.getId(), userArticleService.getArticleCharts(articleCategory.getId(), beginPublishTime));
+        }
+        logger.info("-------------refresh article charts successfully!");
     }
 
 }

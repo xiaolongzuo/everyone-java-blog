@@ -53,25 +53,25 @@ public class BlogSdkImpl implements BlogSdk {
     }
 
     @Override
-    public JsonResponse invokeApi(String token, Api api) {
+    public JsonResponse invokeApi(String token, String remoteIp, Api api) {
         logger.info("Invoke Blog-api : " + api);
-        String response = HttpUtils.sendHttpRequest(api.getMethod(), CollectionUtils.newMap("token", token), api.getUrl(serverUrl));
+        String response = HttpUtils.sendHttpRequest(api.getMethod(), CollectionUtils.newMap(new String[]{"token", "x-forwarded-for"}, token, remoteIp), api.getUrl(serverUrl));
         return fromJson(response, api);
     }
 
     @Override
-    public JsonResponse invokeApi(String token, Api api, Map<String, String> params) {
+    public JsonResponse invokeApi(String token, String remoteIp, Api api, Map<String, String> params) {
         logger.info("Invoke Blog-api : " + api);
-        String response = HttpUtils.sendHttpRequest(api.getMethod(), CollectionUtils.newMap("token", token), api.getUrl(serverUrl), params);
+        String response = HttpUtils.sendHttpRequest(api.getMethod(), CollectionUtils.newMap(new String[]{"token", "x-forwarded-for"}, token, remoteIp), api.getUrl(serverUrl), params);
         return fromJson(response, api);
     }
 
     @Override
-    public JsonResponse invokeApi(String token, Api api, String attachmentKey, Attachment[] attachments) {
+    public JsonResponse invokeApi(String token, String remoteIp, Api api, String attachmentKey, Attachment[] attachments) {
         logger.info("Invoke Blog-api : " + api);
         String response;
         try {
-            response = HttpUtils.sendSimpleHttpMultipartRequest(CollectionUtils.newMap("token", token), api.getUrl(serverUrl), new HashMap<>(), attachmentKey, attachments);
+            response = HttpUtils.sendSimpleHttpMultipartRequest(CollectionUtils.newMap(new String[]{"token", "x-forwarded-for"}, token, remoteIp), api.getUrl(serverUrl), new HashMap<>(), attachmentKey, attachments);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -79,11 +79,11 @@ public class BlogSdkImpl implements BlogSdk {
     }
 
     @Override
-    public JsonResponse invokeApi(String token, Api api, Map<String, String> params, String attachmentKey, Attachment[] attachments) {
+    public JsonResponse invokeApi(String token, String remoteIp, Api api, Map<String, String> params, String attachmentKey, Attachment[] attachments) {
         logger.info("Invoke Blog-api : " + api);
         String response;
         try {
-            response = HttpUtils.sendSimpleHttpMultipartRequest(CollectionUtils.newMap("token", token), api.getUrl(serverUrl), params, attachmentKey, attachments);
+            response = HttpUtils.sendSimpleHttpMultipartRequest(CollectionUtils.newMap(new String[]{"token", "x-forwarded-for"}, token, remoteIp), api.getUrl(serverUrl), params, attachmentKey, attachments);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -74,7 +74,7 @@ public class ArticleServiceImpl implements ArticleService {
      * @return
      */
     @Override
-    public ArticleInfoDTO getArticleInfo(Integer articleId) {
+    public ArticleInfoDTO updateThumbupTimesAndGetArticleInfo(Integer articleId) {
         ValidateUtils.required(articleId);
 
         //根据文章id获取文章的基本信息

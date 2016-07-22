@@ -15,6 +15,7 @@
  */
 package com.zuoxiaolong.blog.api.controller;
 
+import com.zuoxiaolong.blog.common.cache.SingletonCache;
 import com.zuoxiaolong.blog.model.dto.HomeArticleDTO;
 import com.zuoxiaolong.blog.model.persistent.UserArticle;
 import com.zuoxiaolong.blog.service.UserArticleService;
@@ -43,9 +44,9 @@ public class HomePageController extends AbstractApiController {
         return userArticleService.getMainPageArticles(offset, size, categoryId);
     }
 
-    @RequestMapping(value = "/TopThreeUserArticles", method = RequestMethod.GET)
-    public Map<String, UserArticle> topThreeUserArticles(@RequestParam(defaultValue = "1")Integer categoryId) {
-        return userArticleService.getTopThreeUserArticles(categoryId);
+    @RequestMapping(value = "/GetArticleCharts", method = RequestMethod.GET)
+    public Map<String, UserArticle> getArticleCharts(@RequestParam(defaultValue = "1") Integer categoryId) {
+        return (Map<String, UserArticle>) SingletonCache.instance().get("charts-category-" + categoryId);
     }
 
 }

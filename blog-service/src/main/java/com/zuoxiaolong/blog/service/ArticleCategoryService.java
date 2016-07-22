@@ -14,5 +14,6 @@ public interface ArticleCategoryService {
      *
      * @return 所有的文章类别信息
      */
-    public List<ArticleCategory> getAllArticleCategory();
+    List<ArticleCategory> getAllArticleCategory();
+
 }

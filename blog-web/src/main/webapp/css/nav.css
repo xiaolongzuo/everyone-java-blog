@@ -5,9 +5,9 @@ ul,ol,li{
 li{
     list-style: none;
 }
-#blog-rank{
+#blog-charts{
     margin-bottom: 36px;
 }
-#blog-rank ul li{
+#blog-charts ul li{
     margin-bottom: 8px;
 }

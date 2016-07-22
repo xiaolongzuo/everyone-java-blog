@@ -21,7 +21,6 @@ import com.zuoxiaolong.blog.model.persistent.ArticleCategory;
 import com.zuoxiaolong.blog.service.ArticleCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -33,7 +32,6 @@ import java.util.List;
  * @since 1.0.0
  */
 @Service
-@Transactional(readOnly = true)
 public class ArticleCategoryServiceImpl implements ArticleCategoryService {
 
     @Autowired
@@ -48,4 +46,5 @@ public class ArticleCategoryServiceImpl implements ArticleCategoryService {
     public List<ArticleCategory> getAllArticleCategory() {
         return articleCategoryMapper.getAllArticleCategory();
     }
+
 }

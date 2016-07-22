@@ -38,7 +38,7 @@ public interface ArticleService {
      * @param articleId 文章id
      * @return
      */
-    ArticleInfoDTO getArticleInfo(Integer articleId);
+    ArticleInfoDTO updateThumbupTimesAndGetArticleInfo(Integer articleId);
 
     /**
      * 查看评论和每条评论前三条回复列表

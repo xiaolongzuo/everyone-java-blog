@@ -144,4 +144,32 @@ public abstract class AbstractController {
         return value;
     }
 
+    protected String getRemoteIp() {
+        String remoteIp;
+        remoteIp = this.getRequest().getHeader("x-forwarded-for");
+        if(remoteIp == null || remoteIp.length() == 0 || "unknown".equalsIgnoreCase(remoteIp)) {
+            remoteIp = this.getRequest().getHeader("Proxy-Client-IP");
+        }
+        if(remoteIp == null || remoteIp.length() == 0 || "unknown".equalsIgnoreCase(remoteIp)) {
+            remoteIp = this.getRequest().getHeader("WL-Proxy-Client-IP");
+        }
+        if(remoteIp == null || remoteIp.length() == 0 || "unknown".equalsIgnoreCase(remoteIp)) {
+            remoteIp = this.getRequest().getHeader("HTTP_CLIENT_IP");
+        }
+        if(remoteIp == null || remoteIp.length() == 0 || "unknown".equalsIgnoreCase(remoteIp)) {
+            remoteIp = this.getRequest().getHeader("HTTP_X_FORWARDED-FOR");
+        }
+        if(remoteIp == null || remoteIp.length() == 0 || "unknown".equalsIgnoreCase(remoteIp)) {
+            remoteIp = this.getRequest().getRemoteAddr();
+        }
+
+        //对于通过多个代理的情况，第一个IP为客户端真实IP,多个IP按照','分割
+        if(remoteIp!=null && remoteIp.length()>15){ //"***.***.***.***".length() = 15
+            if(remoteIp.indexOf(",")>0){
+                remoteIp = remoteIp.substring(0,remoteIp.indexOf(","));
+            }
+        }
+        return remoteIp;
+    }
+
 }

@@ -35,16 +35,16 @@
         <jsp:include page="../common/index_header.jsp"/>
         <div class="row">
             <div class="col-sm-8 blog-main">
-                <div id="blog-rank">
+                <div id="blog-charts">
                     <ul>
-                        <c:if test="${topThreeUserArticles.mostRecommendArticle != null}">
-                            <li id='most-recommend-article'>[最多推荐]<a href='${pageContext.request.contextPath}/Article/${topThreeUserArticles.mostRecommendArticle.id}'>${topThreeUserArticles.mostRecommendArticle.title}</a></li>
+                        <c:if test="${articleCharts.thumbupCharts != null}">
+                            <li>[最多推荐]<a href='${pageContext.request.contextPath}/Article/${articleCharts.thumbupCharts.id}'>${articleCharts.thumbupCharts.title}</a></li>
                         </c:if>
-                        <c:if test="${topThreeUserArticles.mostCommentArticle != null}">
-                            <li id='most-commend-article'>[最多评论]<a href='${pageContext.request.contextPath}/Article/${topThreeUserArticles.mostCommentArticle.id}'>${topThreeUserArticles.mostCommentArticle.title}</a></li>
+                        <c:if test="${articleCharts.commentCharts != null}">
+                            <li>[最多评论]<a href='${pageContext.request.contextPath}/Article/${articleCharts.commentCharts.id}'>${articleCharts.commentCharts.title}</a></li>
                         </c:if>
-                        <c:if test="${topThreeUserArticles.mostReadArticle != null}">
-                            <li id='most-read-article'>[最多阅读]<a href='${pageContext.request.contextPath}/Article/${topThreeUserArticles.mostReadArticle.id}'>${topThreeUserArticles.mostReadArticle.title}</a></li>
+                        <c:if test="${articleCharts.readCharts != null}">
+                            <li>[最多阅读]<a href='${pageContext.request.contextPath}/Article/${articleCharts.readCharts.id}'>${articleCharts.readCharts.title}</a></li>
                         </c:if>
                     </ul>
                 </div>

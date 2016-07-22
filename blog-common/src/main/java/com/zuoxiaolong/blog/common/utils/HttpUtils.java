@@ -20,10 +20,10 @@ import com.zuoxiaolong.blog.common.bean.Attachment;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -46,7 +46,7 @@ public interface HttpUtils {
      * @return
      */
     static String sendHttpRequest(String method, String url ) {
-        return sendHttpRequest(method, url, "");
+        return sendHttpRequest(method, Collections.EMPTY_MAP, url);
     }
 
     /**
@@ -57,7 +57,7 @@ public interface HttpUtils {
      * @return
      */
     static String sendHttpRequest(String method, Map<String, String> headerMap, String url) {
-        return sendHttpRequest(method, headerMap, url, "");
+        return sendHttpRequest(method, headerMap, url, Collections.EMPTY_MAP);
     }
 
     /**
@@ -81,83 +81,25 @@ public interface HttpUtils {
      * @return
      */
     static String sendHttpRequest(String method, Map<String, String> headerMap, String url , Map<String, String> params) {
-        StringBuffer paramsString = new StringBuffer();
-        if (!CollectionUtils.isEmpty(params)) {
+        return new String(sendHttpRequestAndGetBytes(method, headerMap, url, params));
+    }
+
+    /**
+     * 发送普通的HTTP请求
+     *
+     * @param method
+     * @param url
+     * @param params
+     * @return
+     */
+    static byte[] sendHttpRequestAndGetBytes(String method , Map<String, String> headerMap, String url, Map<String, String> params) {
+        try {
+            StringBuffer stringBuffer = new StringBuffer();
             for (String key : params.keySet()) {
-                paramsString.append(key).append("=").append(params.get(key)).append("&");
+                stringBuffer.append(key).append("=").append(URLEncoder.encode(params.get(key), DEFAULT_CHARSET)).append("&");
             }
-        }
-        return sendHttpRequest(method, headerMap, url, paramsString.length() == 0 ? paramsString.toString() : paramsString.substring(0, paramsString.length() - 1));
-    }
-
-    /**
-     * 发送普通的HTTP请求
-     *
-     * @param method
-     * @param url
-     * @param params
-     * @return
-     */
-    static String sendHttpRequest(String method, String url , String params) {
-        try {
-            return new String(sendHttpRequestAndGetBytes(method, url, params), DEFAULT_CHARSET);
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
-     * 发送普通的HTTP请求
-     *
-     * @param method
-     * @param url
-     * @param params
-     * @return
-     */
-    static String sendHttpRequest(String method, Map<String, String> headerMap, String url , String params) {
-        try {
-            return new String(sendHttpRequestAndGetBytes(method, headerMap, url, params), DEFAULT_CHARSET);
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
-     * 发送普通的HTTP请求
-     *
-     * @param method
-     * @param url
-     * @param params
-     * @return
-     */
-    static byte[] sendHttpRequestAndGetBytes(String method , String url, String params) {
-        return sendHttpRequestAndGetBytes(method, new HashMap<>(), url,  params);
-    }
-
-    /**
-     * 发送普通的HTTP请求
-     *
-     * @param method
-     * @param url
-     * @param params
-     * @return
-     */
-    static byte[] sendHttpRequestAndGetBytes(String method , Map<String, String> headerMap, String url, String params) {
-        try {
-            if (method.equals("GET") && !StringUtils.isEmpty(params)) {
-                String[] paramPairs = params.split("&");
-                StringBuffer stringBuffer = new StringBuffer();
-                for (String paramPair : paramPairs) {
-                    if (StringUtils.isEmpty(paramPair) || !paramPair.contains("=")) {
-                        continue;
-                    }
-                    String paramName = paramPair.split("=")[0];
-                    String paramValue = paramPair.split("=")[1];
-                    stringBuffer.append(paramName).append("=").append(URLEncoder.encode(paramValue, DEFAULT_CHARSET)).append("&");
-                }
-                if (stringBuffer.length() > 0) {
-                    url = url + "?" + stringBuffer.substring(0, stringBuffer.length() - 1);
-                }
+            if (method.equals("GET") && !CollectionUtils.isEmpty(params)) {
+                url = url + "?" + stringBuffer.substring(0, stringBuffer.length() - 1);
             }
             HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
             connection.setDoOutput(true);
@@ -169,9 +111,9 @@ public interface HttpUtils {
                 }
             }
             connection.connect();
-            if (params != null && method.equals("POST")) {
+            if (method.equals("POST") && !CollectionUtils.isEmpty(params)) {
                 OutputStream outputStream = connection.getOutputStream();
-                outputStream.write(params.getBytes(DEFAULT_CHARSET));
+                outputStream.write(stringBuffer.substring(0, stringBuffer.length() - 1).getBytes(DEFAULT_CHARSET));
                 outputStream.flush();
             }
             return IOUtils.readStreamBytes(connection);

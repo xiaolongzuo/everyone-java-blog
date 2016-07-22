@@ -4,10 +4,11 @@ import com.zuoxiaolong.blog.common.orm.DropDownPage;
 import com.zuoxiaolong.blog.model.persistent.UserArticle;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 public interface UserArticleMapper {
+
     /*    base method    */
     int deleteByPrimaryKey(Integer id);
 
@@ -19,15 +20,11 @@ public interface UserArticleMapper {
 
     /*    top three method   */
 
-    List<UserArticle> getTopRecommendArticles(Map<String, Object> mapInfo);
+    List<UserArticle> getThumbupCharts(@Param("categoryId") Integer categoryId, @Param("publishTime") Date publishTime);
 
-    List<UserArticle> getTopReadArticles(Map<String, Object> map);
+    List<UserArticle> getReadCharts(@Param("categoryId") Integer categoryId, @Param("publishTime") Date publishTime);
 
-    List<UserArticle> getTopCommendArticles(Map<String, Object> map);
-
-    List<UserArticle> getArticlesByCategoryId(Integer categoryId);
-
-    List<UserArticle> getArticleCommentByCategoryId(Integer categoryId);
+    List<UserArticle> getCommentCharts(@Param("categoryId") Integer categoryId, @Param("publishTime") Date publishTime);
 
     /*      user blog method    */
     /**
