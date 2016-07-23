@@ -29,7 +29,7 @@
 <body>
 <jsp:include page="../common/top.jsp"/>
 <div class="container">
-    <jsp:include page="../common/index_header.jsp"/>
+    <jsp:include page="../common/blog_header.jsp"/>
     <div class="row">
         <div class="col-sm-8 message-main">
             <ul class="nav nav-tabs" id="message-tab" role="tablist">
@@ -176,7 +176,6 @@
                 </div>
             </div>
         </div>
-        <jsp:include page="../common/contributor.jsp"/>
     </div><!-- /.row -->
 </div><!-- /.container -->
 <jsp:include page="../common/footer.jsp"/>
