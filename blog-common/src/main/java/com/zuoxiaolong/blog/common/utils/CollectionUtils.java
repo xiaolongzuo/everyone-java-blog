@@ -107,4 +107,17 @@ public interface CollectionUtils {
         return map;
     }
 
+    /**
+     * 数组克隆
+     * @param array
+     * @param <T>
+     * @return
+     */
+    static <T> T[] clone(final T[] array) {
+        if (array == null) {
+            return null;
+        }
+        return array.clone();
+    }
+
 }

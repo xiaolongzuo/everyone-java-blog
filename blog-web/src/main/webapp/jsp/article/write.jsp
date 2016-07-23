@@ -83,7 +83,7 @@
 <jsp:include page="../common/footer.jsp"/>
 <jsp:include page="../common/bottom.jsp"/>
 <script type="application/javascript">
-    var tinymceSettings = {width:800,height:400,content:''};
+    var tinymceSettings = {width:800,height:400,content:'',skin:'lightgray'};
     var newNoteHtml = '<li class="list-group-item selected" article-category="1" is-main-page="1" ><span class="article-status">[草稿]</span><a href="#" class="selected">无标题文章</a></li>';
     var newNoteTitle = '无标题文章';
     var newNoteContent = '';
@@ -91,7 +91,11 @@
     $(document).ready(function() {
         $("#new-note a").click(function() {
             clearSelected();
-            addNewNote();
+            $("#new-note").after(newNoteHtml);
+            $("#title").val(newNoteTitle);
+            tinymce.activeEditor.setContent(newNoteContent);
+
+            createOrUpdateArticle('create');
         });
         $("#title").keyup(function() {
             $(".list-group-item.selected a.selected").text($(this).val());
@@ -116,7 +120,6 @@
     function loadArticle($item, isInit) {
         if (!$item || $item.length == 0) {
             tinymceInit(tinymceSettings);
-            addNewNote();
             return;
         }
         $.ajax({
@@ -138,24 +141,14 @@
         });
     }
 
-    function addNewNote() {
-        $("#new-note").after(newNoteHtml);
-        $("#title").val(newNoteTitle);
-        tinymce.activeEditor.setContent(newNoteContent);
-
-        createOrUpdateArticle('create');
-    }
-
     function tinymceInit(settings) {
-        var defaultSettings = {width:600,height:400,content:'',skin:'lightgray'};
-        $.extend(defaultSettings,settings);
         tinymce.init({
             selector: "textarea.html_editor",
             language: "zh_CN",
             menubar : false,
-            skin: defaultSettings.skin,
-            width: defaultSettings.width,
-            height: defaultSettings.height,
+            skin: tinymceSettings.skin,
+            width: tinymceSettings.width,
+            height: tinymceSettings.height,
             content_css: contextPath + '/css/content.css',
             toolbar_items_size:'medium',
             setup: function(editor) {
@@ -200,8 +193,12 @@
                             }
                         });
                 editor.on('init', function(e) {
-                    if (defaultSettings.content) {
-                        editor.setContent(defaultSettings.content);
+                    if (!$(".list-group-item.selected") || $(".list-group-item.selected").length == 0) {
+                        $("#new-note").after(newNoteHtml);
+                        $("#title").val(newNoteTitle);
+                        editor.setContent(newNoteContent);
+
+                        createOrUpdateArticle('create');
                     }
                 });
             },

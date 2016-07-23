@@ -20,6 +20,7 @@ import com.zuoxiaolong.blog.common.bean.ExceptionType;
 import com.zuoxiaolong.blog.common.exception.BusinessException;
 import com.zuoxiaolong.blog.common.orm.DropDownPage;
 import com.zuoxiaolong.blog.common.utils.ObjectUtils;
+import com.zuoxiaolong.blog.common.utils.StringUtils;
 import com.zuoxiaolong.blog.common.utils.ValidateUtils;
 import com.zuoxiaolong.blog.mapper.*;
 import com.zuoxiaolong.blog.model.dto.ArticleCommentAndReplyDTO;
@@ -251,15 +252,15 @@ public class ArticleServiceImpl implements ArticleService {
      * @param articleComment
      * @param webUserId
      * @return
-     */@Override
+     */
+    @Override
     public Integer insertArticleComment(ArticleComment articleComment,Integer webUserId) {
         ValidateUtils.required(articleComment);
         ValidateUtils.required(webUserId);
         ValidateUtils.required(articleComment.getComment());
+        ValidateUtils.sensitiveWord(articleComment.getComment());
 
-        //脏词判断
-        //TODO 脏词
-
+        articleComment.setComment(StringUtils.escapeHtml(articleComment.getComment()));
         ArticleComment articleCommentAdd = new ArticleComment();
 
         //父评论的id不为空的情况(添加回复的情况)
@@ -323,6 +324,10 @@ public class ArticleServiceImpl implements ArticleService {
         ValidateUtils.required(userArticle.getCategoryId());
         ValidateUtils.required(userArticle.getTitle());
         ValidateUtils.required(userArticle.getIsMainPage());
+        ValidateUtils.sensitiveWord(userArticle.getTitle());
+        ValidateUtils.sensitiveWord(userArticle.getContent());
+
+        userArticle.setTitle(userArticle.getTitle());
         userArticleMapper.insertSelective(userArticle);
         return userArticle.getId();
     }

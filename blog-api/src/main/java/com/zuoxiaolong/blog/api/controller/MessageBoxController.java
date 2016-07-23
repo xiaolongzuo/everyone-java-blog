@@ -17,21 +17,14 @@ package com.zuoxiaolong.blog.api.controller;
 
 import com.zuoxiaolong.blog.common.authorization.CheckLogin;
 import com.zuoxiaolong.blog.common.orm.DigitalPage;
-import com.zuoxiaolong.blog.common.utils.ObjectUtils;
-import com.zuoxiaolong.blog.common.utils.StringUtils;
 import com.zuoxiaolong.blog.model.dto.MessageBoxDto;
 import com.zuoxiaolong.blog.model.persistent.MessageBox;
-import com.zuoxiaolong.blog.model.persistent.WebUser;
 import com.zuoxiaolong.blog.service.MessageBoxService;
-import com.zuoxiaolong.blog.service.WebUserService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
 
 /**
  * @author iCodingStar
@@ -41,11 +34,9 @@ import java.util.List;
 @Controller
 @RequestMapping("/MessageBox")
 public class MessageBoxController extends AbstractApiController {
-    @Autowired
-    private MessageBoxService messageBoxService;
 
     @Autowired
-    private WebUserService webUserService;
+    private MessageBoxService messageBoxService;
 
     /***
      * 查看信息箱消息内容

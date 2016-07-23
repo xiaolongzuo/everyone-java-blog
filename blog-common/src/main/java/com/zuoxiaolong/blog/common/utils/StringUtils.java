@@ -16,6 +16,8 @@
 
 package com.zuoxiaolong.blog.common.utils;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 import java.io.UnsupportedEncodingException;
 
 /**
@@ -67,6 +69,14 @@ public interface StringUtils {
 
     static boolean isEmpty(final CharSequence cs) {
         return cs == null || cs.length() == 0;
+    }
+
+    static String escapeHtml(String html) {
+        return StringEscapeUtils.escapeHtml4(html);
+    }
+
+    static String unescapeHtml(String html) {
+        return StringEscapeUtils.unescapeHtml4(html);
     }
 
 }

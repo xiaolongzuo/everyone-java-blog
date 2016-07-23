@@ -125,6 +125,10 @@ public class WebBlogServiceImpl implements WebBlogService {
         ValidateUtils.sensitiveWord(blogConfig.getBlogSubTitle());
         ValidateUtils.sensitiveWord(blogConfig.getIntroduction());
         ValidateUtils.numberMin(blogConfig.getWebUserId(), 0);
+
+        blogConfig.setBlogTitle(StringUtils.escapeHtml(blogConfig.getBlogTitle()));
+        blogConfig.setBlogSubTitle(StringUtils.escapeHtml(blogConfig.getBlogSubTitle()));
+        blogConfig.setIntroduction(StringUtils.escapeHtml(blogConfig.getIntroduction()));
         return blogConfigMapper.updateByWebUserId(blogConfig);
     }
 

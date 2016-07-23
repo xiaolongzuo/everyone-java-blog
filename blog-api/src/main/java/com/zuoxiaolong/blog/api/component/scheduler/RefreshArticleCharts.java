@@ -53,7 +53,7 @@ public class RefreshArticleCharts {
     /**
      * 文章排名JOB，每30秒执行一次
      */
-    @Scheduled(cron = "0/30 * * * * *")
+    @Scheduled(cron = "0 0/2 * * * *")
     public void refreshArticleCharts() {
         logger.info("-------------start refresh article charts!");
         List<ArticleCategory> articleCategoryList = articleCategoryService.getAllArticleCategory();

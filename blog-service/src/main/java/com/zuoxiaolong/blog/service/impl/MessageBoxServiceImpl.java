@@ -15,9 +15,12 @@
  */
 package com.zuoxiaolong.blog.service.impl;
 
+import com.zuoxiaolong.blog.common.bean.ExceptionType;
+import com.zuoxiaolong.blog.common.exception.BusinessException;
 import com.zuoxiaolong.blog.common.orm.DigitalPage;
 import com.zuoxiaolong.blog.common.utils.ObjectUtils;
 import com.zuoxiaolong.blog.common.utils.StringUtils;
+import com.zuoxiaolong.blog.common.utils.ValidateUtils;
 import com.zuoxiaolong.blog.mapper.MessageBoxMapper;
 import com.zuoxiaolong.blog.mapper.WebUserMapper;
 import com.zuoxiaolong.blog.model.dto.MessageBoxDto;
@@ -58,14 +61,19 @@ public class MessageBoxServiceImpl implements MessageBoxService {
      */
     @Override
     public Integer insertMessage(String username, MessageBox messageBox) {
-        if (!StringUtils.isEmpty(username)) {
-            WebUser receiver = webUserMapper.selectByUsername(username);
-            if (!ObjectUtils.isEmpty(receiver)) {
-                messageBox.setReceiver(receiver.getId());
-            }else{
-                return 0;
-            }
+        ValidateUtils.required(username);
+        ValidateUtils.required(messageBox.getTitle());
+        ValidateUtils.required(messageBox.getContent());
+        ValidateUtils.sensitiveWord(messageBox.getTitle());
+        ValidateUtils.sensitiveWord(messageBox.getContent());
+
+        messageBox.setTitle(StringUtils.escapeHtml(messageBox.getTitle()));
+        messageBox.setContent(StringUtils.escapeHtml(messageBox.getContent()));
+        WebUser receiver = webUserMapper.selectByUsername(username);
+        if (ObjectUtils.isEmpty(receiver)) {
+            throw new BusinessException(ExceptionType.USER_NOT_FOUND);
         }
+        messageBox.setReceiver(receiver.getId());
         messageBox.setStatus(1);
         return messageBoxMapper.insertSelective(messageBox);
     }
