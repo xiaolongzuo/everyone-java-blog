@@ -24,9 +24,8 @@
 <html lang="zh-CN">
 <head>
     <jsp:include page="../common/head.jsp"/>
-    <link rel="stylesheet" href="../../css/nav.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/nav.css">
 </head>
-
 <body>
 <jsp:include page="../common/top.jsp"/>
 <div class="container">
