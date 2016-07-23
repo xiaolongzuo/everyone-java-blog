@@ -34,8 +34,6 @@
         <div class="col-sm-8 blog-main">
             <h1>系统发生内部错误,请联系管理员!</h1>
         </div><!-- /.blog-main -->
-        <%@include file="../common/contributor.jsp"%>
-
     </div><!-- /.row -->
 </div><!-- /.container -->
 <%@include file="../common/footer.jsp"%>

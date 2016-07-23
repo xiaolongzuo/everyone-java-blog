@@ -49,8 +49,6 @@
                 <button type="submit" class="btn btn-success">登录</button>
             </form>
         </div><!-- /.blog-main -->
-        <%@include file="../common/contributor.jsp"%>
-
     </div><!-- /.row -->
 </div><!-- /.container -->
 <%@include file="../common/footer.jsp"%>

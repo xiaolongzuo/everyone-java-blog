@@ -54,8 +54,6 @@
                 <button type="submit" class="btn btn-info" style="margin-bottom: 20px;">注册</button>
             </form>
         </div><!-- /.blog-main -->
-        <%@include file="../common/contributor.jsp"%>
-
     </div><!-- /.row -->
 </div><!-- /.container -->
 <%@include file="../common/footer.jsp"%>
