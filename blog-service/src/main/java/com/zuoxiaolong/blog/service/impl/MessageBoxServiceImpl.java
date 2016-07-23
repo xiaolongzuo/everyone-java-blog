@@ -137,7 +137,7 @@ public class MessageBoxServiceImpl implements MessageBoxService {
     @Override
     public Integer updateMessageStatus(MessageBox messageBox) {
         if (ObjectUtils.isEmpty(messageBox.getId())) {
-            return -1;
+            throw new BusinessException(ExceptionType.PARAMETER_ILLEGAL);
         }
         return messageBoxMapper.updateByPrimaryKeySelective(messageBox);
     }
