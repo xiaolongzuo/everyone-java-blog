@@ -32,7 +32,7 @@
 <div class="container">
     <%@include file="../common/blog-header.jsp"%>
     <div class="row">
-        <div class="col-sm-8 blog-main">
+        <div class="col-sm-10 blog-main">
             <div class="blog-post">
                 <h2 class="blog-post-title"><a href="javascript:void(0)" class="blog-article">${result.data.userArticle.title}</a></h2>
                 <jsp:useBean id="now" class="java.util.Date" />
