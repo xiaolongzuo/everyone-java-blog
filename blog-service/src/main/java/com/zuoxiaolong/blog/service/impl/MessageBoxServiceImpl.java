@@ -85,7 +85,7 @@ public class MessageBoxServiceImpl implements MessageBoxService {
      * @return
      */
     @Override
-    public MessageBoxDto getMessageContentById(Integer id) {
+    public MessageBoxDto updateStatusAndGetContent(Integer id) {
         MessageBox message = new MessageBox();
         if (!ObjectUtils.isEmpty(id)) {
             message.setId(id);

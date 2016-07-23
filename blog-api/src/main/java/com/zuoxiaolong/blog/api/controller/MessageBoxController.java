@@ -47,7 +47,7 @@ public class MessageBoxController extends AbstractApiController {
     @RequestMapping(value = "/Content", method = RequestMethod.GET)
     @CheckLogin
     public MessageBoxDto getMessageContent(@RequestParam("id") Integer id) {
-        return messageBoxService.getMessageContentById(id);
+        return messageBoxService.updateStatusAndGetContent(id);
     }
 
     /***

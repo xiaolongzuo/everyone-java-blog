@@ -29,7 +29,7 @@ public interface MessageBoxService {
 
     Integer insertMessage(String username, MessageBox messageBox);
 
-    MessageBoxDto getMessageContentById(Integer id);
+    MessageBoxDto updateStatusAndGetContent(Integer id);
 
     DigitalPage getMessagesByPage(Integer currentPageNumber, Integer pageSize, Integer type, Integer webUserId, Integer status);
 

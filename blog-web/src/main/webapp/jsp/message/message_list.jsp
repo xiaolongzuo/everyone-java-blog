@@ -147,21 +147,21 @@
                             <div class="col-sm-6">
                                 <input class="form-control" id="receiver" name="receiver" onblur="check_receiver_input(event)" pattern="^[_A-z0-9]{1,36}$" data-error="收件人为空或格式不正确" type="text" placeholder="联系人账号或者用户名" required/>
                             </div>
-                            <div id="receiver_tips" class="help-block with-errors"></div>
+                            <div id="receiver_tips" class="help-block with-errors" style="color: #a94442;"></div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="title">标题</label>
                             <div class="col-sm-6">
                                 <input class="form-control" id="title" name="title" onblur="check_title_input(event)" data-error="标题不能为空" type="text" placeholder="短信息标题" required/>
                             </div>
-                            <div id="title_tips" class="help-block with-errors"></div>
+                            <div id="title_tips" class="help-block with-errors" style="color: #a94442;"></div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="content">内容</label>
                             <div class="col-sm-10 ">
                             <textarea class="form-control" id="content" onblur="check_content_input()" style="width: 100%;height: 200px;" tabindex="1"
                                       id="txtContent" placeholder="短信息内容" data-error="短信息内容不能为空" required></textarea>
-                                <div id="content_tips" class="help-block with-errors"></div>
+                                <div id="content_tips" class="help-block with-errors" style="color: #a94442;"></div>
                             </div>
                         </div>
                         <div class="form-group">
