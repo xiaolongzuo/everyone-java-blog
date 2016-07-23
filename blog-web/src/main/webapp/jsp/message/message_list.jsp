@@ -329,7 +329,7 @@
      */
     function checkUser(username) {
         $.ajax({
-            url: "/WebUser/CheckUsername",
+            url: contextPath + "/WebUser/CheckUsername",
             dataType: "json",
             data: {username:username},
             type: "GET",
