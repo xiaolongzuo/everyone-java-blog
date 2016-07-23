@@ -28,7 +28,7 @@
 <body>
 <jsp:include page="../common/top.jsp"/>
 <div class="container">
-    <jsp:include page="../common/blog_header.jsp"/>
+    <jsp:include page="../common/index_header.jsp"/>
     <div class="row">
         <div class="col-sm-8 blog-main auto-validate">
             <ul class="nav nav-tabs" id="config-tab" role="tablist">
