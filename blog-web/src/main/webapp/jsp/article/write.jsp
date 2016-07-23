@@ -90,14 +90,8 @@
 
     $(document).ready(function() {
         $("#new-note a").click(function() {
-            $(".list-group-item.selected").removeClass("selected");
-            $(".list-group-item a.selected").removeClass("selected");
-
-            $("#new-note").after(newNoteHtml);
-            $("#title").val(newNoteTitle);
-            tinymce.activeEditor.setContent(newNoteContent);
-
-            createOrUpdateArticle('create');
+            clearSelected();
+            addNewNote();
         });
         $("#title").keyup(function() {
             $(".list-group-item.selected a.selected").text($(this).val());
@@ -106,8 +100,7 @@
             if ($(this).hasClass("selected")) {
                 return;
             }
-            $(".list-group-item.selected").removeClass("selected");
-            $(".list-group-item a.selected").removeClass("selected");
+            clearSelected();
             $(this).addClass("selected");
             $("a", this).addClass("selected");
             loadArticle($(this), false);
@@ -115,9 +108,15 @@
         loadArticle($(".list-group-item.selected"), true);
     });
 
+    function clearSelected() {
+        $(".list-group-item.selected").removeClass("selected");
+        $(".list-group-item a.selected").removeClass("selected");
+    }
+
     function loadArticle($item, isInit) {
         if (!$item || $item.length == 0) {
             tinymceInit(tinymceSettings);
+            addNewNote();
             return;
         }
         $.ajax({
@@ -139,74 +138,80 @@
         });
     }
 
+    function addNewNote() {
+        $("#new-note").after(newNoteHtml);
+        $("#title").val(newNoteTitle);
+        tinymce.activeEditor.setContent(newNoteContent);
+
+        createOrUpdateArticle('create');
+    }
+
     function tinymceInit(settings) {
-        $(document).ready(function() {
-            var defaultSettings = {width:600,height:400,content:'',skin:'lightgray'};
-            $.extend(defaultSettings,settings);
-            tinymce.init({
-                selector: "textarea.html_editor",
-                language: "zh_CN",
-                menubar : false,
-                skin: defaultSettings.skin,
-                width: defaultSettings.width,
-                height: defaultSettings.height,
-                content_css: contextPath + '/css/content.css',
-                toolbar_items_size:'medium',
-                setup: function(editor) {
-                    editor.addButton('upload',
-                            {
-                                icon: 'print',
-                                title: '上传本地图片',
-                                onclick: function() {
-                                    openTinymceWindow(editor, "上传本地图片", "/jsp/article/upload-image.jsp", 400, 150);
-                                }
-                            });
-                    editor.addButton('insertcode',
-                            {
-                                icon: 'paste',
-                                title: '插入代码',
-                                onclick: function() {
-                                    openTinymceWindow(editor, "插入代码", "/jsp/article/insert-code.jsp", 800, 400);
-                                }
-                            });
-                    editor.addButton('settings',
-                            {
-                                text: '文章设置',
-                                title: '文章设置',
-                                onclick: function() {
-                                    openTinymceWindow(editor, "文章设置", "/jsp/article/article-settings.jsp", 800, 200);
-                                }
-                            });
-                    editor.addButton('save',
-                            {
-                                text: '保存文章',
-                                title: '保存文章',
-                                onclick: function() {
-                                    createOrUpdateArticle('update');
-                                }
-                            });
-                    editor.addButton('publish',
-                            {
-                                title: '发布文章',
-                                text: '发布文章',
-                                onclick: function() {
-                                    createOrUpdateArticle('update', '1');
-                                }
-                            });
-                    editor.on('init', function(e) {
-                        if (defaultSettings.content) {
-                            editor.setContent(defaultSettings.content);
-                        }
-                    });
-                },
-                plugins: [
-                    "advlist autolink lists link image charmap print preview anchor textcolor",
-                    "searchreplace visualblocks code fullscreen",
-                    "insertdatetime media table contextmenu paste emoticons"
-                ],
-                toolbar: ["undo redo | styleselect bold italic forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | code preview fullscreen ",
-                    "link upload image insertcode table blockquote media emoticons | settings | save | publish"]
-            });
+        var defaultSettings = {width:600,height:400,content:'',skin:'lightgray'};
+        $.extend(defaultSettings,settings);
+        tinymce.init({
+            selector: "textarea.html_editor",
+            language: "zh_CN",
+            menubar : false,
+            skin: defaultSettings.skin,
+            width: defaultSettings.width,
+            height: defaultSettings.height,
+            content_css: contextPath + '/css/content.css',
+            toolbar_items_size:'medium',
+            setup: function(editor) {
+                editor.addButton('upload',
+                        {
+                            icon: 'print',
+                            title: '上传本地图片',
+                            onclick: function() {
+                                openTinymceWindow(editor, "上传本地图片", "/jsp/article/upload-image.jsp", 400, 150);
+                            }
+                        });
+                editor.addButton('insertcode',
+                        {
+                            icon: 'paste',
+                            title: '插入代码',
+                            onclick: function() {
+                                openTinymceWindow(editor, "插入代码", "/jsp/article/insert-code.jsp", 800, 400);
+                            }
+                        });
+                editor.addButton('settings',
+                        {
+                            text: '文章设置',
+                            title: '文章设置',
+                            onclick: function() {
+                                openTinymceWindow(editor, "文章设置", "/jsp/article/article-settings.jsp", 800, 200);
+                            }
+                        });
+                editor.addButton('save',
+                        {
+                            text: '保存文章',
+                            title: '保存文章',
+                            onclick: function() {
+                                createOrUpdateArticle('update');
+                            }
+                        });
+                editor.addButton('publish',
+                        {
+                            title: '发布文章',
+                            text: '发布文章',
+                            onclick: function() {
+                                createOrUpdateArticle('update', '1');
+                            }
+                        });
+                editor.on('init', function(e) {
+                    if (defaultSettings.content) {
+                        editor.setContent(defaultSettings.content);
+                    }
+                });
+            },
+            plugins: [
+                "advlist autolink lists link image charmap print preview anchor textcolor",
+                "searchreplace visualblocks code fullscreen",
+                "insertdatetime media table contextmenu paste emoticons"
+            ],
+            toolbar: ["undo redo | styleselect bold italic forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | code preview fullscreen ",
+                "link upload image insertcode table blockquote media emoticons | settings | save | publish"]
         });
     }
 
