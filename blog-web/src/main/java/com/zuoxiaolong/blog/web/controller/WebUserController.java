@@ -108,7 +108,7 @@ public class WebUserController extends AbstractWebController {
             setRequestAttribute("error", "修改成功");
         }
         setRequestAttribute("active","change-password");
-        return "/blog/blog_config";
+        return "/blog/blog-config";
     }
 
 }

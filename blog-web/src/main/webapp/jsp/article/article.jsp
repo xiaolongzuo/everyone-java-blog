@@ -30,7 +30,7 @@
 <body>
 <%@include file="../common/top.jsp"%>
 <div class="container">
-    <%@include file="../common/blog_header.jsp"%>
+    <%@include file="../common/blog-header.jsp"%>
     <div class="row">
         <div class="col-sm-8 blog-main">
             <div class="blog-post">

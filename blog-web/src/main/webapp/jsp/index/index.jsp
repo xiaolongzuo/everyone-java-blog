@@ -32,7 +32,7 @@
 <body>
     <jsp:include page="../common/top.jsp"/>
     <div class="container">
-        <jsp:include page="../common/index_header.jsp"/>
+        <jsp:include page="../common/index-header.jsp"/>
         <div class="row">
             <div class="col-sm-8 blog-main">
                 <div id="blog-charts">

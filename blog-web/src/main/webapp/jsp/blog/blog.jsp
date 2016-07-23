@@ -31,7 +31,7 @@
 <%@include file="../common/top.jsp"%>
 <%--<jsp:include page="../common/top.jsp"/>--%>
 <div class="container">
-    <%@include file="../common/blog_header.jsp"%>
+    <%@include file="../common/blog-header.jsp"%>
     <%--<jsp:include page="../common/blog_header.jsp"/>--%>
     <div class="row">
         <div class="col-sm-8 blog-main">

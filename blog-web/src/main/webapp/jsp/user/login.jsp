@@ -29,7 +29,7 @@
 <body>
 <%@include file="../common/top.jsp"%>
 <div class="container">
-    <%@include file="../common/blog_header.jsp"%>
+    <%@include file="../common/index-header.jsp"%>
     <div class="row">
         <div class="col-sm-8 blog-main auto-validate">
             <form action="${pageContext.request.contextPath}/WebUser/Login" method="post">

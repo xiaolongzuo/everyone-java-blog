@@ -29,7 +29,7 @@
 <body>
 <%@include file="../common/top.jsp"%>
 <div class="container">
-    <%@include file="../common/blog_header.jsp"%>
+    <%@include file="../common/blog-header.jsp"%>
     <div class="row">
         <div class="col-sm-8 blog-main">
             <h1>系统发生内部错误,请联系管理员!</h1>

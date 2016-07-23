@@ -18,10 +18,7 @@ package com.zuoxiaolong.blog.web.controller;
 import com.zuoxiaolong.blog.common.bean.JsonResponse;
 import com.zuoxiaolong.blog.common.utils.CollectionUtils;
 import com.zuoxiaolong.blog.common.utils.ObjectUtils;
-import com.zuoxiaolong.blog.common.utils.StringUtils;
-import com.zuoxiaolong.blog.model.dto.MessageBoxDto;
 import com.zuoxiaolong.blog.model.persistent.MessageBox;
-import com.zuoxiaolong.blog.model.persistent.WebUser;
 import com.zuoxiaolong.blog.sdk.Api;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,7 +39,7 @@ public class MessageBoxController extends AbstractWebController {
 
     @RequestMapping("/HomePage")
     public String homePage() {
-        return "message/message_list";
+        return "message/message-list";
     }
 
     /***
