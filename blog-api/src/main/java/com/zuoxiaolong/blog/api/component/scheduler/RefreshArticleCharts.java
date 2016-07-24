@@ -19,6 +19,7 @@ package com.zuoxiaolong.blog.api.component.scheduler;
 import com.zuoxiaolong.blog.common.cache.SingletonCache;
 import com.zuoxiaolong.blog.common.utils.DateUtils;
 import com.zuoxiaolong.blog.model.persistent.ArticleCategory;
+import com.zuoxiaolong.blog.model.persistent.UserArticle;
 import com.zuoxiaolong.blog.service.ArticleCategoryService;
 import com.zuoxiaolong.blog.service.UserArticleService;
 import org.slf4j.Logger;
@@ -30,6 +31,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 定时任务
@@ -59,7 +61,9 @@ public class RefreshArticleCharts {
         List<ArticleCategory> articleCategoryList = articleCategoryService.getAllArticleCategory();
         Date beginPublishTime = new Date(System.currentTimeMillis() - DateUtils.ONE_DAY);
         for (ArticleCategory articleCategory : articleCategoryList) {
-            SingletonCache.instance().put("charts-category-" + articleCategory.getId(), userArticleService.getArticleCharts(articleCategory.getId(), beginPublishTime));
+            Map<String, UserArticle> charts = userArticleService.getArticleCharts(articleCategory.getId(), beginPublishTime);
+            logger.info("-------------article chars : " + charts);
+            SingletonCache.instance().put("charts-category-" + articleCategory.getId(), charts);
         }
         logger.info("-------------refresh article charts successfully!");
     }
