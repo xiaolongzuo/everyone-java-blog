@@ -26,7 +26,6 @@ import com.zuoxiaolong.blog.model.dto.HomeArticleDTO;
 import com.zuoxiaolong.blog.model.persistent.UserArticle;
 import com.zuoxiaolong.blog.model.persistent.WebUser;
 import com.zuoxiaolong.blog.service.UserArticleService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +39,6 @@ import java.util.*;
  * @since 1.0.0
  */
 @Service
-@Slf4j
 public class UserArticleServiceImpl implements UserArticleService {
 
     private static final String THUMBUP_CHARTS_KEY = "thumbupCharts";
@@ -63,9 +61,6 @@ public class UserArticleServiceImpl implements UserArticleService {
         if (CollectionUtils.isEmpty(thumbupCharts)) {
             return Collections.EMPTY_MAP;
         }
-        log.info("thumbupCharts : " + thumbupCharts);
-        log.info("commentCharts : " + commentCharts);
-        log.info("readCharts : " + readCharts);
         Map<String, UserArticle> result = new HashMap<>();
         result.put(THUMBUP_CHARTS_KEY, thumbupCharts.get(0));
         if (!result.get(THUMBUP_CHARTS_KEY).getId().equals(commentCharts.get(0).getId())) {
@@ -80,7 +75,6 @@ public class UserArticleServiceImpl implements UserArticleService {
         } else if (readCharts.size() > 2) {
             result.put(READ_CHARTS_KEY, readCharts.get(2));
         }
-        log.info("articleCharts : " + result);
         return result;
     }
 
