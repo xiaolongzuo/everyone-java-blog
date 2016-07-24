@@ -339,6 +339,7 @@ public class ArticleServiceImpl implements ArticleService {
             throw new BusinessException(ExceptionType.PARAMETER_ILLEGAL);
         }
         if (!ObjectUtils.isEmpty(userArticle.getStatus()) && userArticle.getStatus() == UserArticle.STATUS_PUBLISH) {
+            ValidateUtils.required(userArticle.getContent());
             userArticle.setPublishTime(new Date());
         }
         userArticleMapper.updateByPrimaryKeySelective(userArticle);

@@ -247,7 +247,10 @@
         } else if (action == 'update') {
             param.id = $(".list-group-item.selected").attr("article-id");
             var message = "保存成功!";
-            if (status) {
+            if (status && status == 1) {
+                if (!param.content) {
+                    alert("文章内容不能为空!");
+                }
                 param.status = status;
                 message = "发表成功!";
             }
