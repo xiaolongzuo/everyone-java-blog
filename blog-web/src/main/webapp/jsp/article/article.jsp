@@ -48,14 +48,12 @@
                 </c:choose>
                 <p>${result.data.userArticle.content}</p>
             </div><!-- /.blog-post -->
-            <div class="blog-thumbs-up center-block">
-                <a href="javascript:void(0)" id="article_thumbup" class="btn btn-danger btn-lg btn-block" onclick="thumbsUp(this)">推荐</a>
-            </div>
-            <div>
+            <div style="margin-top: 20px;">
                 <div class="panel comment-head">
-                    <div class="panel-body">
-                        <b><span id = 'commentCount'>${result.data.userArticle.commentTimes}</span>条评论</b>
-                        <a href="javascript:void(0)" class="btn pull-right" onclick="$('#comment-textarea').focus();"><span class="glyphicon glyphicon-pencil"> 添加新评论</span></a>
+                    <div class="panel-body" style="padding: 10px 0px;">
+                        <a href="javascript:void(0)" class="btn btn-danger" style="margin-right: 50px;" onclick="thumbsUp(this)"><span class="glyphicon glyphicon-thumbs-up">推荐一下</span></a>
+                        <a href="javascript:void(0)" class="btn btn-info" onclick="$('#comment-textarea').focus();"><span class="glyphicon glyphicon-pencil">添加新评论</span></a>
+                        <b class="pull-right"><span id = 'commentCount'>${result.data.userArticle.commentTimes}</span>条评论</b>
                     </div>
                 </div>
                 <div id="bottom-comment" class="panel load-more">
@@ -100,26 +98,24 @@
 
     //添加一次点攒
     function thumbsUp(aHtml){
-        if("推荐" == $(aHtml).text()){
-            var articleid = $('#articleid').val();
-            $.ajax({
-                url: contextPath + "/Article/AddThumbupTimes?articleId="+articleid,
-                dataType: "json",
-                type: "POST",
-                cache: false,
-                async: false,//false代表只有在等待ajax执行完毕后才执行后面的语句
-                success: function (data) {
-                    if (data['code'] == 200) {
-                        $(aHtml).attr("disabled", "disabled");
-                        $(aHtml).text("已推荐");
-                    }else if (data['code'] == 603) {
-                        $(aHtml).attr("disabled", "disabled");
-                        $(aHtml).text("已推荐");
-                        alert(data['message']);
-                    }
+        var articleid = $('#articleid').val();
+        $.ajax({
+            url: contextPath + "/Article/AddThumbupTimes?articleId="+articleid,
+            dataType: "json",
+            type: "POST",
+            cache: false,
+            async: false,//false代表只有在等待ajax执行完毕后才执行后面的语句
+            success: function (data) {
+                if (data['code'] == 200) {
+                    $(aHtml).attr("disabled", "disabled");
+                    $(aHtml).text("已推荐");
+                }else if (data['code'] == 603) {
+                    $(aHtml).attr("disabled", "disabled");
+                    $(aHtml).text("已推荐");
+                    alert(data['message']);
                 }
-            })
-        }
+            }
+        });
     }
 
     //点击加载更多评论
