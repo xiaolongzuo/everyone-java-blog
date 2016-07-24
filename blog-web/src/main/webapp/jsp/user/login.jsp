@@ -53,5 +53,12 @@
 </div><!-- /.container -->
 <%@include file="../common/footer.jsp"%>
 <%@include file="../common/bottom.jsp"%>
+<script type="application/javascript">
+    $(document).ready(function() {
+        $("#username").keyup(function() {
+            $(this).val($.trim($(this).val()));
+        });
+    });
+</script>
 </body>
 </html>
