@@ -250,6 +250,7 @@
             if (status && status == 1) {
                 if (!param.content) {
                     alert("文章内容不能为空!");
+                    return;
                 }
                 param.status = status;
                 message = "发表成功!";
