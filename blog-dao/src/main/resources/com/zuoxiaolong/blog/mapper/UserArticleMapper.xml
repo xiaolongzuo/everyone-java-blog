@@ -160,7 +160,7 @@
         <![CDATA[
           publish_time >= #{publishTime,jdbcType=TIMESTAMP}
         ]]>
-        ORDER BY thumbup_times,id DESC LIMIT 3
+        ORDER BY thumbup_times DESC ,id DESC LIMIT 3
     </select>
 
     <select id="getReadCharts" resultMap="BaseResultMap">
@@ -174,7 +174,7 @@
         <![CDATA[
           publish_time >= #{publishTime,jdbcType=TIMESTAMP}
         ]]>
-        ORDER BY read_times,id DESC LIMIT 3
+        ORDER BY read_times DESC ,id DESC LIMIT 3
     </select>
 
     <select id="getCommentCharts" resultMap="BaseResultMap">
@@ -188,7 +188,7 @@
         <![CDATA[
           publish_time >= #{publishTime,jdbcType=TIMESTAMP}
         ]]>
-        ORDER BY comment_times,id DESC LIMIT 3
+        ORDER BY comment_times DESC ,id DESC LIMIT 3
     </select>
 
     <select id="getPageByWebUserId" resultMap="BaseResultMap">
@@ -203,7 +203,7 @@
         <include refid="Small_Column_List"/>
         from user_article
         where web_user_id = #{webUserId} and status = 1
-        order by thumbup_times,read_times,comment_times desc
+        order by thumbup_times DESC ,read_times DESC ,comment_times desc
         limit #{size}
     </select>
 
