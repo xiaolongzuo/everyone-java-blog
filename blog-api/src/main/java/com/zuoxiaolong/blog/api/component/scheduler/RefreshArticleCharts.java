@@ -22,8 +22,7 @@ import com.zuoxiaolong.blog.model.persistent.ArticleCategory;
 import com.zuoxiaolong.blog.model.persistent.UserArticle;
 import com.zuoxiaolong.blog.service.ArticleCategoryService;
 import com.zuoxiaolong.blog.service.UserArticleService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -42,9 +41,8 @@ import java.util.Map;
  */
 @Component
 @EnableScheduling
+@Slf4j
 public class RefreshArticleCharts {
-
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private UserArticleService userArticleService;
@@ -57,15 +55,14 @@ public class RefreshArticleCharts {
      */
     @Scheduled(cron = "0 0/2 * * * *")
     public void refreshArticleCharts() {
-        logger.info("-------------start refresh article charts!");
+        log.info("-------------start refresh article charts!");
         List<ArticleCategory> articleCategoryList = articleCategoryService.getAllArticleCategory();
         Date beginPublishTime = new Date(System.currentTimeMillis() - DateUtils.ONE_DAY);
         for (ArticleCategory articleCategory : articleCategoryList) {
             Map<String, UserArticle> charts = userArticleService.getArticleCharts(articleCategory.getId(), beginPublishTime);
-            logger.info("-------------article chars : " + charts);
             SingletonCache.instance().put("charts-category-" + articleCategory.getId(), charts);
         }
-        logger.info("-------------refresh article charts successfully!");
+        log.info("-------------refresh article charts successfully!");
     }
 
 }
