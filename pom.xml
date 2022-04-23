@@ -45,7 +45,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <blog.version>1.0.0-SNAPSHOT</blog.version>
-        <spring.version>4.2.4.RELEASE</spring.version>
+        <spring.version>5.3.19</spring.version>
         <junit.version>4.12</junit.version>
         <zookeeper.version>3.4.7</zookeeper.version>
         <quartz.version>2.2.2</quartz.version>
